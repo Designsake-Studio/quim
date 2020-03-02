@@ -1,7 +1,7 @@
 /*!
 Theme Name: QUIM
 Theme URI: http://underscores.me/
-Author: Phill Mamula
+Author: Designsake Studio
 Author URI: http://designsakestudio.com
 Description: 2020 Theme for QUIM by Designsake Studio powered by WooCommerce
 Version: 1.0.0
@@ -15,9 +15,9 @@ Tags: custom-background, custom-logo, custom-menu, featured-images, threaded-com
 
 /* =Global
 -------------------------------------------------------------- */
-body { 
-	background: #EBDCCD; 
-	color: #1A283F; 
+body {
+	background: #EBDCCD;
+	color: #1A283F;
     font-family: 'Montserrat', sans-serif;
     font-weight: 400;
 	font-size: 16px;
@@ -25,7 +25,7 @@ body {
     -webkit-font-smoothing: subpixel-antialiased;
 }
 strong { font-weight: 600; }
-a, a:link, a:visited { 
+a, a:link, a:visited {
     color: inherit;
     transition: all 0.3s ease-in-out;
     -webkit-transition: all 0.3s ease-in-out;
@@ -95,12 +95,12 @@ button, button[type="button"], button[type="reset"], button[type="submit"] {
     background: #1A283F;
     color: #f9f4ee;
     border-radius: 0;
-    
+
     letter-spacing: 0.08em;
     font-family: 'Montserrat', san-serif;
 }
 
-/* =Extole 
+/* =Extole
 -------------------------------------------------------------- */
 /* Header */
 #extole_zone_global_header {
@@ -160,7 +160,7 @@ body.single #extole_zone_product .extole-cta-button {
 
 /* =Header
 -------------------------------------------------------------- */
-header#masthead { 
+header#masthead {
     width: 100%;
     height: auto;
     position: absolute;
@@ -423,8 +423,8 @@ body.single .cat-links { display: none; }
     text-align: center;
     margin: 0 auto 40px;
 }
-.press-spotlight ul.press-listing { 
-    display: flex; 
+.press-spotlight ul.press-listing {
+    display: flex;
     align-items: center;
     flex-wrap: wrap;
 }
@@ -530,10 +530,10 @@ body.home .press-spotlight h4 { margin: 0 auto 35px; }
     50% {opacity: 1.0;}
     100% {-webkit-transform: scale(1.2, 1.2); opacity: 0.0;}
 }
-.puls-button a { 
-    display: block; 
-    width: 100%; 
-    height: 100%; 
+.puls-button a {
+    display: block;
+    width: 100%;
+    height: 100%;
 }
 .puls-button {
     left: calc(50% - 20px);
@@ -550,16 +550,16 @@ body.home .press-spotlight h4 { margin: 0 auto 35px; }
     -webkit-transition: all 0.3s ease-in-out;
     -o-transition: all 0.3s ease-in-out;
 }
-.puls-button:hover { 
+.puls-button:hover {
     opacity: 1;
     transition: all 0.3s ease-in-out;
     -webkit-transition: all 0.3s ease-in-out;
-    -o-transition: all 0.3s ease-in-out; 
+    -o-transition: all 0.3s ease-in-out;
 }
 
 
 /* Products */
-.home-product { 
+.home-product {
     padding: 6vh 0;
 }
 .home-product.container { max-width: 1240px; }
@@ -575,8 +575,8 @@ body.home .press-spotlight h4 { margin: 0 auto 35px; }
 .featured-products>* { flex: 1 0 25%; padding: 3%; text-align: center; }
 
 .ingredients .ingredient-image,
-.featured-products .single-product .product-img-home { 
-    padding: 0 7%; 
+.featured-products .single-product .product-img-home {
+    padding: 0 7%;
     position: relative;
     -moz-transform: translate(0px, 0px);
     -ms-transform: translate(0px, 0px);
@@ -622,7 +622,7 @@ body.home .press-spotlight h4 { margin: 0 auto 35px; }
 }
 /* CA Only */
 .featured-products .product-detail-home { position: relative; }
-.featured-products .single-product.Oh span.subtitle:after, 
+.featured-products .single-product.Oh span.subtitle:after,
 .featured-products .single-product.Night span.subtitle:after {
     content: 'CA Dispensaries Only';
     position: absolute;
@@ -719,7 +719,7 @@ body.home .about.fifty.reverse a.cta {
 body.home .story { margin-bottom: 170px; padding: 0;}
 
 /* Card */
-.about.card { 
+.about.card {
     padding: 100px 0 75px;
     background-attachment: fixed !important;
     -webkit-box-shadow: inset -5px 7px 70px 6px rgba(0,0,0,0.23);
@@ -840,10 +840,10 @@ ul.thc-links li a {
     line-height: 1.1em;
     font-weight: 600;
 }
-ul.thc-links li:nth-child(2) { 
+ul.thc-links li:nth-child(2) {
     border-left: 1px solid #cebfaf;
     border-right: 1px solid #cebfaf; }
-ul.thc-links li:nth-child(3) { 
+ul.thc-links li:nth-child(3) {
     border-right: 1px solid #cebfaf;}
 ul.thc-links li img {
     width: auto;
@@ -912,7 +912,7 @@ body.post-type-archive-product #page,
 body.single-product #page { margin-bottom: -50px; }
 
 /* Purchase Buttons */
-.entry-summary form.cart button, 
+.entry-summary form.cart button,
 .product-type-external button,
 a.button {
     background: transparent;
@@ -973,7 +973,7 @@ body.archive .type-product h2:after {
 }
 
 body.single-product div.product.product_cat-thc h1.product_title:before,
-body.archive .type-product:nth-child(3) h2:before, 
+body.archive .type-product:nth-child(3) h2:before,
 body.archive .type-product:nth-child(4) h2:before {
     font-size: 13px;
     content: 'California Only';
@@ -1113,7 +1113,7 @@ h1.product_title:after {
     margin-top: -5px;
 }
 span.subtitle {
-    
+
     font-size: 1.5em;
     line-height: 1.7em;
     display: block;
@@ -1124,7 +1124,7 @@ span.subtitle {
     font-size: 1.4em;
     line-height: 1.6em;
     letter-spacing: 0.04em;
-    
+
 }
 body.single-product form.cart {
     margin: 0 20px 30px 0;
@@ -1276,7 +1276,7 @@ ul.product-question-list li { flex: 1 0 50%; padding-right: 5%; margin: 15px 0; 
 }
 .testimonial p.author { margin: 15px 0 15px; font-style: italic; }
 .testimonial .quote-mark { font-size: 1.75em; line-height: 1em; margin: 0; }
-.testimonial .quote { 
+.testimonial .quote {
     max-width: 800px;
     position: relative;
 }
@@ -1329,7 +1329,7 @@ form.wpcf7-form br { display: none; }
 
 /* =My Account
 -------------------------------------------------------------- */
-body.woocommerce-account mark, 
+body.woocommerce-account mark,
 body.woocommerce-account ins { color: inherit; background: none; font-weight: 400; }
 body.woocommerce-account h1.entry-title { display: none; }
 body.woocommerce-account h2,
@@ -1451,9 +1451,9 @@ td.woocommerce-orders-table__cell-order-actions a.button:hover {
 .woocommerce-PaymentBox { max-width: 800px; margin: 30px auto 0;}
 .woocommerce-PaymentBox .wc-square-credit-card-credit-card-form { margin: 0 auto; }
 #payment.woocommerce-Payment .form-row { text-align: center; }
-#payment.woocommerce-Payment .form-row button, 
-#payment.woocommerce-Payment .form-row button[type="button"], 
-#payment.woocommerce-Payment .form-row button[type="reset"], 
+#payment.woocommerce-Payment .form-row button,
+#payment.woocommerce-Payment .form-row button[type="button"],
+#payment.woocommerce-Payment .form-row button[type="reset"],
 #payment.woocommerce-Payment .form-row button[type="submit"] { max-width: 796px; }
 
 /* =FAQs
@@ -1626,7 +1626,7 @@ td.actions {
     font-size: 0.8em;
     font-weight: 600;
 }
-.coupon button[type="submit"]:hover { 
+.coupon button[type="submit"]:hover {
     background: #003057;
     border-color: #003057;
     color: #f9f4ee;
@@ -1774,9 +1774,9 @@ input#ship-to-different-address-checkbox  { width: auto; display: inline-block; 
     display: block;
     margin: 15px 0;
 }
-.woocommerce-account-fields label span:after { 
+.woocommerce-account-fields label span:after {
 	font-size: 0.8em;
-	content: 'SAVE BILLING DETAILS SECURELY FOR THE NEXT TIME YOU SHOP QUIM.'; 
+	content: 'SAVE BILLING DETAILS SECURELY FOR THE NEXT TIME YOU SHOP QUIM.';
 	display: block;
 }
 h3#ship-to-different-address { font-size: 1.1em; }
@@ -1830,7 +1830,7 @@ tr.fee th, tr.fee td span {
     right: 10px;
     width: 20px;
 }
-p.form-row [type="checkbox"], 
+p.form-row [type="checkbox"],
 p.form-row [type="radio"] {
     box-sizing: border-box;
     width: auto !important;
@@ -1839,8 +1839,8 @@ p.form-row [type="radio"] {
 }
 
 /* Order Review */
-table.woocommerce-checkout-review-order-table th { 
-    font-weight: 600; 
+table.woocommerce-checkout-review-order-table th {
+    font-weight: 600;
     text-transform: uppercase;
     font-size: 0.9em;
     letter-spacing: 0.03em;
@@ -1854,7 +1854,7 @@ table.woocommerce-checkout-review-order-table td.product-name {
     text-align: left;
 }
 table.woocommerce-checkout-review-order-table th.product-total { text-align: right; }
-table.woocommerce-checkout-review-order-table th.product-name, 
+table.woocommerce-checkout-review-order-table th.product-name,
 table.woocommerce-checkout-review-order-table th.product-total {
     font-size: 0.9em;
     text-transform: uppercase;
@@ -1996,7 +1996,7 @@ p.return-to-shop a{
 .age-gate-challenge, .age-gate-message {
     margin: 0 auto 25px;
 }
-.age-gate-form button, 
+.age-gate-form button,
 .age-gate-form button[type="submit"] {
     cursor: pointer;
     color: #003057;
@@ -2014,7 +2014,7 @@ p.return-to-shop a{
     transition: all 0.3s ease-in-out;
     -webkit-transition: all 0.3s ease-in-out;
     -o-transition: all 0.3s ease-in-out;
-} 
+}
 .age-gate-form button[type="submit"]:hover {
     background: #003057;
     color: #EBDCCD;
@@ -2097,7 +2097,7 @@ footer.site-footer .widget h4.widget-title {
     text-align: center;
     padding: 0;
     margin: 5px 0 10px;
-    
+
     font-size: 1.15em;
     letter-spacing: 0.06em;
     color: #A9C3E3;
@@ -2111,7 +2111,7 @@ ul#menu-footer li {
     text-align: left;
     padding: 8px 0;
     text-transform: uppercase;
-    
+
     letter-spacing: 0.06em;
 }
 ul#menu-footer li a { text-decoration: none; }
@@ -2225,7 +2225,7 @@ body.home .press-spotlight { background: #f9cec0;}
 body.home .press-spotlight h4 { color: #6f5045;}
 body.home .home-product .product-title h3,
 body.home .story .content h3 { color: #d46060;}
-body.home .featured-products .single-product.Oh span.subtitle:after, 
+body.home .featured-products .single-product.Oh span.subtitle:after,
 body.home .featured-products .single-product.Night span.subtitle:after { color: #9c5ca7; }
 body.home .about.card{
     background: #f3ebe2 url(images/heart-wallpaper.gif) !important;
@@ -2311,7 +2311,7 @@ body.home .featured-products .single-product.Happy .product-img-home:before {
     .story .content { padding-right: 5%; }
     .story .img-container { padding: 0; }
     .wiggle-frame img { max-height: 650px; }
-    
+
     /* Locations */
     .location-columns>* { flex: 1 0 100%; padding: 0 0 5vh; }
     .retailer-list { display: flex; flex-wrap: wrap;}
@@ -2319,7 +2319,7 @@ body.home .featured-products .single-product.Happy .product-img-home:before {
 
     /* Products */
     body.archive .type-product h2 { width: 100%; }
-    body.archive .type-product .container { padding: 100px 5vw 75px; } 
+    body.archive .type-product .container { padding: 100px 5vw 75px; }
     body.archive .type-product:nth-child(3) { padding-bottom: 0px;}
     body.archive .type-product:nth-child(4) { padding-bottom: 150px;}
 
@@ -2334,7 +2334,7 @@ body.home .featured-products .single-product.Happy .product-img-home:before {
     .cross-sells ul.products .product .container { padding: 200px 15px 25px;}
     .cross-sells ul.products .product .container h2.woocommerce-loop-product__title { font-size: 2.25em; line-height: 1.2em; }
     .cross-sells ul.products .product .container .woocommerce-product-details__short-description { font-size: 1em; line-height: 1.7em; width: 100%; margin: 0 0 25px;}
-    .cross-sells ul.products .product .container .product-type-external button, 
+    .cross-sells ul.products .product .container .product-type-external button,
     .cross-sells ul.products .product .container a.button { width: auto; padding: 15px 50px; margin: 0 0 15px;}
 
     .wc-proceed-to-checkout a.checkout-button.button.alt.wc-forward { padding: 14px 0; }
@@ -2407,7 +2407,7 @@ body.home .featured-products .single-product.Happy .product-img-home:before {
     body.single-product.postid-359 header#masthead button.menu-toggle span,
     body.page-template-page-about header#masthead button.menu-toggle span,
     body.page-template-page-thc header#masthead button.menu-toggle span { background: #EBDCCD; }
-    
+
     .main-navigation.toggled button.menu-toggle span:nth-child(1) {
         top: 20px;
         width: 0%;
@@ -2537,7 +2537,7 @@ body.home .featured-products .single-product.Happy .product-img-home:before {
     .type-product .hero-image { background-size: 90% auto !important; }
     .type-product .summary { padding: 500px 0 50px; }
     .ingredients { overflow: hidden; }
-    .ingredients .container>* { flex: 1 0 50%; padding: 0;} 
+    .ingredients .container>* { flex: 1 0 50%; padding: 0;}
     .ingredients .ingredient-image { margin: 3vh -10vw 3vh 0; padding-left: 3%; }
     .additional-info {
         background-position: bottom center !important;
@@ -2587,9 +2587,9 @@ body.home .featured-products .single-product.Happy .product-img-home:before {
 
     /* Cart  */
     table.cart tr td:before { display: none; }
-    .woocommerce-cart-form, 
-    .cart-collaterals { 
-        width: 100%; display: block; margin: 0 auto 50px; 
+    .woocommerce-cart-form,
+    .cart-collaterals {
+        width: 100%; display: block; margin: 0 auto 50px;
     }
     .coupon {
         padding: 0 0 30px;
@@ -2598,8 +2598,8 @@ body.home .featured-products .single-product.Happy .product-img-home:before {
     }
     .coupon input[type="text"],
     .coupon button[type="submit"] { width: 100%; max-width: 100%;}
-    button[type="submit"].button[name="update_cart"] { 
-        position: relative; bottom: 0; right: 0; 
+    button[type="submit"].button[name="update_cart"] {
+        position: relative; bottom: 0; right: 0;
         width: 100%; max-width: 100%; text-align: center;
     }
     .cart_totals { padding: 0; }
@@ -2676,7 +2676,7 @@ body.home .featured-products .single-product.Happy .product-img-home:before {
         margin: 0 auto;
         border-bottom: 1px solid #2d495f;
         width: 100%;
-    }   
+    }
     footer.site-footer .footer-columns>*:nth-child(2) { border-left: none; border-right: none; }
     footer.site-footer .footer-columns>*:last-of-type { border: none; }
     footer.site-footer .disclaimer { width: 100%; }
@@ -2696,7 +2696,7 @@ body.home .featured-products .single-product.Happy .product-img-home:before {
     .age-gate-form h2 { font-size: 2.25em; font-weight: 700;}
     .age-gate-heading.age-gate-logo { max-width: 200px; }
     .age-gate-subheading { margin: 10px auto; font-size: 1.5em; }
-    .age-gate-form button, 
+    .age-gate-form button,
     .age-gate-form button[type="submit"] { font-weight: 600; width: 40%; padding: 15px 25px; font-size: 1em; }
 
     /* Contact */
@@ -2728,8 +2728,8 @@ body.home .featured-products .single-product.Happy .product-img-home:before {
     ul.product-question-list { flex-direction: column; }
     ul.product-question-list li { flex: 1 0 100%; padding: 3% 0; }
     body.archive .type-product:nth-child(4) h2:before { bottom: 115px; }
-    body.single-product div.product.product_cat-thc h1.product_title:before, 
-    body.archive .type-product:nth-child(3) h2:before, 
+    body.single-product div.product.product_cat-thc h1.product_title:before,
+    body.archive .type-product:nth-child(3) h2:before,
     body.archive .type-product:nth-child(4) h2:before { bottom: 60px;}
 
     .entry-summary form.cart button, .product-type-external button, a.button,
@@ -2744,7 +2744,7 @@ body.home .featured-products .single-product.Happy .product-img-home:before {
     .wiggle-frame img { max-height: 500px; }
 
     /* Pages  */
-    .question-section .story .content h3 {    
+    .question-section .story .content h3 {
         font-size: 2.25em;
         line-height: 1.2em;
         letter-spacing: 0.02em;
@@ -2753,7 +2753,7 @@ body.home .featured-products .single-product.Happy .product-img-home:before {
     .about.card { background-attachment: scroll !important;}
     .about.card .floating h3 { width: 80%; margin: -75px 0 10px; }
     .story { margin: 0 auto; }
-    .home-product .product-title h3, 
+    .home-product .product-title h3,
     .story .content h3 {
         font-size: 2em;
         width: 100%;
