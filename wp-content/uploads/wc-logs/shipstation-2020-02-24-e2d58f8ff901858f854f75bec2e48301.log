@@ -1,0 +1,317 @@
+02-23-2020 @ 17:31:18 - Input params: wc-api=wc_shipstation&auth_key=WCSS-b6c91f0b4959b1c4a9d6e9759774c5ab&action=export&start_date=02%2F23%2F2020+06%3A31&end_date=02%2F24%2F2020+16%3A31&page=1
+02-23-2020 @ 17:31:18 - Exported 6 orders
+02-23-2020 @ 19:31:21 - Input params: wc-api=wc_shipstation&auth_key=WCSS-b6c91f0b4959b1c4a9d6e9759774c5ab&action=export&start_date=02%2F23%2F2020+08%3A31&end_date=02%2F24%2F2020+18%3A31&page=1
+02-23-2020 @ 19:31:21 - Exported 7 orders
+02-23-2020 @ 21:31:23 - Input params: wc-api=wc_shipstation&auth_key=WCSS-b6c91f0b4959b1c4a9d6e9759774c5ab&action=export&start_date=02%2F23%2F2020+10%3A31&end_date=02%2F24%2F2020+20%3A31&page=1
+02-23-2020 @ 21:31:24 - Exported 8 orders
+02-23-2020 @ 23:31:27 - Input params: wc-api=wc_shipstation&auth_key=WCSS-b6c91f0b4959b1c4a9d6e9759774c5ab&action=export&start_date=02%2F23%2F2020+12%3A31&end_date=02%2F24%2F2020+22%3A31&page=1
+02-23-2020 @ 23:31:28 - Exported 8 orders
+02-24-2020 @ 01:31:31 - Input params: wc-api=wc_shipstation&auth_key=WCSS-b6c91f0b4959b1c4a9d6e9759774c5ab&action=export&start_date=02%2F23%2F2020+14%3A31&end_date=02%2F25%2F2020+00%3A31&page=1
+02-24-2020 @ 01:31:31 - Exported 8 orders
+02-24-2020 @ 03:31:38 - Input params: wc-api=wc_shipstation&auth_key=WCSS-b6c91f0b4959b1c4a9d6e9759774c5ab&action=export&start_date=02%2F23%2F2020+16%3A31&end_date=02%2F25%2F2020+02%3A31&page=1
+02-24-2020 @ 03:31:38 - Exported 8 orders
+02-24-2020 @ 05:31:40 - Input params: wc-api=wc_shipstation&auth_key=WCSS-b6c91f0b4959b1c4a9d6e9759774c5ab&action=export&start_date=02%2F23%2F2020+18%3A31&end_date=02%2F25%2F2020+04%3A31&page=1
+02-24-2020 @ 05:31:40 - Exported 8 orders
+02-24-2020 @ 07:31:42 - Input params: wc-api=wc_shipstation&auth_key=WCSS-b6c91f0b4959b1c4a9d6e9759774c5ab&action=export&start_date=02%2F23%2F2020+20%3A31&end_date=02%2F25%2F2020+06%3A31&page=1
+02-24-2020 @ 07:31:43 - Exported 8 orders
+02-24-2020 @ 09:31:45 - Input params: wc-api=wc_shipstation&auth_key=WCSS-b6c91f0b4959b1c4a9d6e9759774c5ab&action=export&start_date=02%2F23%2F2020+22%3A31&end_date=02%2F25%2F2020+08%3A31&page=1
+02-24-2020 @ 09:31:45 - Exported 11 orders
+02-24-2020 @ 11:31:49 - Input params: wc-api=wc_shipstation&auth_key=WCSS-b6c91f0b4959b1c4a9d6e9759774c5ab&action=export&start_date=02%2F24%2F2020+00%3A31&end_date=02%2F25%2F2020+10%3A31&page=1
+02-24-2020 @ 11:31:49 - Exported 3 orders
+02-24-2020 @ 11:41:24 - Input params: wc-api=wc_shipstation&auth_key=WCSS-b6c91f0b4959b1c4a9d6e9759774c5ab&action=shipnotify&order_number=14532&carrier=USPS&service=USPS+First+Class+Mail&tracking_number=9400111899561095699084&capture=true
+02-24-2020 @ 11:41:24 - ShipNotify XML: <?xml version="1.0" encoding="UTF-8"?><ShipNotice><OrderNumber>14532</OrderNumber><OrderID>14532</OrderID><CustomerCode>LNKPLN67@gmail.com</CustomerCode><CustomerNotes><![CDATA[]]></CustomerNotes><InternalNotes><![CDATA[]]></InternalNotes><NotesToCustomer><![CDATA[]]></NotesToCustomer><NotifyCustomer>false</NotifyCustomer><LabelCreateDate>02/24/2020 08:00</LabelCreateDate><ShipDate>02/24/2020</ShipDate><Carrier>USPS</Carrier><Service>USPS First Class Mail</Service><TrackingNumber>9400111899561095699084</TrackingNumber><ShippingCost>4.0000</ShippingCost><CustomField1 /><CustomField2 /><CustomField3 /><Recipient><Name>Alan Kaplan</Name><Company /><Address1>308 ASHBURY AVE</Address1><Address2 /><City>EL CERRITO</City><State>CA</State><PostalCode>94530-4105</PostalCode><Country>US</Country></Recipient><Items><Item><Name>Smooth Operator</Name><SKU /><LineItemID>2660</LineItemID><Quantity>1</Quantity></Item></Items></ShipNotice>
+02-24-2020 @ 11:41:24 - ShipNotify Item: SimpleXMLElement Object
+(
+    [Name] => Smooth Operator
+    [SKU] => SimpleXMLElement Object
+        (
+        )
+
+    [LineItemID] => 2660
+    [Quantity] => 1
+)
+
+02-24-2020 @ 11:41:24 - Shipped 1 out of 1 items in order 14532
+02-24-2020 @ 11:41:25 - Updated order 14532 to status wc-completed
+02-24-2020 @ 11:41:26 - Input params: wc-api=wc_shipstation&auth_key=WCSS-b6c91f0b4959b1c4a9d6e9759774c5ab&action=shipnotify&order_number=14535&carrier=USPS&service=USPS+First+Class+Mail&tracking_number=9400111899561095693167&capture=true
+02-24-2020 @ 11:41:26 - ShipNotify XML: <?xml version="1.0" encoding="UTF-8"?><ShipNotice><OrderNumber>14535</OrderNumber><OrderID>14535</OrderID><CustomerCode>parkercamille11@gmail.com</CustomerCode><CustomerNotes><![CDATA[]]></CustomerNotes><InternalNotes><![CDATA[]]></InternalNotes><NotesToCustomer><![CDATA[]]></NotesToCustomer><NotifyCustomer>false</NotifyCustomer><LabelCreateDate>02/24/2020 08:00</LabelCreateDate><ShipDate>02/24/2020</ShipDate><Carrier>USPS</Carrier><Service>USPS First Class Mail</Service><TrackingNumber>9400111899561095693167</TrackingNumber><ShippingCost>4.1800</ShippingCost><CustomField1 /><CustomField2 /><CustomField3 /><Recipient><Name>Camille Parker</Name><Company /><Address1>165 CARRIAGE HILLS BLVD APT 1437</Address1><Address2 /><City>CONROE</City><State>TX</State><PostalCode>77384-3652</PostalCode><Country>US</Country></Recipient><Items><Item><Name>Smooth Operator</Name><SKU /><LineItemID>2663</LineItemID><Quantity>1</Quantity></Item><Item><Name>Happy Clam Sample</Name><SKU /><LineItemID>2664</LineItemID><Quantity>1</Quantity></Item></Items></ShipNotice>
+02-24-2020 @ 11:41:26 - ShipNotify Item: SimpleXMLElement Object
+(
+    [Name] => Smooth Operator
+    [SKU] => SimpleXMLElement Object
+        (
+        )
+
+    [LineItemID] => 2663
+    [Quantity] => 1
+)
+
+02-24-2020 @ 11:41:26 - ShipNotify Item: SimpleXMLElement Object
+(
+    [Name] => Happy Clam Sample
+    [SKU] => SimpleXMLElement Object
+        (
+        )
+
+    [LineItemID] => 2664
+    [Quantity] => 1
+)
+
+02-24-2020 @ 11:41:26 - Item Happy Clam Sample is not shippable product. Skipping.
+02-24-2020 @ 11:41:26 - Shipped 1 out of 1 items in order 14535
+02-24-2020 @ 11:41:26 - Updated order 14535 to status wc-completed
+02-24-2020 @ 11:41:27 - Input params: wc-api=wc_shipstation&auth_key=WCSS-b6c91f0b4959b1c4a9d6e9759774c5ab&action=shipnotify&order_number=14536&carrier=USPS&service=USPS+First+Class+Mail&tracking_number=9400111899561095694836&capture=true
+02-24-2020 @ 11:41:27 - ShipNotify XML: <?xml version="1.0" encoding="UTF-8"?><ShipNotice><OrderNumber>14536</OrderNumber><OrderID>14536</OrderID><CustomerCode>amelia.r.bartlett@gmail.com</CustomerCode><CustomerNotes><![CDATA[]]></CustomerNotes><InternalNotes><![CDATA[]]></InternalNotes><NotesToCustomer><![CDATA[]]></NotesToCustomer><NotifyCustomer>false</NotifyCustomer><LabelCreateDate>02/24/2020 08:00</LabelCreateDate><ShipDate>02/24/2020</ShipDate><Carrier>USPS</Carrier><Service>USPS First Class Mail</Service><TrackingNumber>9400111899561095694836</TrackingNumber><ShippingCost>4.3200</ShippingCost><CustomField1 /><CustomField2 /><CustomField3 /><Recipient><Name>Amelia Bartlett</Name><Company /><Address1>1214 ASHWOOD PL</Address1><Address2 /><City>KNOXVILLE</City><State>TN</State><PostalCode>37917-4417</PostalCode><Country>US</Country></Recipient><Items><Item><Name>Smooth Operator</Name><SKU /><LineItemID>2667</LineItemID><Quantity>1</Quantity></Item><Item><Name>Happy Clam Sample</Name><SKU /><LineItemID>2668</LineItemID><Quantity>1</Quantity></Item></Items></ShipNotice>
+02-24-2020 @ 11:41:27 - ShipNotify Item: SimpleXMLElement Object
+(
+    [Name] => Smooth Operator
+    [SKU] => SimpleXMLElement Object
+        (
+        )
+
+    [LineItemID] => 2667
+    [Quantity] => 1
+)
+
+02-24-2020 @ 11:41:27 - ShipNotify Item: SimpleXMLElement Object
+(
+    [Name] => Happy Clam Sample
+    [SKU] => SimpleXMLElement Object
+        (
+        )
+
+    [LineItemID] => 2668
+    [Quantity] => 1
+)
+
+02-24-2020 @ 11:41:27 - Item Happy Clam Sample is not shippable product. Skipping.
+02-24-2020 @ 11:41:27 - Shipped 1 out of 1 items in order 14536
+02-24-2020 @ 11:41:28 - Updated order 14536 to status wc-completed
+02-24-2020 @ 11:41:29 - Input params: wc-api=wc_shipstation&auth_key=WCSS-b6c91f0b4959b1c4a9d6e9759774c5ab&action=shipnotify&order_number=14537&carrier=USPS&service=USPS+First+Class+Mail&tracking_number=9400111899561095690944&capture=true
+02-24-2020 @ 11:41:29 - ShipNotify XML: <?xml version="1.0" encoding="UTF-8"?><ShipNotice><OrderNumber>14537</OrderNumber><OrderID>14537</OrderID><CustomerCode>yankeegirl83@gmil.com</CustomerCode><CustomerNotes><![CDATA[]]></CustomerNotes><InternalNotes><![CDATA[]]></InternalNotes><NotesToCustomer><![CDATA[]]></NotesToCustomer><NotifyCustomer>false</NotifyCustomer><LabelCreateDate>02/24/2020 08:00</LabelCreateDate><ShipDate>02/24/2020</ShipDate><Carrier>USPS</Carrier><Service>USPS First Class Mail</Service><TrackingNumber>9400111899561095690944</TrackingNumber><ShippingCost>4.4600</ShippingCost><CustomField1>welcum</CustomField1><CustomField2 /><CustomField3 /><Recipient><Name>Rasheena Mccray</Name><Company /><Address1>294 DECATUR DR</Address1><Address2 /><City>SUMMERVILLE</City><State>SC</State><PostalCode>29486-5342</PostalCode><Country>US</Country></Recipient><Items><Item><Name>Smooth Operator</Name><SKU /><LineItemID>2671</LineItemID><Quantity>1</Quantity></Item></Items></ShipNotice>
+02-24-2020 @ 11:41:29 - ShipNotify Item: SimpleXMLElement Object
+(
+    [Name] => Smooth Operator
+    [SKU] => SimpleXMLElement Object
+        (
+        )
+
+    [LineItemID] => 2671
+    [Quantity] => 1
+)
+
+02-24-2020 @ 11:41:29 - Shipped 1 out of 1 items in order 14537
+02-24-2020 @ 11:41:29 - Updated order 14537 to status wc-completed
+02-24-2020 @ 11:41:30 - Input params: wc-api=wc_shipstation&auth_key=WCSS-b6c91f0b4959b1c4a9d6e9759774c5ab&action=shipnotify&order_number=14539&carrier=USPS&service=USPS+First+Class+Mail&tracking_number=9400111899561095694034&capture=true
+02-24-2020 @ 11:41:30 - ShipNotify XML: <?xml version="1.0" encoding="UTF-8"?><ShipNotice><OrderNumber>14539</OrderNumber><OrderID>14539</OrderID><CustomerCode>htlighting@gmail.com</CustomerCode><CustomerNotes><![CDATA[]]></CustomerNotes><InternalNotes><![CDATA[]]></InternalNotes><NotesToCustomer><![CDATA[]]></NotesToCustomer><NotifyCustomer>false</NotifyCustomer><LabelCreateDate>02/24/2020 08:00</LabelCreateDate><ShipDate>02/24/2020</ShipDate><Carrier>USPS</Carrier><Service>USPS First Class Mail</Service><TrackingNumber>9400111899561095694034</TrackingNumber><ShippingCost>4.0000</ShippingCost><CustomField1 /><CustomField2 /><CustomField3 /><Recipient><Name>Hideaki Tsutsui</Name><Company /><Address1>772 VILLA FLORES DR</Address1><Address2 /><City>EL PASO</City><State>TX</State><PostalCode>79912-1525</PostalCode><Country>US</Country></Recipient><Items><Item><Name>Smooth Operator</Name><SKU /><LineItemID>2680</LineItemID><Quantity>1</Quantity></Item><Item><Name>Happy Clam Sample</Name><SKU /><LineItemID>2681</LineItemID><Quantity>1</Quantity></Item></Items></ShipNotice>
+02-24-2020 @ 11:41:30 - ShipNotify Item: SimpleXMLElement Object
+(
+    [Name] => Smooth Operator
+    [SKU] => SimpleXMLElement Object
+        (
+        )
+
+    [LineItemID] => 2680
+    [Quantity] => 1
+)
+
+02-24-2020 @ 11:41:30 - ShipNotify Item: SimpleXMLElement Object
+(
+    [Name] => Happy Clam Sample
+    [SKU] => SimpleXMLElement Object
+        (
+        )
+
+    [LineItemID] => 2681
+    [Quantity] => 1
+)
+
+02-24-2020 @ 11:41:30 - Item Happy Clam Sample is not shippable product. Skipping.
+02-24-2020 @ 11:41:30 - Shipped 1 out of 1 items in order 14539
+02-24-2020 @ 11:41:30 - Updated order 14539 to status wc-completed
+02-24-2020 @ 11:41:31 - Input params: wc-api=wc_shipstation&auth_key=WCSS-b6c91f0b4959b1c4a9d6e9759774c5ab&action=shipnotify&order_number=14538&carrier=USPS&service=USPS+First+Class+Mail&tracking_number=9400111899561095698360&capture=true
+02-24-2020 @ 11:41:31 - ShipNotify XML: <?xml version="1.0" encoding="UTF-8"?><ShipNotice><OrderNumber>14538</OrderNumber><OrderID>14538</OrderID><CustomerCode>chrisjoppe@yahoo.com</CustomerCode><CustomerNotes><![CDATA[]]></CustomerNotes><InternalNotes><![CDATA[]]></InternalNotes><NotesToCustomer><![CDATA[]]></NotesToCustomer><NotifyCustomer>false</NotifyCustomer><LabelCreateDate>02/24/2020 08:00</LabelCreateDate><ShipDate>02/24/2020</ShipDate><Carrier>USPS</Carrier><Service>USPS First Class Mail</Service><TrackingNumber>9400111899561095698360</TrackingNumber><ShippingCost>5.5400</ShippingCost><CustomField1>welcum</CustomField1><CustomField2 /><CustomField3 /><Recipient><Name>Chris Joppe</Name><Company /><Address1>4756 GLENFIELD DR</Address1><Address2 /><City>PULASKI</City><State>WI</State><PostalCode>54162-8980</PostalCode><Country>US</Country></Recipient><Items><Item><Name>Smooth Operator</Name><SKU /><LineItemID>2675</LineItemID><Quantity>1</Quantity></Item><Item><Name>Happy Clam</Name><SKU /><LineItemID>2676</LineItemID><Quantity>1</Quantity></Item></Items></ShipNotice>
+02-24-2020 @ 11:41:31 - ShipNotify Item: SimpleXMLElement Object
+(
+    [Name] => Smooth Operator
+    [SKU] => SimpleXMLElement Object
+        (
+        )
+
+    [LineItemID] => 2675
+    [Quantity] => 1
+)
+
+02-24-2020 @ 11:41:31 - ShipNotify Item: SimpleXMLElement Object
+(
+    [Name] => Happy Clam
+    [SKU] => SimpleXMLElement Object
+        (
+        )
+
+    [LineItemID] => 2676
+    [Quantity] => 1
+)
+
+02-24-2020 @ 11:41:31 - Shipped 2 out of 2 items in order 14538
+02-24-2020 @ 11:41:32 - Updated order 14538 to status wc-completed
+02-24-2020 @ 11:41:32 - Input params: wc-api=wc_shipstation&auth_key=WCSS-b6c91f0b4959b1c4a9d6e9759774c5ab&action=shipnotify&order_number=14540&carrier=USPS&service=USPS+First+Class+Mail&tracking_number=9400111899561095699633&capture=true
+02-24-2020 @ 11:41:32 - ShipNotify XML: <?xml version="1.0" encoding="UTF-8"?><ShipNotice><OrderNumber>14540</OrderNumber><OrderID>14540</OrderID><CustomerCode>n_lyth@yahoo.com</CustomerCode><CustomerNotes><![CDATA[]]></CustomerNotes><InternalNotes><![CDATA[]]></InternalNotes><NotesToCustomer><![CDATA[]]></NotesToCustomer><NotifyCustomer>false</NotifyCustomer><LabelCreateDate>02/24/2020 08:00</LabelCreateDate><ShipDate>02/24/2020</ShipDate><Carrier>USPS</Carrier><Service>USPS First Class Mail</Service><TrackingNumber>9400111899561095699633</TrackingNumber><ShippingCost>4.3200</ShippingCost><CustomField1 /><CustomField2 /><CustomField3 /><Recipient><Name>Nathan Lyth</Name><Company>1985</Company><Address1>4219 CENTER AVE</Address1><Address2 /><City>LYONS</City><State>IL</State><PostalCode>60534-1341</PostalCode><Country>US</Country></Recipient><Items><Item><Name>Smooth Operator</Name><SKU /><LineItemID>2684</LineItemID><Quantity>1</Quantity></Item></Items></ShipNotice>
+02-24-2020 @ 11:41:32 - ShipNotify Item: SimpleXMLElement Object
+(
+    [Name] => Smooth Operator
+    [SKU] => SimpleXMLElement Object
+        (
+        )
+
+    [LineItemID] => 2684
+    [Quantity] => 1
+)
+
+02-24-2020 @ 11:41:32 - Shipped 1 out of 1 items in order 14540
+02-24-2020 @ 11:41:34 - Updated order 14540 to status wc-completed
+02-24-2020 @ 11:41:34 - Input params: wc-api=wc_shipstation&auth_key=WCSS-b6c91f0b4959b1c4a9d6e9759774c5ab&action=shipnotify&order_number=14541&carrier=USPS&service=USPS+First+Class+Mail&tracking_number=9400111899561095693914&capture=true
+02-24-2020 @ 11:41:34 - ShipNotify XML: <?xml version="1.0" encoding="UTF-8"?><ShipNotice><OrderNumber>14541</OrderNumber><OrderID>14541</OrderID><CustomerCode>sphaga@gmail.com</CustomerCode><CustomerNotes><![CDATA[]]></CustomerNotes><InternalNotes><![CDATA[]]></InternalNotes><NotesToCustomer><![CDATA[]]></NotesToCustomer><NotifyCustomer>false</NotifyCustomer><LabelCreateDate>02/24/2020 08:00</LabelCreateDate><ShipDate>02/24/2020</ShipDate><Carrier>USPS</Carrier><Service>USPS First Class Mail</Service><TrackingNumber>9400111899561095693914</TrackingNumber><ShippingCost>4.4600</ShippingCost><CustomField1>welcum</CustomField1><CustomField2 /><CustomField3 /><Recipient><Name>Sonia Haga</Name><Company /><Address1>6239 NC HIGHWAY 22 N</Address1><Address2 /><City>CLIMAX</City><State>NC</State><PostalCode>27233-8063</PostalCode><Country>US</Country></Recipient><Items><Item><Name>Smooth Operator</Name><SKU /><LineItemID>2687</LineItemID><Quantity>1</Quantity></Item><Item><Name>Happy Clam Sample</Name><SKU /><LineItemID>2688</LineItemID><Quantity>1</Quantity></Item></Items></ShipNotice>
+02-24-2020 @ 11:41:34 - ShipNotify Item: SimpleXMLElement Object
+(
+    [Name] => Smooth Operator
+    [SKU] => SimpleXMLElement Object
+        (
+        )
+
+    [LineItemID] => 2687
+    [Quantity] => 1
+)
+
+02-24-2020 @ 11:41:34 - ShipNotify Item: SimpleXMLElement Object
+(
+    [Name] => Happy Clam Sample
+    [SKU] => SimpleXMLElement Object
+        (
+        )
+
+    [LineItemID] => 2688
+    [Quantity] => 1
+)
+
+02-24-2020 @ 11:41:34 - Item Happy Clam Sample is not shippable product. Skipping.
+02-24-2020 @ 11:41:34 - Shipped 1 out of 1 items in order 14541
+02-24-2020 @ 11:41:35 - Updated order 14541 to status wc-completed
+02-24-2020 @ 11:41:36 - Input params: wc-api=wc_shipstation&auth_key=WCSS-b6c91f0b4959b1c4a9d6e9759774c5ab&action=shipnotify&order_number=14542&carrier=USPS&service=USPS+First+Class+Mail&tracking_number=9400111899561095699589&capture=true
+02-24-2020 @ 11:41:36 - ShipNotify XML: <?xml version="1.0" encoding="UTF-8"?><ShipNotice><OrderNumber>14542</OrderNumber><OrderID>14542</OrderID><CustomerCode>amaliaarangoc@gmail.com</CustomerCode><CustomerNotes><![CDATA[]]></CustomerNotes><InternalNotes><![CDATA[]]></InternalNotes><NotesToCustomer><![CDATA[]]></NotesToCustomer><NotifyCustomer>false</NotifyCustomer><LabelCreateDate>02/24/2020 08:00</LabelCreateDate><ShipDate>02/24/2020</ShipDate><Carrier>USPS</Carrier><Service>USPS First Class Mail</Service><TrackingNumber>9400111899561095699589</TrackingNumber><ShippingCost>4.4600</ShippingCost><CustomField1>amalia</CustomField1><CustomField2 /><CustomField3 /><Recipient><Name>Amalia Arango</Name><Company /><Address1>1255 NEW HAMPSHIRE AVE NW APT 607</Address1><Address2 /><City>WASHINGTON</City><State>DC</State><PostalCode>20036-2320</PostalCode><Country>US</Country></Recipient><Items><Item><Name>Smooth Operator</Name><SKU /><LineItemID>2692</LineItemID><Quantity>1</Quantity></Item></Items></ShipNotice>
+02-24-2020 @ 11:41:36 - ShipNotify Item: SimpleXMLElement Object
+(
+    [Name] => Smooth Operator
+    [SKU] => SimpleXMLElement Object
+        (
+        )
+
+    [LineItemID] => 2692
+    [Quantity] => 1
+)
+
+02-24-2020 @ 11:41:36 - Shipped 1 out of 1 items in order 14542
+02-24-2020 @ 11:41:36 - Updated order 14542 to status wc-completed
+02-24-2020 @ 11:41:37 - Input params: wc-api=wc_shipstation&auth_key=WCSS-b6c91f0b4959b1c4a9d6e9759774c5ab&action=shipnotify&order_number=14545&carrier=USPS&service=USPS+First+Class+Mail&tracking_number=9400111899561095693402&capture=true
+02-24-2020 @ 11:41:37 - ShipNotify XML: <?xml version="1.0" encoding="UTF-8"?><ShipNotice><OrderNumber>14545</OrderNumber><OrderID>14545</OrderID><CustomerCode>dmbarre@gmail.com</CustomerCode><CustomerNotes><![CDATA[]]></CustomerNotes><InternalNotes><![CDATA[]]></InternalNotes><NotesToCustomer><![CDATA[]]></NotesToCustomer><NotifyCustomer>false</NotifyCustomer><LabelCreateDate>02/24/2020 08:00</LabelCreateDate><ShipDate>02/24/2020</ShipDate><Carrier>USPS</Carrier><Service>USPS First Class Mail</Service><TrackingNumber>9400111899561095693402</TrackingNumber><ShippingCost>4.3200</ShippingCost><CustomField1 /><CustomField2 /><CustomField3 /><Recipient><Name>darren barre</Name><Company /><Address1>108 SAVANNA DR</Address1><Address2 /><City>LULING</City><State>LA</State><PostalCode>70070-3207</PostalCode><Country>US</Country></Recipient><Items><Item><Name>Smooth Operator</Name><SKU /><LineItemID>2704</LineItemID><Quantity>1</Quantity></Item></Items></ShipNotice>
+02-24-2020 @ 11:41:37 - ShipNotify Item: SimpleXMLElement Object
+(
+    [Name] => Smooth Operator
+    [SKU] => SimpleXMLElement Object
+        (
+        )
+
+    [LineItemID] => 2704
+    [Quantity] => 1
+)
+
+02-24-2020 @ 11:41:37 - Shipped 1 out of 1 items in order 14545
+02-24-2020 @ 11:41:37 - Updated order 14545 to status wc-completed
+02-24-2020 @ 11:41:38 - Input params: wc-api=wc_shipstation&auth_key=WCSS-b6c91f0b4959b1c4a9d6e9759774c5ab&action=shipnotify&order_number=14544&carrier=USPS&service=USPS+First+Class+Mail&tracking_number=9400111899561095694638&capture=true
+02-24-2020 @ 11:41:38 - ShipNotify XML: <?xml version="1.0" encoding="UTF-8"?><ShipNotice><OrderNumber>14544</OrderNumber><OrderID>14544</OrderID><CustomerCode>jpeterson@fortressfloors.com</CustomerCode><CustomerNotes><![CDATA[]]></CustomerNotes><InternalNotes><![CDATA[]]></InternalNotes><NotesToCustomer><![CDATA[]]></NotesToCustomer><NotifyCustomer>false</NotifyCustomer><LabelCreateDate>02/24/2020 08:00</LabelCreateDate><ShipDate>02/24/2020</ShipDate><Carrier>USPS</Carrier><Service>USPS First Class Mail</Service><TrackingNumber>9400111899561095694638</TrackingNumber><ShippingCost>4.3200</ShippingCost><CustomField1 /><CustomField2 /><CustomField3 /><Recipient><Name>Jason Peterson</Name><Company /><Address1>2716 N 13TH ST</Address1><Address2 /><City>SHEBOYGAN</City><State>WI</State><PostalCode>53083-3955</PostalCode><Country>US</Country></Recipient><Items><Item><Name>Smooth Operator</Name><SKU /><LineItemID>2699</LineItemID><Quantity>1</Quantity></Item><Item><Name>Happy Clam Sample</Name><SKU /><LineItemID>2700</LineItemID><Quantity>1</Quantity></Item><Item><Name>Smooth Operator Sample</Name><SKU /><LineItemID>2701</LineItemID><Quantity>1</Quantity></Item></Items></ShipNotice>
+02-24-2020 @ 11:41:38 - ShipNotify Item: SimpleXMLElement Object
+(
+    [Name] => Smooth Operator
+    [SKU] => SimpleXMLElement Object
+        (
+        )
+
+    [LineItemID] => 2699
+    [Quantity] => 1
+)
+
+02-24-2020 @ 11:41:38 - ShipNotify Item: SimpleXMLElement Object
+(
+    [Name] => Happy Clam Sample
+    [SKU] => SimpleXMLElement Object
+        (
+        )
+
+    [LineItemID] => 2700
+    [Quantity] => 1
+)
+
+02-24-2020 @ 11:41:38 - Item Happy Clam Sample is not shippable product. Skipping.
+02-24-2020 @ 11:41:38 - ShipNotify Item: SimpleXMLElement Object
+(
+    [Name] => Smooth Operator Sample
+    [SKU] => SimpleXMLElement Object
+        (
+        )
+
+    [LineItemID] => 2701
+    [Quantity] => 1
+)
+
+02-24-2020 @ 11:41:38 - Item Smooth Operator Sample is not shippable product. Skipping.
+02-24-2020 @ 11:41:38 - Shipped 1 out of 1 items in order 14544
+02-24-2020 @ 11:41:39 - Updated order 14544 to status wc-completed
+02-24-2020 @ 11:41:40 - Input params: wc-api=wc_shipstation&auth_key=WCSS-b6c91f0b4959b1c4a9d6e9759774c5ab&action=shipnotify&order_number=14543&carrier=USPS&service=USPS+First+Class+Mail&tracking_number=9400111899561095698216&capture=true
+02-24-2020 @ 11:41:40 - ShipNotify XML: <?xml version="1.0" encoding="UTF-8"?><ShipNotice><OrderNumber>14543</OrderNumber><OrderID>14543</OrderID><CustomerCode>Jennyhack@gmail.com</CustomerCode><CustomerNotes><![CDATA[]]></CustomerNotes><InternalNotes><![CDATA[]]></InternalNotes><NotesToCustomer><![CDATA[]]></NotesToCustomer><NotifyCustomer>false</NotifyCustomer><LabelCreateDate>02/24/2020 08:00</LabelCreateDate><ShipDate>02/24/2020</ShipDate><Carrier>USPS</Carrier><Service>USPS First Class Mail</Service><TrackingNumber>9400111899561095698216</TrackingNumber><ShippingCost>4.0800</ShippingCost><CustomField1 /><CustomField2 /><CustomField3 /><Recipient><Name>Jennifer Kopra</Name><Company /><Address1>PO BOX 569</Address1><Address2 /><City>MOSIER</City><State>OR</State><PostalCode>97040-0569</PostalCode><Country>US</Country></Recipient><Items><Item><Name>Smooth Operator</Name><SKU /><LineItemID>2696</LineItemID><Quantity>1</Quantity></Item></Items></ShipNotice>
+02-24-2020 @ 11:41:40 - ShipNotify Item: SimpleXMLElement Object
+(
+    [Name] => Smooth Operator
+    [SKU] => SimpleXMLElement Object
+        (
+        )
+
+    [LineItemID] => 2696
+    [Quantity] => 1
+)
+
+02-24-2020 @ 11:41:40 - Shipped 1 out of 1 items in order 14543
+02-24-2020 @ 11:41:40 - Updated order 14543 to status wc-completed
+02-24-2020 @ 13:31:51 - Input params: wc-api=wc_shipstation&auth_key=WCSS-b6c91f0b4959b1c4a9d6e9759774c5ab&action=export&start_date=02%2F24%2F2020+02%3A31&end_date=02%2F25%2F2020+12%3A31&page=1
+02-24-2020 @ 13:31:51 - Exported 14 orders
+02-24-2020 @ 13:47:11 - Input params: wc-api=wc_shipstation&auth_key=WCSS-b6c91f0b4959b1c4a9d6e9759774c5ab&action=shipnotify&order_number=14547&carrier=USPS&service=USPS+First+Class+Mail&tracking_number=9400111899561094114120&capture=true
+02-24-2020 @ 13:47:11 - ShipNotify XML: <?xml version="1.0" encoding="UTF-8"?><ShipNotice><OrderNumber>14547</OrderNumber><OrderID>14547</OrderID><CustomerCode>dhalicki15@gmail.com</CustomerCode><CustomerNotes><![CDATA[]]></CustomerNotes><InternalNotes><![CDATA[]]></InternalNotes><NotesToCustomer><![CDATA[]]></NotesToCustomer><NotifyCustomer>false</NotifyCustomer><LabelCreateDate>02/24/2020 08:00</LabelCreateDate><ShipDate>02/24/2020</ShipDate><Carrier>USPS</Carrier><Service>USPS First Class Mail</Service><TrackingNumber>9400111899561094114120</TrackingNumber><ShippingCost>4.1800</ShippingCost><CustomField1>welcum</CustomField1><CustomField2 /><CustomField3 /><Recipient><Name>Dana Halicki</Name><Company /><Address1>12014 BLADE BOROUGH CT</Address1><Address2 /><City>HOUSTON</City><State>TX</State><PostalCode>77089-5844</PostalCode><Country>US</Country></Recipient><Items><Item><Name>Smooth Operator</Name><SKU /><LineItemID>2711</LineItemID><Quantity>1</Quantity></Item></Items></ShipNotice>
+02-24-2020 @ 13:47:11 - ShipNotify Item: SimpleXMLElement Object
+(
+    [Name] => Smooth Operator
+    [SKU] => SimpleXMLElement Object
+        (
+        )
+
+    [LineItemID] => 2711
+    [Quantity] => 1
+)
+
+02-24-2020 @ 13:47:11 - Shipped 1 out of 1 items in order 14547
+02-24-2020 @ 13:47:12 - Updated order 14547 to status wc-completed
+02-24-2020 @ 13:47:14 - Input params: wc-api=wc_shipstation&auth_key=WCSS-b6c91f0b4959b1c4a9d6e9759774c5ab&action=shipnotify&order_number=14546&carrier=USPS&service=USPS+First+Class+Mail&tracking_number=9400111899561094114441&capture=true
+02-24-2020 @ 13:47:14 - ShipNotify XML: <?xml version="1.0" encoding="UTF-8"?><ShipNotice><OrderNumber>14546</OrderNumber><OrderID>14546</OrderID><CustomerCode>taufner55@icloud.com</CustomerCode><CustomerNotes><![CDATA[]]></CustomerNotes><InternalNotes><![CDATA[]]></InternalNotes><NotesToCustomer><![CDATA[]]></NotesToCustomer><NotifyCustomer>false</NotifyCustomer><LabelCreateDate>02/24/2020 08:00</LabelCreateDate><ShipDate>02/24/2020</ShipDate><Carrier>USPS</Carrier><Service>USPS First Class Mail</Service><TrackingNumber>9400111899561094114441</TrackingNumber><ShippingCost>4.4600</ShippingCost><CustomField1>welcum</CustomField1><CustomField2 /><CustomField3 /><Recipient><Name>Misleny Taufner</Name><Company /><Address1>65 GENTRY LN APT A</Address1><Address2 /><City>QUEENSBURY</City><State>NY</State><PostalCode>12804-2431</PostalCode><Country>US</Country></Recipient><Items><Item><Name>Smooth Operator</Name><SKU /><LineItemID>2707</LineItemID><Quantity>1</Quantity></Item></Items></ShipNotice>
+02-24-2020 @ 13:47:14 - ShipNotify Item: SimpleXMLElement Object
+(
+    [Name] => Smooth Operator
+    [SKU] => SimpleXMLElement Object
+        (
+        )
+
+    [LineItemID] => 2707
+    [Quantity] => 1
+)
+
+02-24-2020 @ 13:47:14 - Shipped 1 out of 1 items in order 14546
+02-24-2020 @ 13:47:14 - Updated order 14546 to status wc-completed
+02-24-2020 @ 15:31:59 - Input params: wc-api=wc_shipstation&auth_key=WCSS-b6c91f0b4959b1c4a9d6e9759774c5ab&action=export&start_date=02%2F24%2F2020+04%3A31&end_date=02%2F25%2F2020+14%3A31&page=1
+02-24-2020 @ 15:32:00 - Exported 14 orders

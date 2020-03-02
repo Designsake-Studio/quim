@@ -1,0 +1,96 @@
+02-20-2020 @ 17:29:09 - Input params: wc-api=wc_shipstation&auth_key=WCSS-b6c91f0b4959b1c4a9d6e9759774c5ab&action=export&start_date=02%2F20%2F2020+06%3A29&end_date=02%2F21%2F2020+16%3A29&page=1
+02-20-2020 @ 17:29:09 - Exported 4 orders
+02-20-2020 @ 19:29:13 - Input params: wc-api=wc_shipstation&auth_key=WCSS-b6c91f0b4959b1c4a9d6e9759774c5ab&action=export&start_date=02%2F20%2F2020+08%3A29&end_date=02%2F21%2F2020+18%3A29&page=1
+02-20-2020 @ 19:29:13 - Exported 4 orders
+02-20-2020 @ 21:29:18 - Input params: wc-api=wc_shipstation&auth_key=WCSS-b6c91f0b4959b1c4a9d6e9759774c5ab&action=export&start_date=02%2F20%2F2020+10%3A29&end_date=02%2F21%2F2020+20%3A29&page=1
+02-20-2020 @ 21:29:18 - Exported 4 orders
+02-20-2020 @ 23:29:23 - Input params: wc-api=wc_shipstation&auth_key=WCSS-b6c91f0b4959b1c4a9d6e9759774c5ab&action=export&start_date=02%2F20%2F2020+12%3A29&end_date=02%2F21%2F2020+22%3A29&page=1
+02-20-2020 @ 23:29:23 - Exported 5 orders
+02-21-2020 @ 01:29:26 - Input params: wc-api=wc_shipstation&auth_key=WCSS-b6c91f0b4959b1c4a9d6e9759774c5ab&action=export&start_date=02%2F20%2F2020+14%3A29&end_date=02%2F22%2F2020+00%3A29&page=1
+02-21-2020 @ 01:29:27 - Exported 5 orders
+02-21-2020 @ 03:29:28 - Input params: wc-api=wc_shipstation&auth_key=WCSS-b6c91f0b4959b1c4a9d6e9759774c5ab&action=export&start_date=02%2F20%2F2020+16%3A29&end_date=02%2F22%2F2020+02%3A29&page=1
+02-21-2020 @ 03:29:28 - Exported 5 orders
+02-21-2020 @ 05:29:31 - Input params: wc-api=wc_shipstation&auth_key=WCSS-b6c91f0b4959b1c4a9d6e9759774c5ab&action=export&start_date=02%2F20%2F2020+18%3A29&end_date=02%2F22%2F2020+04%3A29&page=1
+02-21-2020 @ 05:29:31 - Exported 5 orders
+02-21-2020 @ 07:29:34 - Input params: wc-api=wc_shipstation&auth_key=WCSS-b6c91f0b4959b1c4a9d6e9759774c5ab&action=export&start_date=02%2F20%2F2020+20%3A29&end_date=02%2F22%2F2020+06%3A29&page=1
+02-21-2020 @ 07:29:34 - Exported 5 orders
+02-21-2020 @ 09:29:41 - Input params: wc-api=wc_shipstation&auth_key=WCSS-b6c91f0b4959b1c4a9d6e9759774c5ab&action=export&start_date=02%2F20%2F2020+22%3A29&end_date=02%2F22%2F2020+08%3A29&page=1
+02-21-2020 @ 09:29:42 - Exported 6 orders
+02-21-2020 @ 09:59:54 - Input params: wc-api=wc_shipstation&auth_key=WCSS-b6c91f0b4959b1c4a9d6e9759774c5ab&action=shipnotify&order_number=14528&carrier=USPS&service=USPS+First+Class+Mail&tracking_number=9400111899561237216445&capture=true
+02-21-2020 @ 09:59:54 - ShipNotify XML: <?xml version="1.0" encoding="UTF-8"?><ShipNotice><OrderNumber>14528</OrderNumber><OrderID>14528</OrderID><CustomerCode>valeriedunston@gmail.com</CustomerCode><CustomerNotes><![CDATA[]]></CustomerNotes><InternalNotes><![CDATA[]]></InternalNotes><NotesToCustomer><![CDATA[]]></NotesToCustomer><NotifyCustomer>false</NotifyCustomer><LabelCreateDate>02/21/2020 08:00</LabelCreateDate><ShipDate>02/21/2020</ShipDate><Carrier>USPS</Carrier><Service>USPS First Class Mail</Service><TrackingNumber>9400111899561237216445</TrackingNumber><ShippingCost>4.3200</ShippingCost><CustomField1 /><CustomField2 /><CustomField3 /><Recipient><Name>Valerie Dunston</Name><Company /><Address1>6932 HARBOR TOWN WAY</Address1><Address2 /><City>STONE MOUNTAIN</City><State>GA</State><PostalCode>30087-5467</PostalCode><Country>US</Country></Recipient><Items><Item><Name>Smooth Operator</Name><SKU /><LineItemID>2647</LineItemID><Quantity>1</Quantity></Item></Items></ShipNotice>
+02-21-2020 @ 09:59:54 - ShipNotify Item: SimpleXMLElement Object
+(
+    [Name] => Smooth Operator
+    [SKU] => SimpleXMLElement Object
+        (
+        )
+
+    [LineItemID] => 2647
+    [Quantity] => 1
+)
+
+02-21-2020 @ 09:59:54 - Shipped 1 out of 1 items in order 14528
+02-21-2020 @ 09:59:55 - Updated order 14528 to status wc-completed
+02-21-2020 @ 09:59:56 - Input params: wc-api=wc_shipstation&auth_key=WCSS-b6c91f0b4959b1c4a9d6e9759774c5ab&action=shipnotify&order_number=14529&carrier=USPS&service=USPS+First+Class+Mail&tracking_number=9400111899561237211204&capture=true
+02-21-2020 @ 09:59:56 - ShipNotify XML: <?xml version="1.0" encoding="UTF-8"?><ShipNotice><OrderNumber>14529</OrderNumber><OrderID>14529</OrderID><CustomerCode>annrlilly@gmail.com</CustomerCode><CustomerNotes><![CDATA[]]></CustomerNotes><InternalNotes><![CDATA[]]></InternalNotes><NotesToCustomer><![CDATA[]]></NotesToCustomer><NotifyCustomer>false</NotifyCustomer><LabelCreateDate>02/21/2020 08:00</LabelCreateDate><ShipDate>02/21/2020</ShipDate><Carrier>USPS</Carrier><Service>USPS First Class Mail</Service><TrackingNumber>9400111899561237211204</TrackingNumber><ShippingCost>4.1800</ShippingCost><CustomField1 /><CustomField2 /><CustomField3 /><Recipient><Name>Ann Lilly</Name><Company /><Address1>805 CLOISTER WAY</Address1><Address2 /><City>MCKINNEY</City><State>TX</State><PostalCode>75069-5009</PostalCode><Country>US</Country></Recipient><Items><Item><Name>Smooth Operator</Name><SKU /><LineItemID>2650</LineItemID><Quantity>1</Quantity></Item></Items></ShipNotice>
+02-21-2020 @ 09:59:56 - ShipNotify Item: SimpleXMLElement Object
+(
+    [Name] => Smooth Operator
+    [SKU] => SimpleXMLElement Object
+        (
+        )
+
+    [LineItemID] => 2650
+    [Quantity] => 1
+)
+
+02-21-2020 @ 09:59:56 - Shipped 1 out of 1 items in order 14529
+02-21-2020 @ 09:59:56 - Updated order 14529 to status wc-completed
+02-21-2020 @ 09:59:57 - Input params: wc-api=wc_shipstation&auth_key=WCSS-b6c91f0b4959b1c4a9d6e9759774c5ab&action=shipnotify&order_number=14530&carrier=USPS&service=USPS+First+Class+Mail&tracking_number=9400111899561237211792&capture=true
+02-21-2020 @ 09:59:57 - ShipNotify XML: <?xml version="1.0" encoding="UTF-8"?><ShipNotice><OrderNumber>14530</OrderNumber><OrderID>14530</OrderID><CustomerCode>kim.graham@gmail.com</CustomerCode><CustomerNotes><![CDATA[]]></CustomerNotes><InternalNotes><![CDATA[]]></InternalNotes><NotesToCustomer><![CDATA[]]></NotesToCustomer><NotifyCustomer>false</NotifyCustomer><LabelCreateDate>02/21/2020 08:00</LabelCreateDate><ShipDate>02/21/2020</ShipDate><Carrier>USPS</Carrier><Service>USPS First Class Mail</Service><TrackingNumber>9400111899561237211792</TrackingNumber><ShippingCost>4.4600</ShippingCost><CustomField1 /><CustomField2 /><CustomField3 /><Recipient><Name>Kimberly Graham</Name><Company /><Address1>6108 ROCKY WAY CT</Address1><Address2 /><City>CENTREVILLE</City><State>VA</State><PostalCode>20120-3400</PostalCode><Country>US</Country></Recipient><Items><Item><Name>Happy Clam</Name><SKU /><LineItemID>2653</LineItemID><Quantity>1</Quantity></Item><Item><Name>Smooth Operator Sample</Name><SKU /><LineItemID>2654</LineItemID><Quantity>1</Quantity></Item></Items></ShipNotice>
+02-21-2020 @ 09:59:57 - ShipNotify Item: SimpleXMLElement Object
+(
+    [Name] => Happy Clam
+    [SKU] => SimpleXMLElement Object
+        (
+        )
+
+    [LineItemID] => 2653
+    [Quantity] => 1
+)
+
+02-21-2020 @ 09:59:57 - ShipNotify Item: SimpleXMLElement Object
+(
+    [Name] => Smooth Operator Sample
+    [SKU] => SimpleXMLElement Object
+        (
+        )
+
+    [LineItemID] => 2654
+    [Quantity] => 1
+)
+
+02-21-2020 @ 09:59:57 - Item Smooth Operator Sample is not shippable product. Skipping.
+02-21-2020 @ 09:59:57 - Shipped 1 out of 1 items in order 14530
+02-21-2020 @ 09:59:58 - Updated order 14530 to status wc-completed
+02-21-2020 @ 11:29:45 - Input params: wc-api=wc_shipstation&auth_key=WCSS-b6c91f0b4959b1c4a9d6e9759774c5ab&action=export&start_date=02%2F21%2F2020+00%3A29&end_date=02%2F22%2F2020+10%3A29&page=1
+02-21-2020 @ 11:29:45 - Exported 3 orders
+02-21-2020 @ 13:29:49 - Input params: wc-api=wc_shipstation&auth_key=WCSS-b6c91f0b4959b1c4a9d6e9759774c5ab&action=export&start_date=02%2F21%2F2020+02%3A29&end_date=02%2F22%2F2020+12%3A29&page=1
+02-21-2020 @ 13:29:49 - Exported 4 orders
+02-21-2020 @ 14:12:58 - Input params: wc-api=wc_shipstation&auth_key=WCSS-b6c91f0b4959b1c4a9d6e9759774c5ab&action=shipnotify&order_number=14531&carrier=USPS&service=USPS+First+Class+Mail&tracking_number=9400111899561236724200&capture=true
+02-21-2020 @ 14:12:58 - ShipNotify XML: <?xml version="1.0" encoding="UTF-8"?><ShipNotice><OrderNumber>14531</OrderNumber><OrderID>14531</OrderID><CustomerCode>jkiser50@gmail.com</CustomerCode><CustomerNotes><![CDATA[]]></CustomerNotes><InternalNotes><![CDATA[]]></InternalNotes><NotesToCustomer><![CDATA[]]></NotesToCustomer><NotifyCustomer>false</NotifyCustomer><LabelCreateDate>02/22/2020 08:00</LabelCreateDate><ShipDate>02/22/2020</ShipDate><Carrier>USPS</Carrier><Service>USPS First Class Mail</Service><TrackingNumber>9400111899561236724200</TrackingNumber><ShippingCost>5.2700</ShippingCost><CustomField1 /><CustomField2 /><CustomField3 /><Recipient><Name>Jerry Kiser</Name><Company /><Address1>1126 WESTRIDGE DR</Address1><Address2 /><City>ABILENE</City><State>TX</State><PostalCode>79605-3719</PostalCode><Country>US</Country></Recipient><Items><Item><Name>Smooth Operator</Name><SKU /><LineItemID>2657</LineItemID><Quantity>2</Quantity></Item></Items></ShipNotice>
+02-21-2020 @ 14:12:58 - ShipNotify Item: SimpleXMLElement Object
+(
+    [Name] => Smooth Operator
+    [SKU] => SimpleXMLElement Object
+        (
+        )
+
+    [LineItemID] => 2657
+    [Quantity] => 2
+)
+
+02-21-2020 @ 14:12:58 - Shipped 2 out of 2 items in order 14531
+02-21-2020 @ 14:12:59 - Updated order 14531 to status wc-completed
+02-21-2020 @ 15:29:53 - Input params: wc-api=wc_shipstation&auth_key=WCSS-b6c91f0b4959b1c4a9d6e9759774c5ab&action=export&start_date=02%2F21%2F2020+04%3A29&end_date=02%2F22%2F2020+14%3A29&page=1
+02-21-2020 @ 15:29:53 - Exported 4 orders

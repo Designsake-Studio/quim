@@ -1,0 +1,55 @@
+2020-02-29T00:00:31+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_Cart_Update starts in the next minute :: obj_id e3345c19aecf3c9e73659248ddc06629
+2020-02-29T00:00:33+00:00 NOTICE abandoned_cart.success :: email: dan.nelson@nelsoninsight.com :: checkout_url: https://itsquim.com/checkout/?mc_cart_id=e3345c19aecf3c9e73659248ddc06629
+2020-02-29T00:01:39+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_Single_Order starts in 90 seconds :: obj_id 14572
+2020-02-29T00:03:52+00:00 NOTICE order_submit.success :: addStoreOrder :: #14572 :: email: dan.nelson@nelsoninsight.com :: abandoned cart deleted [e3345c19aecf3c9e73659248ddc06629]
+2020-02-29T03:12:33+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_Cart_Update starts in the next minute :: obj_id 563f019d3ecd55bfac2d5be8ff29fee1
+2020-02-29T03:12:49+00:00 NOTICE abandoned_cart.success :: email: petlockdanelle@gmail.com :: checkout_url: https://itsquim.com/checkout/?mc_cart_id=563f019d3ecd55bfac2d5be8ff29fee1
+2020-02-29T03:14:57+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_Cart_Update starts in the next minute :: obj_id 563f019d3ecd55bfac2d5be8ff29fee1
+2020-02-29T03:14:58+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_User_Submit starts in the next minute :: obj_id 185
+2020-02-29T03:15:56+00:00 NOTICE abandoned_cart.success :: email: petlockdanelle@gmail.com :: checkout_url: https://itsquim.com/checkout/?mc_cart_id=563f019d3ecd55bfac2d5be8ff29fee1
+2020-02-29T03:15:56+00:00 NOTICE member.sync :: Updated Member petlockdanelle@gmail.com ( merge fields only ) :: Array
+(
+    [merge_fields] => Array
+        (
+        )
+
+)
+
+2020-02-29T03:17:35+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_Cart_Update starts in the next minute :: obj_id 563f019d3ecd55bfac2d5be8ff29fee1
+2020-02-29T03:18:58+00:00 NOTICE abandoned_cart.success :: email: petlockdanelle@gmail.com :: checkout_url: https://itsquim.com/checkout/?mc_cart_id=563f019d3ecd55bfac2d5be8ff29fee1
+2020-02-29T03:25:02+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_Cart_Update starts in the next minute :: obj_id 563f019d3ecd55bfac2d5be8ff29fee1
+2020-02-29T03:25:03+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_Cart_Update starts in the next minute :: obj_id 563f019d3ecd55bfac2d5be8ff29fee1
+2020-02-29T03:25:04+00:00 NOTICE abandoned_cart.success :: email: petlockdanelle@gmail.com :: checkout_url: https://itsquim.com/checkout/?mc_cart_id=563f019d3ecd55bfac2d5be8ff29fee1
+2020-02-29T03:25:04+00:00 NOTICE abandoned_cart.success :: email: petlockdanelle@gmail.com :: checkout_url: https://itsquim.com/checkout/?mc_cart_id=563f019d3ecd55bfac2d5be8ff29fee1
+2020-02-29T03:27:06+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_User_Submit starts in the next minute :: obj_id 185
+2020-02-29T03:27:06+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_Single_Order starts in 90 seconds :: obj_id 14573
+2020-02-29T03:27:14+00:00 NOTICE member.sync :: Updated Member petlockdanelle@gmail.com ( merge fields only ) :: Array
+(
+    [merge_fields] => Array
+        (
+            [FNAME] => Danelle
+            [LNAME] => Petlock
+        )
+
+)
+
+2020-02-29T03:28:51+00:00 NOTICE order_submit.success :: addStoreOrder :: #14573 :: email: petlockdanelle@gmail.com :: abandoned cart deleted [563f019d3ecd55bfac2d5be8ff29fee1]
+2020-02-29T03:53:51+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_Cart_Update starts in the next minute :: obj_id caa998be2f31f75001e83575636c70e1
+2020-02-29T03:53:52+00:00 NOTICE abandoned_cart.success :: email: danielleparham94@icloud.com :: checkout_url: https://itsquim.com/checkout/?mc_cart_id=caa998be2f31f75001e83575636c70e1
+2020-02-29T03:55:23+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_Cart_Update starts in the next minute :: obj_id caa998be2f31f75001e83575636c70e1
+2020-02-29T04:01:05+00:00 NOTICE abandoned_cart.success :: email: danielleparham94@icloud.com :: checkout_url: https://itsquim.com/checkout/?mc_cart_id=caa998be2f31f75001e83575636c70e1
+2020-02-29T07:41:05+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_Cart_Update starts in the next minute :: obj_id 38376f545080d1b3615e3076bd5edce8
+2020-02-29T07:41:06+00:00 NOTICE abandoned_cart.success :: email: cynthiaborjoncosby@yahoo.com :: checkout_url: https://itsquim.com/checkout/?mc_cart_id=38376f545080d1b3615e3076bd5edce8
+2020-02-29T07:46:13+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_Single_Order starts in 90 seconds :: obj_id 14574
+2020-02-29T07:48:42+00:00 NOTICE order_submit.success :: addStoreOrder :: #14574 :: email: cynthiaborjoncosby@yahoo.com :: abandoned cart deleted [38376f545080d1b3615e3076bd5edce8]
+2020-02-29T17:35:16+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_Cart_Update starts in the next minute :: obj_id 2799d2069fba33158f6d563e4d5f6ad9
+2020-02-29T17:35:16+00:00 NOTICE abandoned_cart.success :: email: ashmarie.eppinger@gmail.com :: checkout_url: https://itsquim.com/checkout/?mc_cart_id=2799d2069fba33158f6d563e4d5f6ad9
+2020-02-29T17:37:30+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_Single_Order starts in 90 seconds :: obj_id 14575
+2020-02-29T17:39:17+00:00 NOTICE order_submit.success :: addStoreOrder :: #14575 :: email: ashmarie.eppinger@gmail.com :: abandoned cart deleted [2799d2069fba33158f6d563e4d5f6ad9]
+2020-02-29T23:23:40+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_Cart_Update starts in the next minute :: obj_id 72c0fa0beac57d5d6e88c26edd002893
+2020-02-29T23:23:41+00:00 NOTICE abandoned_cart.success :: email: jschein@bbpaleo.org :: checkout_url: https://itsquim.com/checkout/?mc_cart_id=72c0fa0beac57d5d6e88c26edd002893
+2020-02-29T23:23:52+00:00 NOTICE ac.cart_swap :: Deleted cart [jschein@bbpaleo.org] :: ID [72c0fa0beac57d5d6e88c26edd002893]
+2020-02-29T23:23:52+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_Cart_Update starts in the next minute :: obj_id efee3952a5c4e42a9637d4fe452db7d5
+2020-02-29T23:24:14+00:00 NOTICE abandoned_cart.success :: email: scheijp@gmail.com :: checkout_url: https://itsquim.com/checkout/?mc_cart_id=efee3952a5c4e42a9637d4fe452db7d5
+2020-02-29T23:25:32+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_Single_Order starts in 90 seconds :: obj_id 14576
+2020-02-29T23:29:02+00:00 NOTICE order_submit.success :: addStoreOrder :: #14576 :: email: scheijp@gmail.com :: campaign id 9baf261e44 :: abandoned cart deleted [efee3952a5c4e42a9637d4fe452db7d5]

@@ -1,0 +1,270 @@
+/** credit Scheduler**/
+div#ui-datepicker-div {
+    background: #e0e0e0;
+    float: left;
+    border: 1px solid #e0e0e0;
+}
+
+a.ui-datepicker-prev {
+    float: left;
+}
+
+.ui-datepicker-title {
+    float: left;
+    width: 100%;
+    text-align: center;
+}
+
+.ui-datepicker-header.ui-widget-header.ui-helper-clearfix.ui-corner-all {
+    padding: 15px;
+}
+
+a.ui-datepicker-next {
+    float: right;
+}
+.ui-corner-all{
+    cursor: pointer;
+}
+#wt_smart_coupon_schedule_field .optional {
+    display: none;
+}
+/* customize store credit */
+.wt_gift_coupn_designs {
+    float: left;
+    width: 100%;
+    margin-right: 1%;
+    padding: 10px;
+    border: 1px solid #e4dada;
+    border-radius: 5px;
+    margin-bottom: 15px;
+  }
+  
+  .wt_customise_gift_coupon_wrapper {
+    float: left;
+    width: 100%;
+  }
+  
+  .wt_gift_coupon_title {
+    float: left;
+    width: 100%;
+    text-align: left;
+  }
+  
+  .wt_gift_coupn_designs h2, .wt_gift_coupon_setup h2, .wt_gift_coupon_preview_wrapper h2 {
+    float: left;
+    font-size: 18px;
+    width:100%;
+  }
+  
+  .wt_gift_coupn_designs ul {
+    list-style-type: none;
+    padding: 0px;
+    margin: 0px;
+  }
+  
+  .wt_gift_coupn_designs li {
+    float: left;
+    width: 20%;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    cursor: pointer;
+    border: 1px solid #eee;
+    padding: 3px;
+    border-radius: 6px;
+  }
+  
+  .wt_gift_coupn_designs li.active{
+  
+    -webkit-box-shadow: 1px 10px 17px -18px rgba(0,0,0,0.75);
+    -moz-box-shadow: 1px 10px 17px -18px rgba(0,0,0,0.75);
+    box-shadow: 1px 10px 17px -18px rgba(0,0,0,0.75);
+  
+  }
+  
+  .wt_gift_coupon_preview {
+    float: left;
+    width: 60%;
+    border: 1px solid #e4dada;
+    padding: 20px;
+    margin-right: 3%;
+  }
+  .store_credit_preview {
+    padding: 12px;
+  }
+  
+  .store_credit_preview_wrapper {
+    float: left;
+    width: 100%;
+    -webkit-box-shadow: 6px 11px 35px -20px rgba(0,0,0,0.75);
+    -moz-box-shadow: 6px 11px 35px -20px rgba(0,0,0,0.75);
+    box-shadow: 6px 11px 35px -20px rgba(0,0,0,0.75);
+  }
+  .wt_gift_coupon_preview_caption {
+    float: left;
+    width: 100%;
+    padding: 20px;
+    text-align: center;
+    color: #fff;
+  }
+  .wt_gift_coupon_preview_caption img{
+    float: left;
+    width: 100%;
+    height: auto;
+  }
+  
+  .wt_coupon-code-block {
+    float: left;
+    width: 100%;
+    background: #fff;
+    padding: 20px;
+  }
+  
+  .wt_coupon-code-block .coupon-code {
+    float: left;
+    text-align: left;
+    background: #0e0b0d;
+    padding: 10px;
+    color: #fff;
+    border-radius: 6px;
+  }
+  
+  .wt_coupon-code-block .coupon_price {
+    float: right;
+    text-align: right;
+    font-size: 32px;
+    font-weight: 700;
+    color: #0e0b0d;
+    padding: 0px;
+    line-height: 36px;
+  }
+  
+  .coupon-message-block {
+    float: left;
+    width: 100%;
+    color: #fff;
+    padding: 20px;
+  }
+  
+  .coupon-message-block .coupon-message {
+    float: left;
+    text-align: left;
+  }
+  
+  .coupon-message-block .coupon-from {
+    float: right;
+    text-align: right;
+  }
+  
+  
+  .wt_gift_coupon_setup {
+    float: left;
+    width: 37%;
+    border: 1px solid #e4dada;
+    padding: 15px;
+  }
+  
+  
+  
+  #wt_credit_coupon_send_to, #wt_credit_coupon_send_to_message, #wt_credit_coupon_from, #wt_smart_coupon_schedule, input#wt_user_credit_amount {
+    float: left;
+      margin-bottom: 10px;
+      padding: 5px 3px;
+      background: none;
+  }
+  input#wt_user_credit_amount{
+    margin-left: 0px;
+    max-width:100%;
+  }
+  .wt_smart_schedule_field{
+    list-style-type: none;
+  }
+  
+  #wt_user_credit_amount,
+  #wt_credit_coupon_send_to,
+  #wt_credit_coupon_send_to_message,
+  #wt_credit_coupon_from,
+  #wt_smart_coupon_schedule,
+  input#wt_user_credit_amount {
+    float: left;
+    width:100%;
+    border: 1px solid #eee;
+    box-shadow: none;
+  }
+  
+  .radio-toolbar {
+    margin: 10px;
+  }
+  
+  .radio-toolbar input[type="radio"] {
+    opacity: 0;
+    position: fixed;
+    width: 0;
+  }
+  .radio-toolbar label {
+    background-color: #ddd;
+    padding: 4px 12px;
+    font-family: sans-serif, Arial;
+    font-size: 16px;
+    border: 1px solid #444;
+    border-radius: 4px;
+    margin: 2px !important;
+    cursor: pointer;
+    float: left;
+  }
+  
+  .radio-toolbar label:hover {
+    background-color: #dfd;
+  }
+  
+  
+  .radio-toolbar input[type="radio"]:checked + label {
+      background-color: #bfb;
+      border-color: #4c4;
+  }
+  
+  /* credit denominations */
+  input.wt_enter_other_amount#wt_user_credit_amount {
+      display: inline-block;
+      width: 148px;
+      float: none;
+      margin-left: 0px;
+      border: 1px solid #444;
+      border-radius: 4px;
+      padding: 4px 7px;
+      margin-top: 2px;
+  }
+  .wt_credit_denominations{
+    float: left;
+  }
+  .wt_enter_credit_amount {
+      float: left;
+      position: relative;
+  }
+
+  .wt_credit_denominations .credit_instruction {
+      display: none;
+      position: absolute;
+      left: 0px;
+      padding: .618em 1em;
+      border-radius: 3px;
+      background: #333;
+      color: rgb(136, 130, 130);
+      box-shadow: 0 1px 3px rgba(0,0,0,.2);
+      font-size: .8em;
+      max-width: 150px;
+      color: #fff;
+  }
+
+  .wt_credit_denominations .credit_instruction:before {
+      content: '';
+      position: absolute;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-bottom: 5px solid #333;
+      height: 0;
+      width: 0;
+      top: -5px;
+  }
+  input.wt_enter_other_amount#wt_user_credit_amount:hover + .credit_instruction, input.wt_enter_other_amount#wt_user_credit_amount:focus + .credit_instruction {
+    display: block;
+  }

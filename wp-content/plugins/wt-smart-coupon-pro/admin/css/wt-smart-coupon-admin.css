@@ -1,0 +1,923 @@
+/**
+ * All of the CSS for your admin-specific functionality should be
+ * included in this file.
+ */
+
+ @import url('https://fonts.googleapis.com/css?family=Poppins:300,300i,400,500,700');
+
+ .woocommerce_options_panel .options_group fieldset._wt_category_condition_field ul li,
+  ._wt_product_restrictions_field li,
+  .woocommerce_options_panel .options_group fieldset._wt_product_condition_field ul li {
+    float: left;
+    margin-right: 10px;
+}
+#wt_bulk_create_top {
+  float: left;
+  width: 100%;
+  margin-top: 15px;
+}
+#wt-coupon-meta-box {
+  width: 100%;
+}
+#wt-coupon-meta-box .hndle.ui-sortable-handle span {margin-left: 16px;}
+.wt_bulk_section_title {
+  float: left;
+  width: 100%;
+  font-weight: bold;
+  font-size: 15px;
+  margin-bottom: 11px;
+  margin-top: 10px;
+}
+
+#wt_bulk_create_top label {
+  float: left;
+  width: 220px;
+  line-height: 36px;
+}
+#generate-coupon  .form-group {
+  float: left;
+  width: 100%;
+}
+/* .form-fields p {
+  margin-right: 30px;
+  float: left;
+} */
+
+#generate-coupon .form-fields {
+  float: left;
+}
+.generate-coupon-wrapper {
+  float: left;
+  /*padding: 10px 20px;*/
+}
+/* #wt_bulk_create_top h2, #wt_bulk_create_top > p {
+  padding: 0px 20px;
+} */
+.wt_bulk_create_top_content {
+  float: left;
+  padding: 20px 20px 0px 20px;
+}
+#_wt_valid_for_number {
+  float: left;
+  margin-right: 10px;
+  max-width: 80px;
+}
+#_wt_coupon_prefix , #_wt_coupon_suffix {
+  float: left;
+  max-width: 100px;
+  margin-right: 10px;
+}
+#_wt_coupon_prefix  + code {
+  float: left;
+  margin-right: 10px;
+}
+#wt_import_coupon_top {
+  padding: 0px 0px 50px 0;
+  margin-top: 20px;
+  float: left;
+  width: 100%;
+}
+.wt_import_coupon_content{
+  padding:20px 20px 0px 20px;
+}
+p.import-instructions {
+  padding: 0px;
+  margin-bottom: 30px;
+  margin-top: 50px;
+}
+
+
+#wt_licence_coupon_top, #wt-action-coupon-page {
+  background: #fff;
+  box-shadow: 0px 2px 2px #ccc;
+  float: left;
+  min-height: 250px;
+  width: 100%;
+}
+.wt_action_coupon_content{
+  float: left;
+  width: 100%;
+}
+.wt_action_coupon_content .wt_sub_tab_container {
+  padding: 20px 20px 0px 20px
+}
+.wt_licence_coupon_content{
+  float: left;
+  padding: 10px 10px 0px 10px;
+}
+
+.wt-import-input-file-container span.dashicons.dashicons-upload {
+  line-height: 40px;
+}
+.wt-import-input-file-container > label {
+  position: relative;
+}
+#wt_import_coupon_top-step-2{
+  margin-top: 20px;
+}
+
+#wt_import_coupon_top #wt_smart_coupon_upload{
+  width: 100% !important;
+  opacity: 0;
+  position: absolute;
+  left: 0px;
+  height: 41px;
+}
+span.wt-file-container-label.selected {
+  color: #186723;
+}
+.wt-import-input-file-container .form-table td[scope="row"] {
+  width: 300px;
+}
+label.button.button-hero.sc-file-container {
+  padding: 0 56px;
+}
+
+
+
+#usage_restriction_coupon_data h3 {
+  margin-left: 11px;
+}
+#wt_import_coupon_btn{
+  margin-top: 10px;
+}
+div#wt_store_credit_coupon_top {
+  min-height: 200px;
+  float: left;
+  width: 100%;
+  padding-top: 20px;
+}
+.wt_coupon_peview {
+  float: left;
+  width: 100%;
+  padding: 60px 0px;
+}
+
+.bulk-generate-desc {
+  float: left;
+  width: 100%;
+}
+
+.bulk-generate-desc ul {
+  list-style-type: disc;
+  padding-left: 30px;
+}
+
+.smart-coupon-tabs a.nav-tab {
+  line-height: 30px;
+}
+
+.smart-coupon-tabs a.nav-tab span {
+  line-height: 31px;
+}
+
+.wt_licence_coupon_content span.dashicons-warning {
+  color: #ff0000;
+}
+
+.wt_licence_coupon_content span.dashicons-yes {
+  color: #28a745;
+}
+.email-coupon-on-import {
+  float: left;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+fieldset.form-field._wt_need_check_location_in_field .wc-radios {
+  padding-right: 51px;
+}
+
+.form-field _wt_need_check_location_in_field  legend {
+  float: left;
+}
+
+fieldset.form-field._wt_need_check_location_in_field {
+  float: left;
+  width: 100%;
+  height: auto;
+}
+
+.form-field _wt_need_check_location_in_field  ul.wc-radios {
+  margin-left: 200px !important;
+}
+
+fieldset.form-field._wt_need_check_location_in_field .wc-radios li {
+  float: left;
+  width: 116px;
+}
+
+fieldset.form-field._wt_need_check_location_in_field .wc-radios li label {
+  margin-left: 0px;
+}
+.wt-form-item {
+  float: left;
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+/* .wt-form-item  .form-item > label {
+  float: left;
+  padding: 10px 0px;
+  width: 200px;
+  font-size: 15px;
+} */
+.form-item  label {
+  float: left;
+}
+select#wt_coupon_style_type {
+  float: left;
+  width: 400px;
+  height: 33px;
+}
+
+#wt_smart_coupon_settings .form-item {
+  float: left;
+  width: 100%;
+  height: 52px;
+}
+.coupon_styling_settings {
+  position: relative;
+}
+input[name="_wt_no_of_characters_for_bulk_generate"] {
+  width: 200px;
+}
+/* 
+.coupon_preview {
+  position: absolute;
+  left: 500px;
+  top: 34px;
+} */
+#expired_coupon_item, #used_coupon_item {
+  display: none;
+}
+.form-item-wrapper{
+  float: left;
+  width:100%;
+}
+#wt_smart_coupon_settings .wp-picker-containe{
+  padding-left: 200px;
+}
+
+/* Coupon Styling!! */
+.small-coupon.wt-single-coupon{
+  width: 150px;
+}
+.wt-single-coupon{
+  background-color: #2890a8 ;
+  border: 2px dashed #fff;
+  text-align: center;
+  margin-bottom: 30px;
+  transition: all .3s;
+  position: relative;
+  vertical-align: top;
+  color: #fff;
+  margin-right: 30px;
+  float: left;
+  
+  align-items: center;
+  height: 100px;
+  width: 300px;
+  padding: 5px;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -ms-flex-item-align: center;
+  align-items: center;
+}
+.wt-single-coupon, .wt-single-coupon span, .wt-single-coupon div, .wt-single-coupon code {
+  font-family: 'Poppins', sans-serif;
+}
+.wt-coupon-amount span.amount {
+  font-size: 30px;
+  margin-right: 5px;
+  font-weight: 500;
+}
+.ticket_style .wt-coupon-amount span.amount{
+  margin-right: 0px;
+}
+.wt-coupon-amount {
+  float: left;
+  width: 100%;
+  font-size: 20px;
+  line-height: 25px;
+  font-weight: 500;
+}
+
+.wt-coupon-code {
+  float: left;
+  width: 100%;
+  font-size: 19px;
+  line-height: 25px;
+}
+
+.wt-single-coupon.used-coupon {
+  background-color: #eee ;
+  color: #000;
+  border: 2px dashed #000;
+}
+.wt-coupon-code code{
+  background: none;
+  font-size: 15px;
+  opacity: 0.7;
+}
+.wt-single-coupon.used-coupon.expired {
+  background-color: #f3dfdf;
+  color: #a96b6b;
+  border: 2px dashed #eccaca;
+}
+.wt-coupon-content {
+  padding: 10px 0px;
+  float: left;
+  width: 100%;
+}
+
+.ticket_style .wt-coupon-content {
+  padding: 10px 25px;
+  float: left;
+  width: 100%;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -ms-flex-item-align: center;
+  align-items: center;
+}
+.wt-single-coupon.stitched_padding {
+  box-shadow: 0 0 0 4px #2890a8, 2px 1px 6px 4px rgba(10, 10, 0, 0);
+  height: 92px;
+  width: 292px;
+  margin-top: 4px;
+}
+.wt-single-coupon.stitched_edge {
+  border: 2px dashed #e9e9eb;
+  background: #f7f7f7;
+  color: #000;
+}
+.wt-single-coupon.plane_coupon {
+  border: none;
+  background: #c8f1c0;
+  color: #30900c;
+}
+
+.wt-single-coupon.ticket_style{
+  background: #fffae6;
+  border: 1px dotted #fc7400;
+  color: #000;
+}
+.wt-single-coupon.ticket_style .discount_type{
+  font-weight: 500;
+  font-size: 22px;
+}
+.wt-single-coupon.ticket_style .wt-coupon-amount {
+  color: #fc7400;
+  padding-top: 12px;
+  padding-right: 10px;
+  border-right: 1px dotted;
+  padding-bottom: 12px;
+}
+.ticket_style .wt-coupon-amount {
+  float: left;
+  width: auto;
+}
+.ticket_style .wt-coupon-code {
+  float: left;
+  padding-left: 10px;
+  text-align: left;
+}
+.ticket_style .wt-coupon-code span {
+  float: left;
+  width: 100%;
+}
+.wt_coupon_settings_form_content {
+  float: left;
+  width: 100%;
+}
+div#wt_smart_coupon_settings {
+  background: #fff;
+  box-shadow: 0px 2px 2px #ccc;
+  float: left;
+  width: 100%;
+}
+.wt_smart_coupon_settings_content {
+  padding: 20px 20px 0px 20px;
+}
+
+.wt_section_title {
+  float: left;
+  width: 100%;
+}
+.wt_form_submit {
+  float: left;
+  width: 100%;
+  margin-top: 12px;
+  background: #f5f5f5;
+  border-top: 1px solid #ddd;
+  margin-bottom: 0px;
+  padding: 15px;
+  margin-left: -20px;
+  padding-right: 25px;
+}
+#update_wt_smart_coupon_settings {
+  float:left;
+}
+
+.wt_coupon_style_item {
+  float: left;
+  width: auto;
+  position: relative;
+  padding-left: 30px;
+  padding-bottom: 10px;
+  min-height: 120px;
+  margin-right:20px;
+}
+
+.wt_coupon_style_item input {
+  float: left;
+  top: 50%;
+  position: absolute;
+  left: 0px;
+  transform: translateY(-50%);
+}
+
+.wt_coupon_style_item  .wt-single-coupon {
+  margin: 0px;
+}
+.wt_modal {
+  position: fixed;
+  left: 22%;
+  right: 22%;
+  bottom: 100px;
+  top: 100px;
+  background: #fff;
+  z-index: 100000000;
+  padding: 20px;
+  min-height:500px;
+  -webkit-box-shadow: 0 3px 9px rgba(0,0,0,.5);
+  -moz-box-shadow: 0 3px 9px rgba(0,0,0,.5);
+  box-shadow: 0 3px 9px rgba(0,0,0,.5);
+  background-clip:padding-box;
+  outline: 0;
+}
+
+.wt-modal-header {
+  float: left;
+  width: 100%;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+}
+
+.wt-modal-title {
+  float: left;
+  font-size: 17px;
+}
+
+.wt-modal-close {
+  float: right;
+  cursor: pointer;
+}
+body.wt-modal-open {
+  overflow: hidden;
+}
+.wt_modal_overlay {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  background: rgba(255,255,255,0.6);
+  height: 100%;
+  z-index: 10000;
+}
+.wt-single-coupon.stitched_padding {
+  margin-left: 4px;
+  margin-top: 4px;
+}
+.wt_modal_content {
+  max-height: calc(100% - 150px );
+  overflow-x: hidden;
+  overflow-y: scroll;
+  float: left;
+  width: 100%;
+}
+
+.wt_modal_footer {
+  float: left;
+  width: 100%;
+  padding-top: 20px;
+  border-top: 1px solid #eeee;
+  text-align: right;
+}
+
+.wt_choose_style {
+  background: #ff0000;
+  float: right;
+  padding: 10px;
+  border-radius: 8px;
+  color: #fff;
+  margin-top: 30px;
+}
+
+
+.wt-single-coupon .coupon-desc {
+  position: absolute;
+  top: -18px;
+  background: #f2f2f2;
+  text-shadow: none;
+  font-size: 12px;
+  right: -303px;
+  width: 300px;
+  padding: 10px 20px;
+  z-index: 100;
+  border-radius: 8px;
+  display: none;
+  min-height: 90px;
+  color:#000;
+}
+
+/* .wt-single-coupon .coupon-desc:after{
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-right: 10px solid rgba(0,0,0,.7);
+  position: absolute;
+  left: -10px;
+  top: 23px;
+  content: '';
+} */
+.coupon-desc-wrapper:hover .coupon-desc {
+  display: block;
+}
+.wt-single-coupon i.info {
+  position: absolute;
+  top: 6px;
+  right: 10px;
+  font-size: 13px;
+  font-weight: bold;
+  border-radius: 100%;
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  text-shadow: none;
+  color: #2890a8;
+  font-style: normal;
+  cursor: pointer;
+}
+div#wt-coupons-in-order {
+  float: left;
+  width: 100%;
+}
+
+
+.wt_coupon_item {
+  float: left;
+  width: auto;
+}
+.coupon_meta span {
+  float: left;
+  clear: both;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+.coupon_meta {
+  float: left;
+  width: 100%;
+  padding-bottom: 20px;
+}
+
+
+.coupon-themes {
+  float: left;
+  width: 100%;
+}
+.coupon_preview.available_coupon_preview {
+  float: left;
+}
+.wt_coupon_elements {
+  float: left;
+}
+.wt_coupon_elements .form-element {
+  margin-bottom: 14px;
+  height: 30px;
+}
+.wt-coupon-button-wrapper {
+  margin-bottom: 20px;
+  float: left;
+  width: 100%;
+}
+
+/* WT subtabs */
+.wt_sub_tab_content {
+  display: none;
+}
+.wt_sub_tab_content.active {
+  display: block;
+}
+ul.wt_sub_tab {
+  float: left;
+  width: 100%;
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+
+ul.wt_sub_tab li {
+  float: left;
+  margin-right: 10px;
+  padding-right: 10px;
+  padding-left: 0.2em;
+  border-right: 1px solid #cecbcb;
+  margin-bottom: 0px;
+  
+}
+ul.wt_sub_tab li a {
+  color: #0073aa;
+  font-size: 13px;
+  cursor: pointer;
+  text-decoration: none;
+}
+ul.wt_sub_tab li.active a {
+  color:#000000;
+  cursor: default;
+}
+ul.wt_sub_tab li:last-child {
+  border: none;
+}
+
+.wt-form-field {
+  float: left;
+ 
+}
+#used_coupon_item .wt-form-field, #expired_coupon_item  .wt-form-field, #available_coupon_item .wt-form-field{
+  width:100%;
+}
+.wt-form-item label {
+  float: left;
+  line-height: 30px;
+  margin-right: 10px;
+}
+.wt_coupon_style_type {
+  min-height: 400px;
+}
+
+
+.wt_store_credit_content {
+  float: left;
+  width:100%;
+}
+.wt_store_credit_content .wt_sub_tab_container {
+  padding: 0px 20px 0px 20px;
+}
+.wt_store_credit_content .wt_sub_tab_container td {
+  padding-left: 0px;
+  padding-bottom: 13px;
+  padding-top: 4px;
+}
+form#wt_send_credit {
+  float: left;
+  width: 100%;
+}
+
+#wt_send_credit input, #wt_send_credit textarea {
+  width: 50%;
+  min-width: 300px;
+}
+#wt_send_credit input[type=checkbox] {
+  width: 16px;
+  min-width: unset;
+}
+
+#wt_send_credit label {
+  float: left;
+  width: 100%;
+}
+
+#wt_send_credit textarea {
+  min-height: 100px;
+}
+
+.wt_sub_tab_container .form-table td[scope="row"]{
+  width: 300px;
+  font-size: 13px;
+}
+.wt_sub_tab_container .form-table td label{
+  font-size: 13px;
+}
+.manage-store-credit{
+  text-decoration: none;
+}
+div#wt_enable_feature {
+  float: left;
+  width: 100%;
+  background: #fff;
+  box-shadow: 0px 2px 2px #ccc;
+}
+.wt-enable-module-content{
+  padding: 20px 20px 0px 20px;
+}
+
+div#enable_disable_features_content {
+  float: left;
+  width: 100%;
+  position: relative;
+  margin-top: 30px;
+}
+
+.form-table td small {
+  float: left;
+  width: 100%;
+  margin-top: 10px;
+  line-height: 20px;
+  font-style: italic;
+  color: #848383;
+}
+
+
+/* Import coupon */
+table#wt_smar_coupon_import_progress {
+  margin-top: 31px;
+}
+
+.wt-importer-loading.loading{
+  background:url('../images/ajax-loader.gif') no-repeat center center;
+ 
+}
+.wt-importer-loading{
+  height: 60px;
+}
+mark.result.wt-fail {
+  background: #f2dede;
+  color: #a94442;
+  border-radius: 100%;
+  width: 24px;
+  text-align: center;
+  height: 24px;
+  line-height: 21px;
+  padding: 0px;
+  float: left;
+}
+mark.result.wt-success {
+  background: #dff0d8;
+  color: #3c763d;
+  border-radius: 100%;
+  width: 24px;
+  text-align: center;
+  height: 24px;
+  line-height: 21px;
+  padding: 0px;
+  float: left;
+}
+mark.result.wt-success >span, mark.result.wt-fail >span {
+  font-size: 20px;
+  line-height: 24px;
+}
+.wt-importer-loading td {
+  width: 100%;
+  text-align: center !important;
+  color: #3c763d !important;
+  font-weight: 700 !important;
+  font-size: 17px !important;
+}
+
+
+li.wt_give_away_free_product_options a::before {
+  font-family: WooCommerce !important;
+  content: '\e01d' !important;
+}
+.give_away_product_discount input {
+  margin-right: 3px !important;
+  border-radius: 3px;
+}
+
+.wt_settings_section h2 {
+  margin-top: 0px;
+  font-size: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 10px;
+}
+
+.wt_smart_coupon_settings_content table td{
+  padding-left:0px;
+}
+
+/* Send coupon button */
+.wt-send-coupon {
+  float: left;
+  width: 100%;
+  margin-bottom: 10px;
+}
+.wt-send-status {
+  float: left;
+  margin-left: 20px;
+  line-height: 28px;
+}
+.wt-btn-resend-store-credit, .wt-btn-resend-coupon {
+  float: left;
+}
+.wt-send-status.wt_success {
+  color: green;
+}
+.wt-send-status.wt_error {
+  color: red;
+}
+td.titledesc {
+  vertical-align: top;
+}
+.wt_sub_tab_content input[ type="text"],
+.wt_sub_tab_content input[ type="number"],
+.wt_sub_tab_content input[ type="select"] {
+  min-width: 300px;
+  height: 38px;
+  border-radius: 4px;
+  box-shadow: none;
+}
+
+.wt_sub_tab_content  .select2-container .select2-selection--single{
+  min-width: 38px;
+}
+.wt_coupon_format.wt_disabled_form_item {
+  color: rgba(222, 222, 222, 0.75);
+}
+/* .no_of_orders {
+  float: left;
+  width: 100%;
+} */
+
+.no_of_orders p.form-field {
+  float: left;
+}
+
+.order_number_condition {
+  float: left;
+  margin-left: 10px;
+}
+.order_number_condition ul li {
+  float: left;
+  margin-right: 25px !important;
+}
+
+.woocommerce_options_panel .options_group .order_number_condition  fieldset {
+  padding-left: 0px !important;
+}
+.order_number_condition span.woocommerce-help-tip {
+  font-size: 17px;
+}
+
+
+.wt_notice {
+  float: left;
+  position: relative;
+  padding: 1rem 0rem;
+  margin-bottom: 1rem;
+  border: 1px solid transparent;
+  border-radius: .25rem;
+  text-indent: 1.25em;
+  width: 100%;
+  font-size: 14px;
+}
+.wt_warning.wt_notice {
+  color: #856404;
+  background-color: #fff3cd;
+  border-color: #ffeeba;
+}
+.wt_notice.wt_success {
+  color: #155724;
+  background-color: #d4edda;
+  border-color: #d4edda;
+}
+#wt_try_store_credit_now {
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 16px;
+}
+.order_number_condition input[type="number"] {
+  height: 32px;
+  border-radius: 5px;
+  padding: 0px 8px;
+  line-height: 32px;
+}
+
+input[name="wt_nth_order_order_total"] {
+  font-size: 12px;
+  color: #32373c;
+  width: 300px !important;
+  padding: 15px 10px;
+  border-radius: 4px;
+}
+#wt_nth_order_coupon span.select2-selection.select2-selection--multiple {
+  border-radius: 5px;
+}
+.wt_sub_tab_container .form-table .no-padding-col {
+  padding: 15px 10px 0px 10px;
+}
+
+#wt_nth_order_coupon .form-field {
+  float: left;
+  width: 100%;
+  padding: 5px 20px 5px 162px!important;
+}
+/* li.wt_nth_coupon_tab_options a::before {
+  font-family: WooCommerce !important;
+  content: '\f311' !important;
+} */

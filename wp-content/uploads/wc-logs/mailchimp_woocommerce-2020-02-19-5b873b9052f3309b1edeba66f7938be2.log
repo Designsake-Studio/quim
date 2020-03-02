@@ -1,0 +1,64 @@
+2020-02-19T01:57:45+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_Cart_Update starts in the next minute :: obj_id 81d88d24366345b44973519a8f3b374e
+2020-02-19T01:57:46+00:00 NOTICE abandoned_cart.success :: email: luciammoore@yahoo.com :: checkout_url: https://itsquim.com/checkout/?mc_cart_id=81d88d24366345b44973519a8f3b374e
+2020-02-19T07:14:29+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_Cart_Update starts in the next minute :: obj_id 852cca5acc7c3f60c19ac9f856ebbb2d
+2020-02-19T07:14:30+00:00 NOTICE abandoned_cart.success :: email: evl_mpire@yahoo.com :: checkout_url: https://itsquim.com/checkout/?mc_cart_id=852cca5acc7c3f60c19ac9f856ebbb2d
+2020-02-19T16:27:42+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_Cart_Update starts in the next minute :: obj_id 77435d12f731b434fd6f2429259a336a
+2020-02-19T16:28:14+00:00 NOTICE abandoned_cart.success :: email: olgalang@sbcglobal.net :: checkout_url: https://itsquim.com/checkout/?mc_cart_id=77435d12f731b434fd6f2429259a336a
+2020-02-19T16:30:21+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_Single_Order starts in 90 seconds :: obj_id 12784
+2020-02-19T16:35:04+00:00 NOTICE order_submit.success :: addStoreOrder :: #12784 :: email: olgalang@sbcglobal.net :: abandoned cart deleted [77435d12f731b434fd6f2429259a336a]
+2020-02-19T16:40:47+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_Cart_Update starts in the next minute :: obj_id 852cca5acc7c3f60c19ac9f856ebbb2d
+2020-02-19T16:41:21+00:00 NOTICE abandoned_cart.success :: email: evl_mpire@yahoo.com :: checkout_url: https://itsquim.com/checkout/?mc_cart_id=852cca5acc7c3f60c19ac9f856ebbb2d
+2020-02-19T16:41:47+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_Single_Order starts in 90 seconds :: obj_id 12785
+2020-02-19T16:45:18+00:00 NOTICE order_submit.success :: addStoreOrder :: #12785 :: email: evl_mpire@yahoo.com :: campaign id 4bceaa98ed :: abandoned cart deleted [852cca5acc7c3f60c19ac9f856ebbb2d]
+2020-02-19T18:27:21+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_Cart_Update starts in the next minute :: obj_id d1da6090dbe3d07969c06ae20bc79430
+2020-02-19T18:27:22+00:00 NOTICE abandoned_cart.success :: email: jamesfd62@gmail.com :: checkout_url: https://itsquim.com/checkout/?mc_cart_id=d1da6090dbe3d07969c06ae20bc79430
+2020-02-19T18:28:13+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_User_Submit starts in the next minute :: obj_id 172
+2020-02-19T18:28:14+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_Single_Order starts in 90 seconds :: obj_id 12786
+2020-02-19T18:32:04+00:00 NOTICE order_submit.success :: addStoreOrder :: #12786 :: email: jamesfd62@gmail.com :: abandoned cart deleted [d1da6090dbe3d07969c06ae20bc79430]
+2020-02-19T18:32:04+00:00 NOTICE member.sync :: Updated Member jamesfd62@gmail.com ( merge fields only ) :: Array
+(
+    [merge_fields] => Array
+        (
+            [FNAME] => James
+            [LNAME] => Davis
+        )
+
+)
+
+2020-02-19T18:32:05+00:00 NOTICE member.sync :: Updated Member jamesfd62@gmail.com ( merge fields only ) :: Array
+(
+    [merge_fields] => Array
+        (
+            [FNAME] => James
+            [LNAME] => Davis
+        )
+
+)
+
+2020-02-19T19:12:02+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_User_Submit starts in the next minute :: obj_id 172
+2020-02-19T19:13:17+00:00 NOTICE member.sync :: Updated Member jamesfd62@gmail.com ( merge fields only ) :: Array
+(
+    [merge_fields] => Array
+        (
+            [FNAME] => James
+            [LNAME] => Davis
+        )
+
+)
+
+2020-02-19T22:33:48+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_Single_Order starts in 90 seconds :: obj_id 12785
+2020-02-19T22:33:49+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_Single_Order starts in 90 seconds :: obj_id 12784
+2020-02-19T22:33:50+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_Single_Order starts in 90 seconds :: obj_id 12786
+2020-02-19T22:35:30+00:00 NOTICE order_submit.success :: updateStoreOrder :: #12786 :: email: jamesfd62@gmail.com
+2020-02-19T22:35:30+00:00 NOTICE member.sync :: Updated Member jamesfd62@gmail.com ( merge fields only ) :: Array
+(
+    [merge_fields] => Array
+        (
+            [FNAME] => James
+            [LNAME] => Davis
+        )
+
+)
+
+2020-02-19T22:35:31+00:00 NOTICE order_submit.success :: updateStoreOrder :: #12784 :: email: olgalang@sbcglobal.net
+2020-02-19T22:35:32+00:00 NOTICE order_submit.success :: updateStoreOrder :: #12785 :: email: evl_mpire@yahoo.com

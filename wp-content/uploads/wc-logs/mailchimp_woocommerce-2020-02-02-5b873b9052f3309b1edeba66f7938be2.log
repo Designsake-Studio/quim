@@ -1,0 +1,57 @@
+2020-02-02T02:49:21+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_Cart_Update starts in the next minute :: obj_id 22f17cd30cc2d4caa184dd0a779c3062
+2020-02-02T02:49:33+00:00 NOTICE abandoned_cart.success :: email: jstockberger88@yahoo.com :: checkout_url: https://itsquim.com/checkout/?mc_cart_id=22f17cd30cc2d4caa184dd0a779c3062
+2020-02-02T02:50:14+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_User_Submit starts in the next minute :: obj_id 121
+2020-02-02T02:50:15+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_Single_Order starts in 90 seconds :: obj_id 9972
+2020-02-02T02:50:53+00:00 NOTICE member.sync :: Updated Member jstockberger88@yahoo.com :: Array
+(
+    [previous_status] => transactional
+    [status] => 1
+    [merge_fields] => Array
+        (
+            [FNAME] => Jordan
+            [LNAME] => Stockberger
+        )
+
+)
+
+2020-02-02T02:52:00+00:00 NOTICE order_submit.success :: addStoreOrder :: #9972 :: email: jstockberger88@yahoo.com :: abandoned cart deleted [22f17cd30cc2d4caa184dd0a779c3062]
+2020-02-02T02:52:00+00:00 NOTICE member.sync :: Updated Member jstockberger88@yahoo.com ( merge fields only ) :: Array
+(
+    [merge_fields] => Array
+        (
+            [FNAME] => Jordan
+            [LNAME] => Stockberger
+        )
+
+)
+
+2020-02-02T07:55:05+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_Cart_Update starts in the next minute :: obj_id df0f354acf51254c4453e1e59ad59600
+2020-02-02T07:55:37+00:00 NOTICE abandoned_cart.success :: email: mrbil2u@gmail.com :: checkout_url: https://itsquim.com/checkout/?mc_cart_id=df0f354acf51254c4453e1e59ad59600
+2020-02-02T07:58:06+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_User_Submit starts in the next minute :: obj_id 122
+2020-02-02T07:58:08+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_Single_Order starts in 90 seconds :: obj_id 9985
+2020-02-02T08:12:27+00:00 NOTICE member.sync :: Updated Member mrbil2u@gmail.com :: Array
+(
+    [previous_status] => transactional
+    [status] => 1
+    [merge_fields] => Array
+        (
+            [FNAME] => Michael
+            [LNAME] => Wright
+        )
+
+)
+
+2020-02-02T08:12:28+00:00 NOTICE order_submit.success :: addStoreOrder :: #9985 :: email: mrbil2u@gmail.com :: abandoned cart deleted [df0f354acf51254c4453e1e59ad59600]
+2020-02-02T08:12:28+00:00 NOTICE member.sync :: Updated Member mrbil2u@gmail.com ( merge fields only ) :: Array
+(
+    [merge_fields] => Array
+        (
+            [FNAME] => Michael
+            [LNAME] => Wright
+        )
+
+)
+
+2020-02-02T23:06:10+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_Cart_Update starts in the next minute :: obj_id f53c48b907368e1dda305062edceb46c
+2020-02-02T23:22:51+00:00 ERROR abandoned_cart.error :: email: amy_kettner@yahoo.con :: attempting product update :: Customer could not be imported to the list associated with this store.
+2020-02-02T23:22:52+00:00 ERROR abandoned_cart.error :: Error Code 400 :: Customer could not be imported to the list associated with this store. on 1775 in /home/x7e8jhvdjjbo/public_html/wp-content/plugins/mailchimp-for-woocommerce/includes/api/class-mailchimp-api.php

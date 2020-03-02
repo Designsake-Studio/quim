@@ -1,0 +1,402 @@
+/**
+ * All of the CSS for your public-facing functionality should be
+ * included in this file.
+ */
+
+ @import url('https://fonts.googleapis.com/css?family=Poppins:300,300i,400,500,700');
+
+ ul.woocommcerce.wt_give_away_products {
+    float: left;
+    width: 100%;
+    margin: 0;
+    padding: 0px;
+    list-style-type: none;
+}
+
+.wt_give_away_products li {
+    float: left;
+    width: 28%;
+    margin-right: 10px;
+}
+.wt_product_image{
+    position: relative;
+}
+button.wt_choose_free_product {
+    position: absolute;
+    top: 50%;
+    display: none;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 160px;
+}
+.wt_product_image:hover button.wt_choose_free_product{
+    display: block;
+}
+.wt_product_image:hover {
+    background: rgba(0,0,0,.6);
+}
+.wt_choose_button_outer {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background: rgba(0,0,0,.5);
+    z-index: 100;
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+.wt_product_image:hover .wt_choose_button_outer {
+    display: block;
+}
+table.variations.wt_variations td {
+    padding: 3px 2px;
+    margin-bottom: 2px;
+}
+
+/* coupon Styling */
+
+.wt-mycoupons ul li {
+    box-sizing: border-box;
+    display: inline-block;
+    padding: 15px;
+    width: 170px;
+    min-height: 60px;
+    margin-bottom: 15px;
+    vertical-align: top;
+    line-height: 1.4;
+}  
+.wt-single-coupon{
+    background-color: #2890a8 ;
+    border: 2px dashed #fff;
+    text-align: center;
+    margin-bottom: 30px;
+    transition: all .3s;
+    position: relative;
+    vertical-align: top;
+    color: #fff;
+    margin-right: 30px;
+    float: left;
+    align-items: center;
+    height: 110px;
+    width: 300px;
+    max-width: 100%;
+    padding: 5px;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -ms-flex-item-align: center;
+    align-items: center;
+  }
+  .wt-single-coupon.active-coupon:not(.by_shortcode){
+    cursor: pointer;
+  }
+  .wt-single-coupon, .wt-single-coupon span, .wt-single-coupon div, .wt-single-coupon code {
+    font-family: 'Poppins', sans-serif;
+  }
+  .wt-coupon-amount span.amount {
+    font-size: 30px;
+    margin-right: 5px;
+    font-weight: 500;
+  }
+  .ticket_style .wt-coupon-amount span.amount{
+    margin-right: 0px;
+  }
+  .wt-coupon-amount {
+    float: left;
+    width: 100%;
+    font-size: 20px;
+    line-height: 25px;
+    font-weight: 500;
+  }
+  
+  .wt-coupon-code {
+    float: left;
+    width: 100%;
+    font-size: 19px;
+    line-height: 25px;
+  }
+  
+  .wt-single-coupon.used-coupon {
+    background-color: #eee ;
+    color: #000;
+    border: 2px dashed #000;
+  }
+  .wt-coupon-code code{
+    background: none;
+    font-size: 15px;
+    opacity: 0.7;
+  }
+  .wt-single-coupon.used-coupon.expired {
+    background-color: #f3dfdf;
+    color: #a96b6b;
+    border: 2px dashed #eccaca;
+  }
+  .wt-coupon-content {
+    padding: 10px 0px;
+    float: left;
+    width: 100%;
+  }
+  
+  .ticket_style .wt-coupon-content {
+    padding: 10px;
+    float: left;
+    width: 100%;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -ms-flex-item-align: center;
+    align-items: center;
+  }
+  .wt-single-coupon.stitched_padding {
+    box-shadow: 0 0 0 4px #2890a8, 2px 1px 6px 4px rgba(10, 10, 0, 0);
+    height: 102px;
+    width: 292px;
+    margin-top: 4px;
+  }
+  .wt-single-coupon.stitched_edge {
+    border: 2px dashed #e9e9eb;
+    background: #f7f7f7;
+    color: #000;
+  }
+  .wt-single-coupon.plane_coupon {
+    border: none;
+    background: #c8f1c0;
+    color: #30900c;
+  }
+  
+  .wt-single-coupon.ticket_style{
+    background: #fffae6;
+    border: 1px dotted #fc7400;
+    color: #000;
+  }
+  .wt-single-coupon.ticket_style .discount_type{
+    font-weight: 500;
+    font-size: 22px;
+  }
+  .wt-single-coupon.ticket_style .wt-coupon-amount {
+    color: #fc7400;
+    padding-top: 12px;
+    padding-right: 10px;
+    border-right: 1px dotted;
+    padding-bottom: 12px;
+  }
+  .ticket_style .wt-coupon-amount {
+    float: left;
+    width: auto;
+  }
+  .ticket_style .wt-coupon-code {
+    float: left;
+    padding-left: 10px;
+    text-align: left;
+  }
+  .ticket_style .wt-coupon-code span {
+    float: left;
+    width: 100%;
+  }
+
+.wt-single-coupon .coupon-desc {
+    position: absolute;
+    top: -18px;
+    background: #f2f2f2;
+    color:#000;
+    text-shadow: none;
+    font-size: 12px;
+    right: -303px;
+    width: 300px;
+    padding: 10px 20px;
+    z-index: 100;
+    border-radius: 8px;
+    display: none;
+    min-height: 90px;
+    max-width: 100%;
+}
+.coupon-desc ul {
+  margin: 0px !important;
+  text-align: left;
+  list-style-type: disc;
+}
+
+.coupon-desc ul li {
+  padding: 0px;
+  margin: 0px;
+  width: 100%;
+  height: auto;
+  min-height: auto;
+  list-style-type: disc !important;
+}
+
+
+
+/* .wt-single-coupon .coupon-desc:after{
+    width: 0;
+    height: 0;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-right: 10px solid rgba(0,0,0,.7);
+    position: absolute;
+    left: -10px;
+    top: 23px;
+    content: '';
+} */
+.coupon-desc-wrapper:hover .coupon-desc {
+    display: block;
+}
+.wt-single-coupon i.info {
+    position: absolute;
+    top: 6px;
+    right: 10px;
+    font-size: 13px;
+    font-weight: bold;
+    border-radius: 100%;
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    text-shadow: none;
+    color: #2890a8;
+    font-style: normal;
+    cursor: pointer;
+}
+
+.wt_smart_coupon_send_coupon_wrap {
+    float: left;
+}
+.wt_smart_coupon_send_coupon_wrap ul {
+    list-style-type: none;
+}
+.gift_to_friend_form {
+    float: left;
+    width: 100%;
+    margin-top: 15px;
+}
+
+.gift_to_friend_form .wt-form-item {
+    float: left;
+    width: 100%;
+    margin-bottom: 12px;
+}
+
+.gift_to_friend_form .wt-form-item input {
+    float: left;
+    width: 100%;
+}
+.wt_coupon_wrapper {
+    float: left;
+    width: 100%;
+    position: relative;
+}
+.coupon-loader {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    background: rgba(255,255,255,0.5);
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    display: none;
+}
+.wt_smart_coupon_send_coupon_wrap input {
+  margin-right: 10px;
+}
+
+.wt_smart_coupon_send_coupon_wrap li {
+  margin-bottom: 11px;
+}
+.wt_smart_coupon_send_coupon_wrap label{
+  cursor: pointer;
+}
+.wt-used-coupons, .wt-mycoupons {
+  float: left;
+  width: 100%;
+}
+
+
+.credit_gift_to_friend_form {
+  float: left;
+  width: 100%;
+  margin-top: 15px;
+}
+
+.credit_gift_to_friend_form .wt-form-item {
+  float: left;
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+.credit_gift_to_friend_form .wt-form-item input {
+  float: left;
+  width: 100%;
+}
+.credit-purchase-field {
+  float: left;
+  width: 100%;
+}
+
+#wt_store_credit {
+  float: left;
+  width: 100%;
+}
+.credit_instruction {
+  width: 100%;
+  padding: 0px 0px 15px 0;
+  font-size: 14px;
+  color: #cacdd1;
+  margin-left: 10px;
+}
+.credit_history span {
+  font:bold 13px/1 dashicons;
+  font-size: 14px;
+}
+.credit_history {
+  font-size: 13px;
+  font-weight: bold;
+  border-radius: 100%;
+  width: 20px;
+  height: 20px;
+  text-shadow: none;
+  font-style: normal;
+  cursor: pointer;
+  position: absolute;
+  right: 12px;
+  bottom: 10px;
+  text-align: center;
+  line-height: 20px;
+  text-decoration: none !important;
+  background: #fff;
+  border-radius: 100%;
+}
+a.credit_history span:before {
+  line-height: 20px;
+  color: #2890a8;
+}
+input#wt_user_credit_amount {
+  margin-left: 10px;
+}
+span.wt-credited {
+  color: green;
+}
+
+span.wt-debited {
+  color: red;
+}
+
+
+h4.giveaway-title {
+  font-size: 18px;
+}
+h4.giveaway-title span {
+  font-weight: 500;
+}
+
+
+@media only screen and (max-width: 700px)  {
+  .wt-coupon-content {
+      z-index: 5;
+  }
+  .wt-single-coupon .coupon-desc{
+    z-index: 100;
+    right:auto;
+    top:30px;
+    left:0px;
+  }
+
+}

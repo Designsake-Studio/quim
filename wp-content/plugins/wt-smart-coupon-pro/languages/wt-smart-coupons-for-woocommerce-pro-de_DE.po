@@ -1,0 +1,1965 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Smart Coupons for WooCommerce  Pro\n"
+"POT-Creation-Date: 2019-05-20 11:58+0530\n"
+"PO-Revision-Date: 2019-05-27 10:34+0530\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: de_DE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.12\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-WPHeader: wt-smart-coupon-pro.php\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:26
+msgid "Bulk Generate"
+msgstr "Bulk-Generierung"
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:32
+msgid "Create couopon"
+msgstr "Gutschein erstellen"
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:58
+msgid "Bulk generate"
+msgstr "Masse erzeugen"
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:71
+msgid "Length of the coupon code"
+msgstr "Länge des Gutscheincodes"
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:76
+msgid ""
+"By default the plugin generates a 12 character coupon code minus the Prefix "
+"and Suffix. "
+msgstr ""
+"Standardmäßig generiert das Plugin einen 12-stelligen Gutscheincode ohne "
+"Präfix und Suffix."
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:130
+msgid "Coupon format"
+msgstr "Coupon-Format"
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:161
+#, php-format
+msgid "Please enter in decimal (%s) format without thousand separators."
+msgstr "Bitte geben Sie das Dezimalformat (%s) ohne Tausendertrennzeichen ein."
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:162
+#, php-format
+msgid ""
+"Please enter in monetary decimal (%s) format without thousand separators and "
+"currency symbols."
+msgstr ""
+"Bitte geben Sie das Dezimalformat (%s) ohne Tausendertrennzeichen und "
+"Währungssymbole ein."
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:163
+msgid "Please enter in country code with two capital letters."
+msgstr "Bitte geben Sie den Ländercode mit zwei Großbuchstaben ein."
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:164
+msgid "Please enter in a value less than the regular price."
+msgstr "Bitte geben Sie einen Wert ein, der unter dem regulären Preis liegt."
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:170
+msgid ""
+"Are you sure you want to remove the selected items? If you have previously "
+"reduced this item's stock, or this order was submitted by a customer, you "
+"will need to manually restore the item's stock."
+msgstr ""
+"Möchten Sie die ausgewählten Elemente wirklich entfernen? Wenn Sie zuvor den "
+"Bestand dieses Artikels reduziert haben oder diese Bestellung von einem "
+"Kunden übermittelt wurde, müssen Sie den Bestand des Artikels manuell "
+"wiederherstellen."
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:171
+msgid "Please select some items."
+msgstr "Bitte wählen Sie einige Artikel aus."
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:172
+msgid ""
+"Are you sure you wish to process this refund? This action cannot be undone."
+msgstr ""
+"Möchten Sie diese Rückerstattung wirklich verarbeiten? Diese Aktion kann "
+"nicht rückgängig gemacht werden."
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:173
+msgid ""
+"Are you sure you wish to delete this refund? This action cannot be undone."
+msgstr ""
+"Möchten Sie diese Rückerstattung wirklich löschen? Diese Aktion kann nicht "
+"rückgängig gemacht werden."
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:174
+msgid ""
+"Are you sure you wish to delete this tax column? This action cannot be "
+"undone."
+msgstr ""
+"Möchten Sie diese Steuerspalte wirklich löschen? Diese Aktion kann nicht "
+"rückgängig gemacht werden."
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:175
+msgid "Remove this item meta?"
+msgstr "Diesen Gegenstand entfernen meta?"
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:176
+msgid "Remove this attribute?"
+msgstr "Dieses Attribut entfernen?"
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:177
+msgid "Name"
+msgstr "Name"
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:178
+msgid "Remove"
+msgstr "Löschen"
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:179
+msgid "Click to toggle"
+msgstr "Zum Umschalten klicken"
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:180
+msgid "Value(s)"
+msgstr "Wert(e)"
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:181
+msgid "Enter some text, or some attributes by pipe (|) separating values."
+msgstr ""
+"Geben Sie einen Text oder einige Attribute durch Trennen der Werte mit der "
+"Pipe (|) ein."
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:182
+msgid "Visible on the product page"
+msgstr "Sichtbar auf der Produktseite"
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:183
+msgid "Used for variations"
+msgstr "Wird für Variationen verwendet"
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:184
+msgid "Enter a name for the new attribute term:"
+msgstr "Geben Sie einen Namen für den neuen Attributbegriff ein:"
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:185
+msgid "Calculate totals based on order items, discounts, and shipping?"
+msgstr ""
+"Summen basierend auf Bestellpositionen, Rabatten und Versand berechnen?"
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:186
+msgid ""
+"Calculate line taxes? This will calculate taxes based on the customers "
+"country. If no billing/shipping is set it will use the store base country."
+msgstr ""
+"Leitungssteuern berechnen? Dadurch werden die Steuern basierend auf dem Land "
+"des Kunden berechnet. Wenn keine Abrechnung / Versand eingestellt ist, wird "
+"das Basisland des Geschäfts verwendet."
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:187
+msgid ""
+"Copy billing information to shipping information? This will remove any "
+"currently entered shipping information."
+msgstr ""
+"Rechnungsinformationen in Versandinformationen kopieren? Dadurch werden alle "
+"aktuell eingegebenen Versandinformationen entfernt."
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:188
+msgid ""
+"Load the customer's billing information? This will remove any currently "
+"entered billing information."
+msgstr ""
+"Rechnungsinformationen des Kunden laden? Dadurch werden alle derzeit "
+"eingegebenen Zahlungsinformationen entfernt."
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:189
+msgid ""
+"Load the customer's shipping information? This will remove any currently "
+"entered shipping information."
+msgstr ""
+"Versandinformationen des Kunden laden? Dadurch werden alle aktuell "
+"eingegebenen Versandinformationen entfernt."
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:190
+msgid "Featured"
+msgstr "Empfohlen"
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:193
+msgid "No customer selected"
+msgstr "Kein Kunde ausgewählt"
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:217
+msgid ""
+"Could not grant access - the user may already have permission for this file "
+"or billing email is not set. Ensure the billing email is set, and the order "
+"has been saved."
+msgstr ""
+"Zugriff konnte nicht gewährt werden - der Benutzer verfügt möglicherweise "
+"bereits über die Berechtigung für diese Datei, oder die Rechnungs-E-Mail "
+"wurde nicht festgelegt. Stellen Sie sicher, dass die Abrechnungs-E-Mail "
+"eingestellt ist und die Bestellung gespeichert wurde."
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:218
+msgid "Are you sure you want to revoke access to this download?"
+msgstr "Möchten Sie den Zugriff auf diesen Download wirklich widerrufen?"
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:219
+msgid "You cannot add the same tax rate twice!"
+msgstr "Sie können nicht zweimal denselben Steuersatz hinzufügen!"
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:220
+msgid ""
+"Your product has variations! Before changing the product type, it is a good "
+"idea to delete the variations to avoid errors in the stock reports."
+msgstr ""
+"Ihr Produkt hat Variationen! Bevor Sie den Produkttyp ändern, sollten Sie "
+"die Variationen löschen, um Fehler in den Bestandsberichten zu vermeiden."
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:245
+msgid "Bulk Generate Coupon"
+msgstr "Massencoupon generieren"
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:246
+msgid ""
+"Specified number of coupons are generated as per the matching criteria from "
+"the Coupon data section below."
+msgstr ""
+"Die angegebene Anzahl von Gutscheinen wird gemäß den "
+"Übereinstimmungskriterien im Abschnitt mit den Gutscheindaten unten "
+"generiert."
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:247
+msgid " Add to store: Adds the generated coupons to the store."
+msgstr ""
+"Zum Geschäft hinzufügen: Fügt die generierten Gutscheine zum Geschäft hinzu."
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:248
+msgid ""
+"Export as CSV: Exports the generated coupons into a CSV file for future use."
+msgstr ""
+"Export as CSV: Exports the generated coupons into a CSV file for future use."
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:249
+msgid ""
+"Email recipient: Emails the respective coupons to the recipients. This works "
+"in combination with Allowed emails option."
+msgstr ""
+"E-Mail-Empfänger: Versendet die entsprechenden Coupons per E-Mail an die "
+"Empfänger. Dies funktioniert in Kombination mit der Option Zulässige E-Mails."
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:252
+msgid "Action"
+msgstr "Aktion"
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:256
+msgid "No of coupons need to generate"
+msgstr "Es müssen keine Gutscheine generiert werden"
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:260
+msgid "Generate Coupon and,"
+msgstr "Gutschein generieren und,"
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:262
+msgid "Add to Store"
+msgstr "Zum Shop hinzufügen"
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:263
+msgid "Export as CSV"
+msgstr "Als CSV exportieren"
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:264
+msgid "Email to the recipients"
+msgstr "E-Mail an die Empfänger"
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:269
+msgid ""
+"If email restriction is applied under allowed emails option, the application "
+"generates only enough of coupons depending on whichever is the lowest value, "
+"either the coupon number or the no. of emails."
+msgstr ""
+"Wenn die E-Mail-Beschränkung unter der Option \"Zulässige E-Mails\" "
+"angewendet wird, generiert die Anwendung nur genügend Gutscheine, je "
+"nachdem, welcher Wert der niedrigste ist, entweder die Gutscheinnummer oder "
+"die Nummer. von E-Mails."
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:270
+msgid "Read more"
+msgstr "Weiterlesen"
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:307
+msgid "Coupon data"
+msgstr "Coupondaten"
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:329
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:419
+msgid "Please enter a valid value for Number of Coupons to Generate"
+msgstr ""
+"Bitte geben Sie einen gültigen Wert für die Anzahl der zu generierenden "
+"Coupons ein"
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:439
+msgid "Coupon Code"
+msgstr "Gutscheincode"
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:440
+msgid "Post Excerpt"
+msgstr "Beitragsauszug"
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:441
+msgid "Post Status"
+msgstr "Poststatus"
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:442
+msgid "Post Parent"
+msgstr "Übergeordnetes Objekt"
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:443
+msgid "Menu Order"
+msgstr "Menüreihenfolge"
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:444
+msgid "Post Date"
+msgstr "Nach Datum"
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:447
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:448
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:449
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:450
+msgid "_wt_sc_shipping_methods"
+msgstr "_wt_sc_shipping_methods"
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:451
+msgid "_wt_category_condition"
+msgstr "_wt_category_condition"
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:452
+msgid "_wt_product_condition"
+msgstr "_wt_product_condition"
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:453
+msgid "_wt_free_product_ids"
+msgstr "_wt_free_product_ids"
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:454
+msgid "_wt_min_matching_product_qty"
+msgstr "_wt_min_matching_product_qty"
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:455
+msgid "_wt_max_matching_product_qty"
+msgstr "_wt_max_matching_product_qty"
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:456
+msgid "_wt_min_matching_product_subtotal"
+msgstr "_wt_min_matching_product_subtotal"
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:457
+msgid "_wt_max_matching_product_subtotal"
+msgstr "_wt_max_matching_product_subtotal"
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:458
+msgid "discount_type"
+msgstr "discount_type"
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:459
+msgid "coupon_amount"
+msgstr "coupon_amount"
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:460
+msgid "individual_use"
+msgstr "individual_use"
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:461
+msgid "product_ids"
+msgstr "product_ids"
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:462
+msgid "exclude_product_ids"
+msgstr "exclude_product_ids"
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:463
+msgid "_wt_valid_for_number"
+msgstr "_wt_valid_for_number"
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:464
+msgid "minimum_amount"
+msgstr "minimum_amount"
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:465
+msgid "maximum_amount"
+msgstr "maximum_amount"
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:466
+msgid "customer_email"
+msgstr "customer_email"
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:467
+msgid "usage_limit"
+msgstr "use_limit"
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:468
+msgid "limit_usage_to_x_items"
+msgstr "limit_usage_to_x_items"
+
+#: admin/bulk-generate/class-wt-smart-coupon-bulk-generate.php:469
+msgid "usage_limit_per_user"
+msgstr "usage_limit_per_user"
+
+#: admin/class-wt-duplicate-coupon.php:20
+msgid "No post to duplicate has been supplied!"
+msgstr "Es wurde kein zu duplizierender Beitrag geliefert!"
+
+#: admin/class-wt-duplicate-coupon.php:102
+msgid "Post creation failed, could not find original post: "
+msgstr ""
+"Beitragserstellung fehlgeschlagen, Originalbeitrag konnte nicht gefunden "
+"werden:"
+
+#: admin/class-wt-duplicate-coupon.php:114
+msgid "Duplicate"
+msgstr "Duplikat"
+
+#: admin/class-wt-duplicate-coupon.php:115
+msgid "Duplicate this item"
+msgstr "Duplizieren Sie diesen Artikel"
+
+#: admin/class-wt-smart-coupon-admin.php:204
+msgid "Checkout Options"
+msgstr "Checkout-Optionen"
+
+#: admin/class-wt-smart-coupon-admin.php:249
+msgid "Shipping methods"
+msgstr "Versandarten"
+
+#: admin/class-wt-smart-coupon-admin.php:250
+msgid "Any shipping method"
+msgstr "Beliebige Versandart"
+
+#: admin/class-wt-smart-coupon-admin.php:267
+msgid ""
+"Coupon will be applicable if any of these shipping methods are selected."
+msgstr ""
+"Der Gutschein ist gültig, wenn eine dieser Versandmethoden ausgewählt wurde."
+
+#: admin/class-wt-smart-coupon-admin.php:272
+msgid "Payment methods"
+msgstr "Zahlungsarten"
+
+#: admin/class-wt-smart-coupon-admin.php:274
+msgid "Any payment method"
+msgstr "Beliebige Zahlungsart"
+
+#: admin/class-wt-smart-coupon-admin.php:299
+msgid "Coupon will be applicable if any of these payment methods are selected."
+msgstr ""
+"Der Gutschein ist gültig, wenn eine dieser Zahlungsmethoden ausgewählt wurde."
+
+#: admin/class-wt-smart-coupon-admin.php:303
+msgid "Applicable Roles"
+msgstr "Anwendbare Rollen"
+
+#: admin/class-wt-smart-coupon-admin.php:312
+msgid "Any role"
+msgstr "Beliebige Rolle"
+
+#: admin/class-wt-smart-coupon-admin.php:331
+msgid ""
+"Coupon will be applicable if customer belongs to any of these User Roles."
+msgstr ""
+"Der Gutschein gilt, wenn der Kunde einer dieser Benutzerrollen angehört."
+
+#: admin/class-wt-smart-coupon-admin.php:345
+msgid "Restrict by country"
+msgstr "Nach Land einschränken"
+
+#: admin/class-wt-smart-coupon-admin.php:348
+msgid "Billing Address."
+msgstr "Rechnungsadresse."
+
+#: admin/class-wt-smart-coupon-admin.php:349
+msgid "Shipping Address."
+msgstr "Lieferanschrift."
+
+#: admin/class-wt-smart-coupon-admin.php:351
+msgid "Look for country from the selected option"
+msgstr "Suchen Sie nach dem Land aus der ausgewählten Option"
+
+#: admin/class-wt-smart-coupon-admin.php:370
+msgid "Country"
+msgstr "Land"
+
+#: admin/class-wt-smart-coupon-admin.php:376
+msgid "Any Location"
+msgstr "Beliebiger Ort"
+
+#: admin/class-wt-smart-coupon-admin.php:393
+msgid " Coupon will be applicable only for the opted locations."
+msgstr "Der Gutschein gilt nur für die ausgewählten Standorte."
+
+#: admin/class-wt-smart-coupon-admin.php:408
+msgid "Support"
+msgstr "Unterstützung"
+
+#: admin/class-wt-smart-coupon-admin.php:409
+#: admin/class-wt-smart-coupon-admin.php:552
+msgid "Settings"
+msgstr "Einstellungen"
+
+#: admin/class-wt-smart-coupon-admin.php:430
+msgid "Product condition:"
+msgstr "Produktzustand:"
+
+#: admin/class-wt-smart-coupon-admin.php:433
+#: admin/class-wt-smart-coupon-admin.php:454
+msgid "Any"
+msgstr "Irgendein"
+
+#: admin/class-wt-smart-coupon-admin.php:434
+#: admin/class-wt-smart-coupon-admin.php:455
+msgid "All"
+msgstr "Alles"
+
+#: admin/class-wt-smart-coupon-admin.php:436
+msgid ""
+"Coupon will be applied if any of the products from the below is available in "
+"the cart; all of option requires that the cart contains all of the listed "
+"products."
+msgstr ""
+"Der Gutschein wird angewendet, wenn eines der unten aufgeführten Produkte im "
+"Warenkorb verfügbar ist. Alle Optionen setzen voraus, dass der Einkaufswagen "
+"alle aufgelisteten Produkte enthält."
+
+#: admin/class-wt-smart-coupon-admin.php:451
+msgid "Category condition:"
+msgstr "Kategoriebedingung:"
+
+#: admin/class-wt-smart-coupon-admin.php:458
+msgid ""
+"Coupon will be applied if any of the categories from the below is available "
+"in the cart; all of option requires that the cart contains all of the listed "
+"categories."
+msgstr ""
+"Coupon wird angewendet, wenn eine der unten aufgeführten Kategorien im "
+"Warenkorb verfügbar ist; Für alle Optionen muss der Einkaufswagen alle "
+"aufgelisteten Kategorien enthalten."
+
+#: admin/class-wt-smart-coupon-admin.php:463
+msgid "Matching products"
+msgstr "Passende Produkte"
+
+#: admin/class-wt-smart-coupon-admin.php:470
+msgid "Minimum quantity of matching products"
+msgstr "Mindestmenge an passenden Produkten"
+
+#: admin/class-wt-smart-coupon-admin.php:471
+#: admin/class-wt-smart-coupon-admin.php:495
+msgid "No minimum"
+msgstr "Kein Minimum"
+
+#: admin/class-wt-smart-coupon-admin.php:472
+msgid ""
+"Minimum quantity of the products that match the given product or category "
+"restrictions. If no product or category restrictions are specified, the "
+"total number of products is used."
+msgstr ""
+"Mindestmenge der Produkte, die den angegebenen Produkt- oder "
+"Kategoriebeschränkungen entsprechen. Wenn keine Produkt- oder "
+"Kategoriebeschränkungen angegeben sind, wird die Gesamtzahl der Produkte "
+"verwendet."
+
+#: admin/class-wt-smart-coupon-admin.php:482
+msgid "Maximum quantity of matching products"
+msgstr "Maximale Anzahl passender Produkte"
+
+#: admin/class-wt-smart-coupon-admin.php:483
+#: admin/class-wt-smart-coupon-admin.php:507
+msgid "No maximum"
+msgstr "Kein Maximum"
+
+#: admin/class-wt-smart-coupon-admin.php:484
+msgid ""
+"Maximum quantity of the products that match the given product or category "
+"restrictions. If no product or category restrictions are specified, the "
+"total number of products is used."
+msgstr ""
+"Maximale Menge der Produkte, die den angegebenen Produkt- oder "
+"Kategoriebeschränkungen entsprechen. Wenn keine Produkt- oder "
+"Kategoriebeschränkungen angegeben sind, wird die Gesamtzahl der Produkte "
+"verwendet."
+
+#: admin/class-wt-smart-coupon-admin.php:494
+msgid "Minimum subtotal of matching products"
+msgstr "Minimale Zwischensumme der passenden Produkte"
+
+#: admin/class-wt-smart-coupon-admin.php:496
+msgid ""
+"Minimum price subtotal of the products that match the given product or "
+"category restrictions."
+msgstr ""
+"Zwischensumme des Mindestpreises der Produkte, die den angegebenen Produkt- "
+"oder Kategoriebeschränkungen entsprechen."
+
+#: admin/class-wt-smart-coupon-admin.php:506
+msgid "Maximum subtotal of matching products"
+msgstr "Maximale Zwischensumme der übereinstimmenden Produkte"
+
+#: admin/class-wt-smart-coupon-admin.php:508
+msgid ""
+"Maximum price subtotal of the products that match the given product or "
+"category restrictions."
+msgstr ""
+"Zwischensumme des Höchstpreises der Produkte, die den angegebenen Produkt- "
+"oder Kategoriebeschränkungen entsprechen."
+
+#: admin/class-wt-smart-coupon-admin.php:551
+msgid "Coupon"
+msgstr "Coupon"
+
+#: admin/class-wt-smart-coupon-admin.php:553
+msgid "License"
+msgstr "Lizenz"
+
+#: admin/class-wt-smart-coupon-admin.php:620
+#: admin/gift-coupon/admin/class-wt-smartcoupon-gift-coupon-admin.php:29
+msgid "Coupons"
+msgstr "Gutscheine"
+
+#: admin/class-wt-smart-coupon-admin.php:622
+msgid "Add coupon"
+msgstr "Gutschein hinzufügen"
+
+#: admin/class-wt-smart-coupon-admin.php:678
+msgid "My Account"
+msgstr "Mein Konto"
+
+#: admin/class-wt-smart-coupon-admin.php:679
+msgid "Checkout"
+msgstr "Auschecken"
+
+#: admin/class-wt-smart-coupon-admin.php:680
+msgid "Cart"
+msgstr "Wagen"
+
+#: admin/class-wt-smart-coupon-admin.php:683
+msgid "Make coupon available in"
+msgstr "Gutschein verfügbar machen in"
+
+#: admin/class-wt-smart-coupon-admin.php:684
+#: admin/gift-coupon/admin/class-wt-smartcoupon-gift-coupon-admin.php:161
+#: admin/store-credit/admin/class-smart-coupon-store-credit.php:292
+msgid "Please select"
+msgstr "Bitte auswählen"
+
+#: admin/class-wt-smart-coupon-admin.php:701
+msgid "Make coupon available in selected pages"
+msgstr "Gutschein auf ausgewählten Seiten verfügbar machen"
+
+#: admin/class-wt-smart-coupon-admin.php:752
+#: admin/combo_coupon/class-wt-smart-coupon-combo-coupon.php:47
+#: admin/combo_coupon/class-wt-smart-coupon-combo-coupon.php:82
+#: admin/gift-coupon/admin/class-wt-smartcoupon-gift-coupon-admin.php:43
+msgid "Type"
+msgstr "Art"
+
+#: admin/class-wt-smart-coupon-admin.php:1008
+msgid "Completed"
+msgstr "Abgeschlossen"
+
+#: admin/class-wt-smart-coupon-admin.php:1009
+msgid "Processing"
+msgstr "wird bearbeitet"
+
+#: admin/combo_coupon/class-wt-smart-coupon-combo-coupon.php:33
+msgid "Coupon can be used with"
+msgstr "Gutschein kann mit eingelöst werden"
+
+#: admin/combo_coupon/class-wt-smart-coupon-combo-coupon.php:35
+#: admin/combo_coupon/class-wt-smart-coupon-combo-coupon.php:70
+#: admin/gift-coupon/admin/class-wt-smartcoupon-gift-coupon-admin.php:31
+msgid "Search for a coupon&hellip;"
+msgstr "Suchen Sie nach einem Gutschein & hellip;"
+
+#: admin/combo_coupon/class-wt-smart-coupon-combo-coupon.php:47
+#: admin/combo_coupon/class-wt-smart-coupon-combo-coupon.php:82
+#: admin/gift-coupon/admin/class-wt-smartcoupon-gift-coupon-admin.php:43
+#, php-format
+msgid " ( %1$s: %2$s )"
+msgstr "%1$s#%2$s"
+
+#: admin/combo_coupon/class-wt-smart-coupon-combo-coupon.php:56
+msgid ""
+"Configure the list of coupons that can be redeemed together with the "
+"specified."
+msgstr ""
+"Konfigurieren Sie die Liste der Gutscheine, die zusammen mit den angegebenen "
+"eingelöst werden können."
+
+#: admin/combo_coupon/class-wt-smart-coupon-combo-coupon.php:68
+msgid "Coupon can't be used with"
+msgstr "Gutschein kann nicht mit verwendet werden"
+
+#: admin/combo_coupon/class-wt-smart-coupon-combo-coupon.php:91
+msgid ""
+"Configure the list of coupons that cannot be redeemed together with the "
+"specified."
+msgstr ""
+"Konfigurieren Sie die Liste der Gutscheine, die nicht zusammen mit den "
+"angegebenen eingelöst werden können."
+
+#: admin/combo_coupon/class-wt-smart-coupon-combo-coupon.php:147
+#: admin/combo_coupon/class-wt-smart-coupon-combo-coupon.php:156
+msgid ""
+"Sorry, this coupon cannot be used in conjunction with the applied coupon"
+msgstr ""
+"Dieser Coupon kann leider nicht in Verbindung mit dem angewendeten Coupon "
+"verwendet werden"
+
+#: admin/coupon-start-date/class-wt-smart-coupon-start-date.php:38
+msgid "Coupon Start date"
+msgstr "Coupon Startdatum"
+
+#: admin/coupon-start-date/class-wt-smart-coupon-start-date.php:70
+msgid "Sorry, this coupon only available after "
+msgstr "Entschuldigung, dieser Gutschein ist erst verfügbar nach"
+
+#: admin/email/class-wt-smart-coupon-email.php:12
+#: admin/email/class-wt-smart-coupon-email.php:16
+msgid "You have received a Coupon"
+msgstr "Sie haben einen Gutschein erhalten"
+
+#: admin/email/class-wt-smart-coupon-email.php:13
+msgid ""
+"This email will be sent to specified customers while creating bulk coupons "
+"and upon coupon import(if notification is enabled)."
+msgstr ""
+"Diese E-Mail wird beim Erstellen von Sammelgutscheinen und beim Import von "
+"Gutscheinen an bestimmte Kunden gesendet (sofern die Benachrichtigung "
+"aktiviert ist)."
+
+#: admin/email/class-wt-smart-coupon-email.php:17
+msgctxt "default email subject for active emails sent to the customer"
+msgid "You have received a Coupon"
+msgstr "Sie haben einen Gutschein erhalten"
+
+#: admin/enable-modules/class-wt-smart-coupon-enable-disable-feature.php:39
+msgid "Modules"
+msgstr "Module"
+
+#: admin/enable-modules/class-wt-smart-coupon-enable-disable-feature.php:227
+msgid "Enable Modules"
+msgstr "Module aktivieren"
+
+#: admin/enable-modules/class-wt-smart-coupon-enable-disable-feature.php:262
+msgid "Update"
+msgstr "Aktualisieren"
+
+#: admin/exclude-product/class-wt-exclude-product-for-coupon.php:92
+msgid "Exclude for coupons"
+msgstr "Für Gutscheine ausschließen"
+
+#: admin/exclude-product/class-wt-exclude-product-for-coupon.php:93
+msgid "Exclude this products from coupon discounts"
+msgstr "Schließen Sie diese Produkte von Gutscheinrabatten aus"
+
+#: admin/exclude-product/class-wt-exclude-product-for-coupon.php:99
+msgid "Exclude for Store Credit"
+msgstr "Für Gutschrift ausschließen"
+
+#: admin/exclude-product/class-wt-exclude-product-for-coupon.php:100
+msgid "Exclude this products from Store Credit"
+msgstr "Schließen Sie diese Produkte von der Gutschrift aus"
+
+#: admin/exclude-product/class-wt-exclude-product-for-coupon.php:198
+#: public/class-wt-smart-coupon-public.php:214
+msgid "Sorry, this coupon is not applicable for selected products."
+msgstr "Entschuldigung, dieser Gutschein gilt nicht für ausgewählte Produkte."
+
+#: admin/gift-coupon/admin/class-wt-smartcoupon-gift-coupon-admin.php:89
+msgid "Coupon Sent"
+msgstr "Gutschein gesendet"
+
+#: admin/gift-coupon/admin/class-wt-smartcoupon-gift-coupon-admin.php:112
+#: admin/store-credit/admin/class-smart-coupon-store-credit.php:735
+msgid "From: "
+msgstr "Von:"
+
+#: admin/gift-coupon/admin/class-wt-smartcoupon-gift-coupon-admin.php:113
+#: admin/store-credit/admin/class-smart-coupon-store-credit.php:736
+msgid "To: "
+msgstr "Zu:"
+
+#: admin/gift-coupon/admin/class-wt-smartcoupon-gift-coupon-admin.php:139
+msgid "Gift coupon on product purchase"
+msgstr "Geschenkgutschein beim Kauf eines Produkts"
+
+#: admin/gift-coupon/admin/class-wt-smartcoupon-gift-coupon-admin.php:156
+msgid "Email coupon for order status"
+msgstr "E-Mail-Gutschein für Bestellstatus"
+
+#: admin/gift-coupon/admin/class-wt-smartcoupon-gift-coupon-admin.php:172
+msgid "Coupons will be mailed only for the chosen order statuses"
+msgstr "Gutscheine werden nur für den gewählten Bestellstatus verschickt"
+
+#: admin/gift-coupon/class-wt-smart-coupon-gift-email.php:12
+msgid "You have received a Gift Coupon "
+msgstr "Sie haben einen Geschenkgutschein erhalten"
+
+#: admin/gift-coupon/class-wt-smart-coupon-gift-email.php:13
+msgid ""
+"This email will be sent to customers upon completing an order containing a "
+"product with a associated gift coupon."
+msgstr ""
+"Diese E-Mail wird den Kunden nach Abschluss einer Bestellung gesendet, die "
+"ein Produkt mit einem zugehörigen Geschenkgutschein enthält."
+
+#: admin/gift-coupon/class-wt-smart-coupon-gift-email.php:16
+msgid "You have received gift coupons"
+msgstr "Sie haben Geschenkgutscheine erhalten"
+
+#: admin/gift-coupon/class-wt-smart-coupon-gift-email.php:17
+msgctxt "default email subject for active emails sent to the customer"
+msgid "You have received a Gift Coupon"
+msgstr "Sie haben einen Geschenkgutschein erhalten"
+
+#: admin/gift-coupon/email/send-gift-coupon.php:10
+#: admin/partials/email/send-customer-coupon.php:11
+#: admin/store-credit/email/send-store-credit-coupon.php:10
+msgid "Hi there"
+msgstr "Hallo"
+
+#: admin/gift-coupon/email/send-gift-coupon.php:14
+msgid ""
+"Congratulations! Here's A Coupon! To redeem your discount use following "
+"coupon code  during checkout."
+msgstr ""
+"Herzliche Glückwünsche! Hier ist ein Gutschein! Um Ihren Rabatt einzulösen, "
+"verwenden Sie den folgenden Gutscheincode während des Bezahlvorgangs."
+
+#: admin/gift-coupon/email/send-gift-coupon.php:22
+#: admin/partials/email/send-customer-coupon.php:14
+#: admin/store-credit/email/plain/send-store-credit-coupon.php:36
+#: admin/store-credit/email/send-store-credit-coupon.php:68
+msgid "What are you waiting for?"
+msgstr "Worauf wartest du?"
+
+#: admin/gift-coupon/public/class-wt-smartcoupon-gift-coupon.php:93
+msgid "Congrats, Your order contains Coupons "
+msgstr "Herzlichen Glückwunsch, Ihre Bestellung enthält Gutscheine"
+
+#: admin/gift-coupon/public/class-wt-smartcoupon-gift-coupon.php:94
+#: admin/store-credit/public/class-smart-coupon-store-credit.php:840
+msgid "What would you like to do?"
+msgstr "Was würdest du gern tun?"
+
+#: admin/gift-coupon/public/class-wt-smartcoupon-gift-coupon.php:100
+#: admin/store-credit/public/class-smart-coupon-store-credit.php:846
+msgid "Send to me"
+msgstr "Senden Sie mir"
+
+#: admin/gift-coupon/public/class-wt-smartcoupon-gift-coupon.php:105
+#: admin/store-credit/public/class-smart-coupon-store-credit.php:851
+msgid "Gift to a friend"
+msgstr "Geschenk an einen Freund"
+
+#: admin/gift-coupon/public/class-wt-smartcoupon-gift-coupon.php:111
+#: admin/store-credit/public/class-smart-coupon-store-credit.php:857
+msgid "Email to send coupon"
+msgstr "E-Mail senden Gutschein"
+
+#: admin/gift-coupon/public/class-wt-smartcoupon-gift-coupon.php:114
+#: admin/store-credit/public/class-smart-coupon-store-credit.php:860
+msgid "Message"
+msgstr "Botschaft"
+
+#: admin/gift-coupon/public/class-wt-smartcoupon-gift-coupon.php:163
+msgid "You will get following coupon(s) when you buy this item:"
+msgstr "Sie erhalten folgende Gutscheine, wenn Sie diesen Artikel kaufen:"
+
+#: admin/gift-coupon/public/class-wt-smartcoupon-gift-coupon.php:226
+msgid "Please enter Email address to send Coupon."
+msgstr ""
+"Bitte geben Sie Ihre E-Mail-Adresse ein, um den Gutschein zu versenden."
+
+#: admin/gift-coupon/public/class-wt-smartcoupon-gift-coupon.php:257
+msgid " discount on your entire purchase"
+msgstr "Rabatt auf Ihren gesamten Einkauf"
+
+#: admin/gift-coupon/public/class-wt-smartcoupon-gift-coupon.php:262
+#: admin/gift-coupon/public/class-wt-smartcoupon-gift-coupon.php:271
+#: admin/gift-coupon/public/class-wt-smartcoupon-gift-coupon.php:280
+msgid "some products"
+msgstr "einige Produkte"
+
+#: admin/gift-coupon/public/class-wt-smartcoupon-gift-coupon.php:264
+#: admin/gift-coupon/public/class-wt-smartcoupon-gift-coupon.php:273
+msgid "all products"
+msgstr "Alle Produkte"
+
+#: admin/gift-coupon/public/class-wt-smartcoupon-gift-coupon.php:266
+#: admin/gift-coupon/public/class-wt-smartcoupon-gift-coupon.php:275
+#: admin/gift-coupon/public/class-wt-smartcoupon-gift-coupon.php:284
+msgid " discount on "
+msgstr "Rabatt auf"
+
+#: admin/gift-coupon/public/class-wt-smartcoupon-gift-coupon.php:282
+msgid "your entire purchase"
+msgstr "Dein ganzer Einkauf"
+
+#: admin/gift-coupon/public/class-wt-smartcoupon-gift-coupon.php:290
+#, php-format
+msgid "%1$s coupon of %2$s"
+msgstr "%1$s Gutschein von %2$s"
+
+#: admin/gift-coupon/public/class-wt-smartcoupon-gift-coupon.php:299
+#, php-format
+msgid "%s Free Shipping"
+msgstr "%s Kostenloser Versand"
+
+#: admin/gift-coupon/public/class-wt-smartcoupon-gift-coupon.php:299
+#: admin/gift-coupon/public/class-wt-smartcoupon-gift-coupon.php:318
+msgid " &"
+msgstr " &"
+
+#: admin/gift-coupon/public/class-wt-smartcoupon-gift-coupon.php:318
+#, php-format
+msgid "%s %s as a giveaway free product"
+msgstr "%s %s als Werbegeschenk-freies Produkt"
+
+#: admin/import/class-import-smart-coupon.php:28
+msgid "Import Coupon"
+msgstr "Gutschein importieren"
+
+#: admin/import/class-import-smart-coupon.php:43
+#: admin/import/class-import-smart-coupon.php:133
+msgid "sample file."
+msgstr "Beispieldatei."
+
+#: admin/import/class-import-smart-coupon.php:45
+msgid ""
+"The CSV file headers do not match. Columns <i>post_title</i> and "
+"<i>discount_type</i> are mandatory for the import. Please refer "
+msgstr ""
+"Die CSV-Datei-Header stimmen nicht überein. Die Spalten <i> post_title </ i> "
+"und <i> discount_type </ i> sind für den Import obligatorisch. Siehe"
+
+#: admin/import/class-import-smart-coupon.php:49
+msgid "Import Success - "
+msgstr "Importerfolg -"
+
+#: admin/import/class-import-smart-coupon.php:52
+msgid "Import failed - "
+msgstr "Import fehlgeschlagen -"
+
+#: admin/import/class-import-smart-coupon.php:57
+msgid "Coupons imported: "
+msgstr "Gutscheine importiert:"
+
+#: admin/import/class-import-smart-coupon.php:59
+msgid "Coupons skipped: "
+msgstr "Gutscheine übersprungen:"
+
+#: admin/import/class-import-smart-coupon.php:62
+#: admin/import/class-import-smart-coupon.php:68
+msgid " Duplicates found: "
+msgstr "Duplikate gefunden:"
+
+#: admin/import/class-import-smart-coupon.php:66
+msgid " Coupons skipped: "
+msgstr "Gutscheine übersprungen:"
+
+#: admin/import/class-import-smart-coupon.php:132
+msgid ""
+"For a clean import the CSV must include the header and adhere to the format "
+"as indicated in our "
+msgstr ""
+"Für einen sauberen Import muss die CSV den Header enthalten und das in "
+"unserem angegebene Format einhalten"
+
+#: admin/import/class-import-smart-coupon.php:135
+msgid ""
+" Columns <i>post_title</i> and <i>discount_type</i> are mandatory for the "
+"import. Duplicate coupons will be skipped during import. "
+msgstr ""
+"Die Spalten <i> post_title </ i> und <i> discount_type </ i> sind für den "
+"Import obligatorisch. Doppelte Gutscheine werden beim Import übersprungen."
+
+#: admin/import/class-import-smart-coupon.php:142
+msgid "Choose a CSV file"
+msgstr "Wählen Sie eine CSV-Datei"
+
+#: admin/import/class-import-smart-coupon.php:146
+msgid "Maximum file size:"
+msgstr "Maximale Dateigröße:"
+
+#: admin/import/class-import-smart-coupon.php:150
+msgid "Email Coupon on Import"
+msgstr "E-Mail-Gutschein beim Import"
+
+#: admin/import/class-import-smart-coupon.php:174
+msgid "Sorry, there has been an error."
+msgstr "E-Mail-Gutschein beim Import"
+
+#: admin/import/class-import-smart-coupon.php:182
+msgid "Sorry, Something went wrong!, Please try again."
+msgstr ""
+"Entschuldigung, etwas ist schief gelaufen! Bitte versuchen Sie es erneut."
+
+#: admin/import/class-import-smart-coupon.php:268
+msgid "Coupon field"
+msgstr "Gutscheinfeld"
+
+#: admin/import/class-import-smart-coupon.php:269
+msgid "Map Column to"
+msgstr "Spalte zuordnen zu"
+
+#: admin/import/class-import-smart-coupon.php:279
+msgid "select mapping coloumn"
+msgstr "Mapping-Spalte auswählen"
+
+#: admin/import/class-import-smart-coupon.php:317
+#: admin/import/class-import-smart-coupon.php:508
+msgid "The file does not exist, please try again."
+msgstr "Die Datei existiert nicht, bitte versuchen Sie es erneut."
+
+#: admin/partials/email/plain/send-customer-coupon.php:10
+#, php-format
+msgid "Hi there to redeem your discount use coupon code %s during checkout."
+msgstr ""
+"Hallo, um deinen Rabatt einzulösen, benutze den Gutscheincode %s während des "
+"Bezahlvorgangs."
+
+#: admin/partials/email/send-customer-coupon.php:12
+#, php-format
+msgid ""
+"Congratulations! Here's A Coupon! To redeem your discount use coupon code <b>"
+"%s</b> during checkout."
+msgstr ""
+"Herzliche Glückwünsche! Hier ist ein Gutschein! Um Ihren Rabatt einzulösen, "
+"verwenden Sie beim Auschecken den Gutscheincode <b> %s </ b>."
+
+#: admin/settings/class-smart-coupon-settings.php:46
+msgid "Style"
+msgstr "Stil"
+
+#: admin/settings/class-smart-coupon-settings.php:47
+msgid "General"
+msgstr "Allgemeines"
+
+#: admin/settings/class-smart-coupon-settings.php:120
+msgid "Done! Updated Smart Coupon settings."
+msgstr "Erledigt! Smart Coupon Einstellungen aktualisiert."
+
+#: admin/settings/class-smart-coupon-settings.php:181
+msgid "Set coupon style"
+msgstr "Legen Sie den Coupon-Stil fest"
+
+#: admin/settings/class-smart-coupon-settings.php:186
+msgid "Coupon Styling for"
+msgstr "Coupon Styling für"
+
+#: admin/settings/class-smart-coupon-settings.php:225
+msgid "Select style"
+msgstr "Stil auswählen"
+
+#: admin/settings/class-smart-coupon-settings.php:257
+msgid " styles"
+msgstr "Stile"
+
+#: admin/settings/class-smart-coupon-settings.php:286
+msgid "choose style"
+msgstr "Stil wählen"
+
+#: admin/settings/class-smart-coupon-settings.php:317
+#: admin/settings/class-smart-coupon-settings.php:384
+#: admin/store-credit/admin/class-smart-coupon-store-credit.php:387
+msgid "Save"
+msgstr "Speichern"
+
+#: admin/settings/class-smart-coupon-settings.php:337
+msgid "Coupon visibility"
+msgstr "Sichtbarkeit des Gutscheins"
+
+#: admin/settings/class-smart-coupon-settings.php:338
+msgid ""
+"Control the pages in which the respective coupon type should be displayed "
+"for view."
+msgstr ""
+"Steuern Sie die Seiten, auf denen der jeweilige Coupontyp zur Ansicht "
+"angezeigt werden soll."
+
+#: admin/settings/class-smart-coupon-settings.php:353
+msgid "Show Used Coupons under My Account"
+msgstr "Verwendete Gutscheine unter Mein Konto anzeigen"
+
+#: admin/settings/class-smart-coupon-settings.php:370
+msgid "Show Expired Coupons under My Account"
+msgstr "Abgelaufene Gutscheine unter Mein Konto anzeigen"
+
+#: admin/store-credit/admin/class-smart-coupon-store-credit.php:30
+#: admin/store-credit/email/send-store-credit-coupon.php:41
+#: admin/store-credit/public/class-smart-coupon-store-credit.php:111
+msgid "Store Credit"
+msgstr "Einkaufskredit"
+
+#: admin/store-credit/admin/class-smart-coupon-store-credit.php:49
+msgid "Setup"
+msgstr "Konfiguration"
+
+#: admin/store-credit/admin/class-smart-coupon-store-credit.php:50
+msgid "Email Credit"
+msgstr "E-Mail-Gutschrift"
+
+#: admin/store-credit/admin/class-smart-coupon-store-credit.php:185
+msgid "Updated Store credit settings"
+msgstr "Die Einstellungen für das Guthaben im Store wurden aktualisiert"
+
+#: admin/store-credit/admin/class-smart-coupon-store-credit.php:193
+msgid "Setup Store Credit"
+msgstr "Setup Store-Gutschrift"
+
+#: admin/store-credit/admin/class-smart-coupon-store-credit.php:207
+msgid "Manage tax"
+msgstr "Steuern verwalten"
+
+#: admin/store-credit/admin/class-smart-coupon-store-credit.php:211
+msgid "Apply store credit before tax"
+msgstr "Ladenguthaben vor Steuern beantragen"
+
+#: admin/store-credit/admin/class-smart-coupon-store-credit.php:212
+msgid ""
+"Check this to apply store credit voucher to the order total before the tax "
+"is accounted"
+msgstr ""
+"Aktivieren Sie dieses Kontrollkästchen, um einen Guthabenbeleg auf die "
+"Gesamtsumme der Bestellung anzuwenden, bevor die Steuer verbucht wird"
+
+#: admin/store-credit/admin/class-smart-coupon-store-credit.php:213
+msgid ""
+"If enabled, tax will be calculated only on discounted value instead of "
+"actual value. For eg, if order value is $110 and you apply a store credit of "
+"value $100, tax will be applicable only on $10(order total after discount). "
+msgstr ""
+"Wenn diese Option aktiviert ist, wird die Steuer nur auf den abgezinsten "
+"Wert anstatt auf den tatsächlichen Wert berechnet. Wenn der Bestellwert "
+"beispielsweise 110 US-Dollar beträgt und Sie ein Guthaben von 100 US-Dollar "
+"in Ihrem Geschäft beantragen, wird die Steuer nur auf 10 US-Dollar erhoben "
+"(Bestellsumme nach Rabatt)."
+
+#: admin/store-credit/admin/class-smart-coupon-store-credit.php:221
+msgid "Purchase store credit"
+msgstr "Guthaben erwerben"
+
+#: admin/store-credit/admin/class-smart-coupon-store-credit.php:230
+msgid "Associate a product"
+msgstr "Verknüpfen Sie ein Produkt"
+
+#: admin/store-credit/admin/class-smart-coupon-store-credit.php:238
+#: public/give-away-product/admin/class-wt-giveaway-free-product-admin.php:43
+msgid "Search for a product&hellip;"
+msgstr "Nach einem Produkt suchen &hellip;"
+
+#: admin/store-credit/admin/class-smart-coupon-store-credit.php:249
+msgid "Create a zero price product and select product from the list."
+msgstr ""
+"Erstellen Sie ein Nullpreisprodukt und wählen Sie das Produkt aus der Liste "
+"aus."
+
+#: admin/store-credit/admin/class-smart-coupon-store-credit.php:250
+msgid ""
+"Create a woocommerce product with 0 sale price and associate this product "
+"here to configure it as a store credit purchase for your customers."
+msgstr ""
+"Erstellen Sie ein Woocommerce-Produkt mit 0 Verkaufspreis und verknüpfen Sie "
+"dieses Produkt hier, um es als Guthabenkauf für Ihre Kunden zu konfigurieren."
+
+#: admin/store-credit/admin/class-smart-coupon-store-credit.php:262
+msgid "Minumum credit purchase"
+msgstr "Mindestkaufguthaben"
+
+#: admin/store-credit/admin/class-smart-coupon-store-credit.php:274
+msgid "Maximum credit purchase"
+msgstr "Maximaler Kreditkauf"
+
+#: admin/store-credit/admin/class-smart-coupon-store-credit.php:283
+msgid "Email store credit on order status"
+msgstr "E-Mail-Gutschrift auf den Bestellstatus"
+
+#: admin/store-credit/admin/class-smart-coupon-store-credit.php:303
+msgid "Purchased store credit will be mailed only for the chosen order status"
+msgstr ""
+"Das Guthaben des gekauften Geschäfts wird nur für den ausgewählten "
+"Bestellstatus per Post versandt"
+
+#: admin/store-credit/admin/class-smart-coupon-store-credit.php:315
+msgid "Store credit coupon format"
+msgstr "Gutschrift-Coupon-Format speichern"
+
+#: admin/store-credit/admin/class-smart-coupon-store-credit.php:325
+msgid "Prefix"
+msgstr "Präfix"
+
+#: admin/store-credit/admin/class-smart-coupon-store-credit.php:337
+msgid "Suffix"
+msgstr "Suffix"
+
+#: admin/store-credit/admin/class-smart-coupon-store-credit.php:349
+msgid "Coupon length"
+msgstr "Couponlänge"
+
+#: admin/store-credit/admin/class-smart-coupon-store-credit.php:366
+msgid "Individual use only"
+msgstr "Nur für den individuellen Gebrauch"
+
+#: admin/store-credit/admin/class-smart-coupon-store-credit.php:370
+msgid ""
+"Check this box if the store credit voucher cannot be used in conjunction "
+"with other coupons. "
+msgstr ""
+"Aktivieren Sie dieses Kontrollkästchen, wenn der Gutschein nicht in "
+"Verbindung mit anderen Gutscheinen verwendet werden kann."
+
+#: admin/store-credit/admin/class-smart-coupon-store-credit.php:464
+msgid "Email Address "
+msgstr "E-Mail-Addresse"
+
+#: admin/store-credit/admin/class-smart-coupon-store-credit.php:469
+msgid "Credit Amount "
+msgstr "Kreditbetrag"
+
+#: admin/store-credit/admin/class-smart-coupon-store-credit.php:474
+msgid "Description "
+msgstr "Beschreibung"
+
+#: admin/store-credit/admin/class-smart-coupon-store-credit.php:484
+msgid "Manage store credit email settings"
+msgstr "Verwalten Sie die Einstellungen für das Guthaben per E-Mail"
+
+#: admin/store-credit/admin/class-smart-coupon-store-credit.php:491
+msgid "Send"
+msgstr "Senden"
+
+#: admin/store-credit/admin/class-smart-coupon-store-credit.php:492
+msgid "Preview Email"
+msgstr "Vorschau der E-Mail"
+
+#: admin/store-credit/admin/class-smart-coupon-store-credit.php:556
+msgid "Please enter valid email address"
+msgstr "Bitte geben Sie eine gültige Email Adresse an"
+
+#: admin/store-credit/admin/class-smart-coupon-store-credit.php:558
+msgid "Please enter valid credit amount"
+msgstr "Bitte geben Sie einen gültigen Kreditbetrag ein"
+
+#: admin/store-credit/admin/class-smart-coupon-store-credit.php:703
+msgid "Store Credit Purchased"
+msgstr "Gekauftes Guthaben"
+
+#: admin/store-credit/admin/wt-smart-coupon-schedule-store-credit.php:61
+msgid "Gift on this date"
+msgstr "Geschenk an diesem Tag"
+
+#: admin/store-credit/class-wt-smart-coupon-store-credit-email.php:11
+msgid "You have received a Store Credit "
+msgstr "Sie haben eine Gutschrift erhalten"
+
+#: admin/store-credit/class-wt-smart-coupon-store-credit-email.php:12
+msgid ""
+"This email will be sent to customers when they purchase the store credit or "
+"when the admin mails a store credit manually."
+msgstr ""
+"Diese E-Mail wird an Kunden gesendet, die das Geschäftsguthaben erwerben "
+"oder wenn der Administrator ein Geschäftsguthaben manuell sendet."
+
+#: admin/store-credit/class-wt-smart-coupon-store-credit-email.php:15
+msgid "You have received a Store Credit"
+msgstr "Sie haben eine Gutschrift erhalten"
+
+#: admin/store-credit/class-wt-smart-coupon-store-credit-email.php:16
+msgctxt "default email subject for active emails sent to the customer"
+msgid "You have received a Store credit coupon"
+msgstr "Sie haben einen Store-Gutschein erhalten"
+
+#: admin/store-credit/class-wt-smart-coupon-store-credit-order.php:124
+msgid "reimburse credit value"
+msgstr "Kreditwert erstatten"
+
+#: admin/store-credit/class-wt-smart-coupon-store-credit-order.php:201
+#: admin/store-credit/class-wt-smart-coupon-store-credit-order.php:225
+msgid "Store Credit Used:"
+msgstr "Verwendetes Guthaben:"
+
+#: admin/store-credit/class-wt-smart-coupon-store-credit-order.php:238
+msgid "Store credit:"
+msgstr "Einkaufskredit:"
+
+#: admin/store-credit/email/plain/send-store-credit-coupon.php:30
+#, php-format
+msgid "You have just received a new store credit for %s from %s "
+msgstr "Sie haben soeben von %s eine neue Gutschrift für %s erhalten"
+
+#: admin/store-credit/email/send-store-credit-coupon.php:57
+#, php-format
+msgid ""
+"You have just received a new store credit for <span class=\"credit_amount\">"
+"%s</span> from %s "
+msgstr ""
+"Sie haben gerade eine neue Gutschrift für <span class = \"credit_amount\"> "
+"%s </ span> von %s erhalten"
+
+#: admin/store-credit/public/class-smart-coupon-store-credit.php:44
+msgid "Credit value is required!"
+msgstr "Guthaben erforderlich!"
+
+#: admin/store-credit/public/class-smart-coupon-store-credit.php:55
+#, php-format
+msgid "The credit value should be in between %s and %s "
+msgstr "Der Kreditwert sollte zwischen %s und %s liegen"
+
+#: admin/store-credit/public/class-smart-coupon-store-credit.php:63
+#, php-format
+msgid "The credit value should be greater than %s"
+msgstr "Der Kreditwert sollte größer als %s sein"
+
+#: admin/store-credit/public/class-smart-coupon-store-credit.php:70
+#, php-format
+msgid "The credit value should be less than %s"
+msgstr "Der Kreditwert sollte unter %s liegen"
+
+#: admin/store-credit/public/class-smart-coupon-store-credit.php:495
+msgid "-"
+msgstr "-"
+
+#: admin/store-credit/public/class-smart-coupon-store-credit.php:546
+msgid "Select options"
+msgstr "wähle Optionen"
+
+#: admin/store-credit/public/class-smart-coupon-store-credit.php:592
+msgid " ("
+msgstr " ("
+
+#: admin/store-credit/public/class-smart-coupon-store-credit.php:608
+msgid "Minimum Purchase : "
+msgstr "Mindestabnahme :"
+
+#: admin/store-credit/public/class-smart-coupon-store-credit.php:612
+msgid "Maximum Purchase : "
+msgstr "Maximaler Einkauf:"
+
+#: admin/store-credit/public/class-smart-coupon-store-credit.php:839
+msgid "Congrats, Your order contains Store Credits "
+msgstr "Herzlichen Glückwunsch, Ihre Bestellung enthält Store Credits"
+
+#: admin/store-credit/public/class-smart-coupon-store-credit.php:906
+msgid "Store Credits"
+msgstr "Guthaben speichern"
+
+#: admin/store-credit/public/class-smart-coupon-store-credit.php:923
+msgid "Sorry, you don't have any available Store Credits."
+msgstr "Leider sind keine Store Credits verfügbar."
+
+#: admin/store-credit/public/class-smart-coupon-store-credit.php:990
+msgid "Date"
+msgstr "Datum"
+
+#: admin/store-credit/public/class-smart-coupon-store-credit.php:991
+msgid "Order ID"
+msgstr "Bestellnummer"
+
+#: admin/store-credit/public/class-smart-coupon-store-credit.php:992
+msgid "Credit / Debit"
+msgstr "Kreditschulden"
+
+#: admin/store-credit/public/class-smart-coupon-store-credit.php:993
+msgid "Balance"
+msgstr "Balance"
+
+#: admin/store-credit/public/class-smart-coupon-store-credit.php:1003
+msgid "Recieved Credit"
+msgstr "Erhaltene Gutschrift"
+
+#: admin/store-credit/public/class-smart-coupon-store-credit.php:1067
+msgid "Expired Credits"
+msgstr "Abgelaufene Credits"
+
+#: admin/store-credit/public/wt-store-credit-menu-myaccount.php:73
+#, php-format
+msgid "Store Credit #%s"
+msgstr "Guthaben Nr.%s"
+
+#: admin/store-credit/public/wt-store-credit-menu-myaccount.php:76
+msgid "My Store Credit"
+msgstr "Mein Guthaben"
+
+#: admin/store-credit/public/wt-store-credit-menu-myaccount.php:104
+msgid "My Store Credits"
+msgstr "Meine Gutschriften"
+
+#: includes/class-wt-smart-coupon-activator.php:37
+msgid ""
+"Oops! BASIC Version of this Plugin Installed. Please uninstall the BASIC "
+"Version before activating PREMIUM."
+msgstr ""
+"Hoppla! BASIC-Version dieses Plugins installiert. Bitte deinstallieren Sie "
+"die BASIC-Version, bevor Sie PREMIUM aktivieren."
+
+#: includes/class-wt-smart-coupon-activator.php:43
+msgid "Oops! Woocommerce not activated.."
+msgstr "Hoppla! Woocommerce nicht aktiviert .."
+
+#: includes/wf_api_manager/class-wc-am-plugin-update.php:374
+#, php-format
+msgid ""
+"The license key for %s has expired. You can reactivate or purchase a license "
+"key from your account <a href=\"%s\" target=\"_blank\">dashboard</a>."
+msgstr ""
+"Der Lizenzschlüssel für %s ist abgelaufen. Sie können einen Lizenzschlüssel "
+"über das <a href=\"%s\" target=\"_blank\"> Dashboard </a> Ihres Kontos "
+"reaktivieren oder erwerben."
+
+#: includes/wf_api_manager/class-wc-am-plugin-update.php:385
+#, php-format
+msgid ""
+"The subscription for %s is on-hold. You can reactivate the subscription from "
+"your account <a href=\"%s\" target=\"_blank\">dashboard</a>."
+msgstr ""
+"Das Abonnement für%s wird gehalten. Sie können das Abonnement über das <a "
+"href=\"%s\" target=\"_blank\"> Dashboard </a> Ihres Kontos reaktivieren."
+
+#: includes/wf_api_manager/class-wc-am-plugin-update.php:396
+#, php-format
+msgid ""
+"The subscription for %s has been cancelled. You can renew the subscription "
+"from your account <a href=\"%s\" target=\"_blank\">dashboard</a>. A new "
+"license key will be emailed to you after your order has been completed."
+msgstr ""
+"Das Abonnement für %s wurde gekündigt. Sie können das Abonnement über Ihr "
+"Konto <a href=\"%s\" target=\"_blank\"> Dashboard </a> verlängern. Ein neuer "
+"Lizenzschlüssel wird Ihnen per E-Mail zugeschickt, nachdem Ihre Bestellung "
+"abgeschlossen wurde."
+
+#: includes/wf_api_manager/class-wc-am-plugin-update.php:407
+#, php-format
+msgid ""
+"The subscription for %s has expired. You can reactivate the subscription "
+"from your account <a href=\"%s\" target=\"_blank\">dashboard</a>."
+msgstr ""
+"Das Abonnement für %s ist abgelaufen. Sie können das Abonnement über das <a "
+"href=\"%s\" target=\"_blank\"> Dashboard </a> Ihres Kontos reaktivieren."
+
+#: includes/wf_api_manager/class-wc-am-plugin-update.php:418
+#, php-format
+msgid ""
+"The subscription for %s has been suspended. You can reactivate the "
+"subscription from your account <a href=\"%s\" target=\"_blank\">dashboard</"
+"a>."
+msgstr ""
+"Das Abonnement für %s wurde ausgesetzt. Sie können das Abonnement über das "
+"<a href=\"%s\" target=\"_blank\"> Dashboard </a> Ihres Kontos reaktivieren."
+
+#: includes/wf_api_manager/class-wc-am-plugin-update.php:429
+#, php-format
+msgid ""
+"The subscription for %s is still pending. You can check on the status of the "
+"subscription from your account <a href=\"%s\" target=\"_blank\">dashboard</"
+"a>."
+msgstr ""
+"Das Abonnement für %s steht noch aus. Sie können den Status des Abonnements "
+"in Ihrem <a href=\"%s\" target=\"_blank\"> Dashboard </a> Konto überprüfen."
+
+#: includes/wf_api_manager/class-wc-am-plugin-update.php:440
+#, php-format
+msgid ""
+"The subscription for %s has been placed in the trash and will be deleted "
+"soon. You can purchase a new subscription from your account <a href=\"%s\" "
+"target=\"_blank\">dashboard</a>."
+msgstr ""
+"Das Abonnement für %s wurde in den Papierkorb verschoben und wird in Kürze "
+"gelöscht. Sie können ein neues Abonnement über das <a href=\"%s\" target="
+"\"_blank\"> Dashboard </a> Ihres Kontos erwerben."
+
+#: includes/wf_api_manager/class-wc-am-plugin-update.php:451
+#, php-format
+msgid ""
+"A subscription for %s could not be found. You can purchase a subscription "
+"from your account <a href=\"%s\" target=\"_blank\">dashboard</a>."
+msgstr ""
+"Ein Abonnement für %s wurde nicht gefunden. Sie können ein Abonnement über "
+"das <a href=\"%s\" target=\"_blank\"> Dashboard </a> Ihres Kontos erwerben."
+
+#: includes/wf_api_manager/class-wc-am-plugin-update.php:462
+#, php-format
+msgid ""
+"A license key for %s could not be found. Maybe you forgot to enter a license "
+"key when setting up %s, or the key was deactivated in your account. You can "
+"reactivate license key at your plugin <a href=\"%s\" target=\"_blank"
+"\">settings page</a>."
+msgstr ""
+"Ein Lizenzschlüssel für %s wurde nicht gefunden. Vielleicht haben Sie beim "
+"Einrichten von %s vergessen, einen Lizenzschlüssel einzugeben, oder der "
+"Schlüssel wurde in Ihrem Konto deaktiviert. Sie können den Lizenzschlüssel "
+"auf der <a href=\"%s\" target=\"_blank\"> Einstellungsseite </a> Ihres "
+"Plugins erneut aktivieren."
+
+#: includes/wf_api_manager/class-wc-am-plugin-update.php:473
+#, php-format
+msgid ""
+"Download permission for %s has been revoked possibly due to a license key or "
+"subscription expiring. You can reactivate or purchase a license key from "
+"your account <a href=\"%s\" target=\"_blank\">dashboard</a>."
+msgstr ""
+"Die Download-Berechtigung für %s wurde möglicherweise aufgrund eines "
+"auslaufenden Lizenzschlüssels oder Abonnements entzogen. Sie können einen "
+"Lizenzschlüssel über das <a href=\"%s\" target=\"_blank\"> Dashboard </a> "
+"Ihres Kontos reaktivieren oder erwerben."
+
+#: includes/wf_api_manager/class-wc-am-plugin-update.php:484
+#, php-format
+msgid ""
+"%s has not been activated. Go to the plugin <a href=\"%s\" target=\"_blank"
+"\">settings page</a> and enter the license key and license email to activate "
+"%s."
+msgstr ""
+"%s wurde nicht aktiviert. Gehen Sie zur <a href=\"%s\" target=\"_blank\"> "
+"Einstellungsseite </a> des Plugins und geben Sie den Lizenzschlüssel und die "
+"Lizenz-E-Mail ein, um %s zu aktivieren."
+
+#: includes/wf_api_manager/class-wc-am-plugin-update.php:495
+#, php-format
+msgid ""
+"You changed the subscription for %s, so you will need to enter your new API "
+"License Key in the settings page. The License Key should have arrived in "
+"your email inbox, if not you can get it by logging into your account <a href="
+"\"%s\" target=\"_blank\">dashboard</a>."
+msgstr ""
+"Sie haben das Abonnement für %s geändert, sodass Sie Ihren neuen API-"
+"Lizenzschlüssel auf der Einstellungsseite eingeben müssen. Der "
+"Lizenzschlüssel sollte in Ihrem E-Mail-Posteingang eingegangen sein. "
+"Andernfalls können Sie ihn erhalten, indem Sie sich in Ihrem Konto <a href="
+"\"%s\" target=\"_blank\"> Dashboard </a> anmelden."
+
+#: includes/wf_api_manager/html/html-wf-activation-window.php:107
+msgid "License Activation"
+msgstr "Lizenzaktivierung"
+
+#: public/auto-coupon/class-wt-smart-coupon-auto-coupon.php:31
+msgid "Apply coupon automatically"
+msgstr "Gutschein automatisch einlösen"
+
+#: public/auto-coupon/class-wt-smart-coupon-auto-coupon.php:33
+msgid ""
+"This coupon will be applied automatically if the specifications are met. The "
+"corresponding coupon description will be shown when the coupon is applied.\n"
+"                "
+msgstr ""
+"Dieser Coupon wird automatisch angewendet, wenn die Spezifikationen erfüllt "
+"sind. Die entsprechende Gutscheinbeschreibung wird angezeigt, wenn der "
+"Gutschein eingelöst wird."
+
+#: public/auto-coupon/class-wt-smart-coupon-auto-coupon.php:346
+msgid "Coupon code applied successfully"
+msgstr "Gutscheincode erfolgreich angewendet"
+
+#: public/auto-coupon/class-wt-smart-coupon-auto-coupon.php:406
+msgid "Free shipping coupon"
+msgstr "Kostenloser Versandgutschein"
+
+#: public/class-myaccount-smart-coupon.php:43
+#: public/class-myaccount-smart-coupon.php:56
+msgid "My Coupons"
+msgstr "Meine Gutscheine"
+
+#: public/class-wt-smart-coupon-public.php:133
+msgid "Sorry, this coupon is not applicable to selected shipping method"
+msgstr ""
+"Entschuldigung, dieser Gutschein gilt nicht für die ausgewählte "
+"Versandmethode"
+
+#: public/class-wt-smart-coupon-public.php:147
+msgid "Sorry, this coupon is not applicable to selected Payment method"
+msgstr ""
+"Entschuldigung, dieser Gutschein gilt nicht für die ausgewählte "
+"Zahlungsmethode"
+
+#: public/class-wt-smart-coupon-public.php:162
+msgid "Sorry, this coupon is not applicable for your Role"
+msgstr "Entschuldigung, dieser Gutschein gilt nicht für Ihre Rolle"
+
+#: public/class-wt-smart-coupon-public.php:188
+msgid "Sorry, this coupon is not applicable to selected Location"
+msgstr "Dieser Gutschein gilt leider nicht für den ausgewählten Ort"
+
+#: public/class-wt-smart-coupon-public.php:241
+msgid "Sorry, this coupon is not applicable to selected products."
+msgstr "Entschuldigung, dieser Gutschein gilt nicht für ausgewählte Produkte."
+
+#: public/class-wt-smart-coupon-public.php:256
+#, php-format
+msgid "The minimum quantity of matching products for this coupon is %s."
+msgstr ""
+"Die Mindestmenge an passenden Produkten für diesen Gutschein beträgt %s."
+
+#: public/class-wt-smart-coupon-public.php:263
+#, php-format
+msgid "The maximum quantity of matching products for this coupon is %s."
+msgstr ""
+"Die maximale Anzahl passender Produkte für diesen Gutschein beträgt %s."
+
+#: public/class-wt-smart-coupon-public.php:277
+#, php-format
+msgid "The minimum subtotal of matching products for this coupon is %s."
+msgstr ""
+"Die minimale Zwischensumme passender Produkte für diesen Gutschein beträgt "
+"%s."
+
+#: public/class-wt-smart-coupon-public.php:284
+#, php-format
+msgid "The maximum subtotal of matching products for this coupon is %s."
+msgstr ""
+"Die maximale Zwischensumme übereinstimmender Produkte für diesen Gutschein "
+"beträgt %s."
+
+#: public/class-wt-smart-coupon-public.php:367
+#: public/class-wt-smart-coupon-public.php:382
+msgid "Cart Discount"
+msgstr "Warenkorb Rabatt"
+
+#: public/class-wt-smart-coupon-public.php:372
+#: public/class-wt-smart-coupon-public.php:377
+msgid "Product Discount"
+msgstr "Produktrabatt"
+
+#: public/class-wt-smart-coupon-public.php:417
+msgid "Expires Today "
+msgstr "Läuft heute ab"
+
+#: public/class-wt-smart-coupon-public.php:419
+msgid "Expires in "
+msgstr "Verfällt in"
+
+#: public/class-wt-smart-coupon-public.php:419
+msgid " days"
+msgstr "Tage"
+
+#: public/class-wt-smart-coupon-public.php:421
+msgid "Expires on "
+msgstr "Läuft aus am"
+
+#: public/class-wt-smart-coupon-public.php:664
+msgid "Click to apply coupon"
+msgstr "Klicken Sie hier, um den Gutschein zu beantragen"
+
+#: public/class-wt-smart-coupon-public.php:688
+msgid "Credit history"
+msgstr "Kredit Geschichte"
+
+#: public/class-wt-smart-coupon-public.php:882
+msgid "Your cart is empty"
+msgstr "Kredit Geschichte"
+
+#: public/class-wt-smart-coupon-public.php:900
+#: public/class-wt-smart-coupon-public.php:928
+msgid "Gift coupons issued"
+msgstr "Gutscheine ausgestellt"
+
+#: public/class-wt-smart-coupon-public.php:904
+#: public/class-wt-smart-coupon-public.php:939
+msgid "No of coupons gifted"
+msgstr "Keine Gutscheine geschenkt"
+
+#: public/class-wt-smart-coupon-public.php:931
+msgid "No of coupons gifted: "
+msgstr "Anzahl der Gutscheine:"
+
+#: public/give-away-product/admin/class-wt-giveaway-free-product-admin.php:18
+msgid "Giveaway Products"
+msgstr "Werbegeschenke"
+
+#: public/give-away-product/admin/class-wt-giveaway-free-product-admin.php:42
+msgid "Free Products"
+msgstr "Kostenlose Produkte"
+
+#: public/give-away-product/admin/class-wt-giveaway-free-product-admin.php:55
+msgid ""
+"A single quantity of the specified free product/s is added to the customer "
+"cart when the coupon is applied."
+msgstr ""
+"Bei Einlösung des Gutscheins wird eine einzelne Menge der angegebenen "
+"Gratisprodukte in den Warenkorb gelegt."
+
+#: public/give-away-product/admin/class-wt-giveaway-free-product-admin.php:66
+msgid "Apply Discount before tax"
+msgstr "Rabatt vor Steuern anwenden"
+
+#: public/give-away-product/admin/class-wt-giveaway-free-product-admin.php:67
+msgid ""
+"Check this to discount the tax of the giveaway product in addition to the "
+"product price."
+msgstr ""
+"Aktivieren Sie dieses Kontrollkästchen, um die Steuer auf das "
+"Werbegeschenkprodukt zusätzlich zum Produktpreis zu reduzieren."
+
+#: public/give-away-product/public/class-wt-giveaway-free-products.php:61
+msgid "Congratulations! you got a free gift!"
+msgstr "Herzliche Glückwünsche! Du hast ein Geschenk bekommen!"
+
+#: public/give-away-product/public/class-wt-giveaway-free-products.php:167
+msgid "Congrats you can choose a free gift!!"
+msgstr "Herzlichen Glückwunsch, Sie können ein Geschenk wählen!"
+
+#: public/give-away-product/public/class-wt-giveaway-free-products.php:203
+msgid "This product is currently out of stock and unavailable."
+msgstr "Dieses Produkt ist derzeit nicht auf Lager und nicht verfügbar."
+
+#: public/give-away-product/public/class-wt-giveaway-free-products.php:474
+msgid "It's a free gift for you"
+msgstr "Es ist ein kostenloses Geschenk für Sie"
+
+#: public/give-away-product/public/class-wt-giveaway-free-products.php:535
+msgid "Free Gift Item"
+msgstr "Gratis Geschenkartikel"
+
+#: public/give-away-product/public/class-wt-giveaway-free-products.php:597
+msgid "Free Product:"
+msgstr "Kostenloses Produkt:"
+
+#: public/partials/my-account/my-account-coupon-view.php:59
+msgid "Sorry, you don't have any available coupons"
+msgstr "Es tut uns leid, Sie haben keine verfügbaren Gutscheine"
+
+#: public/partials/my-account/my-account-coupon-view.php:83
+msgid "Used / Expired Coupons"
+msgstr "Benutzte / abgelaufene Gutscheine"
+
+#: public/shortcodes/class-wt-smart-coupon-shortcodes.php:20
+msgid "Shortcode"
+msgstr "Shortcode"
+
+#: public/shortcodes/class-wt-smart-coupon-shortcodes.php:40
+#: public/shortcodes/class-wt-smart-coupon-shortcodes.php:44
+msgid "invalid Coupon"
+msgstr "ungültiger Coupon"
+
+#. Plugin Name of the plugin/theme
+msgid "Smart Coupons for WooCommerce  Pro"
+msgstr "Smart Coupons for WooCommerce  Pro"
+
+#. Description of the plugin/theme
+msgid ""
+"Implement add-on coupon features to elevate sales in your WooCommerce Store."
+msgstr ""
+"Implementieren Sie zusätzliche Coupon-Funktionen, um den Umsatz in Ihrem "
+"WooCommerce Store zu steigern."
+
+#. Author of the plugin/theme
+msgid "WebToffee"
+msgstr "WebToffee"
+
+#. Author URI of the plugin/theme
+msgid "https://www.webtoffee.com/"
+msgstr "https://www.webtoffee.com/"
+
+#~ msgid "Any."
+#~ msgstr "irgendein"
+
+#~ msgid "All."
+#~ msgstr "alles."
+
+#~ msgid "This email will send to the customer when creating bulk coupon"
+#~ msgstr ""
+#~ "Diese E-Mail wird an den Kunden gesendet, wenn er einen Sammelgutschein "
+#~ "erstellt"
+
+#~ msgid "You have received a gift coupon "
+#~ msgstr "Sie haben einen Geschenkgutschein erhalten"
+
+#~ msgid ""
+#~ "This email will send to specified customer on completing order ( coupon "
+#~ "specified with product)"
+#~ msgstr ""
+#~ "Diese E-Mail wird bei Abschluss der Bestellung an den angegebenen Kunden "
+#~ "gesendet (der mit dem Produkt angegebene Gutschein)."
+
+#~ msgctxt "default email subject for active emails sent to the customer"
+#~ msgid "You have received a gift coupon"
+#~ msgstr "Sie haben einen Geschenkgutschein erhalten"
+
+#~ msgid "Sorry This coupon cannot use with the combination of applied coupons"
+#~ msgstr ""
+#~ "Entschuldigung Dieser Coupon kann nicht mit der Kombination der "
+#~ "verwendeten Coupons verwendet werden"
+
+#~ msgid ""
+#~ "Sorry This coupon cannot use with the combination of applied coupons 2"
+#~ msgstr ""
+#~ "Entschuldigung Dieser Gutschein kann nicht mit der Kombination der "
+#~ "verwendeten Gutscheine verwendet werden 2"
+
+#~ msgid "Store credit"
+#~ msgstr "Shop-Guthaben"
+
+#~ msgid "Manage Tax"
+#~ msgstr "Verwalten"
+
+#~ msgid "Apply Store Credit before Tax"
+#~ msgstr "Store-Guthaben vor Steuern anwenden"
+
+#~ msgid "Enabling this option discounts the credit prior to calculating tax"
+#~ msgstr ""
+#~ "Durch Aktivieren dieser Option wird das Guthaben vor der Berechnung der "
+#~ "Steuer abgezinst"
+
+#~ msgid "Purchase Store credit"
+#~ msgstr "Kaufguthaben kaufen"
+
+#~ msgid "Associate a Product"
+#~ msgstr "Produkt zuordnen"
+
+#~ msgid "Email Store Credit on order status."
+#~ msgstr "E-Mail-Shop Guthaben auf dem Bestellstatus."
+
+#~ msgid "Store Credit coupon format"
+#~ msgstr "Speichern Sie das Gutscheineformat"
+
+#~ msgid "Coupon Length"
+#~ msgstr "Gutscheinlänge"
+
+#~ msgid "Make Coupon Individual use only"
+#~ msgstr "Gutschein nur zur individuellen Verwendung machen"
+
+#~ msgid ""
+#~ "Check this box if the coupon cannot be used in conjunction with other "
+#~ "coupons."
+#~ msgstr ""
+#~ "Aktivieren, wenn dieser Gutschein nicht zusammen mit anderen Gutscheinen "
+#~ "verwendet werden darf."
+
+#~ msgid "Message "
+#~ msgstr "Nachricht "
+
+#~ msgid "You have received store credit "
+#~ msgstr "Sie haben eine Geschäftsgutschrift erhalten"
+
+#~ msgid ""
+#~ "This email will send to the customer when they purchase the store credit "
+#~ "or admin send store credit mannually "
+#~ msgstr ""
+#~ "Diese E-Mail wird an den Kunden gesendet, wenn er das Shop-Guthaben oder "
+#~ "das Administrator-Guthaben manuell kauft"
+
+#~ msgid "You have received Store Credit"
+#~ msgstr "Sie haben eine Store Credit erhalten"
+
+#~ msgid ""
+#~ "Congratulations! Here's A Coupon! To redeem your store credit use "
+#~ "following coupon code  during checkout."
+#~ msgstr ""
+#~ "Herzliche Glückwünsche! Hier ist ein Gutschein! So lösen Sie Ihr Guthaben "
+#~ "ein, indem Sie während des Bezahlvorgangs den Gutscheincode eingeben."
+
+#~ msgid "Congrats you got a free gift!"
+#~ msgstr "Herzlichen Glückwunsch, Sie haben ein Geschenk bekommen!"
+
+#~ msgid "Sorry you don't have any available coupons"
+#~ msgstr "Leider haben Sie keine verfügbaren Gutscheine"
+
+#~ msgid "Price is required!"
+#~ msgstr "Preis ist erforderlich!"
+
+#~ msgid "Price is too low!"
+#~ msgstr "Preis zu niedrig!"
+
+#~ msgid "Price is too high!"
+#~ msgstr "Preis zu hoch!"
+
+#~ msgid "Store Credits Available"
+#~ msgstr "Gutschriften verfügbar"
+
+#~ msgid "Credit Used"
+#~ msgstr "Verwendetes Guthaben"
+
+#~ msgid "Add more options to coupon which gives such wonderful results."
+#~ msgstr ""
+#~ "Fügen Sie dem Coupon weitere Optionen hinzu, die solch wunderbare "
+#~ "Ergebnisse liefern."
+
+#~ msgid ""
+#~ "For a clean import the CSV must include the header and adhere to the "
+#~ "format as indicated in our"
+#~ msgstr ""
+#~ "Für einen sauberen Import muss der CSV den Header enthalten und das in "
+#~ "unserem Format angegebene Format einhalten"
+
+#~ msgid ""
+#~ "Columns post_title and discount_type are mandatory for the import. "
+#~ "Duplicate coupons will be skipped during import. "
+#~ msgstr ""
+#~ "Die Spalten post_title und discount_type sind für den Import zwingend "
+#~ "Doppelte Coupons werden beim Import übersprungen."
+
+#~ msgid "Give away Products"
+#~ msgstr "Produkte verschenken"
+
+#~ msgid "Show in myAccount"
+#~ msgstr "In myAccount anzeigen"
+
+#~ msgid "Coupon available in myAccount page."
+#~ msgstr "Gutschein auf der myAccount-Seite verfügbar."
+
+#~ msgid "You have recieved a Coupon"
+#~ msgstr "Sie haben einen Gutschein erhalten"
+
+#~ msgctxt "default email subject for active emails sent to the customer"
+#~ msgid "You have recieved a Coupon"
+#~ msgstr "Sie haben einen Gutschein erhalten"
+
+#~ msgid ""
+#~ "Hi there. Your subscription with %s has been activated. Your order "
+#~ "details are shown below for your reference:"
+#~ msgstr ""
+#~ "Abo Hallo da. Ihr Abonnement mit %s wurde aktiviert. Ihre Auftragsdetails "
+#~ "werden unten für Ihre Referenz gezeigt:"
+
+#~ msgid ""
+#~ "Hi there. \n"
+#~ "\t\t\t\t<br/>\n"
+#~ "\t\t\t\tto redeem your discount use coupon code <code>%s</code> during "
+#~ "checkout."
+#~ msgstr ""
+#~ "Hallo. <br/> Um Ihren Rabatt einlösen zu können, verwenden Sie den "
+#~ "Gutscheincode <code>%s</code> während des Bezahlvorgangs."
+
+#~ msgid "Import Failed! Headers Doesn't match. "
+#~ msgstr "Import fehlgeschlagen! Header passen nicht zusammen"
+
+#~ msgid "Import Success! "
+#~ msgstr "Import erfolgreich!"
+
+#~ msgid "Import Failed! "
+#~ msgstr "Import fehlgeschlagen!"
+
+#~ msgid "Imported:"
+#~ msgstr "Importiert:"
+
+#~ msgid "Skipped:"
+#~ msgstr "übersprungen:"
+
+#~ msgid " Skipped:"
+#~ msgstr "übersprungen:"
+
+#~ msgid " Duplicate:"
+#~ msgstr "Duplizieren"
+
+#~ msgid "Licence"
+#~ msgstr "Lizenz"
+
+#~ msgid "licence Activation"
+#~ msgstr "Lizenz-Aktivierung"
+
+#~ msgid "Expired"
+#~ msgstr "Abgelaufen"

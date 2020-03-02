@@ -1,0 +1,80 @@
+02-03-2020 @ 17:21:21 - Input params: wc-api=wc_shipstation&auth_key=WCSS-b6c91f0b4959b1c4a9d6e9759774c5ab&action=export&start_date=02%2F03%2F2020+06%3A21&end_date=02%2F04%2F2020+16%3A21&page=1
+02-03-2020 @ 17:21:22 - Exported 13 orders
+02-03-2020 @ 19:21:24 - Input params: wc-api=wc_shipstation&auth_key=WCSS-b6c91f0b4959b1c4a9d6e9759774c5ab&action=export&start_date=02%2F03%2F2020+08%3A21&end_date=02%2F04%2F2020+18%3A21&page=1
+02-03-2020 @ 19:21:24 - Exported 13 orders
+02-03-2020 @ 21:21:26 - Input params: wc-api=wc_shipstation&auth_key=WCSS-b6c91f0b4959b1c4a9d6e9759774c5ab&action=export&start_date=02%2F03%2F2020+10%3A21&end_date=02%2F04%2F2020+20%3A21&page=1
+02-03-2020 @ 21:21:26 - Exported 14 orders
+02-03-2020 @ 23:21:29 - Input params: wc-api=wc_shipstation&auth_key=WCSS-b6c91f0b4959b1c4a9d6e9759774c5ab&action=export&start_date=02%2F03%2F2020+12%3A21&end_date=02%2F04%2F2020+22%3A21&page=1
+02-03-2020 @ 23:21:29 - Exported 14 orders
+02-04-2020 @ 01:21:32 - Input params: wc-api=wc_shipstation&auth_key=WCSS-b6c91f0b4959b1c4a9d6e9759774c5ab&action=export&start_date=02%2F03%2F2020+14%3A21&end_date=02%2F05%2F2020+00%3A21&page=1
+02-04-2020 @ 01:21:32 - Exported 15 orders
+02-04-2020 @ 03:21:37 - Input params: wc-api=wc_shipstation&auth_key=WCSS-b6c91f0b4959b1c4a9d6e9759774c5ab&action=export&start_date=02%2F03%2F2020+16%3A21&end_date=02%2F05%2F2020+02%3A21&page=1
+02-04-2020 @ 03:21:38 - Exported 15 orders
+02-04-2020 @ 05:21:40 - Input params: wc-api=wc_shipstation&auth_key=WCSS-b6c91f0b4959b1c4a9d6e9759774c5ab&action=export&start_date=02%2F03%2F2020+18%3A21&end_date=02%2F05%2F2020+04%3A21&page=1
+02-04-2020 @ 05:21:40 - Exported 15 orders
+02-04-2020 @ 07:21:43 - Input params: wc-api=wc_shipstation&auth_key=WCSS-b6c91f0b4959b1c4a9d6e9759774c5ab&action=export&start_date=02%2F03%2F2020+20%3A21&end_date=02%2F05%2F2020+06%3A21&page=1
+02-04-2020 @ 07:21:43 - Exported 15 orders
+02-04-2020 @ 09:11:08 - Input params: wc-api=wc_shipstation&auth_key=WCSS-b6c91f0b4959b1c4a9d6e9759774c5ab&action=shipnotify&order_number=10083&carrier=USPS&service=USPS+First+Class+Mail&tracking_number=9400111899561743641700&capture=true
+02-04-2020 @ 09:11:08 - ShipNotify XML: <?xml version="1.0" encoding="UTF-8"?><ShipNotice><OrderNumber>10083</OrderNumber><OrderID>10083</OrderID><CustomerCode>elkebernd@hotmail.com</CustomerCode><CustomerNotes><![CDATA[]]></CustomerNotes><InternalNotes><![CDATA[]]></InternalNotes><NotesToCustomer><![CDATA[]]></NotesToCustomer><NotifyCustomer>false</NotifyCustomer><LabelCreateDate>02/04/2020 08:00</LabelCreateDate><ShipDate>02/04/2020</ShipDate><Carrier>USPS</Carrier><Service>USPS First Class Mail</Service><TrackingNumber>9400111899561743641700</TrackingNumber><ShippingCost>5.0800</ShippingCost><CustomField1>vday15</CustomField1><CustomField2 /><CustomField3 /><Recipient><Name>Elke Bernd</Name><Company /><Address1>318 S DETROIT ST APT 103</Address1><Address2 /><City>LOS ANGELES</City><State>CA</State><PostalCode>90036-3582</PostalCode><Country>US</Country></Recipient><Items><Item><Name>Happy Clam</Name><SKU /><LineItemID>1822</LineItemID><Quantity>1</Quantity></Item><Item><Name>Smooth Operator</Name><SKU /><LineItemID>1823</LineItemID><Quantity>1</Quantity></Item></Items></ShipNotice>
+02-04-2020 @ 09:11:08 - ShipNotify Item: SimpleXMLElement Object
+(
+    [Name] => Happy Clam
+    [SKU] => SimpleXMLElement Object
+        (
+        )
+
+    [LineItemID] => 1822
+    [Quantity] => 1
+)
+
+02-04-2020 @ 09:11:08 - ShipNotify Item: SimpleXMLElement Object
+(
+    [Name] => Smooth Operator
+    [SKU] => SimpleXMLElement Object
+        (
+        )
+
+    [LineItemID] => 1823
+    [Quantity] => 1
+)
+
+02-04-2020 @ 09:11:08 - Shipped 2 out of 2 items in order 10083
+02-04-2020 @ 09:11:09 - Updated order 10083 to status wc-completed
+02-04-2020 @ 09:11:10 - Input params: wc-api=wc_shipstation&auth_key=WCSS-b6c91f0b4959b1c4a9d6e9759774c5ab&action=shipnotify&order_number=10091&carrier=USPS&service=USPS+First+Class+Mail&tracking_number=9400111899561743641199&capture=true
+02-04-2020 @ 09:11:10 - ShipNotify XML: <?xml version="1.0" encoding="UTF-8"?><ShipNotice><OrderNumber>10091</OrderNumber><OrderID>10091</OrderID><CustomerCode>fia1024@gmail.com</CustomerCode><CustomerNotes><![CDATA[]]></CustomerNotes><InternalNotes><![CDATA[]]></InternalNotes><NotesToCustomer><![CDATA[]]></NotesToCustomer><NotifyCustomer>false</NotifyCustomer><LabelCreateDate>02/04/2020 08:00</LabelCreateDate><ShipDate>02/04/2020</ShipDate><Carrier>USPS</Carrier><Service>USPS First Class Mail</Service><TrackingNumber>9400111899561743641199</TrackingNumber><ShippingCost>4.4600</ShippingCost><CustomField1>vday15</CustomField1><CustomField2 /><CustomField3 /><Recipient><Name>Sophia Raia</Name><Company /><Address1>401 E 34TH ST APT N13E</Address1><Address2 /><City>NEW YORK</City><State>NY</State><PostalCode>10016-6608</PostalCode><Country>US</Country></Recipient><Items><Item><Name>Smooth Operator</Name><SKU /><LineItemID>1827</LineItemID><Quantity>1</Quantity></Item></Items></ShipNotice>
+02-04-2020 @ 09:11:10 - ShipNotify Item: SimpleXMLElement Object
+(
+    [Name] => Smooth Operator
+    [SKU] => SimpleXMLElement Object
+        (
+        )
+
+    [LineItemID] => 1827
+    [Quantity] => 1
+)
+
+02-04-2020 @ 09:11:10 - Shipped 1 out of 1 items in order 10091
+02-04-2020 @ 09:11:11 - Updated order 10091 to status wc-completed
+02-04-2020 @ 09:21:46 - Input params: wc-api=wc_shipstation&auth_key=WCSS-b6c91f0b4959b1c4a9d6e9759774c5ab&action=export&start_date=02%2F03%2F2020+22%3A21&end_date=02%2F05%2F2020+08%3A21&page=1
+02-04-2020 @ 09:21:46 - Exported 15 orders
+02-04-2020 @ 11:22:02 - Input params: wc-api=wc_shipstation&auth_key=WCSS-b6c91f0b4959b1c4a9d6e9759774c5ab&action=export&start_date=02%2F04%2F2020+00%3A21&end_date=02%2F05%2F2020+10%3A21&page=1
+02-04-2020 @ 11:22:02 - Exported 2 orders
+02-04-2020 @ 13:22:03 - Input params: wc-api=wc_shipstation&auth_key=WCSS-b6c91f0b4959b1c4a9d6e9759774c5ab&action=export&start_date=02%2F04%2F2020+02%3A22&end_date=02%2F05%2F2020+12%3A22&page=1
+02-04-2020 @ 13:22:03 - Exported 3 orders
+02-04-2020 @ 14:02:26 - Input params: wc-api=wc_shipstation&auth_key=WCSS-b6c91f0b4959b1c4a9d6e9759774c5ab&action=shipnotify&order_number=10118&carrier=USPS&service=USPS+First+Class+Mail&tracking_number=9400111899561777879728&capture=true
+02-04-2020 @ 14:02:26 - ShipNotify XML: <?xml version="1.0" encoding="UTF-8"?><ShipNotice><OrderNumber>10118</OrderNumber><OrderID>10118</OrderID><CustomerCode>cran0822@gmail.com</CustomerCode><CustomerNotes><![CDATA[]]></CustomerNotes><InternalNotes><![CDATA[]]></InternalNotes><NotesToCustomer><![CDATA[]]></NotesToCustomer><NotifyCustomer>false</NotifyCustomer><LabelCreateDate>02/05/2020 08:00</LabelCreateDate><ShipDate>02/05/2020</ShipDate><Carrier>USPS</Carrier><Service>USPS First Class Mail</Service><TrackingNumber>9400111899561777879728</TrackingNumber><ShippingCost>4.4600</ShippingCost><CustomField1>vday15</CustomField1><CustomField2 /><CustomField3 /><Recipient><Name>Mariely Crandon</Name><Company /><Address1>408 DAVISON AVE NE</Address1><Address2 /><City>SAINT PETERSBURG</City><State>FL</State><PostalCode>33703-1518</PostalCode><Country>US</Country></Recipient><Items><Item><Name>Smooth Operator</Name><SKU /><LineItemID>1835</LineItemID><Quantity>1</Quantity></Item></Items></ShipNotice>
+02-04-2020 @ 14:02:26 - ShipNotify Item: SimpleXMLElement Object
+(
+    [Name] => Smooth Operator
+    [SKU] => SimpleXMLElement Object
+        (
+        )
+
+    [LineItemID] => 1835
+    [Quantity] => 1
+)
+
+02-04-2020 @ 14:02:26 - Shipped 1 out of 1 items in order 10118
+02-04-2020 @ 14:02:28 - Updated order 10118 to status wc-completed
+02-04-2020 @ 15:22:06 - Input params: wc-api=wc_shipstation&auth_key=WCSS-b6c91f0b4959b1c4a9d6e9759774c5ab&action=export&start_date=02%2F04%2F2020+04%3A22&end_date=02%2F05%2F2020+14%3A22&page=1
+02-04-2020 @ 15:22:06 - Exported 3 orders

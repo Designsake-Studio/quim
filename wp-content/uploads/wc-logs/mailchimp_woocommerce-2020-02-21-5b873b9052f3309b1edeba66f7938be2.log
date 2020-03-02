@@ -1,0 +1,87 @@
+2020-02-21T00:31:12+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_Cart_Update starts in the next minute :: obj_id b40efc96d54fedaf83daa5796c68b7eb
+2020-02-21T00:31:14+00:00 NOTICE abandoned_cart.success :: email: jonfer44@aol.com :: checkout_url: https://itsquim.com/checkout/?mc_cart_id=b40efc96d54fedaf83daa5796c68b7eb
+2020-02-21T04:59:09+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_Cart_Update starts in the next minute :: obj_id f30f991db4666b8a9f366d7080271f33
+2020-02-21T04:59:10+00:00 NOTICE abandoned_cart.success :: email: annrlilly@gmail.com :: checkout_url: https://itsquim.com/checkout/?mc_cart_id=f30f991db4666b8a9f366d7080271f33
+2020-02-21T05:00:02+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_Single_Order starts in 90 seconds :: obj_id 14529
+2020-02-21T05:02:29+00:00 NOTICE order_submit.success :: addStoreOrder :: #14529 :: email: annrlilly@gmail.com :: abandoned cart deleted [f30f991db4666b8a9f366d7080271f33]
+2020-02-21T15:02:40+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_Cart_Update starts in the next minute :: obj_id 23c62e428c2dc2efc14650ccc24cdb4e
+2020-02-21T15:03:59+00:00 NOTICE abandoned_cart.success :: email: kim.graham@gmail.com :: checkout_url: https://itsquim.com/checkout/?mc_cart_id=23c62e428c2dc2efc14650ccc24cdb4e
+2020-02-21T15:05:08+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_User_Submit starts in the next minute :: obj_id 175
+2020-02-21T15:05:09+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_Single_Order starts in 90 seconds :: obj_id 14530
+2020-02-21T15:05:17+00:00 NOTICE member.sync :: Updated Member kim.graham@gmail.com :: Array
+(
+    [previous_status] => transactional
+    [status] => 1
+    [merge_fields] => Array
+        (
+            [FNAME] => Kimberly
+            [LNAME] => Graham
+        )
+
+)
+
+2020-02-21T15:05:17+00:00 ERROR action_scheduler.process_job.fail :: Job MailChimp_WooCommerce_User_Submit not found at wp__mailchimp_jobs database table :: obj_id 175
+2020-02-21T15:10:34+00:00 NOTICE order_submit.success :: addStoreOrder :: #14530 :: email: kim.graham@gmail.com :: abandoned cart deleted [23c62e428c2dc2efc14650ccc24cdb4e]
+2020-02-21T15:10:34+00:00 NOTICE member.sync :: Updated Member kim.graham@gmail.com ( merge fields only ) :: Array
+(
+    [merge_fields] => Array
+        (
+            [FNAME] => Kimberly
+            [LNAME] => Graham
+        )
+
+)
+
+2020-02-21T16:59:54+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_Single_Order starts in 90 seconds :: obj_id 14528
+2020-02-21T16:59:56+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_Single_Order starts in 90 seconds :: obj_id 14529
+2020-02-21T16:59:57+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_Single_Order starts in 90 seconds :: obj_id 14530
+2020-02-21T17:02:15+00:00 NOTICE order_submit.success :: updateStoreOrder :: #14530 :: email: kim.graham@gmail.com
+2020-02-21T17:02:16+00:00 NOTICE member.sync :: Updated Member kim.graham@gmail.com ( merge fields only ) :: Array
+(
+    [merge_fields] => Array
+        (
+            [FNAME] => Kimberly
+            [LNAME] => Graham
+        )
+
+)
+
+2020-02-21T17:02:17+00:00 NOTICE order_submit.success :: updateStoreOrder :: #14529 :: email: annrlilly@gmail.com
+2020-02-21T17:02:18+00:00 NOTICE order_submit.success :: updateStoreOrder :: #14528 :: email: valeriedunston@gmail.com
+2020-02-21T19:45:43+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_Cart_Update starts in the next minute :: obj_id 9f7939e24fb81551bba4c657e7249541
+2020-02-21T19:46:17+00:00 NOTICE abandoned_cart.success :: email: jkiser50@gmail.com :: checkout_url: https://itsquim.com/checkout/?mc_cart_id=9f7939e24fb81551bba4c657e7249541
+2020-02-21T19:47:52+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_User_Submit starts in the next minute :: obj_id 176
+2020-02-21T19:47:54+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_Single_Order starts in 90 seconds :: obj_id 14531
+2020-02-21T19:48:46+00:00 NOTICE member.sync :: Updated Member jkiser50@gmail.com ( merge fields only ) :: Array
+(
+    [merge_fields] => Array
+        (
+            [FNAME] => Jerry
+            [LNAME] => Kiser
+        )
+
+)
+
+2020-02-21T19:49:29+00:00 NOTICE order_submit.success :: addStoreOrder :: #14531 :: email: jkiser50@gmail.com :: abandoned cart deleted [9f7939e24fb81551bba4c657e7249541]
+2020-02-21T19:49:30+00:00 NOTICE member.sync :: Updated Member jkiser50@gmail.com ( merge fields only ) :: Array
+(
+    [merge_fields] => Array
+        (
+            [FNAME] => Jerry
+            [LNAME] => Kiser
+        )
+
+)
+
+2020-02-21T21:12:59+00:00 NOTICE action_scheduler.queue_job :: MailChimp_WooCommerce_Single_Order starts in 90 seconds :: obj_id 14531
+2020-02-21T21:15:35+00:00 NOTICE order_submit.success :: updateStoreOrder :: #14531 :: email: jkiser50@gmail.com
+2020-02-21T21:15:36+00:00 NOTICE member.sync :: Updated Member jkiser50@gmail.com ( merge fields only ) :: Array
+(
+    [merge_fields] => Array
+        (
+            [FNAME] => Jerry
+            [LNAME] => Kiser
+        )
+
+)
+

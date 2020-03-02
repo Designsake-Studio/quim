@@ -1,0 +1,6 @@
+post_title,post_excerpt,post_status,post_parent,menu_order,post_date,_wt_sc_shipping_methods,_wt_sc_payment_methods,_wt_sc_user_roles,_wt_category_condition,_wt_product_condition,_wt_free_product_ids,_wt_min_matching_product_qty,_wt_max_matching_product_qty,_wt_min_matching_product_subtotal,_wt_max_matching_product_subtotal,discount_type,coupon_amount,individual_use,product_ids,exclude_product_ids,_wt_valid_for_number,minimum_amount,maximum_amount,customer_email,usage_limit,limit_usage_to_x_items,usage_limit_per_user,expiry_date,_wc_make_coupon_available,_wt_need_check_location_in,_wt_coupon_available_location,wt_apply_discount_before_tax_calculation
+WEBJS1Qt15bQh7CTOFFEE,,,,,,free_shipping,"bacs,cod",contributor,or,and,,,,,,percent,20,,,,,,,,,,,,cart,billing,US,yes
+WEB6chUgABQB0oNTOFFEE,,,,,,"flat_rate,free_shipping","bacs,cod",,or,and,,,,,,fixed_cart,15,,,,,,,,,,,,"my_account,cart,checkout",billing,,yes
+WEBCrhU1iC394x2TOFFEE,,,,,,flat_rate,bacs,,or,and,,,,,,fixed_cart,10,,,,,,,,,,,,my_account,billing,,yes
+WEBbTSTunPoEElITOFFEE,,,,,,,,contributor,or,and,,,,,,percent,20,,,,,,,,,,,,,billing,,yes
+WEB2lZz4GGkRPjhTOFFEE,,,,,,"flat_rate,free_shipping",cod,,or,and,,,,,,fixed_product,12,,,,,,,,,,,,"my_account,cart",billing,US,yes

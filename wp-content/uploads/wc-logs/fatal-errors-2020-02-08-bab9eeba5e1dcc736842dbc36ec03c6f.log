@@ -1,0 +1,12 @@
+2020-02-08T23:17:49+00:00 CRITICAL Uncaught Error: Call to a member function get_cart_url() on null in /home/x7e8jhvdjjbo/public_html/wp-content/themes/quim/header.php:138
+Stack trace:
+#0 /home/x7e8jhvdjjbo/public_html/wp-includes/template.php(722): require_once()
+#1 /home/x7e8jhvdjjbo/public_html/wp-includes/template.php(671): load_template('/home/x7e8jhvdj...', true)
+#2 /home/x7e8jhvdjjbo/public_html/wp-includes/general-template.php(41): locate_template(Array, true)
+#3 /home/x7e8jhvdjjbo/public_html/wp-content/themes/quim/404.php(10): get_header()
+#4 /home/x7e8jhvdjjbo/public_html/wp-includes/template-loader.php(98): include('/home/x7e8jhvdj...')
+#5 /home/x7e8jhvdjjbo/public_html/wp-blog-header.php(19): require_once('/home/x7e8jhvdj...')
+#6 /home/x7e8jhvdjjbo/public_html/index.php(17): require('/home/x7e8jhvdj...')
+#7 {main}
+  thrown in /home/x7e8jhvdjjbo/public_html/wp-content/themes/quim/header.php on line 138
+
