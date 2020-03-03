@@ -3,158 +3,190 @@
 Template Name: Ad Landing
  */
 
-get_header('landing'); ?>
+get_header('landing');
 
+if(have_rows('hero')) :
+    while( have_rows('hero') ) : the_row();
 
-	<?php if( have_rows('hero') ):
-        while( have_rows('hero') ): the_row();
-        // vars
-        $title = get_sub_field('hero_title');
-        $description = get_sub_field('hero_description');
-        $background = get_sub_field('hero_image');
-        $background_mp4 = get_sub_field('hero_mp4');
-        $link = get_sub_field('hero_link');
-        $cta = get_sub_field('hero_cta');
-        ?>
+    $text = get_sub_field('hero_text');
+    $bg = get_sub_field('hero_image');
+    $form = get_sub_field('form');
+    $f_label = $form['label'];
+    $f_text = $form['text'];
+    $shortcode = $form['shortcode'];
+    ?>
 
-    	<div class="about hero" style="background: #000 url('<?php echo $background; ?>') fixed no-repeat center center; background-size: cover;">
-    	    <div class="container wow fadeIn">
-    	        <h2><?php echo $title; ?></h2>
-    	        <p><?php echo $description; ?></p>
-    	    </div>
-
-            <div class="pulsing-circle"></div>
-            <div class="puls-button"><a href="#mission"></a></div>
-
-        <?php if( $background_mp4 ): ?>
-             <video preload="auto" autoplay="autoplay" muted="muted" loop="loop" playsinline="playsinline" webkit-playsinline="playsinline" class="preloaded">
-                 <source src="<?php echo $background_mp4; ?>" type="video/mp4">
-             </video>
-        <?php endif; ?>
-
-
-        <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2200.21 129.55" style="fill: #EBDCCD;"><path d="M0,83.27C176.54,29.13,358.53,6.41,542.21,36.48c187.33,30.67,368.13,110.45,557.9,105.9,189.77,4.55,370.56-75.23,557.89-105.9,183.68-30.07,365.68-7.35,542.21,46.79v69.38H0Z" transform="translate(0 -23.09)"/></svg>
-
-    	</div>
-
-        <?php endwhile; ?>
-    <?php endif; ?>
-
-    	<div class="about mission">
-    		<a id="mission"></a>
-            <div class="container">
-
-    		  <div class="entry-content">
-                    <?php while ( have_posts() ) :  the_post(); ?>
-                        <?php the_content(); ?>
-                    <?php endwhile; ?>
-    		  </div>
-
-              <?php if( have_rows('story') ):
-                while( have_rows('story') ): the_row();
-                // vars
-                $title = get_sub_field('title');
-                $description = get_sub_field('description');
-                $background = get_sub_field('background');
-                ?>
-                <div class="story">
-                    <div class="content wow fadeIn">
-                        <h3><?php echo $title; ?></h3>
-                        <p><?php echo $description; ?></p>
-                    </div>
-                    <div class="img-container wow fadeIn">
-                        <div class="wiggle-frame" style="background: #EBDCCD url('<?php echo $background; ?>') no-repeat center center; background-size: cover;"><img src="<?php echo get_stylesheet_directory_uri(); ?>/images/wiggle-frame.png"></div>
-                        </div>
-                    </div>
-                </div>
-                <?php endwhile; ?>
-              <?php endif; ?>
-            </div>
-    	</div>
-
-    <div class="testimonial-spotlight">
+    <section class="landing hero">
+        <div class="bg-img wow fadeIn" style="background-image:url('<?php echo $bg['sizes']['1536x1536']; ?>');"></div>
         <div class="container">
-            <script>
-                jQuery(document).ready(function($) {
-                        new CircleType(document.getElementById('tagline'));
-                });
-            </script>
-            <div id="tagline" class="testimonial-tag">What They're Sayin About Quim◦</div>
-            <ul class="testimonial-list owl-carousel">
-            <?php $query = new WP_Query( array( 'post_type' => 'testimonial', 'orderby' => 'rand', 'posts_per_page' => 5, ) ); if ( $query->have_posts() ) : while ( $query->have_posts() ) : $query->the_post(); ?>
-
-                <li class="testimonial-item">
-                    <?php the_field('quote'); ?>
-                </li>
-
-                <?php endwhile; endif; ?>
-            <?php wp_reset_query(); ?>
-            </ul>
+            <?php if(!empty($text)) { ?>
+            <div class="content wow fadeIn">
+                <h1><?php echo $text; ?></h1>
+            </div>
+            <?php } ?>
+            <div class="action wow fadeInDown">
+                <div class="email-wrap">
+                    <?php
+                        if(!empty($f_label)) { echo '<h5>'.$f_label.'</h5>'; }
+                        if(!empty($f_text)) { echo '<h3>'.$f_text.'</h3>'; }
+                        if(!empty($shortcode)) { echo '<div class="landing-form-wrap">'.do_shortcode($shortcode).'</div>'; }
+                    ?>
+                </div>
+            </div>
         </div>
-    </div>
 
+    </section>
 
-	<?php if( have_rows('card') ):
-        while( have_rows('card') ): the_row();
-        // vars
-        $title = get_sub_field('title');
-        $description = get_sub_field('description');
-        $background = get_sub_field('background');
-        $mp4 = get_sub_field('bg_mp4');
+<?php
+endwhile; endif;
+// INTRO
+if(have_rows('intro')) :
+    while( have_rows('intro') ) : the_row();
+        $label = get_sub_field('label');
+        $text = get_sub_field('text');
         ?>
+        <section class="landing intro">
+            <div class="container wow fadeIn">
+                <div class="content">
+                    <?php
+                        if(!empty($label)) { echo '<h5>'.$label.'</h5>'; }
+                        if(!empty($text)) { echo '<p>'.$text.'</p>'; }
+                    ?>
+                </div>
+            </div>
+        </section>
+<?php
+endwhile; endif;
+// CARDS
+if(have_rows('card')) : while( have_rows('card') ) : the_row();
+    echo '<section class="landing cards">';
 
-    	<div class="about card" style="background: #000 url('<?php echo $background; ?>') no-repeat center center; background-size: cover;">
-    		<div class="floating wow fadeInUp">
-    	     	<h3><?php echo $title; ?></h3>
-    	     	<p><?php echo $description; ?></p>
-  	        </div>
-            <?php if( $mp4 ): ?>
-                 <video preload="auto" autoplay="autoplay" muted="muted" loop="loop" playsinline="playsinline" webkit-playsinline="playsinline" class="preloaded">
-                     <source src="<?php echo $mp4; ?>" type="video/mp4">
-                 </video>
-            <?php endif; ?>
-    	</div>
+        $c1 = get_sub_field('card_one');
+        $c1_title = $c1['title'];
+        $c1_text = $c1['text'];
+        $c1_image = $c1['image'];
+        $c2 = get_sub_field('card_two');
+        $c2_title = $c2['title'];
+        $c2_text = $c2['text'];
+        $c2_image = $c2['image'];
 
-        <?php endwhile; ?>
-    <?php endif; ?>
+        ?>
+        <div class="landing promo img-left">
+            <div class="container wow fadeIn">
+                <div class="image">
+
+                        <?php
+                            if(!empty($c1_image)) { ?>
+                            <div class="wiggle-frame" style="background: #EBDCCD url('<?php echo $c1_image; ?>') no-repeat center center; background-size: cover;">
+                                <img class="flip-me" src="https://itsquim.com/wp-content/themes/quim/images/wiggle-frame.png">
+                            </div>
+                            <?php }
+                        ?>
 
 
-    <div class="press-spotlight">
+                </div>
+                <div class="content">
+                    <?php
+                        if(!empty($c1_title)) { echo '<h3>'.$c1_title.'</h3>'; }
+                        if(!empty($c1_text)) { echo '<p>'.$c1_text.'</p>'; }
+                    ?>
+                </div>
+            </div>
+        </div>
+        <div class="landing promo img-right">
+            <div class="container wow fadeIn">
+                <div class="image">
+
+                        <?php
+                            if(!empty($c2_image)) { ?>
+                            <div class="wiggle-frame" style="background: #EBDCCD url('<?php echo $c2_image; ?>') no-repeat center center; background-size: cover;">
+                                <img src="https://itsquim.com/wp-content/themes/quim/images/wiggle-frame.png">
+                            </div>
+                            <?php }
+                        ?>
+
+
+                </div>
+                <div class="content">
+                    <?php
+                        if(!empty($c2_title)) { echo '<h3>'.$c2_title.'</h3>'; }
+                        if(!empty($c2_text)) { echo '<p>'.$c2_text.'</p>'; }
+                    ?>
+                </div>
+            </div>
+        </div>
+
+    </section><!-- /landing cards -->
+
+<?php
+endwhile; endif;
+// SIGNOFF
+if(have_rows('product_line')) :
+    while( have_rows('product_line') ) : the_row();
+        $img = get_sub_field('bg_img');
+        ?>
+    <section class="landing product-line">
+        <img src="<?php echo $img['sizes']['2048x2048']; ?>" alt="A self-care line for people with vaginas and people without vaginas who love vaginas." style="width: 100%; display: block;"/>
+
+<div class="press-spotlight">
+    <div class="wiggle-wrap">
+    <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2200.21 129.07" style="fill: #1A283F;"><path d="M0,82.63c176.54,54.14,358.53,76.86,542.21,46.79C729.54,98.75,910.34,19,1100.11,23.52,1289.88,19,1470.67,98.75,1658,129.42c183.68,30.07,365.68,7.35,542.21-46.79V152.4H0Z" transform="translate(0 -23.34)"/></svg>
+</div>
         <div class="container">
             <h4>Featured In</h4>
             <ul class="press-listing">
-            <?php $query = new WP_Query( array( 'post_type' => 'press', 'orderby' => 'rand', 'posts_per_page' => 6, ) ); if ( $query->have_posts() ) : while ( $query->have_posts() ) : $query->the_post(); ?>
 
                 <li class="press-item">
-                    <a href="<?php the_field('press_link'); ?>" target="_blank"><img src="<?php the_field('press_logo'); ?>" alt="<?php the_title(); ?>"></a>
+                    <a href="https://www.civilized.life/articles/quim-rock-is-evolving-the-conversation-about-weed-sex-and-vaginas/" target="_blank"><img src="https://itsquim.com/wp-content/uploads/2019/10/civilized-logo.png" alt="Civilized"></a>
                 </li>
 
-                <?php endwhile; endif; ?>
-            <?php wp_reset_query(); ?>
-            </ul>
+
+                <li class="press-item">
+                    <a href="https://www.viceland.com/en_us/video/slutever-stoned-sex/5a7892a1f1cdb3119235c7b4" target="_blank"><img src="https://itsquim.com/wp-content/uploads/2019/10/viceland-logo.png" alt="Viceland"></a>
+                </li>
+
+
+                <li class="press-item">
+                    <a href="https://www.theguardian.com/society/2018/jul/09/cannabis-marijuana-sex-aphrodisiac" target="_blank"><img src="https://itsquim.com/wp-content/uploads/2019/10/the_gaurdian.png" alt="The Guardian"></a>
+                </li>
+
+
+                <li class="press-item">
+                    <a href="https://weedmaps.com/news/2019/05/cbd-oil-sex-satisfying-less-painful/" target="_blank"><img src="https://itsquim.com/wp-content/uploads/2019/10/Weedmaps_logo.png" alt="Weedmaps"></a>
+                </li>
+
+
+                <li class="press-item">
+                    <a href="http://nymag.com/strategist/article/the-best-products-at-the-indie-beauty-expo.html" target="_blank"><img src="https://itsquim.com/wp-content/uploads/2019/10/thestrategist.png" alt="NY Mag The Strategist"></a>
+                </li>
+
+
+                <li class="press-item">
+                    <a href="https://www.refinery29.com/en-us/2019/04/229937/weed-lube-reviews" target="_blank"><img src="https://itsquim.com/wp-content/uploads/2019/10/Refinery29.png" alt="Refinery 29"></a>
+                </li>
+
+                                        </ul>
+        </div>
+
+    </section>
+<?php endwhile; endif;
+// FOOTER FORM
+if(have_rows('signoff')) :
+    while( have_rows('signoff') ) : the_row();
+        $img = get_sub_field('background');
+?>
+<section class="landing signoff" style="background-image:url('http://itsquim.test/wp-content/uploads/2020/03/landing-bottom.jpg');">
+    <div class="container wow fadeIn">
+        <div class="email-wrap">
+            <?php
+                if(!empty($f_label)) { echo '<h5>'.$f_label.'</h5>'; }
+                if(!empty($f_text)) { echo '<h3>'.$f_text.'</h3>'; }
+                if(!empty($shortcode)) { echo '<div class="landing-form-wrap">'.do_shortcode($shortcode).'</div>'; }
+            ?>
         </div>
     </div>
+</section>
+<?php endwhile; endif;
 
 
-	<?php if( have_rows('fifty') ):
-        while( have_rows('fifty') ): the_row();
-        // vars
-        $title = get_sub_field('title');
-        $description = get_sub_field('description');
-        $background = get_sub_field('background');
-        $image = get_sub_field('image');
-        ?>
-        <div class="about fifty">
-    		<div class="half image" style="
-    			background: url('<?php echo $background; ?>') no-repeat top center; background-size: cover;">
-    		</div>
-    		<div class="half description wow fadeIn">
-    		 	<h3><?php echo $title; ?></h3>
-    		 	<?php echo $description; ?>
-  	    	</div>
-    	</div>
-
-        <?php endwhile; ?>
-    <?php endif; ?>
-
-<?php get_footer('landing'); ?>
+get_footer('landing');

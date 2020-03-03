@@ -31,7 +31,7 @@
 	<script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/6616270.js"></script>
 
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,600,700,800&display=swap" rel="stylesheet">
-	
+
   	<script src="<?php echo get_stylesheet_directory_uri(); ?>/js/circletype.min.js"></script>
   	<script src="<?php echo get_stylesheet_directory_uri(); ?>/js/jquery.lettering-0.6.min.js"></script>
 
@@ -59,7 +59,7 @@
 	  window.dataLayer = window.dataLayer || [];
 	  function gtag(){dataLayer.push(arguments);}
 	  gtag('js', new Date());
-	
+
 	  gtag('config', 'UA-150093503-1');
 	</script>
 
@@ -104,51 +104,17 @@
 
 <div id="page" class="site">
 	<a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'quim' ); ?></a>
-
 	<header id="masthead" class="site-header">
 		<div class="container">
-			<nav id="site-navigation" class="main-navigation">
-				<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false">
-					<span></span>
-  					<span></span>
-  					<span></span>
-  					<span></span>
-				</button>
 
-				<?php
-				wp_nav_menu( array(
-					'theme_location' => 'main-navigation',
-					'menu_id'        => 'primary-menu',
-				) );
-				?>
-				<?php
-				wp_nav_menu( array(
-					'theme_location' => 'mobile-menu',
-					'menu_id'        => 'mobile-menu',
-				) );
-				?>
-			</nav>
 
 			<div class="site-branding">
 				<div class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></div>
 			</div>
 
-			<div class="cart">
-				
-				<a aria-label="cart" href="<?php echo WC()->cart->get_cart_url(); ?>"><i class="fas fa-shopping-cart"></i></a>
 
-				<?php if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) { $count = WC()->cart->cart_contents_count; ?>
-
-						<a class="cart-contents" href="<?php echo WC()->cart->get_cart_url(); ?>" title="<?php _e( 'View your shopping cart' ); ?>">
-    						<?php if ( $count > 0 ) { ?>
-        						<span class="cart-contents-count"><?php echo esc_html( $count ); ?></span>
-        					<?php }?>
-        				</a>
-    					<div class="widget_shopping_cart_content"><?php woocommerce_mini_cart(''); ?></div>
-
-				<?php } ?>
-			</div>
 		</div>
 	</header><!-- #masthead -->
+
 
 	<div id="content" class="site-content">
