@@ -2284,6 +2284,18 @@ p.age-gate-remember-wrapper input[type="checkbox"] {
 
     }
 }
+@media only screen and (max-width: 480px) {
+    .landing.hero .container > .content {
+        height: auto;
+        padding-top: 150px;
+    }
+    .landing.hero .bg-img {
+        height: 70%;
+    }
+    .landing.hero h1 {
+        font-size: 1.5rem;
+    }
+}
 
 /* Intro */
 .landing.intro {
