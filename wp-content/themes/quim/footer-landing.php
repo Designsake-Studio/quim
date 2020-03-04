@@ -15,8 +15,6 @@
 </div><!-- #page -->
 
 
-
-<span id="extole_zone_global_footer"></span>
 <?php wp_footer(); ?>
 
 </body>
