@@ -2595,6 +2595,17 @@ p.age-gate-remember-wrapper input[type="checkbox"] {
         margin-left: auto;
         margin-right: auto;
     }
+    .landing.signoff > .container {
+        padding-top: 50px;
+        padding-bottom: 50px;
+        min-height: 0;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .landing.signoff .email-wrap h3 br {
+        display: none;
+    }
 }
 
 
