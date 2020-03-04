@@ -77,7 +77,8 @@ if(have_rows('card')) : while( have_rows('card') ) : the_row();
 
                         <?php
                             if(!empty($c1_image)) { ?>
-                            <div class="wiggle-frame" style="background: #EBDCCD url('<?php echo $c1_image; ?>') no-repeat center center; background-size: cover;">
+                            <div class="wiggle-frame">
+                                <div class="img-bg" style="background: #EBDCCD url('<?php echo $c1_image; ?>') no-repeat center center; background-size: cover;"></div>
                                 <img class="flip-me" src="https://itsquim.com/wp-content/themes/quim/images/wiggle-frame.png">
                             </div>
                             <?php }
@@ -99,7 +100,8 @@ if(have_rows('card')) : while( have_rows('card') ) : the_row();
 
                         <?php
                             if(!empty($c2_image)) { ?>
-                            <div class="wiggle-frame" style="background: #EBDCCD url('<?php echo $c2_image; ?>') no-repeat center center; background-size: cover;">
+                            <div class="wiggle-frame">
+                                <div class="img-bg" style="background: #EBDCCD url('<?php echo $c2_image; ?>') no-repeat center center; background-size: cover;"></div>
                                 <img src="https://itsquim.com/wp-content/themes/quim/images/wiggle-frame.png">
                             </div>
                             <?php }
@@ -125,48 +127,48 @@ if(have_rows('product_line')) :
     while( have_rows('product_line') ) : the_row();
         $img = get_sub_field('bg_img');
         ?>
-    <section class="landing product-line">
-        <img src="<?php echo $img['sizes']['2048x2048']; ?>" alt="A self-care line for people with vaginas and people without vaginas who love vaginas." style="width: 100%; display: block;"/>
+        <section class="landing product-line">
+            <img src="<?php echo $img['sizes']['2048x2048']; ?>" alt="A self-care line for people with vaginas and people without vaginas who love vaginas." style="width: 100%; display: block;"/>
 
-<div class="press-spotlight">
-    <div class="wiggle-wrap">
-    <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2200.21 129.07" style="fill: #1A283F;"><path d="M0,82.63c176.54,54.14,358.53,76.86,542.21,46.79C729.54,98.75,910.34,19,1100.11,23.52,1289.88,19,1470.67,98.75,1658,129.42c183.68,30.07,365.68,7.35,542.21-46.79V152.4H0Z" transform="translate(0 -23.34)"/></svg>
-</div>
-        <div class="container">
-            <h4>Featured In</h4>
-            <ul class="press-listing">
+            <div class="press-spotlight">
+                <div class="wiggle-wrap">
+                <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2200.21 129.07" style="fill: #1A283F;"><path d="M0,82.63c176.54,54.14,358.53,76.86,542.21,46.79C729.54,98.75,910.34,19,1100.11,23.52,1289.88,19,1470.67,98.75,1658,129.42c183.68,30.07,365.68,7.35,542.21-46.79V152.4H0Z" transform="translate(0 -23.34)"/></svg>
+            </div>
+            <div class="container">
+                <h4>Featured In</h4>
+                <ul class="press-listing">
 
-                <li class="press-item">
-                    <a href="https://www.civilized.life/articles/quim-rock-is-evolving-the-conversation-about-weed-sex-and-vaginas/" target="_blank"><img src="https://itsquim.com/wp-content/uploads/2019/10/civilized-logo.png" alt="Civilized"></a>
-                </li>
-
-
-                <li class="press-item">
-                    <a href="https://www.viceland.com/en_us/video/slutever-stoned-sex/5a7892a1f1cdb3119235c7b4" target="_blank"><img src="https://itsquim.com/wp-content/uploads/2019/10/viceland-logo.png" alt="Viceland"></a>
-                </li>
+                    <li class="press-item">
+                        <a href="https://www.civilized.life/articles/quim-rock-is-evolving-the-conversation-about-weed-sex-and-vaginas/" target="_blank"><img src="https://itsquim.com/wp-content/uploads/2019/10/civilized-logo.png" alt="Civilized"></a>
+                    </li>
 
 
-                <li class="press-item">
-                    <a href="https://www.theguardian.com/society/2018/jul/09/cannabis-marijuana-sex-aphrodisiac" target="_blank"><img src="https://itsquim.com/wp-content/uploads/2019/10/the_gaurdian.png" alt="The Guardian"></a>
-                </li>
+                    <li class="press-item">
+                        <a href="https://www.viceland.com/en_us/video/slutever-stoned-sex/5a7892a1f1cdb3119235c7b4" target="_blank"><img src="https://itsquim.com/wp-content/uploads/2019/10/viceland-logo.png" alt="Viceland"></a>
+                    </li>
 
 
-                <li class="press-item">
-                    <a href="https://weedmaps.com/news/2019/05/cbd-oil-sex-satisfying-less-painful/" target="_blank"><img src="https://itsquim.com/wp-content/uploads/2019/10/Weedmaps_logo.png" alt="Weedmaps"></a>
-                </li>
+                    <li class="press-item">
+                        <a href="https://www.theguardian.com/society/2018/jul/09/cannabis-marijuana-sex-aphrodisiac" target="_blank"><img src="https://itsquim.com/wp-content/uploads/2019/10/the_gaurdian.png" alt="The Guardian"></a>
+                    </li>
 
 
-                <li class="press-item">
-                    <a href="http://nymag.com/strategist/article/the-best-products-at-the-indie-beauty-expo.html" target="_blank"><img src="https://itsquim.com/wp-content/uploads/2019/10/thestrategist.png" alt="NY Mag The Strategist"></a>
-                </li>
+                    <li class="press-item">
+                        <a href="https://weedmaps.com/news/2019/05/cbd-oil-sex-satisfying-less-painful/" target="_blank"><img src="https://itsquim.com/wp-content/uploads/2019/10/Weedmaps_logo.png" alt="Weedmaps"></a>
+                    </li>
 
 
-                <li class="press-item">
-                    <a href="https://www.refinery29.com/en-us/2019/04/229937/weed-lube-reviews" target="_blank"><img src="https://itsquim.com/wp-content/uploads/2019/10/Refinery29.png" alt="Refinery 29"></a>
-                </li>
+                    <li class="press-item">
+                        <a href="http://nymag.com/strategist/article/the-best-products-at-the-indie-beauty-expo.html" target="_blank"><img src="https://itsquim.com/wp-content/uploads/2019/10/thestrategist.png" alt="NY Mag The Strategist"></a>
+                    </li>
 
-                                        </ul>
-        </div>
+
+                    <li class="press-item">
+                        <a href="https://www.refinery29.com/en-us/2019/04/229937/weed-lube-reviews" target="_blank"><img src="https://itsquim.com/wp-content/uploads/2019/10/Refinery29.png" alt="Refinery 29"></a>
+                    </li>
+
+                </ul>
+            </div>
 
     </section>
 <?php endwhile; endif;
