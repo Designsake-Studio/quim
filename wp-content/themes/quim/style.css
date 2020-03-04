@@ -2227,6 +2227,9 @@ p.age-gate-remember-wrapper input[type="checkbox"] {
     }
 }
 @media only screen and (max-width: 768px) {
+    body.page-template-page-landing header#masthead .site-branding .site-title {
+        height: 40px;
+    }
     .landing.hero {
         min-height: 0;
         height: auto;
@@ -2288,6 +2291,7 @@ p.age-gate-remember-wrapper input[type="checkbox"] {
     .landing.hero .container > .content {
         height: auto;
         padding-top: 150px;
+        padding-bottom: 70px;
     }
     .landing.hero .bg-img {
         height: 70%;
