@@ -177,7 +177,7 @@ if(have_rows('signoff')) :
     while( have_rows('signoff') ) : the_row();
         $img = get_sub_field('background');
 ?>
-<section class="landing signoff" style="background-image:url('http://itsquim.test/wp-content/uploads/2020/03/landing-bottom.jpg');">
+<section class="landing signoff" style="background-image:url('<?php echo $img['sizes']['2048x2048']; ?>');">
     <div class="container wow fadeIn">
         <div class="email-wrap">
             <?php
