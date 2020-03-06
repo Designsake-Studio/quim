@@ -2127,6 +2127,7 @@ p.age-gate-remember-wrapper input[type="checkbox"] {
     border: none!important;
     padding-top: 0!important;
     padding-bottom: 0!important;
+    font-size: .8rem;
     height: 47px;
     color: #EBDCCD;
     transition: all 0.3s ease-in-out;
