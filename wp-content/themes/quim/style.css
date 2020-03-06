@@ -446,6 +446,17 @@ body.home .press-spotlight h4 { margin: 0 auto 35px; }
     background-color: #ffe6f1 !important;
     background-size: cover !important;
     background-position: top center !important;
+
+}
+
+.home.hero::after {
+    content: '';
+    background: rgba(26, 40, 63, 0.5);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
 }
 .home.hero .container {
     text-align: center;
@@ -457,8 +468,9 @@ body.home .press-spotlight h4 { margin: 0 auto 35px; }
 }
 .home.hero .container .description {
     color:#1A283F;
-    color: #ebdccd;
-    width: 80%;
+   /* color: #ebdccd;*/
+   color: #fff;
+    width: 70%;
     margin: 0 auto;
     font-size: 1.2em;
 }
@@ -2832,6 +2844,9 @@ body.home .featured-products .single-product.Happy .product-img-home:before {
 
     .home.hero .container { max-width: 80vw; }
     .home.hero h2 { font-size: 4em; }
+    .home.hero .container .description br {
+        display: none;
+    }
     .home.hero .float-img.right { top: -5vh; right: 14vw; }
     .home.hero .float-img.right img { max-width: 180px; }
     .home.hero .float-img { left: 5vw; bottom: -5vh; display: none;}
