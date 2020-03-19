@@ -91,7 +91,6 @@ if(have_rows('card')) : while( have_rows('card') ) : the_row();
                         if(!empty($c1_title)) { echo '<h3>'.$c1_title.'</h3>'; }
                         if(!empty($c1_text)) { echo '<p>'.$c1_text.'</p>'; }
                     ?>
-                    <p><a href="/shop/" class="button">Shop Now</a></p>
                 </div>
             </div>
         </div>
