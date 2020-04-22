@@ -636,7 +636,7 @@ body.home .press-spotlight h4 { margin: 0 auto 35px; }
 }
 .featured-products .single-product span.subtitle { font-size: 1em; display: block; margin: 5px auto; }
 
-.featured-products .single-product.Smooth .product-img-home:before {
+/*.featured-products .single-product.Smooth .product-img-home:before {
     content: '';
     background: url('images/new.gif') no-repeat center center;
     background-size: contain;
@@ -645,7 +645,7 @@ body.home .press-spotlight h4 { margin: 0 auto 35px; }
     left: -20px;
     width: 140px;
     height: 75px;
-}
+}*/
 /* CA Only */
 .featured-products .product-detail-home { position: relative; }
 .featured-products .single-product.Oh span.subtitle:after,

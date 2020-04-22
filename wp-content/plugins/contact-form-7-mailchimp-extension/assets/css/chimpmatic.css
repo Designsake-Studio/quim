@@ -23,6 +23,12 @@
   color: #0073aa;
 }
 
+
+.anew {
+  color: orangered;
+  font-weight: 800;
+}
+
 .pr10 {
   padding-right: 10px;
 }

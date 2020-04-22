@@ -356,6 +356,32 @@
 }
 
 
+/* Plugin info windows */
+
+div#plugin-information,
+div#section-holder {
+  /* background-color: rgba(0,255,0,.05); */
+  padding-right: 10px;
+}
+
+#plugin-information .section,
+#section-holder  .section {
+  overflow: hidden;
+}
+
+#plugin-information .section img,
+#section-holder  .section img {
+  position: relative;
+  max-width: 100%;
+}
+
+.reds {
+  color: orangered !important;
+  font-weight: 900 !important;
+}
+
+
+
 /* // *======================================================================================================================================================= */
 /* //             Bootstrap 3 Media Queries */
 /* // ======================================================================================================================================================== */

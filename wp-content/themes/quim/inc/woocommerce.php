@@ -274,3 +274,13 @@ if ( ! function_exists( 'quim_woocommerce_header_cart' ) ) {
 		<?php
 	}
 }
+
+// Disable the woocommerce_hold_stock_for_checkout.
+add_filter('woocommerce_hold_stock_for_checkout',  'quim_disable_hold_stock_for_checkout');
+/**
+* Disable the filter
+* @name quim_disable_hold_stock_for_checkout
+*/
+function mwb_disable_hold_stock_for_checkout(){
+	return false;
+}
