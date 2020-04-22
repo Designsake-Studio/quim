@@ -446,6 +446,17 @@ body.home .press-spotlight h4 { margin: 0 auto 35px; }
     background-color: #ffe6f1 !important;
     background-size: cover !important;
     background-position: top center !important;
+
+}
+
+.home.hero::after {
+    content: '';
+    background: rgba(26, 40, 63, 0.5);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
 }
 .home.hero .container {
     text-align: center;
@@ -457,7 +468,9 @@ body.home .press-spotlight h4 { margin: 0 auto 35px; }
 }
 .home.hero .container .description {
     color:#1A283F;
-    width: 80%;
+   /* color: #ebdccd;*/
+   color: #fff;
+    width: 70%;
     margin: 0 auto;
     font-size: 1.2em;
 }
@@ -475,6 +488,16 @@ body.home .press-spotlight h4 { margin: 0 auto 35px; }
     font-size: 1.25em;
     letter-spacing: 0.1em;
     margin: 0 5px;
+}
+
+.home.hero a.button {
+    color: #f9f4ef;
+    border-color: #d46060;
+    background: #d46060;
+}
+.home.hero a.button:hover {
+    border-color: #d46060;
+    background: #d46060;
 }
 .home.hero .float-img {
     position: absolute;
@@ -504,13 +527,15 @@ body.home .press-spotlight h4 { margin: 0 auto 35px; }
         100% { transform: translateY(0); }
     }
 
-.home.hero .float-img img { width: 100%; max-width: 250px; }
+.home.hero .float-img img { width: 100%; max-width: 200px; }
 .home.hero .float-img.right {
     left: auto;
-    right: 15vw;
-    top: -6vh;
+    /*right: 15vw;*/
+    /*top: -6vh;*/
+    right: 5vw;
+    bottom: -5vh;
 }
-.home.hero .float-img.right img { max-width: 250px; }
+.home.hero .float-img.right img { max-width: 200px; }
 
 /* Pulsing */
 .pulsing-circle {
@@ -611,7 +636,7 @@ body.home .press-spotlight h4 { margin: 0 auto 35px; }
 }
 .featured-products .single-product span.subtitle { font-size: 1em; display: block; margin: 5px auto; }
 
-.featured-products .single-product.Smooth .product-img-home:before {
+/*.featured-products .single-product.Smooth .product-img-home:before {
     content: '';
     background: url('images/new.gif') no-repeat center center;
     background-size: contain;
@@ -620,7 +645,7 @@ body.home .press-spotlight h4 { margin: 0 auto 35px; }
     left: -20px;
     width: 140px;
     height: 75px;
-}
+}*/
 /* CA Only */
 .featured-products .product-detail-home { position: relative; }
 .featured-products .single-product.Oh span.subtitle:after,
@@ -2114,6 +2139,7 @@ p.age-gate-remember-wrapper input[type="checkbox"] {
     border: none!important;
     padding-top: 0!important;
     padding-bottom: 0!important;
+    font-size: .8rem;
     height: 47px;
     color: #EBDCCD;
     transition: all 0.3s ease-in-out;
@@ -2745,7 +2771,7 @@ footer.site-footer .disclaimer {
 }
 
 /* Valentines Day Overwrites */
-body.home .home.hero:before {
+/*body.home .home.hero:before {
     content: '';
     background: -moz-linear-gradient(top,  rgba(0,0,0,0.4) 0%, rgba(0,0,0,0) 100%);
     background: -webkit-linear-gradient(top,  rgba(0,0,0,0.4) 0%,rgba(0,0,0,0) 100%);
@@ -2756,16 +2782,7 @@ body.home .home.hero:before {
     top: 0; left: 0;
     position: absolute;
 }
-body.home .home.hero .container .description { color: #ebdccd; }
-.home.hero a.button {
-    color: #f9f4ef;
-    border-color: #d46060;
-    background: #d46060;
-}
-.home.hero a.button:hover {
-    border-color: #d46060;
-    background: #d46060;
-}
+
 body.home .hero svg { fill: #f9cec0 !important;}
 body.home .press-spotlight { background: #f9cec0;}
 body.home .press-spotlight h4 { color: #6f5045;}
@@ -2801,7 +2818,7 @@ body.home .featured-products .single-product.Happy .product-img-home:before {
     width: 70px;
     height: 55px;
 }
-
+*/
 /* =Mobile (Media Queries)
 -------------------------------------------------------------- */
 @-ms-viewport {
@@ -2827,9 +2844,12 @@ body.home .featured-products .single-product.Happy .product-img-home:before {
 
     .home.hero .container { max-width: 80vw; }
     .home.hero h2 { font-size: 4em; }
+    .home.hero .container .description br {
+        display: none;
+    }
     .home.hero .float-img.right { top: -5vh; right: 14vw; }
     .home.hero .float-img.right img { max-width: 180px; }
-    .home.hero .float-img { left: 5vw; bottom: -5vh;}
+    .home.hero .float-img { left: 5vw; bottom: -5vh; display: none;}
     .home.hero .float-img img { max-width: 220px; }
 
     /* Blog - Single */

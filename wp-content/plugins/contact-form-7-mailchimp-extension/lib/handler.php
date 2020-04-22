@@ -486,12 +486,16 @@ function mce_set_lateralbanner() {
       <div class="inside">
         <p>We have the the best tool to integrate <b>Contact Form 7</b> & <b>Mailchimp.com</b> mailing lists. We have new nifty features:</p>
         <ol>
-          <li><a href="https://chimpmatic.com?utm_source=ChimpMatic&utm_campaign=Groups" target="_blank">Groups / Categories</a></li>
+          <li><a href="https://chimpmatic.com?utm_source=ChimpMatic&utm_campaign=Tag-Existing" target="_blank"><span class="anew">NEW</span> Tag Existing Subscribers</a></li>
+          <li><a href="https://chimpmatic.com?utm_source=ChimpMatic&utm_campaign=Group-Existing" target="_blank"><span class="anew">NEW</span> Group Existing Subscribers</a></li>
+          <li><a href="https://chimpmatic.com?utm_source=ChimpMatic&utm_campaign=GEmail-Verifications" target="_blank"><span class="anew">NEW</span> Email Verification</a></li>
+          <li><a href="https://chimpmatic.com?utm_source=ChimpMatic&utm_campaign=Unsubscribe" target="_blank"><span class="anew">NEW</span> Unsubscribe</a></li>
+          <li><a href="https://chimpmatic.com?utm_source=ChimpMatic&utm_campaign=Archive" target="_blank"><span class="anew">NEW</span> Archive</a></li>
+          <li><a href="https://chimpmatic.com?utm_source=ChimpMatic&utm_campaign=Delete-Contact" target="_blank"><span class="anew">NEW</span> Delete (Permanently)</a></li>
           <li><a href="https://chimpmatic.com?utm_source=ChimpMatic&utm_campaign=UnlimitedFields" target="_blank">Unlimited Fields</a></li>
           <li><a href="https://chimpmatic.com?utm_source=ChimpMatic&utm_campaign=UnlimitedAudiences" target="_blank">Unlimited Audiences</a></li>
           <li><a href="https://chimpmatic.com?utm_source=ChimpMatic&utm_campaign=html-txt" target="_blank">Let visitors choose HTML or Plain text</a></li>
           <li><a href="https://chimpmatic.com?utm_source=ChimpMatic&utm_campaign=sync" target="_blank">Sync WordPress Users</a></li>
-          <li><a href="https://chimpmatic.com?utm_source=ChimpMatic&utm_campaign=GreatPricing" target="_blank">Great Pricing Options</a></li>
         </ol>
         <p><a href="https://chimpmatic.com?utm_source=ChimpMatic&utm_campaign=LearnMore" class="dops-button is-primary" target="_blank">Learn More</a></p>
       </div>';

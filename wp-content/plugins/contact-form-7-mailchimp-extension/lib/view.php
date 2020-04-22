@@ -1,5 +1,5 @@
 <?php
-/*  Copyright 2013-2019 Renzo Johnson (email: renzojohnson at gmail.com)
+/*  Copyright 2013-2020 Renzo Johnson (email: renzojohnson at gmail.com)
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -41,7 +41,7 @@ function mce_panel_gen ($apivalid,$listdata,$cf7_mch,$listatags,$mce_txcomodin) 
             <?php mce_html_panel_listmail( $apivalid, $listdata, $cf7_mch); // Get listas ?>
 
         </div>
-        <small class="description">Hit the Connect button to load your lists <a href="https://chimpmatic.com/how-to-find-your-mailchimp-api-key<?php echo vc_utm() ?>MC-list-id" class="helping-field" target="_blank" title="get help with MailChimp List ID:"> Read More <span class="red-icon dashicons dashicons-admin-links"></span></a></small>
+        <small class="description">Hit the Connect button to load your lists <a href="https://chimpmatic.com/how-to-find-your-mailchimp-api-key<?php echo vc_utm() ?>MC-list-id" class="helping-field" target="_blank" title="get help with MailChimp List ID:"> Learn More</a></small>
       </div>
     </div>
 
@@ -49,18 +49,22 @@ function mce_panel_gen ($apivalid,$listdata,$cf7_mch,$listatags,$mce_txcomodin) 
       <div class="mail-field md-half">
         <label for="wpcf7-mailchimp-email"><?php echo esc_html( __( 'Subscriber Email: *|EMAIL|* ', 'wpcf7' ) ); ?> <span class="mce-required" > Required</span></label><br />
          <?php mce_html_selected_tag ('email',$listatags,$cf7_mch,'email') ;  ?>
-        <small class="description">MUST be an email tag <a href="<?php echo MCE_URL ?>/mailchimp-contact-form<?php echo vc_utm() ?>MC-email" class="helping-field" target="_blank" title="get help with Subscriber Email:"> Read More <span class="red-icon dashicons dashicons-admin-links"></span></a></small>
+        <small class="description">MUST be an email tag <a href="<?php echo MCE_URL ?>/mailchimp-contact-form<?php echo vc_utm() ?>MC-email" class="helping-field" target="_blank" title="get help with Subscriber Email:"> Learn More</a></small>
       </div>
 
       <div class="mail-field md-half">
         <label for="wpcf7-mailchimp-name"><?php echo esc_html( __( 'Subscriber Name - *|FNAME|* ', 'wpcf7' ) ); ?></label><br />
          <?php mce_html_selected_tag ('name',$listatags,$cf7_mch,'text') ; ?>
-        <small class="description"> This may be sent as Name <a href="<?php echo MCE_URL ?>/mailchimp-contact-form<?php echo vc_utm() ?>MC-name" class="helping-field" target="_blank" title="get help with Subscriber name:"> Read More <span class="red-icon dashicons dashicons-admin-links"></span></a></small>
+        <small class="description"> This may be sent as Name <a href="<?php echo MCE_URL ?>/mailchimp-contact-form<?php echo vc_utm() ?>MC-name" class="helping-field" target="_blank" title="get help with Subscriber name:"> Learn More</a></small>
       </div>
     </div>
 
     <div class="mce-custom-fields holder-img">
-      <a href="https://chimpmatic.com?utm_source=ChimpMatic&utm_campaign=Groups-img" target="_blank" title="ChimpMatic Pro Options"><img src="/wp-content/plugins/contact-form-7-mailchimp-extension/assets/images/ChimpMatic-lite-groups-options.png" alt="ChimpMatic Pro Options" title="ChimpMatic Pro Options"></a>
+      <a href="https://chimpmatic.com?utm_source=ChimpMatic&utm_campaign=Groups-img" target="_blank" title="ChimpMatic Pro Options"><img src="/wp-content/plugins/contact-form-7-mailchimp-extension/assets/images/ChimpMatic-lite-tags-options.png" alt="ChimpMatic Pro Options" title="ChimpMatic Pro Options"></a>
+    </div>
+
+    <div class="mce-custom-fields holder-img">
+      <a href="https://chimpmatic.com?utm_source=ChimpMatic&utm_campaign=Tags-img" target="_blank" title="ChimpMatic Pro Options"><img src="/wp-content/plugins/contact-form-7-mailchimp-extension/assets/images/ChimpMatic-lite-groups-options.png" alt="ChimpMatic Pro Options" title="ChimpMatic Pro Options"></a>
     </div>
 
   </div>
@@ -152,20 +156,7 @@ function mce_panel_gen ($apivalid,$listdata,$cf7_mch,$listatags,$mce_txcomodin) 
 
 </div>
 
-<!--
-    <div id="informationdiv_aux" class="postbox mce-move mc-lateral">
-      <h3>ChimpMatic is Here!</h3>
-      <div class="inside">
-        <p>We have the the best tool to integrate Contact Form 7 with your Chimpmail mailing lists with nifty features:</p>
-        <ol>
-          <li><a href="https://chimpmatic.com" target="_blank">Groups / Categories</a></li>
-          <li><a href="https://chimpmatic.com" target="_blank">Unlimited Fileds</a></li>
-          <li><a href="https://chimpmatic.com" target="_blank">Unlimited Audiences</a></li>
-          <li><a href="https://chimpmatic.com" target="_blank">Great Pricing Options</a></li>
-        </ol>
-        <p><a href="https://chimpmatic.com" class="dops-button is-primary" target="_blank">Read More</a></p>
-      </div>
-    </div> -->
+
 </div>
 <?php echo mce_lateral_banner () ?>
 
