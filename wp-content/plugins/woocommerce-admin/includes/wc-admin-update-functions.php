@@ -8,6 +8,7 @@
  */
 
 use \Automattic\WooCommerce\Admin\Install as Installer;
+use \Automattic\WooCommerce\Admin\Notes\WC_Admin_Notes;
 
 /**
  * Update order stats `status` index length.
@@ -60,4 +61,19 @@ function wc_admin_update_0230_rename_gross_total() {
  */
 function wc_admin_update_0230_db_version() {
 	Installer::update_db_version( '0.23.0' );
+}
+
+/**
+ * Remove the note unsnoozing scheduled action.
+ */
+function wc_admin_update_0251_remove_unsnooze_action() {
+	as_unschedule_action( WC_Admin_Notes::UNSNOOZE_HOOK, null, 'wc-admin-data' );
+	as_unschedule_action( WC_Admin_Notes::UNSNOOZE_HOOK, null, 'wc-admin-notes' );
+}
+
+/**
+ * Update DB Version.
+ */
+function wc_admin_update_0251_db_version() {
+	Installer::update_db_version( '0.25.1' );
 }
