@@ -679,53 +679,55 @@ class WC_Shipping_USPS extends WC_Shipping_Method {
 		$package_requests = array();
 		if ( $this->enable_standard_services ) {
 			$standard_services_requests = $this->get_standard_package_requests( $package );
-			$package_requests           = array_merge( $package_requests, $standard_services_requests );
+			$package_requests           = array_merge_recursive( $package_requests, $standard_services_requests );
 		}
 
 		// Flat Rate boxes quote.
 		if ( 'yes' === $this->enable_flat_rate_boxes || 'priority' === $this->enable_flat_rate_boxes ) {
 			// Priority.
 			$priority_flat_rate_requests = $this->get_flat_rate_package_requests( $package, 'priority' );
-			$package_requests            = array_merge( $package_requests, $priority_flat_rate_requests );
+			$package_requests            = array_merge_recursive( $package_requests, $priority_flat_rate_requests );
 		}
 
 		if ( 'yes' === $this->enable_flat_rate_boxes || 'express' === $this->enable_flat_rate_boxes ) {
 			// Express.
 			$express_flat_rate_requests = $this->get_flat_rate_package_requests( $package, 'express' );
-			$package_requests           = array_merge( $package_requests, $express_flat_rate_requests );
+			$package_requests           = array_merge_recursive( $package_requests, $express_flat_rate_requests );
 		}
 
-		$response = null;
-		if ( $package_requests ) {
-			$response = $this->request_usps_api( $package, $package_requests, $domestic );
+		$packages = array();
 
-			if ( $response ) {
-				$this->parse_rates_from_usps_api( $response, $domestic, $package );
+		// We are doing separate requests for regular and large items. It seems that if
+		// we combine them we don't get rates returned (which is probably a limitation of the USPS API).
+		foreach ( $package_requests as $package_type => $package_request ) {
+			if ( empty( $package_request ) ) {
+				continue;
 			}
+
+			$packages = array_merge_recursive( $packages, $this->batch_request_usps_api( $package, $package_request, $domestic ) );
+		}
+
+		if ( ! empty( $packages ) ) {
+			// Parse the rates from all the combined packages.
+			$this->parse_rates_from_usps_packages( $packages, $domestic, $package );
 		}
 
 		// Ensure rates were found for all packages.
 		if ( $this->found_rates ) {
 
-			// Cache the response for one week if response contains rates.
-			if ( $this->request_transient && $response ) {
-				$transient_expiration = apply_filters( 'woocommerce_shipping_usps_transient_expiration', DAY_IN_SECONDS * 7 );
-				set_transient( $this->request_transient, $response, $transient_expiration );
-			}
-
 			foreach ( $this->found_rates as $key => $value ) {
 				if ( $this->id . ':flat_rate_box_express' === $key ) {
-					if ( $value['packages'] < count( $express_flat_rate_requests ) ) {
+					if ( $value['packages'] < count( $express_flat_rate_requests['large'] ) + count( $express_flat_rate_requests['regular'] ) ) {
 						$this->shipping_debug->add_note( "Unsetting {$key} - too few packages." );
 						unset( $this->found_rates[ $key ] );
 					}
 				} elseif ( $this->id . ':flat_rate_box_priority' === $key ) {
-					if ( $value['packages'] < count( $priority_flat_rate_requests ) ) {
+					if ( $value['packages'] < count( $priority_flat_rate_requests['large'] ) + count( $priority_flat_rate_requests['regular'] ) ) {
 						$this->shipping_debug->add_note( "Unsetting {$key} - too few packages." );
 						unset( $this->found_rates[ $key ] );
 					}
 				} elseif ( isset( $standard_services_requests ) ) {
-					if ( $value['packages'] < count( $standard_services_requests ) ) {
+					if ( $value['packages'] < count( $standard_services_requests['large'] ) + count( $standard_services_requests['regular'] ) ) {
 						$this->shipping_debug->add_note( "Unsetting {$key} - too few packages." );
 						unset( $this->found_rates[ $key ] );
 					}
@@ -963,7 +965,10 @@ class WC_Shipping_USPS extends WC_Shipping_Method {
 	 */
 	private function per_item_shipping( $package ) {
 		$domestic = in_array( $package['destination']['country'], $this->domestic ) ? true : false;
-		$requests = array();
+		$requests = array(
+			'large' => array(),
+			'regular' => array(),
+		);
 
 		// Get weight of order.
 		foreach ( $package['contents'] as $item_id => $values ) {
@@ -1062,7 +1067,7 @@ class WC_Shipping_USPS extends WC_Shipping_Method {
 
 			}
 
-			$requests[] = $request;
+			$requests[ 'LARGE' === $size ? 'large' : 'regular' ][] = $request;
 		}
 
 		return $requests;
@@ -1076,7 +1081,10 @@ class WC_Shipping_USPS extends WC_Shipping_Method {
 	 * @return array
 	 */
 	private function weight_based_shipping( $package ) {
-		$requests                  = array();
+		$requests = array(
+			'large' => array(),
+			'regular' => array(),
+		);
 		$domestic                  = in_array( $package['destination']['country'], $this->domestic ) ? true : false;
 		$total_regular_item_weight = 0;
 
@@ -1146,7 +1154,7 @@ class WC_Shipping_USPS extends WC_Shipping_Method {
 				$request .= '</Package>' . "\n";
 			}
 
-			$requests[] = $request;
+			$requests['large'][] = $request;
 		}
 
 		// Regular package.
@@ -1206,7 +1214,7 @@ class WC_Shipping_USPS extends WC_Shipping_Method {
 					$request .= '</Package>' . "\n";
 				}
 
-				$requests[] = $request;
+				$requests['regular'][] = $request;
 			}
 		}
 
@@ -1246,7 +1254,11 @@ class WC_Shipping_USPS extends WC_Shipping_Method {
 	 */
 	private function box_shipping( $package ) {
 
-		$requests = array();
+		$requests = array(
+			'large' => array(),
+			'regular' => array(),
+		);
+
 		$domestic = in_array( $package['destination']['country'], $this->domestic, true ) ? true : false;
 		if ( ! class_exists( 'WC_Boxpack' ) ) {
 			include_once 'box-packer/class-wc-boxpack.php';
@@ -1264,24 +1276,29 @@ class WC_Shipping_USPS extends WC_Shipping_Method {
 				$newbox->set_type( 'envelope' );
 			}
 		}
-		// Define box size A.
-		if ( ! empty( $this->custom_services['D_PRIORITY_MAIL']['47']['enabled'] ) ) {
-			$newbox = $boxpack->add_box( 10, 7, 4.75 );
-			$newbox->set_id( 'Regional Rate Box A1' );
-			$newbox->set_max_weight( 15 );
-			$newbox = $boxpack->add_box( 12.8125, 10.9375, 2.375 );
-			$newbox->set_id( 'Regional Rate Box A2' );
-			$newbox->set_max_weight( 15 );
+
+		// If Commercial rates are being used, then see if Commercial boxes need to be added. 
+		if ( 'ONLINE' === $this->shippingrates ) {
+			// Define box size A.
+			if ( ! empty( $this->custom_services['D_PRIORITY_MAIL']['47']['enabled'] ) ) {
+				$newbox = $boxpack->add_box( 10, 7, 4.75 );
+				$newbox->set_id( 'Regional Rate Box A1' );
+				$newbox->set_max_weight( 15 );
+				$newbox = $boxpack->add_box( 12.8125, 10.9375, 2.375 );
+				$newbox->set_id( 'Regional Rate Box A2' );
+				$newbox->set_max_weight( 15 );
+			}
+			// Define box size B.
+			if ( ! empty( $this->custom_services['D_PRIORITY_MAIL']['49']['enabled'] ) ) {
+				$newbox = $boxpack->add_box( 12, 10.25, 5 );
+				$newbox->set_id( 'Regional Rate Box B1' );
+				$newbox->set_max_weight( 20 );
+				$newbox = $boxpack->add_box( 15.875, 14.375, 2.875 );
+				$newbox->set_id( 'Regional Rate Box B2' );
+				$newbox->set_max_weight( 20 );
+			}
 		}
-		// Define box size B.
-		if ( ! empty( $this->custom_services['D_PRIORITY_MAIL']['49']['enabled'] ) ) {
-			$newbox = $boxpack->add_box( 12, 10.25, 5 );
-			$newbox->set_id( 'Regional Rate Box B1' );
-			$newbox->set_max_weight( 20 );
-			$newbox = $boxpack->add_box( 15.875, 14.375, 2.875 );
-			$newbox->set_id( 'Regional Rate Box B2' );
-			$newbox->set_max_weight( 20 );
-		}
+		
 		// Add items.
 		foreach ( $package['contents'] as $item_id => $values ) {
 			if ( ! $values['data']->needs_shipping() ) {
@@ -1398,7 +1415,8 @@ class WC_Shipping_USPS extends WC_Shipping_Method {
 				$request .= '	<CommercialFlag>' . ( 'ONLINE' === $this->shippingrates ? 'Y' : 'N' ) . '</CommercialFlag>' . "\n";
 				$request .= '</Package>' . "\n";
 			}
-			$requests[] = $request;
+
+			$requests[ 'LARGE' === $size ? 'large' : 'regular' ][] = $request;
 		}
 		return $requests;
 	}
@@ -1685,7 +1703,10 @@ class WC_Shipping_USPS extends WC_Shipping_Method {
 		$boxpack  = new WC_Boxpack();
 		$domestic = in_array( $package['destination']['country'], $this->domestic, true ) ? true : false;
 		$added    = array();
-		$requests = array();
+		$requests = array(
+			'large' => array(),
+			'regular' => array(),
+		);
 
 		// Define boxes.
 		foreach ( $this->flat_rate_boxes as $service_code => $box ) {
@@ -1823,10 +1844,52 @@ class WC_Shipping_USPS extends WC_Shipping_Method {
 				$request .= '</Package>' . "\n";
 			}
 
-			$requests[] = $request;
+			$requests['regular'][] = $request;
 		}
 
 		return $requests;
+	}
+
+	/**
+	 * Split up USPS requests into batches when the requests exceed more then 25.
+	 *
+	 * @since 4.4.40
+	 *
+	 * @param array $shipping_package Raw shipping package.
+	 * @param array $package_requests Package params for the request.
+	 * @param bool  $domestic         Whether domestic or not.
+	 *
+	 * @return array Packages.
+	 */
+	private function batch_request_usps_api( $shipping_package, $package_requests, $domestic ) {
+		$packages = array();
+
+		while ( ! empty( $package_requests ) ) {
+			$current_batch    = array_slice( $package_requests, 0, 25 );
+			$package_requests = array_diff( $package_requests, $current_batch );
+
+			// Send the request for the current batch of packages.
+			$response = $this->request_usps_api( $shipping_package, $current_batch, $domestic );
+			if ( ! $response ) {
+				continue;
+			}
+
+			$parsed_packages = $this->parse_packages_from_usps_api( $response );
+			if ( empty( $parsed_packages ) ) {
+				continue;
+			}
+
+			// Include all returned packages from this request.
+			foreach ( $parsed_packages as $package ) {
+				$packages[] = $package;
+			}
+
+			// Cache the response for one week if response contains rates.
+			$transient_expiration = apply_filters( 'woocommerce_shipping_usps_transient_expiration', DAY_IN_SECONDS * 7 );
+			set_transient( $this->request_transient, $response, $transient_expiration );
+		}
+
+		return $packages;
 	}
 
 	/**
@@ -1843,7 +1906,7 @@ class WC_Shipping_USPS extends WC_Shipping_Method {
 	private function request_usps_api( $package, $package_requests, $domestic ) {
 		$api     = $domestic ? 'RateV4' : 'IntlRateV2';
 		$request = $this->build_usps_standard_service_request( $package_requests, $domestic );
-		$this->shipping_debug->set_request( $request );
+		$this->shipping_debug->add_request( $request );
 
 		// Need to save the transient's name because `set_transient` is called
 		// from another method.
@@ -1852,7 +1915,7 @@ class WC_Shipping_USPS extends WC_Shipping_Method {
 
 		// If there's a cached response, return it.
 		if ( false !== $cached_response ) {
-			$this->shipping_debug->set_response( $cached_response );
+			$this->shipping_debug->add_response( $cached_response );
 			return $cached_response;
 		}
 
@@ -1877,8 +1940,7 @@ class WC_Shipping_USPS extends WC_Shipping_Method {
 		}
 
 		$response = $response['body'];
-		$this->shipping_debug->set_response( $response );
-
+		$this->shipping_debug->add_response( $response );
 
 		return $response;
 	}
@@ -1916,10 +1978,8 @@ class WC_Shipping_USPS extends WC_Shipping_Method {
 	 * @version 4.4.8
 	 *
 	 * @param mixed $response Body from WP HTTP API.
-	 * @param bool  $domestic Whether domestic or not.
-	 * @param array $package  Package to ship.
 	 */
-	private function parse_rates_from_usps_api( $response, $domestic, $package ) {
+	private function parse_packages_from_usps_api( $response ) {
 		$usps_packages = $this->get_parsed_xml( $response );
 		if ( ! $usps_packages ) {
 			$this->shipping_debug->add_note( 'Failed loading XML' );
@@ -1927,13 +1987,28 @@ class WC_Shipping_USPS extends WC_Shipping_Method {
 
 		if ( ! is_object( $usps_packages ) && ! is_a( $usps_packages, 'SimpleXMLElement' ) ) {
 			$this->shipping_debug->add_note( 'Invalid XML response format' );
+			return false;
 		}
 
 		// No rates, return.
 		if ( empty( $usps_packages ) ) {
 			$this->shipping_debug->add_note( 'Invalid request; no rates returned' );
-			return;
+			return false;
 		}
+
+		return $usps_packages;
+	}
+
+	/**
+	 * Parse response from USPS standard service request.
+	 *
+	 * @since 4.4.40
+	 *
+	 * @param mixed $usps_packages List of packages returned from the API.
+	 * @param bool  $domestic      Whether domestic or not.
+	 * @param array $package       Package to ship.
+	 */
+	private function parse_rates_from_usps_packages( $usps_packages, $domestic, $package ) {
 
 		foreach ( $usps_packages as $usps_package ) {
 			if ( ! $usps_package || ! is_object( $usps_package ) ) {
@@ -2161,9 +2236,11 @@ class WC_Shipping_USPS extends WC_Shipping_Method {
 										}
 										break;
 									// Handle first class - there are multiple d0 rates and we need to handle size restrictions because the API doesn't do this for us!
+									// Apply the same checks for the rate: 78 - First-Class Mail® Metered Letter.
 									//
 									// See https://www.usps.com/ship/preparing-domestic-shipments.htm.
 									case '0':
+									case '78':
 										$service_name = strip_tags( htmlspecialchars_decode( (string) $quote->{'MailService'} ) );
 
 										if ( strstr( $service_name, 'Postcards' ) ) {
@@ -2220,7 +2297,7 @@ class WC_Shipping_USPS extends WC_Shipping_Method {
 						}
 					}
 
-					if ( $rate_cost ) {
+					if ( ! is_null( $rate_cost ) ) {
 						if ( ! empty( $svc_commitment ) && strstr( $svc_commitment, 'days' ) ) {
 							$rate_name .= ' (' . current( explode( 'days', $svc_commitment ) ) . ' days)';
 						}
@@ -2272,11 +2349,9 @@ class WC_Shipping_USPS extends WC_Shipping_Method {
 			ksort( $found_quotes );
 			$found_quotes_html = '';
 			foreach ( $found_quotes as $code => $name ) {
-				if ( ! strstr( $name, 'Flat Rate' ) ) {
-					$found_quotes_html .= '<li>' . $code . ' - ' . $name . '</li>';
-				}
+				$found_quotes_html .= '<li>' . $code . ' - ' . $name . '</li>';
 			}
-			$this->shipping_debug->add_note( 'The following quotes were returned by USPS: <ul>' . $found_quotes_html . '</ul> If any of these do not display, they may not be enabled in USPS settings.' );
+			$this->shipping_debug->add_note( 'The following quotes were returned by USPS: <ul>' . $found_quotes_html . '</ul>If any of these do not display, they may not be enabled in USPS settings (or exceed size restrictions).' );
 		}
 	}
 

@@ -26,7 +26,15 @@
 				width: 16px;
 				padding: 0;
 				cursor: move;
-				background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAHUlEQVQYV2O8f//+fwY8gJGgAny6QXKETRgEVgAAXxAVsa5Xr3QAAAAASUVORK5CYII=) no-repeat center;					}
+				background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAHUlEQVQYV2O8f//+fwY8gJGgAny6QXKETRgEVgAAXxAVsa5Xr3QAAAAASUVORK5CYII=) no-repeat center;
+			}
+			.usps_services .sub_services {
+				font-size: 0.92em;
+			}
+			.usps_services .sub_services li {
+				min-height: 30px;
+				line-height: 28px;
+			}
 		</style>
 		<table class="usps_boxes widefat">
 			<thead>
@@ -197,6 +205,14 @@
 						jQuery('input.order', el).val( parseInt( jQuery(el).index('.usps_services tr') ) );
 					});
 				};
+
+				jQuery( '#woocommerce_usps_shippingrates' ).change( function() {
+					if ( 'ALL' === jQuery( this ).val() ) {
+						jQuery( '.sub_services li.commercial' ).hide();
+					} else {
+						jQuery( '.sub_services li.commercial' ).show();
+					}
+				} ).change();
 
 			});
 

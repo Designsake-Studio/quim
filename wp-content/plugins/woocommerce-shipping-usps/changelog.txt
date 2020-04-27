@@ -1,5 +1,25 @@
 *** USPS Shipping ***
 
+2020-04-21 - version 4.4.42
+* Fix - Do not include Regional Rate boxes for Retail rates.
+
+2020-04-14 - version 4.4.41
+* Tweak - Adjust debug message, some returned rates may not be shown because of size restrictions.
+* Tweak - Split API requests for regular/large items so that all rates are returned by the API.
+
+2020-04-01 - version 4.4.40
+* Tweak - Remove legacy code.
+* Fix - Split API requests into batches of 25 packages when we exceed the API limit.
+* Fix - Revert padded flat rate envelopes to using a rigid envelope calculation for the box packer.
+* Fix - Apply letter dimension checks for Metered Letters.
+
+2020-03-17 - version 4.4.39
+* Fix - Do not display commercial services when "Retail Rates" are selected.
+
+2020-02-27 - version 4.4.38
+* Fix - Allow percentage adjustments to offer a free rate.
+* Tweak - WC 4.0 compatibility.
+
 2020-02-05 - version 4.4.37
 * Fix - Use proper escape for attributes.
 

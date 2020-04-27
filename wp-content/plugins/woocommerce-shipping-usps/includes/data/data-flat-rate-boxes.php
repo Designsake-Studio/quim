@@ -34,7 +34,7 @@ return apply_filters(
 			'width'    => '9.5',
 			'height'   => '1',
 			'weight'   => '70',
-			'type'     => 'packet',
+			'type'     => 'envelope',
 			'box_type' => 'express',
 		),
 
@@ -101,7 +101,7 @@ return apply_filters(
 			'width'    => '9.5',
 			'height'   => '1',
 			'weight'   => '70',
-			'type'     => 'packet',
+			'type'     => 'envelope',
 			'box_type' => 'priority',
 		),
 		'd38'  => array(
@@ -173,7 +173,7 @@ return apply_filters(
 			'width'    => '9.5',
 			'height'   => '1',
 			'weight'   => '4',
-			'type'     => 'packet',
+			'type'     => 'envelope',
 			'box_type' => 'express',
 		),
 
@@ -195,7 +195,7 @@ return apply_filters(
 			'width'    => '9.5',
 			'height'   => '1',
 			'weight'   => '4',
-			'type'     => 'packet',
+			'type'     => 'envelope',
 			'box_type' => 'priority',
 		),
 		'i16'  => array(
