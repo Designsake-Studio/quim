@@ -64,6 +64,9 @@ class Order {
 		// ADD hooks for stock syncs based on changes from orders not from this gateway
 		add_action( 'woocommerce_checkout_order_processed', [ $this, 'maybe_sync_stock_for_order_via_other_gateway' ], 10, 3 );
 
+		// Add specific hook for paypal IPN callback
+		add_action( 'valid-paypal-standard-ipn-request', [ $this, 'maybe_sync_stock_for_order_via_paypal' ], 10, 1 );
+
 		// ADD hooks to listen to refunds on orders from other gateways.
 		add_action( 'woocommerce_order_refunded', [ $this, 'maybe_sync_stock_for_refund_from_other_gateway' ], 10, 2 );
 	}
@@ -84,6 +87,33 @@ class Order {
 		return $hidden;
 	}
 
+	/**
+	 * Add hooks to ensure PayPal IPN callbacks are added caches and considered for inventory changes
+	 * when the sync happens. This also adds the shutdown hook to ensure sync happens if needed at
+	 * a later stage.
+	 *
+	 * @since 2.1.1
+	 *
+	 * @param array $posted values returned from PayPal Standard IPN callback.
+	 */
+	public function maybe_sync_stock_for_order_via_paypal( $posted ) {
+		if ( empty( $posted[ 'custom' ] ) ) {
+			return;
+		}
+
+		$raw_order = json_decode( $posted[ 'custom' ] );
+		if ( empty( $raw_order->order_id ) ) {
+			return;
+		}
+
+		$order = wc_get_order( $raw_order->order_id );
+
+		if ( ! $order || ! $order instanceof \WC_Order ) {
+			return;
+		}
+
+		$this->sync_stock_for_order( $order );
+	}
 
 	/**
 	 * Checks if we should sync stock for this order.
@@ -99,12 +129,24 @@ class Order {
 	 */
 	public function maybe_sync_stock_for_order_via_other_gateway( $order_id, $posted_data, $order ) {
 
-		if ( ! wc_square()->get_settings_handler()->is_inventory_sync_enabled() ) {
+		// Confirm we are not processing the order through the Square gateway.
+		if ( ! $order instanceof \WC_Order || Plugin::GATEWAY_ID === $order->get_payment_method() ) {
 			return;
 		}
 
-		// Confirm we are not processing the order through the Square gateway.
-		if ( ! $order instanceof \WC_Order || Plugin::GATEWAY_ID === $order->get_payment_method() ) {
+		$this->sync_stock_for_order( $order );
+	}
+
+	/**
+	 * For a given order sync stock if inventory sync is enabled.
+	 *
+	 * @since 2.1.1
+	 *
+	 * @param \WC_Order $order the order for which the stock must be synced.
+	 */
+	protected function sync_stock_for_order( $order ) {
+
+		if ( ! wc_square()->get_settings_handler()->is_inventory_sync_enabled() ) {
 			return;
 		}
 

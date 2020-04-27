@@ -42,7 +42,7 @@ class Plugin extends Framework\SV_WC_Payment_Gateway_Plugin {
 
 
 	/** plugin version number */
-	const VERSION = '2.1.0';
+	const VERSION = '2.1.1';
 
 	/** plugin ID */
 	const PLUGIN_ID = 'square';
