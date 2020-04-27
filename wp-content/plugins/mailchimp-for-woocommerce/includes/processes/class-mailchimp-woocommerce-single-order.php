@@ -142,8 +142,10 @@ class MailChimp_WooCommerce_Single_Order extends Mailchimp_Woocommerce_Job
                 }
             }
 
-            // delete the AC cart record.
-            $deleted_abandoned_cart = !empty($this->cart_session_id) && $api->deleteCartByID($store_id, $this->cart_session_id);
+            if ($order->getOriginalWooStatus() !== 'pending') {
+                // delete the AC cart record.
+                $deleted_abandoned_cart = !empty($this->cart_session_id) && $api->deleteCartByID($store_id, $this->cart_session_id);
+            }
 
             // skip amazon orders and skip privacy protected orders.
             if ($order->isFlaggedAsAmazonOrder()) {
@@ -224,7 +226,7 @@ class MailChimp_WooCommerce_Single_Order extends Mailchimp_Woocommerce_Job
                 return $api_response;
             }
 
-            if ($deleted_abandoned_cart) {
+            if (isset($deleted_abandoned_cart) && $deleted_abandoned_cart) {
                 $log .= " :: abandoned cart deleted [{$this->cart_session_id}]";
             }
 
