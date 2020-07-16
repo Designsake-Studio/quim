@@ -100,7 +100,7 @@ class Admin {
 		// must be called outside of `is_admin()` or else the control is hidden
 		if ( Framework\SV_WC_Plugin_Compatibility::is_wc_version_gte( '3.3' ) ) {
 
-			add_action( 'customize_register', array( $this, 'add_customizer_settings' ), 15, 1 );
+			add_action( 'customize_register', [ $this, 'add_customizer_settings' ], 15, 1 );
 		}
 	}
 
@@ -751,6 +751,28 @@ class Admin {
 				)
 			);
 		}
+
+		$wp_customize->add_setting(
+			'woocommerce_checkout_add_ons_percentage_adjustment_from',
+			[
+				'default'           => Add_On::PERCENTAGE_ADJUSTMENT_SUBTOTAL,
+				'type'              => 'option',
+				'capability'        => 'manage_woocommerce',
+				'sanitize_callback' => [ $this, 'sanitize_checkout_add_on_percentage_adjustment_from' ],
+			]
+		);
+
+		$wp_customize->add_control(
+			'woocommerce_checkout_add_ons_percentage_adjustment_from_field',
+			[
+				'label'    => __( 'Calculate add-on percentage-based prices from', 'woocommerce-checkout-add-ons' ),
+				'section'  => 'woocommerce_checkout',
+				'priority' => 6,
+				'settings' => 'woocommerce_checkout_add_ons_percentage_adjustment_from',
+				'type'     => 'radio',
+				'choices'  => $this->get_checkout_add_on_percentage_adjustment_from_options(),
+			]
+		);
 	}
 
 
@@ -784,6 +806,42 @@ class Admin {
 			'woocommerce_checkout_billing'                 => __( 'After Billing Details', 'woocommerce-checkout-add-ons' ),
 			'woocommerce_checkout_after_customer_details'  => __( 'Before Order Summary', 'woocommerce-checkout-add-ons' ),
 		);
+	}
+
+
+	/**
+	 * Sanitizes the checkout add-on percentage adjustment from setting.
+	 *
+	 * @internal
+	 *
+	 * @since 2.3.0
+	 *
+	 * @param string $value the setting value
+	 * @return string the sanitized value
+	 */
+	public function sanitize_checkout_add_on_percentage_adjustment_from( $value ) {
+
+		$locations = $this->get_checkout_add_on_percentage_adjustment_from_options();
+
+		return array_key_exists( $value, $locations ) ? $value : '';
+	}
+
+
+	/**
+	 * Gets options for percentage adjustment from field.
+	 *
+	 * @internal
+	 *
+	 * @since 2.3.0
+	 *
+	 * @return array
+	 */
+	protected function get_checkout_add_on_percentage_adjustment_from_options() {
+
+		return [
+			Add_On::PERCENTAGE_ADJUSTMENT_SUBTOTAL => __( 'Order subtotal', 'woocommerce-checkout-add-ons' ),
+			Add_On::PERCENTAGE_ADJUSTMENT_TOTAL    => __( 'Order total', 'woocommerce-checkout-add-ons' ),
+		];
 	}
 
 

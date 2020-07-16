@@ -5,7 +5,7 @@
  * Description: Easily create paid add-ons for your WooCommerce checkout and display them in the Orders admin, the My Orders section, and even order emails!
  * Author: SkyVerge
  * Author URI: http://www.woocommerce.com
- * Version: 2.2.5
+ * Version: 2.3.0
  * Text Domain: woocommerce-checkout-add-ons
  * Domain Path: /i18n/languages/
  *
@@ -22,7 +22,7 @@
  *
  * Woo: 466854:8fdca00b4000b7a8cc26371d0e470a8f
  * WC requires at least: 3.0.9
- * WC tested up to: 3.9.1
+ * WC tested up to: 4.2.0
  */
 
 defined( 'ABSPATH' ) or exit;
@@ -87,6 +87,9 @@ class WC_Checkout_Add_Ons_Loader {
 
 		// if the environment check fails, initialize the plugin
 		if ( $this->is_environment_compatible() ) {
+
+			require_once( 'vendor/skyverge/wc-jilt-promotions/load.php' );
+
 			add_action( 'plugins_loaded', array( $this, 'init_plugin' ) );
 		}
 	}
@@ -126,11 +129,7 @@ class WC_Checkout_Add_Ons_Loader {
 		$this->load_framework();
 
 		// autoload plugin and vendor files
-		$loader = require_once( plugin_dir_path( __FILE__ ) . 'vendor/autoload.php' );
-
-		// register plugin namespace with autoloader
-		$loader->addPsr4( 'SkyVerge\\WooCommerce\\Checkout_Add_Ons\\', __DIR__ . '/includes' );
-
+		require_once( plugin_dir_path( __FILE__ ) . 'vendor/autoload.php' );
 		require_once( plugin_dir_path( __FILE__ ) . 'includes/Functions.php' );
 
 		// fire it up!
