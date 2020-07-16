@@ -23,10 +23,13 @@
 function mce_updts ( $update, $item ) {
     $plugins = array (
         'blocks',
+        'chimpmatic',
+        'quick-maps',
         'contact-form-7-campaign-monitor-extension',
         'contact-form-7-mailchimp-extension',
         'integrate-contact-form-7-and-aweber',
-        'chimpmatic',
+        'cf7-getresponse',
+        'cf7-icontact-extension',
     );
     if ( in_array( $item->slug, $plugins ) ) {
         return true;
