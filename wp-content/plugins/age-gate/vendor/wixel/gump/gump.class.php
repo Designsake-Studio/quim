@@ -4,10 +4,13 @@
  *
  * @author      Sean Nieuwoudt (http://twitter.com/SeanNieuwoudt)
  * @author      Filis Futsarov (http://twitter.com/FilisCode)
- * @copyright   Copyright (c) 2017 wixelhq.com
+ * @copyright   Copyright (c) 2020 wixelhq.com
  *
  * @version     1.5
  */
+
+use GUMP\Helpers;
+
 class GUMP
 {
     // Singleton instance of GUMP
@@ -42,14 +45,14 @@ class GUMP
      * @return GUMP
      */
 
-    public static function get_instance(){
-        if(self::$instance === null)
-        {
+    public static function get_instance()
+    {
+        if (self::$instance === null) {
             self::$instance = new static();
         }
+
         return self::$instance;
     }
-
 
     // ** ------------------------- Validation Data ------------------------------- ** //
 
@@ -80,7 +83,7 @@ class GUMP
             if (file_exists($lang_file)) {
                 $this->lang = $lang;
             } else {
-                throw new \Exception('Language with key "'.$lang.'" does not exist');
+                throw new Exception('Language with key "'.$lang.'" does not exist');
             }
         }
     }
@@ -125,6 +128,7 @@ class GUMP
      * Magic method to generate the validation error messages.
      *
      * @return string
+     * @throws Exception
      */
     public function __toString()
     {
@@ -209,15 +213,15 @@ class GUMP
      */
     public static function field($key, array $array, $default = null)
     {
-      if(!is_array($array)) {
-        return null;
-      }
+        if (!is_array($array)) {
+            return null;
+        }
 
-      if(isset($array[$key])) {
-        return $array[$key];
-      } else {
-        return $default;
-      }
+        if (isset($array[$key])) {
+            return $array[$key];
+        } else {
+            return $default;
+        }
     }
 
     /**
@@ -418,15 +422,6 @@ class GUMP
                             $method = 'validate_'.$rule[0];
                             $param  = $rule[1];
                             $rule   = $rule[0];
-
-                            // If there is a reference to a field
-                            if (preg_match('/(?:(?:^|;)_([a-z_]+))/', $param, $matches)) {
-
-                                // If provided parameter is a field
-                                if (isset($input[$matches[1]])) {
-                                    $param = str_replace('_'.$matches[1], $input[$matches[1]], $param);
-                                }
-                            }
                         } else {
                             $method = 'validate_'.$rule;
                         }
@@ -448,7 +443,7 @@ class GUMP
                             $result = call_user_func(self::$validation_methods[$rule], $field, $input, $param);
 
                             if($result === false) {
-                                if (array_search($result['field'], array_column($this->errors, 'field')) === false) {
+                                if (array_search($field, array_column($this->errors, 'field')) === false) {
                                     $this->errors[] = array(
                                         'field' => $field,
                                         'value' => $input[$field],
@@ -549,12 +544,13 @@ class GUMP
     /**
      * Process the validation errors and return human readable error messages.
      *
-     * @param bool   $convert_to_string = false
+     * @param bool $convert_to_string = false
      * @param string $field_class
      * @param string $error_class
      *
      * @return array
      * @return string
+     * @throws Exception when validator doesn't have a set error message
      */
     public function get_readable_errors($convert_to_string = false, $field_class = 'gump-field', $error_class = 'gump-error-message')
     {
@@ -589,7 +585,7 @@ class GUMP
                 $message = str_replace('{param}', $param, str_replace('{field}', '<span class="'.$field_class.'">'.$field.'</span>', $messages[$e['rule']]));
                 $resp[] = $message;
             } else {
-                throw new \Exception ('Rule "'.$e['rule'].'" does not have an error message');
+                throw new Exception ('Rule "'.$e['rule'].'" does not have an error message');
             }
         }
 
@@ -610,6 +606,7 @@ class GUMP
      * @param $convert_to_string
      *
      * @return array | null (if empty)
+     * @throws Exception
      */
     public function get_errors_array($convert_to_string = null)
     {
@@ -648,7 +645,7 @@ class GUMP
                     $resp[$e['field']] = $message;
                 }
             } else {
-                throw new \Exception ('Rule "'.$e['rule'].'" does not have an error message');
+                throw new Exception ('Rule "'.$e['rule'].'" does not have an error message');
             }
         }
 
@@ -937,9 +934,9 @@ class GUMP
     }
 
     /**
-     * Converts value to url-web-slugs. 
-     * 
-     * Credit: 
+     * Converts value to url-web-slugs.
+     *
+     * Credit:
      * https://stackoverflow.com/questions/40641973/php-to-convert-string-to-slug
      * http://cubiq.org/the-perfect-php-clean-url-generator
      *
@@ -951,7 +948,7 @@ class GUMP
     protected function filter_slug($value, $params = null)
     {
         $delimiter = '-';
-        $slug = strtolower(trim(preg_replace('/[\s-]+/', $delimiter, preg_replace('/[^A-Za-z0-9-]+/', $delimiter, preg_replace('/[&]/', 'and', preg_replace('/[\']/', '', iconv('UTF-8', 'ASCII//TRANSLIT', $str))))), $delimiter));
+        $slug = strtolower(trim(preg_replace('/[\s-]+/', $delimiter, preg_replace('/[^A-Za-z0-9-]+/', $delimiter, preg_replace('/[&]/', 'and', preg_replace('/[\']/', '', iconv('UTF-8', 'ASCII//TRANSLIT', $value))))), $delimiter));
         return $slug;
     }
 
@@ -1335,7 +1332,7 @@ class GUMP
     }
 
     /**
-     * Determine if the provided value contains only alpha numeric characters with spaces.
+     * Determine if the provided value contains only alpha characters with spaces.
      *
      * Usage: '<index>' => 'alpha_space'
      *
@@ -1351,7 +1348,7 @@ class GUMP
             return;
         }
 
-        if (!preg_match("/^([0-9a-zÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖßÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ\s])+$/i", $input[$field]) !== false) {
+        if (!preg_match("/^([a-zÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖßÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ\s])+$/i", $input[$field]) !== false) {
             return array(
                 'field' => $field,
                 'value' => $input[$field],
@@ -1522,8 +1519,8 @@ class GUMP
             $url = $url['host'];
         }
 
-        if (function_exists('checkdnsrr')  && function_exists('idn_to_ascii')) {
-            if (checkdnsrr(idn_to_ascii($url), 'A') === false) {
+        if (Helpers::functionExists('checkdnsrr') && Helpers::functionExists('idn_to_ascii')) {
+            if (Helpers::checkdnsrr(idn_to_ascii($url, IDNA_DEFAULT, INTL_IDNA_VARIANT_UTS46), 'A') === false) {
                 return array(
                     'field' => $field,
                     'value' => $input[$field],
@@ -1532,7 +1529,7 @@ class GUMP
                 );
             }
         } else {
-            if (gethostbyname($url) == $url) {
+            if (Helpers::gethostbyname($url) == $url) {
                 return array(
                     'field' => $field,
                     'value' => $input[$field],
@@ -1657,9 +1654,9 @@ class GUMP
 
 
         /**
-         * Bail out if $number_length is 0. 
+         * Bail out if $number_length is 0.
          * This can be the case if a user has entered only alphabets
-         * 
+         *
          * @since 1.5
          */
         if( $number_length == 0 ) {
@@ -1874,20 +1871,22 @@ class GUMP
             return;
         }
 
-        $cdate1 = new DateTime(date('Y-m-d', strtotime($input[$field])));
-        $today = new DateTime(date('d-m-Y'));
+        $inputDatetime = new DateTime(Helpers::date('Y-m-d', strtotime($input[$field])));
+        $todayDatetime = new DateTime(Helpers::date('Y-m-d'));
 
-        $interval = $cdate1->diff($today);
-        $age = $interval->y;
+        $interval = $todayDatetime->diff($inputDatetime);
+        $yearsPassed = $interval->y;
 
-        if ($age <= $param) {
-            return array(
-                'field' => $field,
-                'value' => $input[$field],
-                'rule' => __FUNCTION__,
-                'param' => $param,
-            );
+        if ($yearsPassed >= $param) {
+            return;
         }
+
+        return array(
+            'field' => $field,
+            'value' => $input[$field],
+            'rule' => __FUNCTION__,
+            'param' => $param,
+        );
     }
 
     /**
@@ -2075,7 +2074,7 @@ class GUMP
      *
      * @param string $field
      * @param string $input
-     * @param string $param field to compare with
+     * @param string $param
      * @return mixed
      */
     protected function validate_guidv4($field, $input, $param = null)
@@ -2084,7 +2083,7 @@ class GUMP
             return;
         }
 
-        if (preg_match("/\{?[A-Z0-9]{8}-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{12}\}?$/", $input[$field])) {
+        if (preg_match("/\{?[a-zA-Z0-9]{8}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{12}\}?$/", $input[$field])) {
           return;
         }
 
@@ -2125,7 +2124,6 @@ class GUMP
      * Examples:
      *
      *  555-555-5555: valid
-     *  555.555.5555: valid
      *  5555425555: valid
      *  555 555 5555: valid
      *  1(519) 555-4444: valid
@@ -2139,7 +2137,8 @@ class GUMP
             return;
         }
 
-        $regex = '/^(\d[\s-\.]?)?[\(\[\s-\.]{0,2}?\d{3}[\)\]\s-\.]{0,2}?\d{3}[\s-\.]?\d{4}$/i';
+        $regex = '/^(\d[\s-]?)?[\(\[\s-]{0,2}?\d{3}[\)\]\s-]{0,2}?\d{3}[\s-]?\d{4}$/i';
+
         if (!preg_match($regex, $input[$field])) {
             return array(
               'field' => $field,
@@ -2271,7 +2270,7 @@ class GUMP
             return;
         }
 
-        if (!is_array($input[$field]) || sizeof($input[$field]) == (int)$param) {
+        if (!is_array($input[$field]) || sizeof($input[$field]) != (int)$param) {
             return array(
                 'field' => $field,
                 'value' => $input[$field],
@@ -2281,139 +2280,6 @@ class GUMP
         }
     }
 
-
-
-    /**
-     * Determine if the input is a valid person name in Persian/Dari or Arabic mainly in Afghanistan and Iran.
-     *
-     * Usage: '<index>' => 'valid_persian_name'
-     *
-     * @param string $field
-     * @param array  $input
-     *
-     * @return mixed
-     */
-    protected function validate_valid_persian_name($field, $input, $param = null)
-    {
-        if (!isset($input[$field]) || empty($input[$field])) {
-            return;
-        }
-
-        if (!preg_match("/^([ا آ أ إ ب پ ت ث ج چ ح خ د ذ ر ز ژ س ش ص ض ط ظ ع غ ف ق ک ك گ ل م ن و ؤ ه ة ی ي ئ ء ّ َ ِ ُ ً ٍ ٌ ْ\x{200B}-\x{200D}])+$/u", $input[$field]) !== false) {
-            return array(
-                'field' => $field,
-                'value' => $input[$field],
-                'rule' => __FUNCTION__,
-                'param' => $param,
-            );
-        }
-    }
-	
-	/**
-     * Determine if the input is a valid person name in English, Persian/Dari/Pashtu or Arabic mainly in Afghanistan and Iran.
-     *
-     * Usage: '<index>' => 'valid_eng_per_pas_name'
-     *
-     * @param string $field
-     * @param array  $input
-     *
-     * @return mixed
-     */
-    protected function validate_valid_eng_per_pas_name($field, $input, $param = null)
-    {
-        if (!isset($input[$field]) || empty($input[$field])) {
-            return;
-        }
-
-        if (!preg_match("/^([A-Za-zÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖßÙÚÛÜÝàáâãäåçèéêëìíîïñðòóôõöùúûüýÿ'\- ا آ أ إ ب پ ت ټ ث څ ج چ ح ځ خ د ډ ذ ر ړ ز ږ ژ س ش ښ ص ض ط ظ ع غ ف ق ک ګ ك گ ل م ن ڼ و ؤ ه ة ی ي ې ۍ ئ ؋ ء ّ َ ِ ُ ً ٍ ٌ ْ \x{200B}-\x{200D} \s])+$/u", $input[$field]) !== false) {
-            return array(
-                'field' => $field,
-                'value' => $input[$field],
-                'rule' => __FUNCTION__,
-                'param' => $param,
-            );
-        }
-    }
-	
-	/**
-     * Determine if the input is valid digits in Persian/Dari, Pashtu or Arabic format.
-     *
-     * Usage: '<index>' => 'valid_persian_digit'
-     *
-     * @param string $field
-     * @param array  $input
-     *
-     * @return mixed
-     */
-    protected function validate_valid_persian_digit($field, $input, $param = null)
-    {
-        if (!isset($input[$field]) || empty($input[$field])) {
-            return;
-        }
-
-        if (!preg_match("/^([۰۱۲۳۴۵۶۷۸۹٠١٢٣٤٥٦٧٨٩])+$/u", $input[$field]) !== false) {
-            return array(
-                'field' => $field,
-                'value' => $input[$field],
-                'rule' => __FUNCTION__,
-                'param' => $param,
-            );
-        }
-    }
-	
-	
-	/**
-     * Determine if the input is a valid text in Persian/Dari or Arabic mainly in Afghanistan and Iran.
-     *
-     * Usage: '<index>' => 'valid_persian_text'
-     *
-     * @param string $field
-     * @param array  $input
-     *
-     * @return mixed
-     */
-    protected function validate_valid_persian_text($field, $input, $param = null)
-    {
-        if (!isset($input[$field]) || empty($input[$field])) {
-            return;
-        }
-		
-        if (!preg_match("/^([ا آ أ إ ب پ ت ث ج چ ح خ د ذ ر ز ژ س ش ص ض ط ظ ع غ ف ق ک ك گ ل م ن و ؤ ه ة ی ي ئ ء ّ َ ِ ُ ً ٍ ٌ \. \/ \\ = \- \| \{ \} \[ \] ؛ : « » ؟ > < \+ \( \) \* ، × ٪ ٫ ٬ ! ۰۱۲۳۴۵۶۷۸۹٠١٢٣٤٥٦٧٨٩\x{200B}-\x{200D} \x{FEFF} \x{22} \x{27} \x{60} \x{B4} \x{2018} \x{2019} \x{201C} \x{201D} \s])+$/u", $input[$field]) !== false) {
-            return array(
-                'field' => $field,
-                'value' => $input[$field],
-                'rule' => __FUNCTION__,
-                'param' => $param,
-            );
-        }
-    }
-	
-	/**
-     * Determine if the input is a valid text in Pashtu mainly in Afghanistan.
-     *
-     * Usage: '<index>' => 'valid_pashtu_text'
-     *
-     * @param string $field
-     * @param array  $input
-     *
-     * @return mixed
-     */
-    protected function validate_valid_pashtu_text($field, $input, $param = null)
-    {
-        if (!isset($input[$field]) || empty($input[$field])) {
-            return;
-        }
-
-        if (!preg_match("/^([ا آ أ ب پ ت ټ ث څ ج چ ح ځ خ د ډ ذ ر ړ ز ږ ژ س ش ښ ص ض ط ظ ع غ ف ق ک ګ ل م ن ڼ و ؤ ه ة ی ې ۍ ي ئ ء ْ ٌ ٍ ً ُ ِ َ ّ ؋ \. \/ \\ = \- \| \{ \} \[ \] ؛ : « » ؟ > < \+ \( \) \* ، × ٪ ٫ ٬ ! ۰۱۲۳۴۵۶۷۸۹٠١٢٣٤٥٦٧٨٩ \x{200B}-\x{200D} \x{FEFF} \x{22} \x{27} \x{60} \x{B4} \x{2018} \x{2019} \x{201C} \x{201D} \s])+$/u", $input[$field]) !== false) {
-            return array(
-                'field' => $field,
-                'value' => $input[$field],
-                'rule' => __FUNCTION__,
-                'param' => $param,
-            );
-        }
-    }
-    
     /**
      * Determine if the provided value is a valid twitter handle.
      *
@@ -2424,14 +2290,15 @@ class GUMP
      */
     protected function validate_valid_twitter($field, $input, $param = NULL)
     {
-        if(!isset($input[$field]) || empty($input[$field]))
-        {
+        if (!isset($input[$field]) || empty($input[$field])) {
             return;
         }
-        $json_twitter = file_get_contents("http://twitter.com/users/username_available?username=".$input[$field]);
-        
-        $twitter_response = json_decode($json_twitter);
-        if($twitter_response->reason != "taken"){
+
+        $json = Helpers::file_get_contents("http://twitter.com/users/username_available?username=".$input[$field]);
+
+        $result = json_decode($json);
+
+        if ($result->reason !== "taken") {
             return array(
                 'field' => $field,
                 'value' => $input[$field],
@@ -2440,5 +2307,4 @@ class GUMP
             );
         }
     }
-    
 }

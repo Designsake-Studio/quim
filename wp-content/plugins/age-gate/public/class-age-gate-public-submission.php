@@ -43,8 +43,8 @@ class Age_Gate_Submission extends Age_Gate_Public
             $error_messages = [];
         }
         $error_messages = array_merge($error_messages, [
-      'nonce' => $this->settings['messages']['generic_error_msg']
-    ]);
+            'nonce' => $this->settings['messages']['generic_error_msg']
+        ]);
 
         Age_Gate_Validation::set_error_messages($error_messages);
 
@@ -58,7 +58,7 @@ class Age_Gate_Submission extends Age_Gate_Public
       'age_gate_m' => __('month', 'age-gate'),
       'age_gate_y' => __('year', 'age-gate')
     ]);
-
+    
         foreach ($field_names as $field => $name) {
             Age_Gate_Validation::set_field_name($field, $name);
         }
@@ -71,7 +71,7 @@ class Age_Gate_Submission extends Age_Gate_Public
      */
     public function self_post()
     {
-        if (isset($_POST['action']) && $_POST['action'] === 'age_gate_submit' && $this->settings['advanced']['post_to_self']) {
+        if (isset($_POST['action']) && $_POST['action'] === 'age_gate_submit' && $this->settings['advanced']['post_to_self'] && !$this->settings['advanced']['use_js']) {
             if (!function_exists('wp_redirect')) {
                 require(ABSPATH  . WPINC . DIRECTORY_SEPARATOR . 'pluggable.php');
             }
@@ -122,7 +122,7 @@ class Age_Gate_Submission extends Age_Gate_Public
         $redirect = $data['_wp_http_referer'];
 
         $form_data = $this->flatten($data);
-
+        
         if (!$form_data['age_gate_confirm']) {
 
       // echo 'THEY CLICKED NO';
@@ -174,6 +174,7 @@ class Age_Gate_Submission extends Age_Gate_Public
     {
         $redirect = $data['_wp_http_referer'];
         $form_data = $this->flatten($data);
+        // wp_die(print_r($form_data), 1);
 
         $is_valid = $this->_validate($form_data);
 
@@ -245,9 +246,9 @@ class Age_Gate_Submission extends Age_Gate_Public
         $custom_rules = apply_filters('age_gate_validation', $custom_rules);
 
         $ag_rules = [
-      'age_gate_age' => 'required|numeric',
-      'age_gate_nonce' => 'required' // formerly |nonce too, but was being problematic
-    ];
+            'age_gate_age' => 'required|numeric',
+            'age_gate_nonce' => 'required' // formerly |nonce too, but was being problematic
+        ];
 
 
 
@@ -259,12 +260,12 @@ class Age_Gate_Submission extends Age_Gate_Public
 
             $ag_rules = array_merge(
                 [
-          'age_gate_d' => 'required|numeric|min_len,2|max_len,2|max_numeric,31',
-          'age_gate_m' => 'required|numeric|min_len,2|max_len,2|max_numeric,12',
-          'age_gate_y' => 'required|numeric|min_len,4|max_len,4|min_numeric,'. $min_year .'|max_numeric,' . date('Y'),
-        ],
+                    'age_gate_d' => 'required|numeric|min_len,2|max_len,2|max_numeric,31',
+                    'age_gate_m' => 'required|numeric|min_len,2|max_len,2|max_numeric,12',
+                    'age_gate_y' => 'required|numeric|min_len,4|max_len,4|min_numeric,'. $min_year .'|max_numeric,' . date('Y'),
+                ],
                 $ag_rules
-      );
+            );
         }
 
         $validation_rules = array_merge($custom_rules, $ag_rules);
@@ -331,7 +332,8 @@ class Age_Gate_Submission extends Age_Gate_Public
         $age = (!$this->settings['advanced']['anonymous_age_gate']) ? $age : 1;
 
         if ($set_cookie) {
-            setcookie('age_gate', abs(ceil($age)), $length, COOKIEPATH, COOKIE_DOMAIN);
+            $cookieName = $this->get_cookie_name();
+            setcookie($cookieName, abs(ceil($age)), $length, COOKIEPATH, COOKIE_DOMAIN);
         }
         // die();
     }

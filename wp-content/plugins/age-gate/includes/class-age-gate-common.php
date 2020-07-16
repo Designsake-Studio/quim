@@ -85,13 +85,13 @@ class Age_Gate_Common
     {
         $settings = apply_filters('ag_settings', array());
         return array_merge($settings, array(
-      'restrictions' => get_option('wp_age_gate_restrictions', array()),
-      'messages' => get_option('wp_age_gate_messages', array()),
-      'validation' => get_option('wp_age_gate_validation_messages', array()),
-      'appearance' => get_option('wp_age_gate_appearance', array()),
-      'access' => get_option('wp_age_gate_access', array()),
-      'advanced' => get_option('wp_age_gate_advanced', array()),
-    ));
+            'restrictions' => get_option('wp_age_gate_restrictions', array()),
+            'messages' => get_option('wp_age_gate_messages', array()),
+            'validation' => get_option('wp_age_gate_validation_messages', array()),
+            'appearance' => get_option('wp_age_gate_appearance', array()),
+            'access' => get_option('wp_age_gate_access', array()),
+            'advanced' => get_option('wp_age_gate_advanced', array()),
+        ));
     }
 
     protected function _set_admin_notice($notice = array())
@@ -115,6 +115,11 @@ class Age_Gate_Common
         }
 
         return false;
+    }
+
+    protected function get_cookie_name()
+    {
+        return ($this->settings['advanced']['cookie_name']) ? 'ag_' . $this->settings['advanced']['cookie_name'] : 'age_gate';
     }
 
 
