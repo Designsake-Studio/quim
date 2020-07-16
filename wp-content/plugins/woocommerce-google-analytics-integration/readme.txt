@@ -3,7 +3,7 @@ Contributors: woocommerce, claudiosanches, bor0, royho, laurendavissmith001, c-s
 Tags: woocommerce, google analytics
 Requires at least: 3.9
 Tested up to: 5.4
-Stable tag: 1.4.20
+Stable tag: 1.4.22
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -67,6 +67,12 @@ Exact wording depends on the national data privacy laws and should be adjusted.
 1. Google Analytics Integration Settings.
 
 == Changelog ==
+
+= 1.4.22 - 2020-06-05 =
+* Tweak - WC 4.2 compatibility.
+
+= 1.4.21 - 2020-05-04 =
+* Tweak - WC 4.1 compatibility.
 
 = 1.4.20 - 2020-03-29 =
 * Fix - Change wc_goole_analytics_send_pageview fiter name to wc_google_analytics_send_pageview.
