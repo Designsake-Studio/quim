@@ -13,10 +13,11 @@
 			if( $('#_wt_make_coupon_individual_use_only').prop("checked") == true)  {
 				individual_use = 1;
 			}
-			$(this).attr('disabled',true);
+			$(this).attr('disabled',true); 
 			
 			var data = {
 				'action'        			: 'wt_send_credit_coupon',
+				'_wpnonce'					: WTSmartCouponStoreCreditOBJ.nonce,
 				'_wt_send_credit_email'		: email,
 				'_wt_send_credit_amount'	: amount,
 				'_wt_send_credit_message'	: message,
@@ -26,7 +27,7 @@
 			
 			jQuery.ajax({
 				type: "POST",
-				url: WTSmartCouponOBJ.ajaxurl,
+				url: WTSmartCouponStoreCreditOBJ.ajaxurl,
 				data: data,
 				success: function (response) {
 					$('#wt_send_credit_submit').removeAttr('disabled');
@@ -83,12 +84,13 @@
 
 			var data = {
 				'action'		: 'wt_send_store_credit_coupon',
-				'_wt_order_id'	: order_id
+				'_wpnonce'					: WTSmartCouponStoreCreditOBJ.nonce,
+				'_wt_order_id'	: order_id,
 			};
 
 			jQuery.ajax({
 				type: "POST",
-				url: WTSmartCouponOBJ.ajaxurl,
+				url: WTSmartCouponStoreCreditOBJ.ajaxurl,
 				data: data,
 				success: function (response) {
 					$('.wt-send-status').removeClass('wt_error').removeClass('wt_success');
@@ -111,18 +113,25 @@
 	$('document').ready(function() {
 		$('#wt_try_store_credit_now').on('click',function(){
 			var data = {
-				'action'		: 'wt_store_credit_try_now'
+				'action'		: 'wt_store_credit_try_now',
+				'_wpnonce'		: WTSmartCouponStoreCreditOBJ.nonce,
 			};
 
 			var parent_wt_notice = $(this).parent('.wt_notice');
 
 			jQuery.ajax({
 				type: "POST",
-				url: WTSmartCouponOBJ.ajaxurl,
+				url: WTSmartCouponStoreCreditOBJ.ajaxurl,
 				data: data,
 				success: function (response) {
-					parent_wt_notice.html( response );
-					parent_wt_notice.removeClass('wt_warning').addClass('wt_success')
+					var result = JSON.parse( response );
+					if( result.error == false ) {
+						parent_wt_notice.removeClass('wt_warning').addClass('wt_success').html( result.message );
+					} else {
+						parent_wt_notice.removeClass('wt_warning').addClass('wt_error').html( result.message );
+
+					}
+					
 				}
 			});
 		});

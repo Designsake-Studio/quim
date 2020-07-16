@@ -23,9 +23,8 @@ if( ! class_exists ( 'Wt_Smart_Coupon_URL_Coupon' ) ) {
          */
         function wt_apply_smart_coupon(  ) {
 
-            if( isset( $_GET['wt_coupon'] ) && '' != $_GET['wt_coupon'] &&  post_exists( $_GET['wt_coupon'] ) ) {
-                $coupon_code = $_GET['wt_coupon'];
-               
+            if( isset( $_GET['wt_coupon'] ) && '' != $_GET['wt_coupon'] &&  post_exists( Wt_Smart_Coupon_Security_Helper::sanitize_item( $_GET['wt_coupon'] ) ) ) {
+                $coupon_code = Wt_Smart_Coupon_Security_Helper::sanitize_item( $_GET['wt_coupon'], 'text_arr' );
                 if( WC()->cart->get_cart_contents_count() != 0 ) {
                     $new_message = apply_filters( 'wt_smart_coupon_url_coupon_message', __('Coupon code applied successfully','wt-smart-coupons-for-woocommerce-pro') );
                 }  else {

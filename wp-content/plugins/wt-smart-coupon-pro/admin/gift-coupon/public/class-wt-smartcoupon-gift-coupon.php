@@ -10,6 +10,8 @@ if( ! class_exists ( 'Wt_Smart_Coupon_Gift_Coupon' ) ) {
         public function __construct( ) {
             add_action( 'wt_smart_coupon_gift_coupon_details', array($this,'display_coupon_details_for_variation'),10,2 );
             add_action('wp_ajax_wt_get_coupon_formatted_price',array($this,'get_coupons_formatted_price'));
+            add_action('wp_ajax_nopriv_wt_get_coupon_formatted_price',array($this,'get_coupons_formatted_price'));
+            
         }
 
          /**
@@ -227,7 +229,7 @@ if( ! class_exists ( 'Wt_Smart_Coupon_Gift_Coupon' ) ) {
                  * @since 1.2.6
                 */
                 if( $_POST['wt_coupon_to_do'] == 'gift_to_a_friend' ) {
-                    $coupon_email = isset( $_POST['wt_coupon_send_to'] )? $_POST['wt_coupon_send_to'] : '';
+                    $coupon_email = isset( $_POST['wt_coupon_send_to'] )? Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['wt_coupon_send_to'] ) : '';
                 } else {
                     $coupon_email = sanitize_email( $order->get_billing_email() );
                 }
@@ -237,7 +239,7 @@ if( ! class_exists ( 'Wt_Smart_Coupon_Gift_Coupon' ) ) {
 
                 if( $_POST['wt_coupon_to_do'] == 'gift_to_a_friend' ) {
                         
-                    $coupon_message = isset( $_POST['wt_coupon_send_to_message'] )? $_POST['wt_coupon_send_to_message'] : '';
+                    $coupon_message = isset( $_POST['wt_coupon_send_to_message'] )? Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['wt_coupon_send_to_message'], 'textarea' ): '';
                     update_post_meta($order_id, 'wt_coupon_send_to', sanitize_email( $coupon_email ));
                     update_post_meta($order_id, 'wt_coupon_send_to_message', sanitize_text_field( $coupon_message ));
                     update_post_meta( $order_id, 'wt_coupon_send_from', sanitize_email( $order->get_billing_email() ) );
@@ -249,6 +251,8 @@ if( ! class_exists ( 'Wt_Smart_Coupon_Gift_Coupon' ) ) {
                     update_post_meta( $order_id, 'wt_coupon_send_from', sanitize_email( $order->get_billing_email() ) );
 
                 }
+
+                do_action( 'wt_smart_coupon_after_random_gift_coupon_genrated',$generated_coupons );
             }
         }
 
@@ -288,6 +292,17 @@ if( ! class_exists ( 'Wt_Smart_Coupon_Gift_Coupon' ) ) {
             $excluded_product_categories = $coupon->get_excluded_product_categories();
 
             $attached_give_away_product  =  get_post_meta( $coupon_id, '_wt_free_product_ids', true );
+
+            $args = array(
+                'discount_type'                 => $discount_type,
+                'coupon_amount'                 => $coupon_amount,
+                'is_free_shipping'              => $is_free_shipping,
+                'product_ids'                   => $product_ids,
+                'excluded_product_ids'          => $excluded_product_ids,
+                'product_categories'            => $product_categories,
+                'excluded_product_categories'   => $excluded_product_categories,
+                'attached_give_away_product'    => $attached_give_away_product,
+            );
 
 
             switch ( $discount_type ) {
@@ -358,7 +373,7 @@ if( ! class_exists ( 'Wt_Smart_Coupon_Gift_Coupon' ) ) {
                 }
             }
 
-            return $amount;
+            return apply_filters('wt_smart_coupon_formatted_coupon_coupon',$amount, $args,$coupon);
         }
 
 
@@ -407,6 +422,7 @@ if( ! class_exists ( 'Wt_Smart_Coupon_Gift_Coupon' ) ) {
                                 'action'        			: 'wt_get_coupon_formatted_price',
                                 'variation_id'		        : var_id,
                                 'valid_coupons'             : <?php echo $valid_coupons; ?>,
+                                '_wpnonce'                  : '<?php echo wp_create_nonce( "wt_smart_coupon_gift_coupon" ); ?>'
                             };
 
                             
@@ -434,10 +450,13 @@ if( ! class_exists ( 'Wt_Smart_Coupon_Gift_Coupon' ) ) {
          * @since 1.2.4
          */
         function get_coupons_formatted_price( ) {
-            $variation_id  = ( isset( $_POST['variation_id'] ) )? $_POST['variation_id'] : '';
-            $valid_coupons  = ( isset( $_POST['valid_coupons'] ) )? $_POST['valid_coupons'] : '';
+
+            check_ajax_referer( 'wt_smart_coupon_gift_coupon', '_wpnonce' );
+            $variation_id  = ( isset( $_POST['variation_id'] ) )? Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['variation_id'], 'int' ) : '';
+            $valid_coupons  = ( isset( $_POST['valid_coupons'] ) )? Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['valid_coupons'], 'int' ) : '';
             $output = '';
-            if( $variation_id ) {
+            if( isset( $variation_id )  ) {
+                
                 $coupons = get_post_meta($variation_id , '_wt_product_coupon_for_variation', true );
                 $coupons = explode(',',$coupons);
                 $coupons = array_unique( array_filter($coupons) );

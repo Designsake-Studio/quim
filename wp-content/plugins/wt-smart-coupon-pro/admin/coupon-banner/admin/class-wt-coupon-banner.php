@@ -11,7 +11,7 @@ if( ! class_exists ( 'Wt_Smart_Coupon_Banner' ) ) {
             if ( defined( 'WEBTOFFEE_SMARTCOUPON_VERSION' ) ) {
 				$this->version = WEBTOFFEE_SMARTCOUPON_VERSION;
 			} else {
-                $this->version = '1.2.10';
+                $this->version = '1.3.1';
             }
         }
 
@@ -24,6 +24,7 @@ if( ! class_exists ( 'Wt_Smart_Coupon_Banner' ) ) {
             $screen_id = $screen ? $screen->id : '';
 
             $script_parameters['ajaxurl'] = admin_url( 'admin-ajax.php' ) ;
+            $script_parameters['nonce'] = wp_create_nonce( 'wt_smart_coupons_apply_coupon' );
 
             if ( function_exists('wc_get_screen_ids') && in_array( $screen_id, wc_get_screen_ids() ) ) {
                 wp_enqueue_script('wt-smart-coupon-banner', plugin_dir_url(__FILE__) . 'js/wt-coupon-banner.js', array('jquery','wp-color-picker'), $this->version, false);
@@ -916,58 +917,60 @@ if( ! class_exists ( 'Wt_Smart_Coupon_Banner' ) ) {
          * @since 1.2.9
          */
         function save_coupon_banner_settings() {
+            
             if( isset( $_POST['update_wt_smart_coupon_banner_settings']) ) {
-
+                if ( !Wt_Smart_Coupon_Security_Helper::check_write_access( 'smart_coupons', 'wt_smart_coupons_settings' ) ) {
+                    wp_die(__('You do not have sufficient permission to perform this operation', 'wt-smart-coupons-for-woocommerce-pro'));
+                }
                 set_transient('wt_active_tab_genral_settings','coupon_banner',30);
-
                 $coupon_banner_options = array(
                     'display_banner'       => array(
-                        'banner_type'           =>  (isset( $_POST['wt_coupon_banner_type'] ) ) ? $_POST['wt_coupon_banner_type'] : 'banner',
-                        'height'                =>  (isset( $_POST['wt_smart_coupon_banner_height'] ) ) ? $_POST['wt_smart_coupon_banner_height'] : '',
-                        'width'                 =>  (isset( $_POST['wt_smart_coupon_banner_width'] ) ) ? $_POST['wt_smart_coupon_banner_width'] : '',
-                        'bg_color'              =>  (isset( $_POST['wt_smart_coupon_banner_bg_color'] ) ) ? $_POST['wt_smart_coupon_banner_bg_color'] : '#3389ff',
-                        'is_border'             =>  (isset( $_POST['wt_smart_coupon_enable_border'] ) ) ? $_POST['wt_smart_coupon_enable_border'] : false,
-                        'border_color'          =>  (isset( $_POST['wt_banner_border_color'] ) ) ? $_POST['wt_banner_border_color'] : '#ffffff',
-                        'banner_postion'        =>  (isset( $_POST['wt_coupon_banner_position'] ) ) ? $_POST['wt_coupon_banner_position'] : 'top',
-                        'widget_postion'        =>  (isset( $_POST['wt_coupon_widget_position'] ) ) ? $_POST['wt_coupon_widget_position'] : 'bottom_left',
+                        'banner_type'           =>  (isset( $_POST['wt_coupon_banner_type'] ) ) ? Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['wt_coupon_banner_type'] ) : 'banner',
+                        'height'                =>  (isset( $_POST['wt_smart_coupon_banner_height'] ) ) ? Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['wt_smart_coupon_banner_height'], 'int' ) : '',
+                        'width'                 =>  (isset( $_POST['wt_smart_coupon_banner_width'] ) ) ? Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['wt_smart_coupon_banner_width'], 'int' ) : '',
+                        'bg_color'              =>  (isset( $_POST['wt_smart_coupon_banner_bg_color'] ) ) ? Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['wt_smart_coupon_banner_bg_color'], 'hex' ) : '#3389ff',
+                        'is_border'             =>  (isset( $_POST['wt_smart_coupon_enable_border'] ) ) ? Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['wt_smart_coupon_enable_border'] ) : false,
+                        'border_color'          =>  (isset( $_POST['wt_banner_border_color'] ) ) ? Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['wt_banner_border_color'], 'hex' ) : '#ffffff',
+                        'banner_postion'        =>  (isset( $_POST['wt_coupon_banner_position'] ) ) ? Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['wt_coupon_banner_position'] ) : 'top',
+                        'widget_postion'        =>  (isset( $_POST['wt_coupon_widget_position'] ) ) ? Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['wt_coupon_widget_position'] ) : 'bottom_left',
                         'allow_dismissable'     =>  (isset( $_POST['wt_smart_coupon_banner_allow_dismissable'] ) && 'on' == $_POST['wt_smart_coupon_banner_allow_dismissable'] ) ? true : false,
-                        'dismissable_color'     =>  (isset( $_POST['wt_banner_dismissable_color'] ) ) ? $_POST['wt_banner_dismissable_color'] : '#ffffff',
-                        'action_on_click'       =>  (isset( $_POST['wt_smart_coupon_action_on_applyign_coupon'] ) ) ? $_POST['wt_smart_coupon_action_on_applyign_coupon'] : '',
-                        'redirect_url'          =>  (isset( $_POST['wt_banner_redirect_url'] ) ) ? $_POST['wt_banner_redirect_url'] : '',
+                        'dismissable_color'     =>  (isset( $_POST['wt_banner_dismissable_color'] ) ) ? Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['wt_banner_dismissable_color'], 'hex' ) : '#ffffff',
+                        'action_on_click'       =>  (isset( $_POST['wt_smart_coupon_action_on_applyign_coupon'] ) ) ? Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['wt_smart_coupon_action_on_applyign_coupon'] ) : '',
+                        'redirect_url'          =>  (isset( $_POST['wt_banner_redirect_url'] ) ) ? Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['wt_banner_redirect_url'] ) : '',
                         'url_open_in_another_tab'   =>  ( isset( $_POST['wt_banner_url_open_in_another_tab'] ) && 'on' == $_POST['wt_banner_url_open_in_another_tab'] ) ? true : false,
                     ),
                     'banner_title'              =>  array(
                         'enable_banner_title'   => ( isset( $_POST['wt_smart_coupon_enable_banner_title'] ) && 'on' == $_POST['wt_smart_coupon_enable_banner_title'] ) ? true : false,
-                        'title'                 => (isset( $_POST['wt_smart_coupon_title_content'] ) ) ? $_POST['wt_smart_coupon_title_content'] : 'Limited-time offer!',
-                        'font-size'             => (isset( $_POST['wt_smart_coupon_title_font_size'] ) ) ? $_POST['wt_smart_coupon_title_font_size'] : 20,
-                        'font-color'            => (isset( $_POST['wt_smart_coupon_enable_title_color'] ) ) ? $_POST['wt_smart_coupon_enable_title_color'] : '#f8f8f8'
+                        'title'                 => (isset( $_POST['wt_smart_coupon_title_content'] ) ) ? Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['wt_smart_coupon_title_content'] ) : 'Limited-time offer!',
+                        'font-size'             => (isset( $_POST['wt_smart_coupon_title_font_size'] ) ) ? Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['wt_smart_coupon_title_font_size'], 'int' ) : 20,
+                        'font-color'            => (isset( $_POST['wt_smart_coupon_enable_title_color'] ) ) ? Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['wt_smart_coupon_enable_title_color'], 'hex' ) : '#f8f8f8'
                     ),
                     'banner_description'            => array(
                         'enable_banner_description' => ( isset( $_POST['wt_smart_coupon_enable_banner_description'] ) && 'on' == $_POST['wt_smart_coupon_enable_banner_description'] ) ? true : false,
-                        'title'                     => (isset( $_POST['wt_smart_coupon_description_content'] ) ) ? $_POST['wt_smart_coupon_description_content'] : 'Limited-time offer!',
-                        'font-size'                 => (isset( $_POST['wt_smart_coupon_description_font_size'] ) ) ? $_POST['wt_smart_coupon_description_font_size'] : 20,
-                        'font-color'                => (isset( $_POST['wt_smart_coupon_enable_description_color'] ) ) ? $_POST['wt_smart_coupon_enable_description_color'] : '#f8f8f8',
+                        'title'                     => (isset( $_POST['wt_smart_coupon_description_content'] ) ) ? Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['wt_smart_coupon_description_content'] ) : 'Limited-time offer!',
+                        'font-size'                 => (isset( $_POST['wt_smart_coupon_description_font_size'] ) ) ? Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['wt_smart_coupon_description_font_size'], 'int' ) : 20,
+                        'font-color'                => (isset( $_POST['wt_smart_coupon_enable_description_color'] ) ) ? Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['wt_smart_coupon_enable_description_color'], 'hex' ) : '#f8f8f8',
                     ),
                     'coupon_section'            => array(
                         'enable_coupon_section' => (isset( $_POST['wt_smart_coupon_enable_coupon_section'] ) && 'on' == $_POST['wt_smart_coupon_enable_coupon_section'] ) ? true : false,
-                        'font-size'             => (isset( $_POST['wt_smart_coupon_coupon_block_font_size'] ) ) ? $_POST['wt_smart_coupon_coupon_block_font_size'] : 20,
-                        'font-color'            => (isset( $_POST['wt_smart_coupon_enable_coupon_block_color'] ) ) ? $_POST['wt_smart_coupon_enable_coupon_block_color'] : '#ffffff',
-                        'border-color'          => (isset( $_POST['wt_smart_coupon_enable_coupon_block_border_color'] ) ) ? $_POST['wt_smart_coupon_enable_coupon_block_border_color'] : '#f8f8f8',
-                        'bg-color'              => (isset( $_POST['wt_smart_coupon_enable_coupon_block_bg_color'] ) ) ? $_POST['wt_smart_coupon_enable_coupon_block_bg_color'] : '#f8f8f8',
+                        'font-size'             => (isset( $_POST['wt_smart_coupon_coupon_block_font_size'] ) ) ? Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['wt_smart_coupon_coupon_block_font_size'], 'int' ) : 20,
+                        'font-color'            => (isset( $_POST['wt_smart_coupon_enable_coupon_block_color'] ) ) ? Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['wt_smart_coupon_enable_coupon_block_color'], 'hex' ) : '#ffffff',
+                        'border-color'          => (isset( $_POST['wt_smart_coupon_enable_coupon_block_border_color'] ) ) ? Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['wt_smart_coupon_enable_coupon_block_border_color'], 'hex' ) : '#f8f8f8',
+                        'bg-color'              => (isset( $_POST['wt_smart_coupon_enable_coupon_block_bg_color'] ) ) ? Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['wt_smart_coupon_enable_coupon_block_bg_color'], 'hex' ) : '#f8f8f8',
                     ),
                     'coupon_timer'              => array(
                         'enable_coupon_timer'   => (isset( $_POST['wt_smart_coupon_enable_coupon_timer'] ) &&  'on' ==  $_POST['wt_smart_coupon_enable_coupon_timer'] ) ? true : false,
-                        'font-size'             => (isset( $_POST['wt_smart_coupon_coupon_timer_font_size'] ) ) ? $_POST['wt_smart_coupon_coupon_timer_font_size'] : 20,
-                        'font-color'            => (isset( $_POST['wt_smart_coupon_enable_coupon_timer_color'] ) ) ? $_POST['wt_smart_coupon_enable_coupon_timer_color'] : '#ffffff',
-                        'bg-color'              => (isset( $_POST['wt_smart_coupon_enable_coupon_timer_bg_color'] ) ) ? $_POST['wt_smart_coupon_enable_coupon_timer_bg_color'] : '#f8f8f8',
-                        'border-color'          => (isset( $_POST['wt_smart_coupon_coupon_timer_border_color'] ) ) ? $_POST['wt_smart_coupon_coupon_timer_border_color'] : '#f8f8f8',
-                        'action_on_expiry'      => (isset( $_POST['wt_smart_coupon_action_on_expiry_coupon'] ) ) ? $_POST['wt_smart_coupon_action_on_expiry_coupon'] : '',
-                        'expiry_text'           => (isset( $_POST['wt_expiry_date_text_to_display'] ) ) ? $_POST['wt_expiry_date_text_to_display'] : '',
+                        'font-size'             => (isset( $_POST['wt_smart_coupon_coupon_timer_font_size'] ) ) ? Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['wt_smart_coupon_coupon_timer_font_size'], 'int' ) : 20,
+                        'font-color'            => (isset( $_POST['wt_smart_coupon_enable_coupon_timer_color'] ) ) ? Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['wt_smart_coupon_enable_coupon_timer_color'], 'hex' ) : '#ffffff',
+                        'bg-color'              => (isset( $_POST['wt_smart_coupon_enable_coupon_timer_bg_color'] ) ) ? Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['wt_smart_coupon_enable_coupon_timer_bg_color'], 'hex' ) : '#f8f8f8',
+                        'border-color'          => (isset( $_POST['wt_smart_coupon_coupon_timer_border_color'] ) ) ? Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['wt_smart_coupon_coupon_timer_border_color'], 'hex' ) : '#f8f8f8',
+                        'action_on_expiry'      => (isset( $_POST['wt_smart_coupon_action_on_expiry_coupon'] ) ) ? Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['wt_smart_coupon_action_on_expiry_coupon'] ) : '',
+                        'expiry_text'           => (isset( $_POST['wt_expiry_date_text_to_display'] ) ) ? Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['wt_expiry_date_text_to_display'] ) : '',
                     ),
                     'inject_coupon'             => array (
                         'enable_inject_coupon'  => (isset( $_POST['wt_smart_coupon_enable_inject_coupon'] ) &&  'on' ==  $_POST['wt_smart_coupon_enable_inject_coupon'] ) ? true : false,
-                        'inject_coupon'         => (isset( $_POST['master_coupon_for_inject_coupon'] ) ) ? $_POST['master_coupon_for_inject_coupon'] : '',
-                        'inject_into_pages'     => (isset( $_POST['wt_smart_coupon_inject_pages'] ) ) ?  implode(',',$_POST['wt_smart_coupon_inject_pages'] ) : '',
+                        'inject_coupon'         => (isset( $_POST['master_coupon_for_inject_coupon'] ) ) ? Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['master_coupon_for_inject_coupon'], 'int' ) : '',
+                        'inject_into_pages'     => (isset( $_POST['wt_smart_coupon_inject_pages'] ) ) ?  implode(',', Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['wt_smart_coupon_inject_pages'], 'text_arr' ) ) : '',
                     )
                 );
                 $this->update_option( $coupon_banner_options );

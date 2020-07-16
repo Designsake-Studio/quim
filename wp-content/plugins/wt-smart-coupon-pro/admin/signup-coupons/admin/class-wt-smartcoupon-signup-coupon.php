@@ -114,7 +114,7 @@ if( ! class_exists ( 'Wt_Smart_Coupon_Signup_Coupon' ) ) {
             ?>
 
                 <form name="wt_smart_coupons_signup_coupon_settings_form" method="post" action="<?php echo esc_attr($_SERVER["REQUEST_URI"]); ?>" >
-                    <?php wp_nonce_field('wt_smart_coupons_signup_coupon_settings'); ?>
+                    <?php  wp_nonce_field('wt_smart_coupons_action_coupon_settings'); ?>
                     
                     
                     <table class="form-table">
@@ -255,19 +255,19 @@ if( ! class_exists ( 'Wt_Smart_Coupon_Signup_Coupon' ) ) {
         function save_signup_coupon_settings() {
             if(isset( $_POST['update_wt_smart_coupon_signup_coupon_settings']) ) {
                 set_transient('wt_active_tab_action_coupon','signup_coupon',30);
-
-                wp_verify_nonce('wt_smart_coupons_signup_coupon_settings');
+                if ( ! Wt_Smart_Coupon_Security_Helper::check_write_access( 'smart_coupons', 'wt_smart_coupons_action_coupon_settings' ) ) {
+                    wp_die(__('You do not have sufficient permission to perform this operation', 'wt-smart-coupons-for-woocommerce-pro'));
+                }
                 $signup_coupon_settings = $this->get_options();
-
 
                 if( isset( $_POST['_wt_enable_signup_coupon'] ) && $_POST['_wt_enable_signup_coupon'] =='on' ) {
                     $signup_coupon_settings['enable_signup_coupon'] = true;
                 } else {
                     $signup_coupon_settings['enable_signup_coupon'] = false;
                 }
-
+                
                 if( isset( $_POST['_wt_signup_master_coupon'] ) ) {
-                    $signup_coupon_settings['wt_signup_master_coupon'] = $_POST['_wt_signup_master_coupon'];
+                    $signup_coupon_settings['wt_signup_master_coupon'] = Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['_wt_signup_master_coupon'], 'int' );
                 }
 
                 if( isset( $_POST['_wt_use_master_coupon_as_is'] ) && $_POST['_wt_use_master_coupon_as_is'] =='on' ) {
@@ -276,16 +276,15 @@ if( ! class_exists ( 'Wt_Smart_Coupon_Signup_Coupon' ) ) {
                     $signup_coupon_settings['use_master_coupon_as_is'] = false;
                 }
                 if( isset( $_POST['_wt_signup_coupon_prefix'] ) ) {
-                    $signup_coupon_settings['signup_coupon_prefix'] = $_POST['_wt_signup_coupon_prefix'];
+                    $signup_coupon_settings['signup_coupon_prefix'] = Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['_wt_signup_coupon_prefix'] );
                 }
                 if( isset( $_POST['_wt_signup_coupon_suffix'] ) ) {
-                    $signup_coupon_settings['signup_coupon_suffix'] = $_POST['_wt_signup_coupon_suffix'];
+                    $signup_coupon_settings['signup_coupon_suffix'] = Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['_wt_signup_coupon_suffix'] );
                 }
                 if( isset( $_POST['_wt_signup_coupon_length'] ) ) {
-                    $signup_coupon_settings['signup_coupon_length'] = $_POST['_wt_signup_coupon_length'];
+                    $signup_coupon_settings['signup_coupon_length'] = Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['_wt_signup_coupon_length'], 'int' );
                 }
                 
-
                 $this->update_option( $signup_coupon_settings );
 
 

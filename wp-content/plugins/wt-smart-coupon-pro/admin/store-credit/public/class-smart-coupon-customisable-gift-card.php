@@ -295,20 +295,21 @@ if( ! class_exists ( 'Wt_Smart_Coupon_Customisable_Gift_Card' ) ) {
         function display_credit_details_into_cart_item( $item_data, $cart_item_data ) {
             
 
+
             if( isset( $cart_item_data['wt_store_crdit_template'] ) ) {
                 $template_details = $cart_item_data['wt_store_crdit_template'];
                 $item_data[] = array(
                     'key' =>  __('Recipient email'),
-                    'value' => $template_details['wt_credit_coupon_send_to']
+                    'value' => isset( $template_details['wt_credit_coupon_send_to'] ) ? $template_details['wt_credit_coupon_send_to'] : ''
                     );
                 $item_data[] = array(
                         'key' =>  __('Sender Name'),
-                        'value' => $template_details['wt_credit_coupon_from']
+                        'value' => isset( $template_details['wt_credit_coupon_from'] ) ? $template_details['wt_credit_coupon_from'] : ''
                     );
                 if( isset( $template_details['wt_smart_coupon_schedule'])) {
                     $item_data[] = array(
                         'key' =>  __('Send Date'),
-                        'value' => $template_details['wt_smart_coupon_schedule']
+                        'value' => isset( $template_details['wt_smart_coupon_schedule'] ) ? $template_details['wt_smart_coupon_schedule'] : ''
                     );
                 }
                
@@ -385,8 +386,9 @@ if( ! class_exists ( 'Wt_Smart_Coupon_Customisable_Gift_Card' ) ) {
          */
         function save_extended_coupon_option( ) {
             if( isset( $_POST['update_wt_smart_coupon_store_credit_settings'] ) ) {
-
-                check_admin_referer('wt_smart_coupons_store_credit_settings');
+                if ( !Wt_Smart_Coupon_Security_Helper::check_write_access( 'smart_coupons', 'wt_smart_coupons_store_credit_settings' ) ) {
+                    wp_die(__('You do not have sufficient permission to perform this operation', 'wt-smart-coupons-for-woocommerce-pro'));
+                }
                 $smart_coupon_option = get_option( 'wt_smart_coupon_options' );
 
                 if( isset( $_POST['_wt_enable_customizable_store_credit'] ) && $_POST['_wt_enable_customizable_store_credit'] =='on' ) {
@@ -421,9 +423,26 @@ if( ! class_exists ( 'Wt_Smart_Coupon_Customisable_Gift_Card' ) ) {
          * @since 1.2.8
          */
         function try_store_credit_now( ) {
-            $this->update_customisable_store_crdit_option( true );
 
-            _e('Activated extended store credit feature','wt-smart-coupons-for-woocommerce-pro');
+            $return = array(
+                'error'     =>  false,
+                'message'   =>  ''
+            );
+            if ( ! Wt_Smart_Coupon_Security_Helper::check_write_access( 'smart_coupons', 'wt_smart_coupons_store_credit_nonce' ) ) {
+
+                $return = array(
+                    'error'     =>  true,
+                    'message'   =>  __('You do not have sufficient permission to perform this operation', 'wt-smart-coupons-for-woocommerce-pro')
+                );
+                echo json_encode($return);
+                die();
+            }
+            $this->update_customisable_store_crdit_option( true );
+            $return = array(
+                'error'     =>  false,
+                'message'   =>  __('Activated extended store credit feature', 'wt-smart-coupons-for-woocommerce-pro')
+            );
+            echo json_encode($return);
             die();
         }
 

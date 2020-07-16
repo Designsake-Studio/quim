@@ -821,6 +821,11 @@ li.wt_give_away_free_product_options a::before {
 .wt-send-status.wt_error {
   color: red;
 }
+.wt_error.wt_notice {
+  color: red;
+  background-color: #ed383312;
+  border-color: #ed383312;
+}
 td.titledesc {
   vertical-align: top;
 }

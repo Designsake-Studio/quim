@@ -97,17 +97,23 @@ class WT_Giveaway_Free_Product {
      */
 
     public function remove_free_product_from_cart( $coupon_code ) {
-        $free_products = $this->get_free_product_for_a_coupon( $coupon_code );
-        if( empty( $free_products ) )  return;
 
+        global $woocommerce;
+        $applied_coupons  = $woocommerce->cart->applied_coupons;
+        if (isset($coupon_code) && !empty($coupon_code)) {
+            if (!in_array($coupon_code,$applied_coupons)) {
 
-        foreach ( WC()->cart->get_cart() as $cart_item_key => $values ) {
+                $free_products = $this->get_free_product_for_a_coupon( $coupon_code );
+                if( empty( $free_products ) )  return;
+                foreach ( WC()->cart->get_cart() as $cart_item_key => $values ) {
 
-                $_product = $values['data'];
-                if ( in_array( $_product->get_id(),$free_products )  && isset( $values['free_product'] ) && $values['free_product'] == "wt_give_away_product" ){
-                    WC()->cart->remove_cart_item( $cart_item_key );
+                    $_product = $values['data'];
+                    if ( in_array( $_product->get_id(),$free_products )  && isset( $values['free_product'] ) && $values['free_product'] == "wt_give_away_product" ){
+                        WC()->cart->remove_cart_item( $cart_item_key );
+                    }
                 }
             }
+        }
     }
 
     /**
@@ -136,6 +142,7 @@ class WT_Giveaway_Free_Product {
      * @since 1.0.0
      */
     public function display_give_away_products(  ) {
+        $discount_text = '';
         echo '<tr><td colspan=6>';
         global $woocommerce;
         $applied_coupons  = $woocommerce->cart->applied_coupons;
@@ -190,8 +197,12 @@ class WT_Giveaway_Free_Product {
                     $discount_text = $this->get_give_away_discount_text( $coupon_id );
 
                     $choose_gift = sprintf(__('Congratulations! <br/> You can now choose from one of the products at %s discount.','wt-smart-coupons-for-woocommerce-pro'),$discount_text);
+                    
+
                 }
-                echo '<h4 class="giveaway-title">'.$choose_gift.'<span class="coupon-code">[ '.get_the_title( $coupon_id) .' ]</span></h4>';
+                $message = '<h4 class="giveaway-title">'.$choose_gift.'<span class="coupon-code">[ '.get_the_title( $coupon_id) .' ]</span></h4>';
+                $message = apply_filters( 'wt_smartcoupon_give_away_message', $message, $discount_text, $coupon_id );
+                echo $message;
             ?>
             <ul class="woocommcerce wt_give_away_products" coupon = <?php echo $coupon_id; ?> >
 
@@ -200,7 +211,7 @@ class WT_Giveaway_Free_Product {
             foreach( $free_product_items as $product_id ) {
 
                 $_product = wc_get_product( $product_id );
-
+                
                if( $_product->get_stock_quantity() &&   $_product->get_stock_quantity() < 1 ) {
                    continue;
                }
@@ -443,9 +454,11 @@ class WT_Giveaway_Free_Product {
      */
 
     public function ajax_find_matching_product_variation_id() {
+
+        check_ajax_referer( 'wt_smart_coupons_public', '_wpnonce' );
         if( isset( $_POST['attributes'] ) && isset( $_POST['product'] )  ) {
-            $product_id = $_POST['product'];
-            $attributes = $_POST['attributes'];
+            $product_id = Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['product'], 'int' );
+            $attributes = Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['attributes'], 'text_arr' );
             if( $product_id == '' || empty( $attributes )) {
                 echo 'invalid request!';
                 return false;
@@ -466,15 +479,16 @@ class WT_Giveaway_Free_Product {
      */
     public function add_to_cart( ) {
        
+        check_ajax_referer( 'wt_smart_coupons_public', '_wpnonce' );
         if( isset( $_POST['product_id'] ) && isset( $_POST['variation_id'] ) ) {
-            $product_id     = $_POST['product_id'];
-            $variation_id   = $_POST['variation_id'];
+            $product_id     = Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['product_id'], 'int' );
+            $variation_id   = Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['variation_id'], 'int' );
         } else {
             echo 'invalid request!';
             wp_die();
         }
 
-        $coupon_code = isset( $_POST['applied_coupon'] )?  $_POST['applied_coupon'] : '';
+        $coupon_code = isset( $_POST['applied_coupon'] )?  Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['applied_coupon'] ) : '';
 
         if( ! $product_id || '' == $coupon_code ) {
             return false;
@@ -484,7 +498,7 @@ class WT_Giveaway_Free_Product {
 
         if( $_product->is_type('variable') ) {
 
-            $attributes  = isset( $_POST['attributes'] ) ? $_POST['attributes'] : '';
+            $attributes  = isset( $_POST['attributes'] ) ? Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['attributes'], 'text_arr' ) : '';
 
             $attributes = json_decode( stripslashes($attributes ));
 
@@ -510,8 +524,6 @@ class WT_Giveaway_Free_Product {
                 );
                 $quantity = $this->get_give_away_quantity( $coupon_code );
             }
-
-            
 
             WC()->cart->add_to_cart( $product_id, $quantity, $variation_id, $variation,$cart_item_data );
             echo 'success';
@@ -678,7 +690,7 @@ class WT_Giveaway_Free_Product {
             
 
             if( !empty($free_item) && ! $is_discount_before_tax ) {
-                $product = $order_item['product_id'];
+                $product_id = $order_item['product_id'];
                 if(  $order_item['variation_id']) {
                     $product_id  = $order_item['variation_id'];
                 }
@@ -688,7 +700,7 @@ class WT_Giveaway_Free_Product {
                 }
                 $product_price = $_product->get_price();
                 $quantity = $order_item['quantity'];
-                $coupon_code                    = $order_item['free_gift_coupon'];
+                $coupon_code = $order_item['free_gift_coupon'];
                 $discount = $this->get_available_discount_for_give_away_product( $coupon_code,$_product,$product_id );
                 $sale_price_after_discount = ( $product_price - $discount ) * $cart_item['quantity'];
 
@@ -937,5 +949,41 @@ class WT_Giveaway_Free_Product {
         $quantity =  get_post_meta( $coupon_id, '_wt_product_discount_quantity', true );
 
         return ( $quantity > 0 )? $quantity : 1;
+    }
+
+    /**
+	 * Remove giveaway products from the cart if no other products are present
+	 *
+	 * @since  1.3.0
+	 * @param  string $cart_item_key Cart item key to remove from the cart.
+     * @param WC_Cart $instance Cart object.
+	 */
+    public function remove_free_products_from_cart( $cart_item_key, $instance ) {
+
+        $cart_items = WC()->cart->get_cart_contents();
+        $cart_items_count = WC()->cart->get_cart_contents_count();
+        $free_products = array();
+
+        if( !empty( $cart_items ) && is_array( $cart_items ) ) {
+        
+            foreach ( $cart_items as $cart_item_key => $cart_item ) {
+                
+                if( $this->is_a_free_gift_item( $cart_item ) ) {
+                    $free_products[] = $cart_item_key;
+                }
+                
+            }
+            if( count( $free_products ) === $cart_items_count ) {
+                
+                if( !empty( $free_products ) && is_array( $free_products )) {
+                    foreach ($free_products as $product ) {
+                        echo "product".$product;
+                        WC()->cart->remove_cart_item( $product );
+                    }
+                }
+                wc_add_notice( __('Giveaway products have removed from the cart.','wt-smart-coupons-for-woocommerce'), 'success' );
+            }
+        }
+        
     }
 }

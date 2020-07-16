@@ -15,7 +15,10 @@ if( ! class_exists ( 'WT_Duplicate_Shop_Coupon' ) ) {
         function wt_duplicate_post_as_draft() {
 
             global $wpdb;
-
+            if ( !current_user_can('edit_posts') ) 
+            {
+                wp_die(__('You do not have sufficient permission to perform this operation', 'wt-smart-coupons-for-woocommerce'));
+            }
             if (!( isset($_GET['post']) || isset($_POST['post']) || ( isset($_REQUEST['action']) && 'wt_duplicate_post_as_draft' == $_REQUEST['action'] ) )) {
                 wp_die( __('No post to duplicate has been supplied!', 'wt-smart-coupons-for-woocommerce-pro'));
             }

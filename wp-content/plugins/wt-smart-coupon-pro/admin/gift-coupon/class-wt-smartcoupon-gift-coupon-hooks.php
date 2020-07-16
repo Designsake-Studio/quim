@@ -23,7 +23,7 @@ if( ! class_exists ( 'Wt_Smart_Coupon_Gift_Coupon_Hooks' ) ) {
 
             $gift_coupon_admin = new Wt_Smart_Coupon_Gift_Coupon_Admin();
             $this->add_action('woocommerce_product_options_general_product_data',$gift_coupon_admin,'add_coupon_field_forproduct');
-            $this->add_action('save_post', $gift_coupon_admin, 'save_product_coupon_meta_data', 11,1);
+            $this->add_action('save_post_product', $gift_coupon_admin, 'save_product_coupon_meta_data', 11,1);
             $this->add_action( 'add_meta_boxes', $gift_coupon_admin, 'add_coupon_details_into_order' );
             $this->add_action('woocommerce_email_classes', $gift_coupon_admin,'add_wt_smart_gift_coupon_emails', 10, 1);
             $this->add_action('wt_smart_coupon_general_settings', $gift_coupon_admin,'add_gift_cuopon_settings', 10);

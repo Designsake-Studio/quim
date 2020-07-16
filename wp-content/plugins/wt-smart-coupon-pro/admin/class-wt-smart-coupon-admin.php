@@ -42,15 +42,19 @@ if( ! class_exists ( 'Wt_Smart_Coupon_Admin' ) ) {
          */
         public function process_shop_coupon_meta($post_id, $post) {
 
+            if (!current_user_can('manage_woocommerce')) 
+            {
+                wp_die(__('You do not have sufficient permission to perform this operation', 'wt-smart-coupons-for-woocommerce-pro'));
+            }
             if (!empty($_POST['_wt_sc_shipping_methods'])) {
-                $wt_sc_shipping_methods = $_POST['_wt_sc_shipping_methods'];
+                $wt_sc_shipping_methods = Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['_wt_sc_shipping_methods'], 'text_arr' );
                 update_post_meta($post_id, '_wt_sc_shipping_methods', implode(',', $wt_sc_shipping_methods ) );
             } else {
                 update_post_meta($post_id, '_wt_sc_shipping_methods', '');
             }
 
             if (!empty($_POST['_wt_sc_payment_methods'])) {
-                $wt_sc_payment_methods = $_POST['_wt_sc_payment_methods'];
+                $wt_sc_payment_methods = Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['_wt_sc_payment_methods'], 'text_arr' );
                 update_post_meta($post_id, '_wt_sc_payment_methods', implode(',', $wt_sc_payment_methods ));
             } else {
                 update_post_meta($post_id, '_wt_sc_payment_methods', '' );
@@ -59,13 +63,14 @@ if( ! class_exists ( 'Wt_Smart_Coupon_Admin' ) ) {
             // Location restriction 
 
             if (!empty($_POST['_wt_need_check_location_in'])) {
-                update_post_meta($post_id, '_wt_need_check_location_in', $_POST['_wt_need_check_location_in'] );
+                $_wt_need_check_location_in = Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['_wt_need_check_location_in'] );
+                update_post_meta($post_id, '_wt_need_check_location_in', $_wt_need_check_location_in );
             } else {
                 update_post_meta($post_id, '_wt_need_check_location_in', 'billing');
             }
 
             if (!empty($_POST['_wt_coupon_available_location'])) {
-                $wt_coupon_available_location = $_POST['_wt_coupon_available_location'];
+                $wt_coupon_available_location = Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['_wt_coupon_available_location'], 'text_arr' );
                 update_post_meta($post_id, '_wt_coupon_available_location', implode(',', $wt_coupon_available_location ));
             } else {
                 update_post_meta($post_id, '_wt_coupon_available_location', '' );
@@ -73,7 +78,7 @@ if( ! class_exists ( 'Wt_Smart_Coupon_Admin' ) ) {
 
 
             if (!empty($_POST['_wt_sc_user_roles'])) {
-                $_wt_sc_user_roles = $_POST['_wt_sc_user_roles'];
+                $_wt_sc_user_roles = Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['_wt_sc_user_roles'], 'text_arr' );
                 update_post_meta($post_id, '_wt_sc_user_roles', implode(',',$_wt_sc_user_roles ) );
             } else {
                 update_post_meta($post_id, '_wt_sc_user_roles', '');
@@ -82,13 +87,15 @@ if( ! class_exists ( 'Wt_Smart_Coupon_Admin' ) ) {
             // Save Usage Restriction items.
 
             if( isset( $_POST['_wt_category_condition'] ) && !empty( $_POST['_wt_category_condition'] ) ) {
-                update_post_meta( $post_id, '_wt_category_condition', $_POST['_wt_category_condition']  );
+                $_wt_category_condition = Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['_wt_category_condition'] );
+                update_post_meta( $post_id, '_wt_category_condition', $_wt_category_condition );
             } else {
                 update_post_meta($post_id, '_wt_category_condition', 'or');
             }
 
             if( isset( $_POST['_wt_product_condition'] ) && !empty( $_POST['_wt_product_condition'] ) ) {
-                update_post_meta( $post_id, '_wt_product_condition', $_POST['_wt_product_condition']  );
+                $_wt_product_condition = Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['_wt_product_condition'] );
+                update_post_meta( $post_id, '_wt_product_condition', $_wt_product_condition );
             } else {
                 update_post_meta($post_id, '_wt_product_condition','or');
             }
@@ -97,35 +104,36 @@ if( ! class_exists ( 'Wt_Smart_Coupon_Admin' ) ) {
             // Matching products
             
             if( isset($_POST['_wt_min_matching_product_qty']) && $_POST['_wt_min_matching_product_qty']!='' ) {
-
-                update_post_meta($post_id, '_wt_min_matching_product_qty', $_POST['_wt_min_matching_product_qty'] );
+                $_wt_min_matching_product_qty = Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['_wt_min_matching_product_qty'], 'int' );
+                update_post_meta($post_id, '_wt_min_matching_product_qty', $_wt_min_matching_product_qty );
             } else {
                 update_post_meta($post_id, '_wt_min_matching_product_qty', '');
             }
 
             if( isset($_POST['_wt_max_matching_product_qty']) && $_POST['_wt_max_matching_product_qty']!='' ) {
-
-                update_post_meta($post_id, '_wt_max_matching_product_qty', $_POST['_wt_max_matching_product_qty'] );
+                $_wt_max_matching_product_qty = Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['_wt_max_matching_product_qty'], 'int' );
+                update_post_meta($post_id, '_wt_max_matching_product_qty', $_wt_max_matching_product_qty );
             } else {
                 update_post_meta($post_id, '_wt_max_matching_product_qty', '');
             }
 
             if( isset($_POST['_wt_min_matching_product_subtotal']) && $_POST['_wt_min_matching_product_subtotal']!='' ) {
-
-                update_post_meta($post_id, '_wt_min_matching_product_subtotal', $_POST['_wt_min_matching_product_subtotal'] );
+                $_wt_min_matching_product_subtotal = Wt_Smart_Coupon_Security_Helper::sanitize_item($_POST['_wt_min_matching_product_subtotal'],'float');
+                update_post_meta($post_id, '_wt_min_matching_product_subtotal', $_wt_min_matching_product_subtotal );
             } else {
                 update_post_meta($post_id, '_wt_min_matching_product_subtotal', '');
             }
 
             if( isset($_POST['_wt_max_matching_product_subtotal']) && $_POST['_wt_max_matching_product_subtotal']!='' ) {
-
-                update_post_meta($post_id, '_wt_max_matching_product_subtotal', $_POST['_wt_max_matching_product_subtotal'] );
+                $_wt_max_matching_product_subtotal = Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['_wt_max_matching_product_subtotal'], 'float' );
+                update_post_meta($post_id, '_wt_max_matching_product_subtotal', $_wt_max_matching_product_subtotal );
             } else {
                 update_post_meta($post_id, '_wt_max_matching_product_subtotal', '');
             }
 
             if( isset($_POST['_wt_valid_for_number']) && $_POST['_wt_valid_for_number']!='' ) {
-                update_post_meta($post_id, '_wt_valid_for_number', $_POST['_wt_valid_for_number'] );
+                $_wt_valid_for_number = Wt_Smart_Coupon_Security_Helper::sanitize_item($_POST['_wt_valid_for_number']);
+                update_post_meta($post_id, '_wt_valid_for_number', $_wt_valid_for_number );
                 
                 if ( isset( $_POST['_wt_valid_for_type'] ) && '' != $_POST['_wt_valid_for_type']  ) {
                     $wt_valid_for_type = $_POST['_wt_valid_for_type'];
@@ -138,10 +146,11 @@ if( ! class_exists ( 'Wt_Smart_Coupon_Admin' ) ) {
 
 
             if( isset( $_POST['_wc_make_coupon_available'] ) && $_POST['_wc_make_coupon_available']!='' ) {
-                   
+                
+                $_wc_make_coupon_available = Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['_wc_make_coupon_available'], 'text_arr' );
                 update_post_meta($post_id, '_wt_make_coupon_available_in_myaccount', '' );
 
-                update_post_meta($post_id, '_wc_make_coupon_available', implode(',',$_POST['_wc_make_coupon_available'] ) );
+                update_post_meta($post_id, '_wc_make_coupon_available', implode(',', $_wc_make_coupon_available ) );
             } else {
                 update_post_meta($post_id, '_wc_make_coupon_available',  '' );
                 update_post_meta($post_id, '_wt_make_coupon_available_in_myaccount', '' );
@@ -175,10 +184,10 @@ if( ! class_exists ( 'Wt_Smart_Coupon_Admin' ) ) {
 
             $script_parameters['ajaxurl'] = admin_url( 'admin-ajax.php' ) ;
             $script_parameters['coupon_styles'] = self::coupon_styles();
-            // $script_parameters['coupon_types']  = WT_smart_Coupon_Settings::get_coupon_style_types();
+            $script_parameters['nonce'] = wp_create_nonce( 'wt_smart_coupons_admin_nonce' );
             if ( function_exists('wc_get_screen_ids') && in_array( $screen_id, wc_get_screen_ids() ) ) {
                 wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/wt-smart-coupon-admin.js', array('jquery','wp-color-picker'), $this->version, false);
-                wp_localize_script($this->plugin_name,'WTSmartCouponOBJ',$script_parameters );
+                wp_localize_script($this->plugin_name,'WTSmartCouponAdminOBJ',$script_parameters );
             }
         }
 
@@ -681,11 +690,13 @@ if( ! class_exists ( 'Wt_Smart_Coupon_Admin' ) ) {
          */
         public function wt_json_search_coupons( ) {
 
+
             global $wpdb;
-            
+            if ( ! Wt_Smart_Coupon_Security_Helper::check_write_access( 'smart_coupons', 'search-coupons' ) ) {
 
-			check_ajax_referer( 'search-coupons', 'security' );
+                wp_die(__('You do not have sufficient permission to perform this operation', 'wt-smart-coupons-for-woocommerce-pro'));
 
+            }
             $term = (string) wc_clean( wp_unslash( $_GET['term'] ) ); 
             $post_id =(int) wc_clean( wp_unslash( $_GET['post_id'] ) );
 
@@ -1158,6 +1169,11 @@ if( ! class_exists ( 'Wt_Smart_Coupon_Admin' ) ) {
                             update_post_meta( $new_post_id, $meta_key, $meta_value );
                         }
                     }
+                    /**
+                     * Special case for category meta
+                     */
+                    $categories = get_post_meta( $coupon, 'product_categories', true );
+                    update_post_meta( $new_post_id, 'product_categories', $categories );
                     $new_coupon->save();
                 }
 
@@ -1187,8 +1203,13 @@ if( ! class_exists ( 'Wt_Smart_Coupon_Admin' ) ) {
                     return $amount.$currency;
             }
         }
-
-
+        /**
+         * Callback for changing user role in Webtoffee security helper
+         * @since 1.3.0
+         */
+        public static function wt_sc_alter_user_roles(  ) {
+            return array('manage_woocommerce');
+        }
 
     }
 }

@@ -113,6 +113,12 @@ if( ! class_exists ( 'Wt_Smart_Coupon' ) ) {
 			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wt-smart-coupon-loader.php';
 
 			/**
+			 * Webtoffee Security Library
+			 * Includes Data sanitization, Access checking
+			 */
+			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wt-security-helper.php';
+
+			/**
 			 * The class responsible for defining internationalization functionality
 			 * of the plugin.
 			 */
@@ -192,6 +198,7 @@ if( ! class_exists ( 'Wt_Smart_Coupon' ) ) {
 
 			$plugin_admin = new Wt_Smart_Coupon_Admin( $this->get_plugin_name(), $this->get_version() );
 
+			$this->loader->add_filter( 'wt_smart_coupons_alter_role_access', $plugin_admin,'wt_sc_alter_user_roles',10,1  );
 			$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles',10,0 );
 			$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts',10,0 );
 			$this->loader->add_filter('plugin_action_links_' . $this->get_plugin_base_name(), $plugin_admin, 'add_plugin_links_wt_smartcoupon');
@@ -267,9 +274,13 @@ if( ! class_exists ( 'Wt_Smart_Coupon' ) ) {
 			return $this->version;
 		}
 			
-			public function get_plugin_base_name() {
-				return $this->plugin_base_name;
-			}
+		public function get_plugin_base_name() {
+			return $this->plugin_base_name;
+		}
+		public static function wt_cli_is_woocommerce_prior_to($version) {
+			$woocommerce_is_pre_version = (!defined('WC_VERSION') || version_compare(WC_VERSION, $version, '<')) ? true : false;
+			return $woocommerce_is_pre_version;
+		}
 
 	}
 }

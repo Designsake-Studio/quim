@@ -55,8 +55,8 @@ if( ! class_exists ( 'WT_smart_Coupon_Start_Date' ) ) {
          */
         function save_coupon_start_date( $post_id, $post ) {
             if( isset( $_POST['_wt_coupon_start_date'] ) && $_POST['_wt_coupon_start_date']!='' ) {
-                $start_date = $_POST['_wt_coupon_start_date'];
-                update_post_meta( $post_id, '_wt_coupon_start_date', $start_date    );
+                $start_date = Wt_Smart_Coupon_Security_Helper::sanitize_item(  $_POST['_wt_coupon_start_date'] );
+                update_post_meta( $post_id, '_wt_coupon_start_date', $start_date );
                 update_post_meta( $post_id, '_wt_coupon_start_date_timestamp', strtotime( $start_date ) );
 
             } else {

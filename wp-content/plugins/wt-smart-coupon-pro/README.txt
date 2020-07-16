@@ -3,7 +3,7 @@ Contributors: webtoffee
 Tags: Smart coupons for WooCommerce, smart coupons, advanced coupons, WooCommerce smart coupons
 Requires at least: 3.3
 Tested up to: 5.3.2
-Stable tag: 1.2.10
+Stable tag: 1.3.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -60,6 +60,15 @@ e.g.
 
 
 == Changelog ==
+
+= 1.3.1 =
+ * Security improvements
+ * [fix] Missing coupon fields while importing the coupons
+
+= 1.3.0 =
+ * Security improvements
+ * [fix] Giveaway product is not added if subscription product is in the cart
+ 
 
 = 1.2.10 =
  * Action on click on coupon banner
