@@ -9,3 +9,10 @@
 	display: inline-block;
 	vertical-align: bottom;
 }
+
+.woocommerce-shipstation-activation-notice-dismiss {
+	position: relative;
+	float: right;
+	padding: 9px 0px 9px 9px 9px;
+	text-decoration: none;
+}

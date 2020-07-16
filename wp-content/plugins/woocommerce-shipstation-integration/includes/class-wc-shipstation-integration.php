@@ -43,12 +43,16 @@ class WC_ShipStation_Integration extends WC_Integration {
 		// Hooks
 		add_action( 'woocommerce_update_options_integration_shipstation', array( $this, 'process_admin_options' ) );
 		add_filter( 'woocommerce_subscriptions_renewal_order_meta_query', array( $this, 'subscriptions_renewal_order_meta_query' ), 10, 4 );
+		add_action( 'wp_loaded', array( $this, 'hide_notices' ) );
 
+		$hide_notice = get_option( 'wc_shipstation_hide_activate_notice', '' );
 		$settings_notice_dismissed = get_user_meta( get_current_user_id(), 'dismissed_shipstation-setup_notice' );
 
-		if ( ! $settings_notice_dismissed ) {
-			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
-			add_action( 'admin_notices', array( $this, 'settings_notice' ) );
+		if ( current_user_can( 'manage_woocommerce' ) && ( 'yes' !== $hide_notice && ! $settings_notice_dismissed ) ) {
+			if ( ! isset( $_GET['wc-shipstation-hide-notice'] ) ) {
+				add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+				add_action( 'admin_notices', array( $this, 'settings_notice' ) );
+			}
 		}
 	}
 
@@ -98,6 +102,26 @@ class WC_ShipStation_Integration extends WC_Integration {
 	}
 
 	/**
+	 * Hides any admin notices.
+	 *
+	 * @since 4.1.37
+	 * @return void
+	 */
+	public function hide_notices() {
+		if ( isset( $_GET['wc-shipstation-hide-notice'] ) && isset( $_GET['_wc_shipstation_notice_nonce'] ) ) {
+			if ( ! wp_verify_nonce( $_GET['_wc_shipstation_notice_nonce'], 'wc_shipstation_hide_notices_nonce' ) ) {
+				wp_die( __( 'Action failed. Please refresh the page and retry.', 'woocommerce-shipstation' ) );
+			}
+
+			if ( ! current_user_can( 'manage_woocommerce' ) ) {
+				wp_die( __( 'Cheatin&#8217; huh?', 'woocommerce-shipstation' ) );
+			}
+
+			update_option( 'wc_shipstation_hide_activate_notice', 'yes' );
+		}
+	}
+
+	/**
 	 * Settings prompt
 	 */
 	public function settings_notice() {
@@ -107,9 +131,9 @@ class WC_ShipStation_Integration extends WC_Integration {
 
 		$logo_title = __( 'ShipStation logo', 'woocommerce-shipstation' );
 		?>
-		<div id="message" class="updated woocommerce-message shipstation-setup">
+		<div class="notice notice-warning">
 			<img class="shipstation-logo" alt="<?php echo esc_attr( $logo_title ); ?>" title="<?php echo esc_attr( $logo_title ); ?>" src="<?php echo plugins_url( 'assets/images/shipstation-logo-blue.png', dirname( __FILE__ ) ); ?>" />
-			<a class="woocommerce-message-close notice-dismiss" href="<?php echo esc_url( wp_nonce_url( add_query_arg( 'wc-hide-notice', 'shipstation-setup' ), 'woocommerce_hide_notices_nonce', '_wc_notice_nonce' ) ); ?>"><?php _e( 'Dismiss', 'woocommerce' ); ?></a>
+			<a class="woocommerce-message-close notice-dismiss woocommerce-shipstation-activation-notice-dismiss" href="<?php echo esc_url( wp_nonce_url( add_query_arg( 'wc-shipstation-hide-notice', '' ), 'wc_shipstation_hide_notices_nonce', '_wc_shipstation_notice_nonce' ) ); ?>"></a>
 			<p>
 				<?php
 				printf(
