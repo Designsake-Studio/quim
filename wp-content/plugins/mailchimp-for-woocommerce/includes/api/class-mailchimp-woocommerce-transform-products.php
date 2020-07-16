@@ -26,9 +26,9 @@ class MailChimp_WooCommerce_Transform_Products
             'items' => array(),
         );
 
-        if ((($products = $this->getProductPosts($page, $limit)) && !empty($products))) {
-            foreach ($products as $post) {
-                $response->items[] = $this->transform($post);
+        if ((($products = $this->getProductPostsIds($page, $limit)) && !empty($products))) {
+            foreach ($products as $post_id) {
+                $response->items[] = $post_id;
                 $response->count++;
             }
         }
@@ -206,7 +206,7 @@ class MailChimp_WooCommerce_Transform_Products
      * @param int $posts
      * @return array|bool
      */
-    public function getProductPosts($page = 1, $posts = 5)
+    public function getProductPostsIds($page = 1, $posts = 5)
     {
         $offset = 0;
 
@@ -221,6 +221,7 @@ class MailChimp_WooCommerce_Transform_Products
             'offset' => $offset,
             'orderby' => 'ID',
             'order' => 'ASC',
+            'fields' => 'ids'
         );
 
         $products = get_posts($params);
@@ -325,7 +326,14 @@ class MailChimp_WooCommerce_Transform_Products
         $store_id = mailchimp_get_store_id();
         $api = mailchimp_get_api();
 
-        $id = $item->get_product_id();
+        // If the $item->get_product_id() is null or 0, we can try to retrieve the id directly from "wc_order_product_lookup" table
+        if (!$id = $item->get_product_id()) {
+            global $wpdb;
+            $query = "SELECT product_id FROM {$wpdb->prefix}wc_order_product_lookup WHERE order_item_id = %s";
+            $query_result = $wpdb->get_results( $wpdb->prepare($query, $item->get_id()));
+            $id = $query_result[0]->product_id ?: 0;
+        }
+
         $title = $item->get_name();
 
         // only do this if we haven't pushed this product ID up yet to Mailchimp

@@ -51,6 +51,7 @@ class Lifecycle extends Framework\Plugin\Lifecycle {
 		$this->upgrade_versions = [
 			'1.6.1',
 			'2.0.0',
+			'2.3.0',
 		];
 	}
 
@@ -161,6 +162,18 @@ class Lifecycle extends Framework\Plugin\Lifecycle {
 				$wpdb->query( $query );
 			}
 		}
+	}
+
+
+	/**
+	 * Updates to v2.3.0.
+	 *
+	 * @since 2.3.0
+	 */
+	protected function upgrade_to_2_3_0() {
+
+		// this value is intentionally different than the default value, to preserve the current behaviour for existing users
+		update_option( 'woocommerce_checkout_add_ons_percentage_adjustment_from', Add_On::PERCENTAGE_ADJUSTMENT_TOTAL );
 	}
 
 

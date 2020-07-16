@@ -141,7 +141,12 @@ class MailChimp_WooCommerce
     {
         // if we need to refresh the double opt in for any reason - just do it here.
         if ($this->queryStringEquals('mc_doi_refresh', '1')) {
-            $enabled_doi = mailchimp_list_has_double_optin(true);
+            try {
+                $enabled_doi = mailchimp_list_has_double_optin(true);
+            } catch (\Exception $e) {
+                mailchimp_error('mc.utils.doi_refresh', 'failed updating doi transient');
+                return false;
+            }
             mailchimp_log('mc.utils.doi_refresh', ($enabled_doi ? 'turned ON' : 'turned OFF'));
         }
     }
@@ -225,6 +230,7 @@ class MailChimp_WooCommerce
 
 		// Add menu item
 		$this->loader->add_action('admin_menu', $plugin_admin, 'add_plugin_admin_menu');
+        $this->loader->add_filter('parent_file', $plugin_admin, 'highlight_admin_menu');
 
         // Add WooCommerce Navigation Bar
         $this->loader->add_action('admin_menu', $plugin_admin, 'add_woocommerce_navigation_bar');
@@ -335,27 +341,27 @@ class MailChimp_WooCommerce
             $this->loader->add_action('woocommerce_order_partially_refunded', $service, 'onPartiallyRefunded', 20, 1);
 
 			// cart hooks
-			//$this->loader->add_action('woocommerce_cart_updated', $service, 'handleCartUpdated');
             $this->loader->add_filter('woocommerce_update_cart_action_cart_updated', $service, 'handleCartUpdated');
 			$this->loader->add_action('woocommerce_add_to_cart', $service, 'handleCartUpdated');
 			$this->loader->add_action('woocommerce_cart_item_removed', $service, 'handleCartUpdated');
 
 			// save post hooks
 			$this->loader->add_action('save_post', $service, 'handlePostSaved', 10, 3);
-            $this->loader->add_action('wp_trash_post', $service, 'handlePostTrashed', 10);
-            $this->loader->add_action('untrashed_post', $service, 'handlePostRestored', 10);
+            $this->loader->add_action('wp_trash_post', $service, 'handlePostTrashed', 10, 1);
+            $this->loader->add_action('untrashed_post', $service, 'handlePostRestored', 10, 1);
 
 			//coupons
-            $this->loader->add_action('woocommerce_new_coupon', $service, 'handleNewCoupon', 10);
+            $this->loader->add_action('woocommerce_new_coupon', $service, 'handleNewCoupon', 10, 1);
             $this->loader->add_action('woocommerce_coupon_options_save', $service, 'handleCouponSaved', 10, 2);
             $this->loader->add_action('woocommerce_api_create_coupon', $service, 'handleCouponSaved', 9, 2);
 
-            $this->loader->add_action('woocommerce_delete_coupon', $service, 'handleCouponTrashed', 10);
-            $this->loader->add_action('woocommerce_trash_coupon', $service, 'handleCouponTrashed', 10);
-            $this->loader->add_action('woocommerce_api_delete_coupon', $service, 'handleCouponTrashed', 9);
+            $this->loader->add_action('woocommerce_delete_coupon', $service, 'handlePostTrashed', 10, 1);
+            $this->loader->add_action('woocommerce_trash_coupon', $service, 'handlePostTrashed', 10, 1);
+            
+            $this->loader->add_action('woocommerce_rest_delete_shop_coupon_object', $service, 'handleAPICouponTrashed', 10, 3);
 
 			// handle the user registration hook
-			$this->loader->add_action('user_register', $service, 'handleUserRegistration');
+			$this->loader->add_action('user_register', $service, 'handleUserRegistration', 10, 1);
 			// handle the user updated profile hook
 			$this->loader->add_action('profile_update', $service, 'handleUserUpdated', 10, 2);
 
@@ -374,13 +380,14 @@ class MailChimp_WooCommerce
                 "MailChimp_WooCommerce_Cart_Update",
                 "MailChimp_WooCommerce_User_Submit",
                 "MailChimp_WooCommerce_Process_Coupons",
-                "MailChimp_WooCommerce_Process_Coupons_Initial_Sync",
                 "MailChimp_WooCommerce_Process_Orders",
                 "MailChimp_WooCommerce_Process_Products"
             );
             foreach ($jobs_classes as $job_class) {
                 $this->loader->add_action($job_class, $service, 'mailchimp_process_single_job', 10, 1);
             }
+            // sync stats manager
+            $this->loader->add_action('MailChimp_WooCommerce_Process_Full_Sync_Manager', $service, 'mailchimp_process_sync_manager', 10, 1);
 		}
 	}
 

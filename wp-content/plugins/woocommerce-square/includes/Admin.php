@@ -109,9 +109,8 @@ class Admin {
 				'is_woocommerce_sor'                    => $this->get_plugin()->get_settings_handler()->is_system_of_record_woocommerce(),
 				'is_square_sor'                         => $this->get_plugin()->get_settings_handler()->is_system_of_record_square(),
 				'is_inventory_sync_enabled'             => $this->get_plugin()->get_settings_handler()->is_inventory_sync_enabled(),
-				'is_product_synced_with_square_nonce'   => wp_create_nonce( 'is-product-synced-with-square' ),
+				'get_quick_edit_product_details_nonce'  => wp_create_nonce( 'get-quick-edit-product-details' ),
 				'fetch_product_stock_with_square_nonce' => wp_create_nonce( 'fetch-product-stock-with-square' ),
-
 				'i18n' => [
 					'synced_with_square'      => __( 'Synced with Square', 'woocommerce-square' ),
 					'managed_by_square'       => __( 'Managed by Square', 'woocommerce-square' ),

@@ -176,7 +176,7 @@ class Customer_Helper {
 
 		$schema = "
 CREATE TABLE IF NOT EXISTS {$wpdb->prefix}woocommerce_square_customers (
-square_id varchar(200) NOT NULL,
+square_id varchar(191) NOT NULL,
 email_address varchar(200) NOT NULL,
 user_id BIGINT UNSIGNED NOT NULL,
 PRIMARY KEY (square_id)

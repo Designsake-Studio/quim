@@ -184,17 +184,29 @@ class API extends \WooCommerce\Square\API {
 	 */
 	public function tokenize_payment_method( \WC_Order $order ) {
 
-		// a customer ID should've already been created, but just in case...
-		if ( empty( $order->customer_id ) ) {
+		// a customer ID should've already been created, but there may be cases where the customer id is deleted/corrupted at Square
+		if ( ! empty( $order->customer_id ) ) {
 
-			$response = $this->create_customer( $order );
+			$response = $this->create_customer_card( $order );
 
-			if ( ! $response->transaction_approved() ) {
+			if ( $response->has_error_code( 'NOT_FOUND' ) ) {
+				$order->customer_id = '';
+			} else {
 				return $response;
 			}
-
-			$order->customer_id = $response->get_customer_id();
 		}
+
+		$response = $this->create_customer( $order );
+
+		if ( ! $response->transaction_approved() ) {
+			return $response;
+		}
+
+		// Update the user meta with the new customer id created for further API requests
+		update_user_meta( $order->get_user_id(), 'wc_square_customer_id', $response->get_customer_id(), $order->customer_id );
+
+		// Update the customer id on the order as well
+		$order->square_customer_id = $order->customer_id = $response->get_customer_id();
 
 		return $this->create_customer_card( $order );
 	}

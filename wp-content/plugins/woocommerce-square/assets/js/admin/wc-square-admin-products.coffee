@@ -10,7 +10,6 @@ jQuery( document ).ready ( $ ) ->
 	typenow = window.typenow ? ''
 	pagenow = window.pagenow ? ''
 
-
 	# bail if not on product admin pages
 	if 'product' isnt typenow
 		return
@@ -25,26 +24,22 @@ jQuery( document ).ready ( $ ) ->
 
 
 		# when clicking the quick edit button fetch the default Synced with Square checkbox
-		$( 'button.editinline' ).on 'click', ( e ) ->
+		$( '#the-list' ).on 'click', '.editinline', ->
 
 			$row   = $( this ).closest( 'tr' )
 			postID = $row.find( 'th.check-column input' ).val()
 			data   =
-				action     : 'wc_square_is_product_synced_with_square'
-				security   : wc_square_admin_products.is_product_synced_with_square_nonce
+				action     : 'wc_square_get_quick_edit_product_details'
+				security   : wc_square_admin_products.get_quick_edit_product_details_nonce
 				product_id : $row.find( 'th.check-column input' ).val()
 
 			$.post wc_square_admin_products.ajax_url, data, ( response ) ->
 
-				$editRow      = $( 'tr#edit-' + postID )
-				$squareSynced = $editRow.find( 'select.square-synced' )
-				$sku          = $editRow.find( 'input[name=_sku]' )
-				$manageStock  = $editRow.find( 'input[name=_manage_stock]' )
-				$stockStatus  = $editRow.find( 'select[name=_stock_status]' )
-				$stockQty     = $editRow.find( 'input[name=_stock]' )
-				$errors       = $editRow.find( '.wc-square-sync-with-square-errors' )
+				$editRow           = $( 'tr#edit-' + postID )
+				$squareSynced      = $editRow.find( 'select.square-synced' )
+				$errors            = $editRow.find( '.wc-square-sync-with-square-errors' )
 
-				if response and response.data
+				if ! response.success and response.data
 					# if the product has multiple attributes we show an inline error message and bail
 					if 'multiple_attributes' is response.data
 						$squareSynced.prop( 'checked', false )
@@ -57,36 +52,62 @@ jQuery( document ).ready ( $ ) ->
 						$squareSynced.prop( 'disabled', true )
 						$errors.find( '.missing_variation_sku' ).show()
 						return
+
+				$sku                  = $editRow.find( 'input[name=_sku]' )
+				$stockStatus          = $editRow.find( 'select[name=_stock_status]' )
+				$stockQty             = $editRow.find( 'input[name=_stock]' )
+				$manageStockLabel     = $editRow.find( '.manage_stock_field .manage_stock' )
+				$manageStockInput     = $editRow.find( 'input[name=_manage_stock]' )
+				$manageStockDesc      = '<span class="description"><a href="' + wc_square_admin_products.settings_url + '">' + wc_square_admin_products.i18n.synced_with_square + '</a></span>'
+				edit_url              = response.data.edit_url
+				i18n                  = response.data.i18n
+				is_variable           = response.data.is_variable
+
+				$squareSynced.val( response.data.is_synced_with_square )
+
+				# if the SKU changes, enabled or disable Synced with Square checkbox accordingly
+				$sku.on 'change keyup keypress', ( e ) ->
+					if '' is $( this ).val() and ! is_variable
+						$squareSynced.val( 'no' )
+						$squareSynced.prop( 'disabled', true )
+						$errors.find( '.missing_sku' ).show()
 					else
-						# a missing sku can be recoverable instead, since the admin can enter one from the quick edit panel
-						$squareSynced.val( if 'missing_sku' is response.data then 'no' else response.data )
+						$squareSynced.prop( 'disabled', false )
+						$squareSynced.trigger 'change'
+						$errors.find( '.missing_sku' ).hide()
+				.trigger 'change'
 
-					# if the SKU changes, enabled or disable Synced with Square checkbox accordingly
-					$sku.on 'change keyup keypress', ( e ) ->
-						if '' is $( this ).val()
-							$squareSynced.val( 'no' )
-							$squareSynced.prop( 'disabled', true )
-							$errors.find( '.missing_sku' ).show()
+				# if Synced with Square is enabled, we might as well disable stock management (without verbose explanations as in the product page)
+				$squareSynced.on 'change', ( e ) ->
+					if 'no' is $( this ).val()
+						$manageStockInput.off()
+						$manageStockInput.add( $stockQty ).css( { 'opacity': 1 } )
+						$manageStockLabel.find( '.description' ).remove()
+						# Stock input manipulation will differ depending on whether product is variable or simple
+						if is_variable
+							if $manageStockInput.is( ':checked' )
+								$( '.stock_qty_field' ).show()
+								$( '.backorder_field' ).show()
+							else
+								$( '.stock_status_field' ).show()
 						else
-							$squareSynced.prop( 'disabled', false )
-							$squareSynced.trigger 'change'
-							$errors.find( '.missing_sku' ).hide()
-					.trigger 'change'
-
-					# if Synced with Square is enabled, we might as well disable stock management (without verbose explanations as in the product page)
-					$squareSynced.on 'change', ( e ) ->
-						if 'no' is $( this ).val()
-							$manageStock.prop( 'disabled', false )
-							$stockStatus.prop( 'disabled', false )
-							$stockQty.prop( 'disabled', false )
+							$stockQty.prop( 'readonly', false )
+							$stockStatus.prop( 'readonly', false )
+					else
+						$manageStockInput.prop( 'checked', true );
+						$manageStockInput.on 'click', -> false
+						$manageStockInput.add( $stockQty ).css( { 'opacity': '0.5' } )
+						$manageStockLabel.append( $manageStockDesc )
+						if wc_square_admin_products.is_woocommerce_sor and edit_url and i18n
+							$manageStockLabel.append( '<p class="description"><a href="' + edit_url + '">' + i18n + '</a></p>' )
+						if is_variable
+							$( '.stock_status_field' ).hide()
+							$( '.stock_qty_field' ).hide()
+							$( '.backorder_field' ).hide()
 						else
-							$manageStock.prop( 'checked', true )
-							$( '.stock_qty_field' ).show()
-							$manageStock.prop( 'disabled', true )
-							$stockStatus.prop( 'disabled', true )
-							$stockQty.prop( 'disabled', true )
-					.trigger 'change'
-
+							$stockQty.prop( 'readonly', true )
+							$stockStatus.prop( 'readonly', true )
+				.trigger 'change'
 
 	# individual product edit screen
 	if 'product' is pagenow
@@ -340,7 +361,7 @@ jQuery( document ).ready ( $ ) ->
 					$variationStockInput.prop( 'readonly', false )
 					$variationManageInput.prop( 'disabled', false )
 					$variationManageInput.next( '.description' ).remove()
-					$( '#wc_square_variation_manage_stock' ).prop( 'disabled', true )
+					$( this ).find( '#wc_square_variation_manage_stock' ).prop( 'disabled', true )
 
 
 		# initial page load handling

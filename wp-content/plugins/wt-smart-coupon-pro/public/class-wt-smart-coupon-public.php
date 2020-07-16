@@ -79,8 +79,12 @@ if( ! class_exists ( 'Wt_Smart_Coupon_Public' ) ) {
          */
         public function enqueue_scripts() {
 
+            $_nonces = array(
+                'public' => wp_create_nonce( 'wt_smart_coupons_public' ),
+                'apply_coupon' => wp_create_nonce( 'wt_smart_coupons_apply_coupon' ),
+            );
             wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/wt-smart-coupon-public.js', array('jquery'), $this->version, false);
-            wp_localize_script($this->plugin_name,'WTSmartCouponOBJ',array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
+            wp_localize_script($this->plugin_name,'WTSmartCouponOBJ',array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ,'nonces' => $_nonces ) );
         }
 
         /**
@@ -90,8 +94,8 @@ if( ! class_exists ( 'Wt_Smart_Coupon_Public' ) ) {
          * @since 1.0.0
          */
         public function wt_woocommerce_coupon_is_valid($valid, $coupon) {
-
-
+            global $woocommerce;
+            
             if (!$valid) {
                 return false;
             }
@@ -266,22 +270,34 @@ if( ! class_exists ( 'Wt_Smart_Coupon_Public' ) ) {
             }
 
             // Subtotal of matching products
-
             $wt_min_matching_product_subtotal = get_post_meta($coupon_id,'_wt_min_matching_product_subtotal',true);
             $wt_max_matching_product_subtotal = get_post_meta($coupon_id,'_wt_max_matching_product_subtotal',true);
-            if( $wt_min_matching_product_subtotal > 0 ||  $wt_min_matching_product_subtotal >0 ) {
-                $subtotal_of_matching_product = $this->get_sub_total_of_matching_products($coupon);
-                if( $wt_min_matching_product_subtotal >0 && $subtotal_of_matching_product < $wt_min_matching_product_subtotal ) {
-                    $valid = false;
-                    throw new Exception(
-                        sprintf( __( 'The minimum subtotal of matching products for this coupon is %s.', 'wt-smart-coupons-for-woocommerce-pro' ), $wt_min_matching_product_qty ),112
-
-                    );
+            $subtotal_of_matching_product = $this->get_sub_total_of_matching_products($coupon);
+            $discount_amount =  WC()->cart->get_coupon_discount_amount( $coupon->get_code(), WC()->cart->display_cart_ex_tax );
+            if( $wt_min_matching_product_subtotal > 0 ||  $wt_max_matching_product_subtotal >0 ) {
+                if( $wt_min_matching_product_subtotal > 0 && $subtotal_of_matching_product    < $wt_min_matching_product_subtotal  ) {
+                    if(in_array($coupon->get_code(), $woocommerce->cart->get_applied_coupons()) ) {
+                        if( $subtotal_of_matching_product + $discount_amount < $wt_min_matching_product_subtotal ) {
+                            $valid = false;
+                            throw new Exception(
+                                sprintf( __( 'The minimum subtotal of matching products for this coupon is %s.', 'wt-smart-coupons-for-woocommerce-pro' ), Wt_Smart_Coupon_Admin::get_formatted_price( $wt_min_matching_product_subtotal ) ),112
+        
+                            );
+                        }
+                    } else {
+                        $valid = false;
+                        throw new Exception(
+                            sprintf( __( 'The minimum subtotal of matching products for this coupon is %s.', 'wt-smart-coupons-for-woocommerce-pro' ), Wt_Smart_Coupon_Admin::get_formatted_price( $wt_min_matching_product_subtotal ) ),112
+    
+                        );
+                    }
+                    
+                   
                 }
-                if( $wt_max_matching_product_subtotal >0 && $subtotal_of_matching_product > $wt_max_matching_product_subtotal ) {            
+                if( $wt_max_matching_product_subtotal > 0 && $subtotal_of_matching_product > $wt_max_matching_product_subtotal ) {            
                     $valid = false;                
                     throw new Exception(
-                        sprintf( __( 'The maximum subtotal of matching products for this coupon is %s.', 'wt-smart-coupons-for-woocommerce-pro' ), $wt_max_matching_product_qty ),113
+                        sprintf( __( 'The maximum subtotal of matching products for this coupon is %s.', 'wt-smart-coupons-for-woocommerce-pro' ), Wt_Smart_Coupon_Admin::get_formatted_price(  $wt_max_matching_product_subtotal ) ),113
                     );
                 }
             }
@@ -306,16 +322,21 @@ if( ! class_exists ( 'Wt_Smart_Coupon_Public' ) ) {
             $total = 0;
             if( count( $coupon_products ) > 0 || count($coupon_categores) > 0  ) { // check with matching products by include condition.
                 foreach( $items as $item ) {
+                    
                     $product_cats = wc_get_product_cat_ids( $item['product_id'] );
                     if( ( count( $coupon_products ) && in_array( $item['product_id'],$coupon_products ) ) ||  ( count($coupon_categores) && count( array_intersect($coupon_categores,$product_cats) ) > 0 ) ){
-                        $total += $item['line_total'];
+                        if( isset( $item['line_subtotal'] ) ) {
+                            $total += $item['line_subtotal'];
+                        }
 
                     }
                 
                 }
             } else {
                 foreach( $items as $item ) {
-                    $total += $item['line_total'];
+                    if( isset( $item['line_subtotal'] ) ) {
+                        $total += $item['line_subtotal'];
+                    }
                 }
             }
 
@@ -466,7 +487,11 @@ if( ! class_exists ( 'Wt_Smart_Coupon_Public' ) ) {
             if ($customer_orders) :
                 foreach ($customer_orders as $customer_order) :
                     $order = wc_get_order( $customer_order->ID );
-                    $coupons  = $order->get_coupon_codes();
+                    if( Wt_Smart_Coupon::wt_cli_is_woocommerce_prior_to( '3.7' ) ) {
+                        $coupons  = $order->get_used_coupons();
+                    } else {
+                        $coupons  = $order->get_coupon_codes();
+                    }
                     if( $coupons ) {
                         $coupon_used = array_merge( $coupon_used, $coupons );
                     }
@@ -891,7 +916,8 @@ if( ! class_exists ( 'Wt_Smart_Coupon_Public' ) ) {
          * Ajax action function for applying coupon on button click
          */
         function apply_coupon() {
-            $coupon_code = ( isset( $_POST['coupon_code']) ) ?  $_POST['coupon_code'] : false;
+            check_ajax_referer( 'wt_smart_coupons_apply_coupon', '_wpnonce' );
+            $coupon_code = ( isset( $_POST['coupon_code']) ) ?  Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['coupon_code'] ) : false;
             if( !$coupon_code ) {
                 return;
             }

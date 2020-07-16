@@ -12,7 +12,7 @@
 					return m;
 				},
 				ajax: {
-					url:         WTSmartCouponOBJ.ajaxurl,
+					url:         WTSmartCouponAdminOBJ.ajaxurl,
 					contentType: "application/json; charset=utf-8",
 					dataType:    'json',
 					quietMillis: 300,
@@ -21,7 +21,7 @@
 							term:     params.term,
 							post_id:	jQuery( this ).data( 'postid' ),
 							action:   jQuery( this ).data( 'action' ) || 'wt_json_search_coupons',
-							security: jQuery( this ).data( 'security' )
+							_wpnonce: jQuery( this ).data( 'security' )
 						};
 					},
 					processResults: function( data ) {
@@ -367,7 +367,7 @@
 		$('.wt_choose_style').on('click',function() {
 			var coupon_type = $(this).attr('coupon_type');
 			var choosen_style = $('input[name="wt_'+coupon_type+'_style"]:checked').val();
-			$.each(WTSmartCouponOBJ.coupon_styles, function (index, value) {
+			$.each(WTSmartCouponAdminOBJ.coupon_styles, function (index, value) {
 				
 				if( index == choosen_style ) {
 					$('#wt_'+coupon_type+'_color_0').iris('color', value.colors[0] );
@@ -455,15 +455,15 @@
 		$('.wt-btn-resend-coupon').on('click',function(e){
 			e.preventDefault();
 			var order_id = $(this).attr('order-id');
-
+			
 			var data = {
 				'action'		: 'wt_send_coupon',
-				'_wt_order_id'	: order_id
+				'_wt_order_id'	: order_id,
+				'_wpnonce'			: WTSmartCouponAdminOBJ.nonce
 			};
-
 			jQuery.ajax({
 				type: "POST",
-				url: WTSmartCouponOBJ.ajaxurl,
+				url: WTSmartCouponAdminOBJ.ajaxurl,
 				data: data,
 				success: function (response) {
 					$('.wt-send-status').removeClass('wt_error').removeClass('wt_success');

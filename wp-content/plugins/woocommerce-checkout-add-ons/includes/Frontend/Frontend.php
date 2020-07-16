@@ -650,7 +650,7 @@ class Frontend {
 
 						// Calculate the percentage if needed.
 						if ( 'percent' === $add_on->get_cost_type() ) {
-							$cost = ( $cost / 100 ) * $cart->cart_contents_total;
+							$cost = $add_on->calculate_percentage_adjustment( $cost );
 						}
 
 						$cart->add_fee( $name, $cost, $taxable, $tax_class );
@@ -675,7 +675,7 @@ class Frontend {
 
 								// Calculate the percentage if needed.
 								if ( isset( $option['adjustment_type'] ) && 'percent' === $option['adjustment_type'] ) {
-									$cost = ( $cost / 100 ) * $cart->cart_contents_total;
+									$cost = $add_on->calculate_percentage_adjustment( $cost );
 								}
 
 								$cart->add_fee( $name, $cost, $taxable, $tax_class );
@@ -704,7 +704,7 @@ class Frontend {
 
 								// Calculate the percentage if needed.
 								if ( isset( $option['adjustment_type'] ) && 'percent' === $option['adjustment_type'] ) {
-									$option['adjustment'] = ( $option['adjustment'] / 100 ) * $cart->cart_contents_total;
+									$option['adjustment'] = $add_on->calculate_percentage_adjustment( $option['adjustment'] );
 								}
 
 								$cost += (float) $option['adjustment'];

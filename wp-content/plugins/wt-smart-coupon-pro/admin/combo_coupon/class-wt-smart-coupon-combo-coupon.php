@@ -107,14 +107,16 @@ if( ! class_exists ( 'Wt_Smart_Coupon_Combo_Coupon' ) ) {
             
             if( ! isset( $_POST['individual_use'] ) ||  $_POST['individual_use'] == '' ) {
                 if( isset( $_POST['_wt_combo_coupon_can_use_with'] ) && !empty(  $_POST['_wt_combo_coupon_can_use_with'] )  ) {
-                    update_post_meta($post_id, '_wt_combo_coupon_can_use_with',  implode(',',$_POST['_wt_combo_coupon_can_use_with']) );
+                    $_wt_combo_coupon_can_use_with = Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['_wt_combo_coupon_can_use_with'], 'int_arr' );
+                    update_post_meta($post_id, '_wt_combo_coupon_can_use_with',  implode(',', $_wt_combo_coupon_can_use_with ) );
                 } else {
                     update_post_meta($post_id, '_wt_combo_coupon_can_use_with', '' );
 
                 }
 
                 if( isset( $_POST['_wt_combo_coupon_cannot_use_with'] ) && !empty(  $_POST['_wt_combo_coupon_cannot_use_with'] )  ) {
-                    update_post_meta($post_id, '_wt_combo_coupon_cannot_use_with',  implode(',',$_POST['_wt_combo_coupon_cannot_use_with']) );
+                    $_wt_combo_coupon_cannot_use_with = Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['_wt_combo_coupon_cannot_use_with'], 'int_arr' );
+                    update_post_meta($post_id, '_wt_combo_coupon_cannot_use_with',  implode(',', $_wt_combo_coupon_cannot_use_with ) );
                 } else {
                     update_post_meta($post_id, '_wt_combo_coupon_cannot_use_with', '' );
                 }

@@ -25,16 +25,18 @@ jQuery( document ).ready ( $ ) ->
 			@enabled_card_types = args.enabled_card_types
 			@square_card_types  = args.square_card_types
 
-			@ajax_log_nonce             = args.ajax_log_nonce
-			@ajax_url                   = args.ajax_url
-			@application_id             = args.application_id
-			@currency_code              = args.currency_code
-			@general_error              = args.general_error
-			@input_styles               = args.input_styles
-			@is_3ds_enabled             = args.is_3d_secure_enabled
-			@is_add_payment_method_page = args.is_add_payment_method_page
-			@location_id                = args.location_id
-			@logging_enabled            = args.logging_enabled
+			@ajax_log_nonce                   = args.ajax_log_nonce
+			@ajax_url                         = args.ajax_url
+			@application_id                   = args.application_id
+			@currency_code                    = args.currency_code
+			@general_error                    = args.general_error
+			@input_styles                     = args.input_styles
+			@is_3ds_enabled                   = args.is_3d_secure_enabled
+			@is_add_payment_method_page       = args.is_add_payment_method_page
+			@is_checkout_registration_enabled = args.is_checkout_registration_enabled
+			@is_user_logged_in                = args.is_user_logged_in
+			@location_id                      = args.location_id
+			@logging_enabled                  = args.logging_enabled
 
 			# which payment form?
 			if $( 'form.checkout' ).length
@@ -96,6 +98,7 @@ jQuery( document ).ready ( $ ) ->
 
 			# make available inside change events
 			id_dasherized = @id_dasherized
+			form_handler = @
 
 			$new_payment_method_selection = $( "div.js-wc-#{ id_dasherized }-new-payment-method-form" )
 
@@ -116,18 +119,18 @@ jQuery( document ).ready ( $ ) ->
 			.change()
 
 			# display the 'save payment method' option for guest checkouts if the 'create account' option is checked
-			#  but only hide the input if there is a 'create account' checkbox (some themes just display the password)
+			# but only hide the input if there is a 'create account' checkbox (some themes just display the password)
 			$( 'input#createaccount' ).change ->
-				$parent_row = $( "input.js-wc-#{ id_dasherized }-tokenize-payment-method" ).closest( 'p.form-row' )
-
 				if $( this ).is( ':checked' )
-					$parent_row.slideDown()
-					$parent_row.next().show()
+					form_handler.show_save_payment_checkbox id_dasherized
 				else
-					$parent_row.hide()
-					$parent_row.next().hide()
+					form_handler.hide_save_payment_checkbox id_dasherized
 
 			$( 'input#createaccount' ).change() unless $( 'input#createaccount' ).is( ':checked' )
+
+			# hide the 'save payment method' when account creation is not enabled and customer is not logged in
+			if not @is_user_logged_in and not @is_checkout_registration_enabled
+				@hide_save_payment_checkbox id_dasherized
 
 
 		# Public: Handle required actions on the Order > Pay page
@@ -166,17 +169,27 @@ jQuery( document ).ready ( $ ) ->
 		# @since 2.0.0
 		set_payment_fields: =>
 
-			if @payment_form
+			if $( "#wc-#{@id_dasherized}-account-number-hosted" ).is( 'iframe' )
 
-				this.log 'Destroying payment form'
+				this.log 'Re-adding payment form'
 
-				@payment_form.destroy()
+				for _, field of @form_fields
+					$( field.attr( 'id' ) ).replaceWith( field )
 
-			this.log 'Building payment form'
+				this.handle_form_loaded()
 
-			@payment_form = new SqPaymentForm( this.get_form_params() )
+			else
+				if @payment_form
 
-			@payment_form.build()
+					this.log 'Destroying payment form'
+
+					@payment_form.destroy()
+
+				this.log 'Building payment form'
+
+				@payment_form = new SqPaymentForm( this.get_form_params() )
+
+				@payment_form.build()
 
 
 		# Gets the Square payment form params.
@@ -186,29 +199,31 @@ jQuery( document ).ready ( $ ) ->
 		# @return Object
 		get_form_params: =>
 
-			$card_number = $( "#wc-#{@id_dasherized}-account-number-hosted" )
-			$expiration  = $( "#wc-#{@id_dasherized}-expiry-hosted" )
-			$csc         = $( "#wc-#{@id_dasherized}-csc-hosted" )
-			$postal_code = $( "#wc-#{@id_dasherized}-postal-code-hosted" )
+			@form_fields = {
+				card_number: $( "#wc-#{@id_dasherized}-account-number-hosted" )
+				expiration:  $( "#wc-#{@id_dasherized}-expiry-hosted" )
+				csc:         $( "#wc-#{@id_dasherized}-csc-hosted" )
+				postal_code: $( "#wc-#{@id_dasherized}-postal-code-hosted" )
+			}
 
 			return {
 				applicationId: @application_id,
 				locationId:    @location_id,
 				cardNumber: {
-					elementId: $card_number.attr( 'id' )
-					placeholder: $card_number.data( 'placeholder' )
+					elementId: @form_fields.card_number.attr( 'id' )
+					placeholder: @form_fields.card_number.data( 'placeholder' )
 				}
 				expirationDate: {
-					elementId: $expiration.attr( 'id' )
-					placeholder: $expiration.data( 'placeholder' )
+					elementId: @form_fields.expiration.attr( 'id' )
+					placeholder: @form_fields.expiration.data( 'placeholder' )
 				}
 				cvv: {
-					elementId: $csc.attr( 'id' )
-					placeholder: $csc.data( 'placeholder' )
+					elementId: @form_fields.csc.attr( 'id' )
+					placeholder: @form_fields.csc.data( 'placeholder' )
 				}
 				postalCode: {
-					elementId: $postal_code.attr( 'id' )
-					placeholder: $postal_code.data( 'placeholder' )
+					elementId: @form_fields.postal_code.attr( 'id' )
+					placeholder: @form_fields.postal_code.data( 'placeholder' )
 				}
 				inputClass: "wc-#{@id_dasherized}-payment-field"
 				inputStyles: @input_styles
@@ -411,17 +426,17 @@ jQuery( document ).ready ( $ ) ->
 
 			verification_details = {
 				billingContact: {
-					familyName:   $( '#billing_last_name' ).val()
-					givenName:    $( '#billing_first_name' ).val()
-					email:        $( '#billing_email' ).val()
-					country:      $( '#billing_country' ).val()
-					region:       $( '#billing_state' ).val()
-					city:         $( '#billing_city' ).val()
-					postalCode:   $( '#billing_postcode' ).val()
-					phone:        $( '#billing_phone' ).val()
+					familyName:   $( '#billing_last_name' ).val() ? ''
+					givenName:    $( '#billing_first_name' ).val() ? ''
+					email:        $( '#billing_email' ).val() ? ''
+					country:      $( '#billing_country' ).val() ? ''
+					region:       $( '#billing_state' ).val() ? ''
+					city:         $( '#billing_city' ).val() ? ''
+					postalCode:   $( '#billing_postcode' ).val() ? ''
+					phone:        $( '#billing_phone' ).val() ? ''
 					addressLines: [
-						$( '#billing_address_1' ).val(),
-						$( '#billing_address_2' ).val()
+						$( '#billing_address_1' ).val() ? '',
+						$( '#billing_address_2' ).val() ? ''
 					]
 				}
 				intent: this.get_intent()
@@ -487,6 +502,12 @@ jQuery( document ).ready ( $ ) ->
 
 			if errors
 
+				field_order = [ "cardNumber", "expirationDate", "cvv", "postalCode" ]
+
+				# sort based on the field order
+				# without the brackets around a.field and b.field the precedence is different and gives different results
+				errors.sort (a,b) -> field_order.indexOf(a.field) - field_order.indexOf(b.field)
+
 				console.error errors
 
 				$( errors ).each ( index, error ) =>
@@ -494,7 +515,8 @@ jQuery( document ).ready ( $ ) ->
 					# only display the errors that can be helped by the customer
 					if error.type in [ 'UNSUPPORTED_CARD_BRAND', 'VALIDATION_ERROR' ]
 
-						messages.push( error.message )
+						# To avoid confusion between CSC used in the frontend and CVV that is used in the error message
+						messages.push( error.message.replace /CVV/, 'CSC' )
 
 					# otherwise, log more serious errors to the debug log
 					else
@@ -539,6 +561,23 @@ jQuery( document ).ready ( $ ) ->
 		# @since 3.0.0
 		unblock_ui: -> @form.unblock()
 
+
+		# Hides save payment method checkbox
+		#
+		# @since 2.1.2
+		hide_save_payment_checkbox: ( id_dasherized ) ->
+			$parent_row = $( "input.js-wc-#{ id_dasherized }-tokenize-payment-method" ).closest( 'p.form-row' )
+			$parent_row.hide()
+			$parent_row.next().hide()
+
+
+		# Shows save payment method checkbox
+		#
+		# @since 2.1.2
+		show_save_payment_checkbox: ( id_dasherized ) ->
+			$parent_row = $( "input.js-wc-#{ id_dasherized }-tokenize-payment-method" ).closest( 'p.form-row' )
+			$parent_row.slideDown()
+			$parent_row.next().show()
 
 		# Determines if a nonce is present in the hidden input.
 		#

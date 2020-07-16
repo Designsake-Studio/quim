@@ -33,6 +33,9 @@ jQuery( document ).ready ( $ ) ->
 
 			$inventory_sync_row.show()
 		else
+
+			$inventory_sync.prop( 'checked', false )
+
 			$inventory_sync_row.hide()
 
 		# toggle the "Hide missing products" setting depending on the SOR

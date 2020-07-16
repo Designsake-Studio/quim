@@ -26,9 +26,10 @@ if( ! class_exists ( 'Wt_Smart_Coupon_Store_Credit_Admin' ) ) {
             $screen_id = $screen ? $screen->id : '';
 
             $script_parameters['ajaxurl'] = admin_url( 'admin-ajax.php' ) ;
+            $script_parameters['nonce'] = wp_create_nonce( 'wt_smart_coupons_store_credit_nonce' );
             if ( function_exists('wc_get_screen_ids') && in_array( $screen_id, wc_get_screen_ids() ) ) {
                 wp_enqueue_script('wt-smart-coupon-store-credit', plugin_dir_url(__FILE__) . 'js/wt-store-credit-admin.js', array('jquery'),WEBTOFFEE_SMARTCOUPON_VERSION , false);
-                wp_localize_script('wt-smart-coupon-store-credit','WTSmartCouponOBJ',$script_parameters );
+                wp_localize_script('wt-smart-coupon-store-credit','WTSmartCouponStoreCreditOBJ',$script_parameters );
             }
         }
  
@@ -398,48 +399,41 @@ if( ! class_exists ( 'Wt_Smart_Coupon_Store_Credit_Admin' ) ) {
          */
         function save_store_credit_settings() {
             if(isset( $_POST['update_wt_smart_coupon_store_credit_settings']) ) {
-                check_admin_referer('wt_smart_coupons_store_credit_settings');
+                if ( !Wt_Smart_Coupon_Security_Helper::check_write_access( 'smart_coupons', 'wt_smart_coupons_store_credit_settings' ) ) {
+                    wp_die(__('You do not have sufficient permission to perform this operation', 'wt-smart-coupons-for-woocommerce-pro'));
+                }
                 $store_credit_options = $this->get_options();
 
 
                 if( isset( $_POST['_store_credit_product'] ) ) {
-                    $store_credit_options['store_credit_purchase_product'] = $_POST['_store_credit_product'];
+                    $store_credit_options['store_credit_purchase_product'] = Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['_store_credit_product'],'int' );
                 } else {
                     $store_credit_options['store_credit_purchase_product'] = '';
                 }
                 if( isset( $_POST['_wt_minimum_store_credit_purchase'] ) ) {
-                    $store_credit_options['minimum_store_credit_purchase'] = $_POST['_wt_minimum_store_credit_purchase'];
+                    $store_credit_options['minimum_store_credit_purchase'] = Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['_wt_minimum_store_credit_purchase'], 'float' );
                 }
                 if( isset( $_POST['_wt_maximum_store_credit_purchase'] ) ) {
-                    $store_credit_options['maximum_store_credit_purchase'] = $_POST['_wt_maximum_store_credit_purchase'];
+                    $store_credit_options['maximum_store_credit_purchase'] = Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['_wt_maximum_store_credit_purchase'], 'float' );
                 }
                 if( isset( $_POST['_wt_apply_store_credit_before_tax'] ) && $_POST['_wt_apply_store_credit_before_tax'] =='on' ) {
                     $store_credit_options['apply_store_credit_before_tax'] = true;
                 } else {
                     $store_credit_options['apply_store_credit_before_tax'] = false;
                 }
-
-                // if( isset( $_POST['_wt_make_coupon_individual_use_only'] ) && $_POST['_wt_make_coupon_individual_use_only'] =='on' ) {
-                //     $store_credit_options['make_coupon_individual_use_only'] = true;
-                // } else {
-                //     $store_credit_options['make_coupon_individual_use_only'] = false;
-                // }
-
-                
                 if( isset( $_POST['_wt_store_credit_coupon_prefix'] ) ) {
-                    $store_credit_options['store_credit_coupon_prefix'] = $_POST['_wt_store_credit_coupon_prefix'];
+                    $store_credit_options['store_credit_coupon_prefix'] = Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['_wt_store_credit_coupon_prefix'] );
                 }
                 if( isset( $_POST['_wt_store_credit_coupon_suffix'] ) ) {
-                    $store_credit_options['store_credit_coupon_suffix'] = $_POST['_wt_store_credit_coupon_suffix'];
+                    $store_credit_options['store_credit_coupon_suffix'] = Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['_wt_store_credit_coupon_suffix'] );
                 }
                 if( isset( $_POST['_wt_store_credit_coupon_length'] ) ) {
-                    $store_credit_options['store_credit_coupon_length'] = $_POST['_wt_store_credit_coupon_length'];
+                    $store_credit_options['store_credit_coupon_length'] = Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['_wt_store_credit_coupon_length'] );
                 }
 
                 if( isset( $_POST['_email_store_credit_for_order_status'] ) ) {
-                    $store_credit_options['send_purchased_credit_on_order_status'] = $_POST['_email_store_credit_for_order_status'];
+                    $store_credit_options['send_purchased_credit_on_order_status'] = Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['_email_store_credit_for_order_status'] );
                 }
-
                 $this->update_option( $store_credit_options );
                 
                 do_action( 'wt_store_credit_settings_updated', $store_credit_options );
@@ -574,7 +568,7 @@ if( ! class_exists ( 'Wt_Smart_Coupon_Store_Credit_Admin' ) ) {
     
             return $recipient;
         }
-
+ 
 
 
         /**
@@ -583,15 +577,28 @@ if( ! class_exists ( 'Wt_Smart_Coupon_Store_Credit_Admin' ) ) {
         */
 
         function send_store_credit() {
+            
+            $return = array(
+                'error'     =>  false,
+                'message'   =>  ''
+            );
+            if ( ! Wt_Smart_Coupon_Security_Helper::check_write_access( 'smart_coupons', 'wt_smart_coupons_store_credit_nonce' ) ) {
+
+                $return = array(
+                    'error'     =>  true,
+                    'message'   =>  __('You do not have sufficient permission to perform this operation', 'wt-smart-coupons-for-woocommerce-pro')
+                );
+                echo json_encode($return);
+                die();
+            }
             if(isset( $_POST['_wt_send_credit_email'] ) ) {
-                
                 if( isset( $_POST['_wt_send_credit_email'] ) && '' != $_POST['_wt_send_credit_email'] ) {
-                    $email = $_POST['_wt_send_credit_email'];
+                    $email = Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['_wt_send_credit_email'], 'text_arr' );
                     $email_ids = explode(',',$email );
                 }
 
                 if( isset( $_POST['_wt_send_credit_amount'] ) && '' != $_POST['_wt_send_credit_amount'] ) {
-                    $credit_amount = $_POST['_wt_send_credit_amount'];
+                    $credit_amount = Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['_wt_send_credit_amount'], 'float' );
                 }
 
                 if( empty( $email_ids ) ||  $credit_amount <= 0 ) {
@@ -610,7 +617,7 @@ if( ! class_exists ( 'Wt_Smart_Coupon_Store_Credit_Admin' ) ) {
 
                 $message = '';
                 if( isset( $_POST['_wt_send_credit_message'] ) && '' != $_POST['_wt_send_credit_message'] ) {
-                    $message = $_POST['_wt_send_credit_message'];
+                    $message = Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['_wt_send_credit_message'], 'textarea' );
                 }
                 
 
@@ -651,9 +658,8 @@ if( ! class_exists ( 'Wt_Smart_Coupon_Store_Credit_Admin' ) ) {
 					$coupon_obj->set_amount(  $credit_amount );
                     $coupon_obj->set_discount_type('store_credit');
                     $coupon_obj->set_description( $message  );
-
                      if( isset( $_POST['_wt_make_coupon_individual_use_only'] ) ) {
-                        $make_coupon_individual_use_only = $_POST['_wt_make_coupon_individual_use_only'];
+                        $make_coupon_individual_use_only = Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['_wt_make_coupon_individual_use_only'] );
                     }
                     
 
@@ -890,7 +896,20 @@ if( ! class_exists ( 'Wt_Smart_Coupon_Store_Credit_Admin' ) ) {
          */
 
         function send_store_credit_items() {
-            $order_id = isset( $_POST['_wt_order_id'] ) ? $_POST['_wt_order_id'] : 0;
+            $return = array(
+                'error'     =>  false,
+                'message'   =>  ''
+            );
+            if ( ! Wt_Smart_Coupon_Security_Helper::check_write_access( 'smart_coupons', 'wt_smart_coupons_store_credit_nonce' ) ) {
+
+                $return = array(
+                    'error'     =>  true,
+                    'message'   =>  __('You do not have sufficient permission to perform this operation', 'wt-smart-coupons-for-woocommerce-pro')
+                );
+                echo json_encode($return);
+                die();
+            }
+            $order_id = isset( $_POST['_wt_order_id'] ) ? Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['_wt_order_id'], 'int' ) : 0;
             if( $order_id < 1 ) {
                 $return = array(
                     'error' =>  true,

@@ -21,8 +21,9 @@ if( !class_exists('Wt_Smart_Coupon_Banner_Shortcode') ) {
         function enqueue_scripts() {
 
             $script_parameters['ajaxurl'] = admin_url( 'admin-ajax.php' ) ;
+            $script_parameters['nonce'] = wp_create_nonce( 'wt_smart_coupons_apply_coupon' );
             wp_enqueue_script('wt-smart-coupon-banner', plugin_dir_url(__FILE__) . 'js/wt-coupon-banner.js', array('jquery'), $this->version, false);
-            wp_localize_script('wt-smart-coupon-banner','WTSmartCouponOBJ',$script_parameters );
+            wp_localize_script('wt-smart-coupon-banner','WTSmartCouponBannerOBJ',$script_parameters );
         }
 
         /**
@@ -89,12 +90,12 @@ if( !class_exists('Wt_Smart_Coupon_Banner_Shortcode') ) {
             $postion                = ( isset( $banner_args['position'] ) )? $banner_args['position'] : '';
             
 
-            $banner_settings['action_on_click']         = ( isset($banner_args['action_on_click']) )? $banner_args['action_on_click'] : ( isset( $banner_settings['action_on_click'] )) ?  $banner_settings['action_on_click'] : '' ;
-            $banner_settings['redirect_url']            = ( isset($banner_args['redirect_url']) )? $banner_args['redirect_url'] : ( isset( $banner_settings['redirect_url'] )) ?  $banner_settings['redirect_url'] : '' ;
-            $banner_settings['url_open_in_another_tab'] = ( isset($banner_args['url_open_in_another_tab']) )? $banner_args['url_open_in_another_tab'] : ( isset( $banner_settings['url_open_in_another_tab'] )) ?  $banner_settings['url_open_in_another_tab'] : '';
+            $banner_settings['action_on_click']         = ( ( isset($banner_args['action_on_click']) ) ? $banner_args['action_on_click'] : ( isset( $banner_settings['action_on_click'] )) ) ?  $banner_settings['action_on_click'] : '' ;
+            $banner_settings['redirect_url']            = ( ( isset($banner_args['redirect_url']) ) ? $banner_args['redirect_url'] : ( isset( $banner_settings['redirect_url'] )) ) ?  $banner_settings['redirect_url'] : '' ;
+            $banner_settings['url_open_in_another_tab'] = ( ( isset($banner_args['url_open_in_another_tab']) ) ? $banner_args['url_open_in_another_tab'] : ( isset( $banner_settings['url_open_in_another_tab'] )) ) ?  $banner_settings['url_open_in_another_tab'] : '';
 
-            $coupon_timer['action_on_expiry']           = ( isset($banner_args['action_on_expiry']) )? $banner_args['action_on_expiry'] : ( isset( $coupon_timer['action_on_expiry'] )) ?  $coupon_timer['action_on_expiry'] : '' ;
-            $coupon_timer['expiry_text']                = ( isset($banner_args['expiry_text']) )? $banner_args['expiry_text'] : ( isset( $coupon_timer['expiry_text'] )) ?  $coupon_timer['expiry_text'] : '' ;
+            $coupon_timer['action_on_expiry']           = ( ( isset($banner_args['action_on_expiry']) ) ? $banner_args['action_on_expiry'] : ( isset( $coupon_timer['action_on_expiry'] )) ) ?  $coupon_timer['action_on_expiry'] : '' ;
+            $coupon_timer['expiry_text']                = ( ( isset($banner_args['expiry_text']) ) ? $banner_args['expiry_text'] : ( isset( $coupon_timer['expiry_text'] )) ) ?  $coupon_timer['expiry_text'] : '' ;
 
             
            //positioning widget. 

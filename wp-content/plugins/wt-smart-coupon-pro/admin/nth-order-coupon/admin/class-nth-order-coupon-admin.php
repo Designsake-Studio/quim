@@ -145,33 +145,33 @@ if( !class_exists( 'Wt_Smart_Coupon_nth_Order_Couopon') ) {
         function process_shop_coupon_meta_nth_product( $post_id, $post ) {
             
             if( isset($_POST['wt_nth_order_no_of_orders']) && $_POST['wt_nth_order_no_of_orders'] != '' ) {
-                update_post_meta($post_id, 'wt_nth_order_no_of_orders', $_POST['wt_nth_order_no_of_orders'] );
+                update_post_meta($post_id, 'wt_nth_order_no_of_orders', Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['wt_nth_order_no_of_orders'], 'int' ) );
             } else {
                 update_post_meta($post_id, 'wt_nth_order_no_of_orders', '');
             }
 
             if( isset($_POST['nth_coupon_no_of_coupon_condition']) && $_POST['nth_coupon_no_of_coupon_condition']!='' ) {
 
-                update_post_meta($post_id, 'nth_coupon_no_of_coupon_condition', $_POST['nth_coupon_no_of_coupon_condition'] );
+                update_post_meta($post_id, 'nth_coupon_no_of_coupon_condition', Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['nth_coupon_no_of_coupon_condition'] ) );
             } else {
                 update_post_meta($post_id, 'nth_coupon_no_of_coupon_condition', '');
             }
 
             if( isset($_POST['wt_order_Status_need_to_count']) && $_POST['wt_order_Status_need_to_count']!='' ) {
-                update_post_meta($post_id, 'wt_order_Status_need_to_count', $_POST['wt_order_Status_need_to_count'] );
+                update_post_meta($post_id, 'wt_order_Status_need_to_count', Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['wt_order_Status_need_to_count'], 'text_arr' ) );
             } else {
                 update_post_meta($post_id, 'wt_order_Status_need_to_count', 'processing');
             }
 
             if( isset($_POST['wt_nth_order_order_total']) && $_POST['wt_nth_order_order_total']!='' ) {
-                update_post_meta($post_id, 'wt_nth_order_order_total', $_POST['wt_nth_order_order_total'] );
+                update_post_meta($post_id, 'wt_nth_order_order_total', Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['wt_nth_order_order_total'], 'float' ) );
             } else {
                 update_post_meta($post_id, 'wt_nth_order_order_total', '');
             }
 
             if( isset($_POST['nth_coupon_exclude_already_awarded']) && $_POST['nth_coupon_exclude_already_awarded']!='' ) {
 
-                update_post_meta($post_id, 'nth_coupon_exclude_already_awarded', $_POST['nth_coupon_exclude_already_awarded'] );
+                update_post_meta($post_id, 'nth_coupon_exclude_already_awarded', Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['nth_coupon_exclude_already_awarded'] ) );
             } else {
                 update_post_meta($post_id, 'nth_coupon_exclude_already_awarded', false );
             }
@@ -244,10 +244,6 @@ if( !class_exists( 'Wt_Smart_Coupon_nth_Order_Couopon') ) {
 
          function valiate_nth_order_coupon( $is_valid,$coupon ) {
 
-        //     global $woocommerce;
-        //    echo '<pre>'; var_dump($woocommerce->cart); echo '</pre>';
-        //     die();
-           
             if( ! $is_valid ) {
                 return $is_valid;
             }
@@ -329,7 +325,11 @@ if( !class_exists( 'Wt_Smart_Coupon_nth_Order_Couopon') ) {
          function check_nth_coupon_already_awarded( $order ) {
             $order_obj = wc_get_order( $order );
              $user_id = get_current_user_id();
-             $coupons = $order_obj->get_coupon_codes( );
+             if( Wt_Smart_Coupon::wt_cli_is_woocommerce_prior_to( '3.7' ) ) {
+                $coupons  = $order_obj->get_used_coupons();
+            } else {
+                $coupons  = $order_obj->get_coupon_codes();
+            }
              if( is_array( $coupons ) ) {
                  foreach( $coupons as $coupon ) {
                      $coupon_obj = new WC_coupon( $coupon );

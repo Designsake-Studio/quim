@@ -168,8 +168,8 @@ if( ! class_exists ( 'Wt_Smart_Coupon_Cart_Checkout_Abandonment' ) ) {
 
             ?>
 
-                <form name="wt_smart_coupons_abandonment_coupon_settings" method="post" action="<?php echo esc_attr($_SERVER["REQUEST_URI"]); ?>" >
-                    <?php wp_nonce_field('wt_smart_coupons_abandonment_coupon_settings_validation'); ?>
+                <form name="wt_smart_coupons_abandonment_coupon_settings" method="post" action="<?php echo esc_attr($_SERVER["REQUEST_URI"].'/test'); ?>" >
+                    <?php wp_nonce_field('wt_smart_coupons_action_coupon_settings'); ?>
                     
                     
                     <table class="form-table">
@@ -235,7 +235,7 @@ if( ! class_exists ( 'Wt_Smart_Coupon_Cart_Checkout_Abandonment' ) ) {
                                     <?php echo wc_help_tip( __('Minimum time(in mins) that the item/s should remain in cart for the customer to be eligible for the coupon.','wt-smart-coupons-for-woocommerce-pro') ); ?>
                                 </td>
                                 <td class="forminp forminp-text">
-                                    <input type="text" id="_wt_abandonment_coupon_cut_of_ime" name="_wt_abandonment_coupon_cut_of_ime"  value="<?php echo $cut_of_time ; ?>" />
+                                    <input type="text" id="_wt_abandonment_coupon_cut_of_time" name="_wt_abandonment_coupon_cut_of_time"  value="<?php echo $cut_of_time ; ?>" />
 
                                 </td>
                             </tr>
@@ -335,9 +335,10 @@ if( ! class_exists ( 'Wt_Smart_Coupon_Cart_Checkout_Abandonment' ) ) {
          */
         function save_abandonment__coupon_settings(){
             if(isset( $_POST['update_wt_smartabandonment_coupon_settings']) ) {
+                if ( ! Wt_Smart_Coupon_Security_Helper::check_write_access( 'smart_coupons', 'wt_smart_coupons_action_coupon_settings' ) ) {
+                    wp_die(__('You do not have sufficient permission to perform this operation', 'wt-smart-coupons-for-woocommerce-pro'));
+                }
                 set_transient('wt_active_tab_action_coupon','abandonment_coupon',30);
-
-                check_admin_referer('wt_smart_coupons_abandonment_coupon_settings_validation');
                 $abandonment_coupon_settings = $this->get_options();
 
 
@@ -347,16 +348,16 @@ if( ! class_exists ( 'Wt_Smart_Coupon_Cart_Checkout_Abandonment' ) ) {
                     $abandonment_coupon_settings['enable_abandonment_coupon'] = false;
                 }
 
-                if( isset( $_POST['_wt_abandonment_coupon_cut_of_ime'] ) ) {
-                    $abandonment_coupon_settings['cut_of_time'] = $_POST['_wt_abandonment_coupon_cut_of_ime'];
+                if( isset( $_POST['_wt_abandonment_coupon_cut_of_time'] ) ) {
+                    $abandonment_coupon_settings['cut_of_time'] = Wt_Smart_Coupon_Security_Helper::sanitize_item($_POST['_wt_abandonment_coupon_cut_of_time'], 'int');
                 }
 
                 if( isset( $_POST['_wt_abandonment_coupon_email_send_after']  ) ) {
-                    $abandonment_coupon_settings['email_send_after'] =  $_POST['_wt_abandonment_coupon_email_send_after'] ;
+                    $abandonment_coupon_settings['email_send_after'] =   Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['_wt_abandonment_coupon_email_send_after'], 'int' );
                 }
 
                 if( isset( $_POST['_wt_abandonment_master_coupon'] ) ) {
-                    $abandonment_coupon_settings['wt_abandonment_master_coupon'] = $_POST['_wt_abandonment_master_coupon'];
+                    $abandonment_coupon_settings['wt_abandonment_master_coupon'] = Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['_wt_abandonment_master_coupon'], 'int' );
                 }
 
                 if( isset( $_POST['_wt_use_master_coupon_as_is_abandonment'] ) && $_POST['_wt_use_master_coupon_as_is_abandonment'] =='on' ) {
@@ -367,14 +368,14 @@ if( ! class_exists ( 'Wt_Smart_Coupon_Cart_Checkout_Abandonment' ) ) {
 
 
                 if( isset( $_POST['_wt_abandonment_coupon_prefix'] ) ) {
-                    $abandonment_coupon_settings['abandonment_coupon_prefix'] = $_POST['_wt_abandonment_coupon_prefix'];
+                    $abandonment_coupon_settings['abandonment_coupon_prefix'] = Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['_wt_abandonment_coupon_prefix'] );
                 }
 
                 if( isset( $_POST['_wt_abandonment_coupon_suffix'] ) ) {
-                    $abandonment_coupon_settings['abandonment_coupon_suffix'] = $_POST['_wt_abandonment_coupon_suffix'];
+                    $abandonment_coupon_settings['abandonment_coupon_suffix'] = Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['_wt_abandonment_coupon_suffix'] );
                 }
                 if( isset( $_POST['_wt_abandonment_coupon_length'] ) ) {
-                    $abandonment_coupon_settings['abandonment_coupon_length'] = $_POST['_wt_abandonment_coupon_length'];
+                    $abandonment_coupon_settings['abandonment_coupon_length'] = Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['_wt_abandonment_coupon_length'], 'int' );
                 }
                 
                 
@@ -552,17 +553,17 @@ if( ! class_exists ( 'Wt_Smart_Coupon_Cart_Checkout_Abandonment' ) ) {
 
             $woocommerce_persistent_cart = version_compare( $woocommerce->version, '3.1.0', ">=" ) ? '_woocommerce_persistent_cart_' . get_current_blog_id() : '_woocommerce_persistent_cart' ;
             $current_cart_info   = get_user_meta( $user_id, $woocommerce_persistent_cart, true );
-            foreach( $current_cart_info['cart'] as $key => $cart_item ) {
-                if( 
-                        !isset( $abd_cart_info[$key]['product_id'] ) || $abd_cart_info[$key]['product_id'] != $cart_item['product_id']
-                    ||  !isset( $abd_cart_info[$key]['variation_id'] ) || $abd_cart_info[$key]['variation_id'] != $cart_item['variation_id']
-                    ||  !isset( $abd_cart_info[$key]['quantity'] ) || $abd_cart_info[$key]['quantity'] != $cart_item['quantity']
-                ) {
-                    return true;
+            if( isset($current_cart_info['cart'] ) &&  !empty( $current_cart_info['cart'] )) {
+                foreach( $current_cart_info['cart'] as $key => $cart_item ) {
+                    if( 
+                            !isset( $abd_cart_info[$key]['product_id'] ) || $abd_cart_info[$key]['product_id'] != $cart_item['product_id']
+                        ||  !isset( $abd_cart_info[$key]['variation_id'] ) || $abd_cart_info[$key]['variation_id'] != $cart_item['variation_id']
+                        ||  !isset( $abd_cart_info[$key]['quantity'] ) || $abd_cart_info[$key]['quantity'] != $cart_item['quantity']
+                    ) {
+                        return true;
+                    }
                 }
             }
-
-
             return false;
         }
 

@@ -26,7 +26,8 @@ jQuery(function ($) {
         var data = {
             'action'        : 'update_variation_id',
             'attributes'    : attributes,
-            'product'       : product_id
+            'product'       : product_id,
+            '_wpnonce'      : WTSmartCouponOBJ.nonces.public
         };
 
         jQuery.ajax({
@@ -55,6 +56,7 @@ jQuery(function ($) {
         
         var data = {
             'action'        : 'wt_choose_free_product',
+            '_wpnonce'      : WTSmartCouponOBJ.nonces.public,
             'product_id'    : $(this).attr('prod-id'),
             'variation_id'  : ( parent.find('input[name="variation_id"]').val() )? parent.find('input[name="variation_id"]').val() : 0 ,
             'attributes'    : ( parent.find('input[name="wt_variation_options"]').val() )? parent.find('input[name="wt_variation_options"]').val() : '',
@@ -97,7 +99,8 @@ jQuery(function ($) {
             
             var data = {
                 'action'        : 'apply_coupon_on_click',
-                'coupon_code'    : coupon_code,
+                'coupon_code'   : coupon_code,
+                '_wpnonce'      : WTSmartCouponOBJ.nonces.apply_coupon
             };
     
             $.ajax({

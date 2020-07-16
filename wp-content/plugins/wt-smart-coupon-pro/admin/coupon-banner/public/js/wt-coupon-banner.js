@@ -20,14 +20,15 @@
             }
             var data = {
                 'action'        : 'apply_coupon_on_click',
-                'coupon_code'    : coupon
+                'coupon_code'   : coupon,
+                '_wpnonce'      : WTSmartCouponBannerOBJ.nonce
             };
 
     
             $.ajax({
                 type: "POST",
                 async: true,
-                url: WTSmartCouponOBJ.ajaxurl,
+                url: WTSmartCouponBannerOBJ.ajaxurl,
                 data: data,
                 success: function ( response ) {
                     if ( $( '.woocommerce-cart-form' ).length != 0 ) {

@@ -46,7 +46,7 @@ class AJAX {
 	public function __construct() {
 
 		// check an individual product sync status
-		add_action( 'wp_ajax_wc_square_is_product_synced_with_square', [ $this, 'is_product_synced_with_square' ] );
+		add_action( 'wp_ajax_wc_square_get_quick_edit_product_details', [ $this, 'get_quick_edit_product_details' ] );
 
 		// fetch product stock from Square
 		add_action( 'wp_ajax_wc_square_fetch_product_stock_with_square', [ $this, 'fetch_product_stock_with_square' ] );
@@ -70,9 +70,12 @@ class AJAX {
 	 * @internal
 	 *
 	 * @since 2.0.0
+	 *
+	 * @deprecated 2.1.6
 	 */
 	public function is_product_synced_with_square() {
-
+		_deprecated_function( 'is_product_synced_with_square', '2.1.6', 'get_quick_edit_product_details' );
+		
 		check_ajax_referer( 'is-product-synced-with-square', 'security' );
 
 		if ( isset( $_POST['product_id'] ) && ( $product = wc_get_product( $_POST['product_id'] ) ) ) {
@@ -284,5 +287,46 @@ class AJAX {
 		wp_send_json_error( sprintf( esc_html__( 'No sync job in progress found %s', 'woocommerce-square' ), is_string( $job_id ) ? $job_id : null ) );
 	}
 
+	/**
+	 * Get sync status, variable status, and edit url for product
+	 *
+	 * Used to manipulate quick edit menu for product
+	 *
+	 * @since 2.1.6
+	 */
+	public function get_quick_edit_product_details() {
+
+		check_ajax_referer( 'get-quick-edit-product-details', 'security' );
+
+		if ( isset( $_POST[ 'product_id' ] ) && ( $product = wc_get_product( $_POST[ 'product_id' ] ) ) ) {
+
+			$is_variable = $product->is_type( 'variable' );
+
+			if ( $is_variable && $product->has_child() ) {
+				if ( Product::has_multiple_variation_attributes( $product ) ) {
+					wp_send_json_error( 'multiple_attributes' );
+				}
+
+				if ( ! Product::has_sku( $product ) ) {
+					wp_send_json_error( 'missing_variation_sku' );
+				}
+			} else {
+				if ( ! Product::has_sku( $product ) ) {
+					wp_send_json_error( 'missing_sku' );
+				}
+			}
+
+			$is_synced_with_square = Product::is_synced_with_square( $product ) ? 'yes' : 'no';
+			$is_woocommerce_sor = wc_square()->get_settings_handler()->is_system_of_record_woocommerce();
+
+			wp_send_json_success( [
+				'edit_url'              => $is_woocommerce_sor ? get_edit_post_link( $_POST[ 'product_id' ] ) : null,
+				'i18n'                  => $is_woocommerce_sor ? __( 'Stock must be fetched from Square before editing stock quantity', 'woocommerce-square' ) : null,
+				'is_synced_with_square' => $is_synced_with_square,
+				'is_variable'           => $is_variable,
+			] );
+		}
+		wp_send_json_error( 'invalid_product' );
+	}
 
 }

@@ -854,13 +854,14 @@ class Manual_Synchronization extends Stepped_Job {
 
 		wc_square()->log( 'Upserting ' . count( $objects ) . ' catalog objects' );
 
-		$is_delete_action       = 'delete' === $this->get_attr( 'action' );
-		$product_ids            = array_keys( $objects );
-		$staged_product_ids     = [];
-		$successful_product_ids = [];
-		$total_object_count     = 0;
-		$batches                = [];
-		$result                 = [
+		$is_delete_action          = 'delete' === $this->get_attr( 'action' );
+		$product_ids               = array_keys( $objects );
+		$original_square_image_ids = [];
+		$staged_product_ids        = [];
+		$successful_product_ids    = [];
+		$total_object_count        = 0;
+		$batches                   = [];
+		$result                    = [
 			'processed'   => [],
 			'unprocessed' => $product_ids,
 		];
@@ -908,7 +909,10 @@ class Manual_Synchronization extends Stepped_Job {
 					$object = $this->convert_to_catalog_object( $object );
 				}
 
-				$catalog_item = new Catalog_Item( $product_id, $is_delete_action );
+				$product                  = wc_get_product( $product_id );
+				$original_square_image_ids[ $product_id ] = $product->get_meta( '_square_item_image_id' );
+
+				$catalog_item = new Catalog_Item( $product, $is_delete_action );
 				$batch        = $catalog_item->get_batch( $object );
 				$object_count = $catalog_item->get_batch_object_count();
 
@@ -1060,8 +1064,17 @@ class Manual_Synchronization extends Stepped_Job {
 				return $result;
 			}
 
-			// there is no batch image endpoint
-			$this->push_product_image( $product );
+			$local_image_id = $product->get_image_id();
+			$product_id     = $product->get_id();
+
+			// If there is a local image which is different from the last uploaded image
+			// Or if the remote square image id has changed
+			if ( ( $local_image_id &&  $local_image_id !== $product->get_meta( '_square_uploaded_image_id' ) ) ||
+				( ! ( $original_square_image_ids[ $product_id ] && $original_square_image_ids[ $product_id ] === $product->get_meta( '_square_item_image_id' ) ) ) ) {
+				// there is no batch image endpoint
+				$this->push_product_image( $product );
+
+			}
 
 			$in_progress['processed_remote_catalog_item_ids'][] = $remote_item_id;
 
@@ -1134,11 +1147,6 @@ class Manual_Synchronization extends Stepped_Job {
 		}
 
 		$local_image_id = $product->get_image_id();
-
-		// if there is no image, or if the latest uploaded image is the same
-		if ( ! $local_image_id || $local_image_id == $product->get_meta( '_square_uploaded_image_id' ) ) {
-			return;
-		}
 
 		if ( $image_path = get_attached_file( $local_image_id ) ) {
 
@@ -1526,9 +1534,9 @@ class Manual_Synchronization extends Stepped_Job {
 					$product->set_stock_quantity( $count->getQuantity() );
 					$product->save();
 				}
-			}
 
-			$in_progress['processed_variation_ids'][] = $count->getCatalogObjectId();
+				$in_progress['processed_variation_ids'][] = $count->getCatalogObjectId();
+			}
 
 			$this->set_attr( 'in_progress_pull_inventory', $in_progress );
 		}

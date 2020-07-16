@@ -82,8 +82,7 @@ if( ! class_exists ( 'Wt_Smart_Coupon_Gift_Coupon_Admin' ) ) {
          */
         public function add_coupon_details_into_order(  ) {
             global $post;
-
-			if ( 'shop_order' !== $post->post_type || ! get_post_meta( $post->ID, 'wt_coupons', true )  ) {
+			if ( 'shop_order' !== $post->post_type ||  !get_post_meta( $post->ID, 'wt_coupons', true )  ) {
 				return;
 			}
 
@@ -192,7 +191,9 @@ if( ! class_exists ( 'Wt_Smart_Coupon_Gift_Coupon_Admin' ) ) {
 
         function update_gift_coupon_settings( ) {
             if( isset( $_POST['update_wt_smart_coupon_general_settings'] ) ) {
-                check_admin_referer('wt_smart_coupons_general_settings');
+                if ( !Wt_Smart_Coupon_Security_Helper::check_write_access( 'smart_coupons', 'wt_smart_coupons_general_settings' ) ) {
+                    wp_die(__('You do not have sufficient permission to perform this operation', 'wt-smart-coupons-for-woocommerce-pro'));
+                }
                 $smart_coupon_options = Wt_Smart_Coupon_Admin::get_options();
                 if( isset( $_POST['_email_coupon_for_order_status'] ) && '' != $_POST['_email_coupon_for_order_status']  ) {
                     $wt_copon_general_settings = sanitize_text_field(  implode(',',$_POST['_email_coupon_for_order_status']) );                    
@@ -253,7 +254,7 @@ if( ! class_exists ( 'Wt_Smart_Coupon_Gift_Coupon_Admin' ) ) {
          */
 
         function save_coupon_field_forproduct_variations( $variation_id, $i ) {
-            $coupon_attached = $_POST['_wt_product_coupon_variation'][$i];
+            $coupon_attached = Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['_wt_product_coupon_variation'][$i], 'int_arr' );
             if( is_array( $coupon_attached ) ) {
                 $coupon_attached = implode( ',', $coupon_attached);
             }
@@ -267,29 +268,31 @@ if( ! class_exists ( 'Wt_Smart_Coupon_Gift_Coupon_Admin' ) ) {
          * @since 1.2.6
          */
         function send_coupons() {
-            $order_id = $_POST['_wt_order_id'];
-            $order = wc_get_order( $order_id );
-            $coupons = get_post_meta( $order_id, 'wt_coupons', true );
-            $coupons = maybe_unserialize( $coupons  );
-            if( !empty($coupons )) {
-                WC()->mailer();
-                do_action( 'wt_send_gift_coupon_to_customer',$order,$coupons);
-                $return = array(
-                    'error' =>  false,
-                    'message' => __('Coupons send successfully','wt-smart-coupons-for-woocommerce-pro')
-                );
-                echo json_encode($return);
-                die();
-                
-            } 
             
             $return = array(
                 'error' =>  false,
                 'message' => __('Something went wrong','wt-smart-coupons-for-woocommerce-pro')
             );
+            if ( Wt_Smart_Coupon_Security_Helper::check_write_access( 'smart_coupons', 'wt_smart_coupons_admin_nonce' ) ) {
+
+                $order_id = Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['_wt_order_id'], 'int' );
+                $order = wc_get_order( $order_id );
+                $coupons = get_post_meta( $order_id, 'wt_coupons', true );
+                $coupons = maybe_unserialize( $coupons  );
+                if( !empty($coupons )) {
+                    WC()->mailer();
+                    do_action( 'wt_send_gift_coupon_to_customer',$order,$coupons);
+                    $return = array(
+                        'error' =>  false,
+                        'message' => __('Coupons send successfully','wt-smart-coupons-for-woocommerce-pro')
+                    );
+                    echo json_encode($return);
+                    die();
+                    
+                } 
+            }
             echo json_encode($return);
             die();
-
 
         }
     }   

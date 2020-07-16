@@ -42,7 +42,7 @@ class Plugin extends Framework\SV_WC_Payment_Gateway_Plugin {
 
 
 	/** plugin version number */
-	const VERSION = '2.1.1';
+	const VERSION = '2.1.6';
 
 	/** plugin ID */
 	const PLUGIN_ID = 'square';
@@ -217,6 +217,8 @@ class Plugin extends Framework\SV_WC_Payment_Gateway_Plugin {
 		if ( ! $this->admin_handler && is_admin() ) {
 			$this->admin_handler = new Admin( $this );
 		}
+
+		do_action( 'wc_square_initialized' );
 	}
 
 

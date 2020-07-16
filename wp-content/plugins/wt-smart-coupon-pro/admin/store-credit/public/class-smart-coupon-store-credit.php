@@ -17,7 +17,9 @@ if( ! class_exists ( 'Wt_Smart_Coupon_Store_Credit' ) ) {
 
         public function __construct( ) {
 			$this->store_credit_options = Wt_Smart_Coupon_Admin::get_option('wt_store_credit_settings');
-			$this->apply_before_tax = $this->store_credit_options['apply_store_credit_before_tax'];
+			if( isset( $this->store_credit_options ) && isset( $this->store_credit_options['apply_store_credit_before_tax'] ) ) {
+				$this->apply_before_tax = $this->store_credit_options['apply_store_credit_before_tax'];
+			}
 		}
 
 		/**
@@ -495,9 +497,6 @@ if( ! class_exists ( 'Wt_Smart_Coupon_Store_Credit' ) ) {
 
 					$credit_remaining = max( 0, ( $coupon_amount_now  - $discount ) );
 
-					// if( $credit_remaining <= 0 ) {
-					// 	$coupon->set_date_expires( ( current_time( 'timestamp' ) - 60 )  );
-					// }
 					$coupon->set_amount( wc_format_decimal( $credit_remaining, 2 ) );
 					$coupon->save();
 
@@ -519,6 +518,11 @@ if( ! class_exists ( 'Wt_Smart_Coupon_Store_Credit' ) ) {
 					$time_stamp = current_time( 'timestamp' );
 					$credit_history[ "'".$time_stamp."'" ] = $credit_history_this_order;
 					update_post_meta( $coupon_id, 'wt_credit_history', $credit_history );
+
+					if( $credit_remaining <= 0 && apply_filters( 'wt_smart_coupon_delete_store_credit_after_use', false ) ) {
+						// $coupon->set_date_expires( ( current_time( 'timestamp' ) - 60 )  );
+						wp_trash_post( $coupon_id );
+					}
 					
 				}
 			}
@@ -856,8 +860,8 @@ if( ! class_exists ( 'Wt_Smart_Coupon_Store_Credit' ) ) {
 				}
 			}
 			if(  isset( $_POST['wt_credit_coupon_to_do'] ) && $_POST['wt_credit_coupon_to_do'] == 'credit_gift_to_a_friend' ) {  
-				$coupon_email = isset( $_POST['wt_credit_coupon_send_to'] )? $_POST['wt_credit_coupon_send_to'] : '';
-				$coupon_message = isset( $_POST['wt_credit_coupon_send_to_message'] )? $_POST['wt_credit_coupon_send_to_message'] : '';
+				$coupon_email = isset( $_POST['wt_credit_coupon_send_to'] )? Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['wt_credit_coupon_send_to'] ) : '';
+				$coupon_message = isset( $_POST['wt_credit_coupon_send_to_message'] )? Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['wt_credit_coupon_send_to_message'] ) : '';
 				update_post_meta($order_id, 'wt_credit_coupon_send_to', sanitize_email( $coupon_email ));
 				update_post_meta($order_id, 'wt_credit_coupon_send_to_message', sanitize_text_field( $coupon_message ));
 				update_post_meta( $order_id, 'wt_credit_coupon_send_from', sanitize_email( $order->get_billing_email() ) );	
