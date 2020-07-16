@@ -4,8 +4,8 @@ Tags: age, age verification, age verify, adults-only, modal, over 16, over 18, o
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=donate%40wordpressagegate%2ecom&lc=GB&item_name=Age%20Gate&item_number=Age%20Gate%20Donation&no_note=0&currency_code=GBP&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHostedGuest
 Requires at least: 4.7.3
 Requires PHP: 5.6
-Tested up to: 5.2.3
-Stable tag: 2.4.0
+Tested up to: 5.4.1
+Stable tag: 2.6.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -74,6 +74,33 @@ From version 1.4.0 those using caching can select the "Cache Bypass" option to a
 6. Manage what users can change Age Gate's setting, restrict posts and exclude settings from certain post types.
 
 == Changelog ==
+
+= 2.6.1 = 
+* Fixed users being able to resubmit in JS mode when the is a redirection and no rechallenge
+* Fixed styling in JS mode for no-rechallenge error
+
+= 2.6.0 =
+* Added option to customise cookie name
+* Added better compatibility with Elementor
+
+= 2.5.3 =
+* Fixed issue where taxonomy restriction was always returning true
+* Updated age_gate_inherited filter to pass the taxonomies that restrict/bypass
+
+= 2.5.2 =
+* Fixed issue where range sliders outside of plugin were being styled
+
+= 2.5.1 =
+* Fixed a JavaScript bug for if the toolbar is shown but the AG toggle is not
+
+= 2.5.0 =
+* Added function for testing aga gate status (Standard Mode)
+* Added class to body on error
+* Fixed an issue where some users couldn't access customiser
+* Fixed bug where ajax calls resolved to the wrong URL
+* Fixed deprecation warning for get_magic_quotes_gpc
+* Updated dependencies
+* Prep for V3 rollout
 
 = 2.4.0 =
 * Added option to change order of yes/no buttons

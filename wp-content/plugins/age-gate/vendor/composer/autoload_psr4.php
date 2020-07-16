@@ -7,4 +7,5 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Jaybizzle\\CrawlerDetect\\' => array($vendorDir . '/jaybizzle/crawler-detect/src'),
+    'GUMP\\' => array($vendorDir . '/wixel/gump/src'),
 );
