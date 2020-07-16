@@ -162,7 +162,7 @@ add_action( 'wp_enqueue_scripts', 'quim_scripts' );
 
 
 /**
- * Extole Script 
+ * Extole Script
  */
 function queue_extole_confirmation_zone( $orderid ) {
 	wp_enqueue_script( 'extole_confirmation_zone', get_template_directory_uri() . '/js/extole-confirmation-zone.js' );
@@ -170,8 +170,8 @@ function queue_extole_confirmation_zone( $orderid ) {
     $orderDetails = array(
         'customerFirstName'=>  $order->get_billing_first_name(),
         'customerLastName'=>  $order->get_billing_last_name(),
-        'customerUserId'=> $order->get_user_id(), 
-        'customerOrderId'=> $order->get_transaction_id(), 
+        'customerUserId'=> $order->get_user_id(),
+        'customerOrderId'=> $order->get_transaction_id(),
         'customerEmail'=>  $order->get_billing_email(),
         'customerCartTotal'=>  $order->get_total(),
         'customerCouponCode'=>  $order->get_used_coupons(),
@@ -181,7 +181,7 @@ function queue_extole_confirmation_zone( $orderid ) {
 add_action( 'woocommerce_thankyou', 'queue_extole_confirmation_zone' );
 
 /**
- * Extole Header Script 
+ * Extole Header Script
  */
 function queue_extole_header_zone() {
 	wp_enqueue_script( 'extole_header_zone', get_template_directory_uri() . '/js/extole-header-zone.js' );
@@ -197,7 +197,7 @@ add_action( 'wp_head', 'queue_extole_header_zone' );
 
 
 /**
- * Extole Footer Script 
+ * Extole Footer Script
  */
 function queue_extole_footer_zone() {
 	wp_enqueue_script( 'extole_footer_zone', get_template_directory_uri() . '/js/extole-footer-zone.js' );
@@ -213,7 +213,7 @@ add_action( 'wp_footer', 'queue_extole_footer_zone' );
 
 
 /**
- * Extole Product Script 
+ * Extole Product Script
  */
 function queue_extole_zone_product() {
 	wp_enqueue_script( 'extole_zone_product', get_template_directory_uri() . '/js/extole-product-zone.js' );
@@ -386,10 +386,32 @@ function my_header_add_to_cart_fragment( $fragments ) {
     if ( $count > 0 ) {
         ?>
         <span class="cart-contents-count"><?php echo esc_html( $count ); ?></span>
-        <?php            
+        <?php
     }
         ?></a><?php
     $fragments['a.cart-contents'] = ob_get_clean();
     return $fragments;
 }
 add_filter( 'woocommerce_add_to_cart_fragments', 'my_header_add_to_cart_fragment' );
+
+
+// remove breadcrumbs from product pages
+add_action( 'init', 'woo_remove_wc_breadcrumbs' );
+function woo_remove_wc_breadcrumbs() {
+    remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20, 0 );
+    remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_related_products', 20 );
+}
+
+// Adds Social Icons to the Age Gate (Plugin)
+add_filter('age_gate_after', 'after_age_gate', 10, 1);
+function after_age_gate($after){
+
+  $after .= '<div class="custom-markup">';
+  $after .= "	<a class='facebook' href='https://www.facebook.com/quim.rock/'>Facebook</a>
+				<a class='instagram' href='https://www.instagram.com/its.quim/'>Instagram</a>
+				<a class='twitter' href='https://twitter.com/quimrock'>Twitter</a>";
+  $after .= '</div>';
+
+  return $after;
+}
+
