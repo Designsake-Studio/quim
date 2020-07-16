@@ -57,7 +57,9 @@
 			}
 
 			e.preventDefault();
-		
+
+			var me = $(e.target);
+
 			const swalWithBootstrapButtons = Swal.mixin({
 				customClass: {
 				  confirmButton: 'button button-primary tab-content-submit disconnect-button',
@@ -81,8 +83,12 @@
 						history.replaceState({}, "", query[1]);
 						$('input[name=_wp_http_referer]').val(query[1]);
 					}
-					mailchimp_woocommerce_disconnect_done = true;
-					e.target.click();
+					try {
+						mailchimp_woocommerce_disconnect_done = true;
+						me.click();
+					} catch (e) {
+						console.error('clicking event for disconnect failed', e);
+					}
 				} 
 			})	
 		});
@@ -116,6 +122,7 @@
 			var token = '';
 			var startData = {action:'mailchimp_woocommerce_oauth_start'};
 			$('#mailchimp-oauth-api-key-valid').hide();
+			$('#mailchimp-oauth-error').hide();
 			$('#mailchimp-oauth-waiting').show();
 			
 			$.post(ajaxurl, startData, function(startResponse) {
@@ -134,8 +141,8 @@
 					var options = {
 						path: domain+'/auth/start/'+token,
 						windowName: 'Mailchimp For WooCommerce OAuth',
-						height: 500,
-						width: 800,
+						height: 800,
+						width: 1035,
 					};
 					var left = (screen.width - options.width) / 2;
 					var top = (screen.height - options.height) / 4;
@@ -143,7 +150,7 @@
 						'status=no, menubar=no, scrollbars=no, resizable=no, ' +
 						'copyhistory=no, width=' + options.width +
 						', height=' + options.height + ', top=' + top + ', left=' + left +
-						'domain='+domain.replace('https://', '');
+						', domain='+domain.replace('https://', '');
 
 			// open Mailchimp OAuth popup
 			var popup = window.open(options.path, options.windowName, window_options);

@@ -12,18 +12,18 @@ class WCShippingDebug {
 	private $notes;
 
 	/**
-	 * API request XML string.
+	 * Array of API requests as an XML string.
 	 *
-	 * @var string
+	 * @var array
 	 */
-	private $request;
+	private $requests;
 
 	/**
-	 * API response XML string.
+	 * Array of API responses as an XML string.
 	 *
-	 * @var string
+	 * @var array
 	 */
-	private $response;
+	private $responses;
 
 	/**
 	 * Shipping service name to be displayed in debug notice.
@@ -40,8 +40,8 @@ class WCShippingDebug {
 	public function __construct( $service_name ) {
 		$this->service_name = $service_name;
 		$this->notes        = array();
-		$this->request      = '';
-		$this->response     = '';
+		$this->requests     = array();
+		$this->responses    = array();
 	}
 
 	/**
@@ -60,8 +60,8 @@ class WCShippingDebug {
 	public function display() {
 		if ( self::should_display_debug() ) {
 			$notes        = $this->notes;
-			$request      = $this->try_prettify_xml( $this->request );
-			$response     = $this->try_prettify_xml( $this->response );
+			$requests     = array_map( array( $this, 'try_prettify_xml' ), $this->requests );
+			$responses    = array_map( array( $this, 'try_prettify_xml' ), $this->responses );
 			$service_name = $this->service_name;
 
 			ob_start();
@@ -112,20 +112,20 @@ class WCShippingDebug {
 	}
 
 	/**
-	 * Set request XML to be displayed in request section of debug notice.
+	 * Add request XML to be displayed in requests section of debug notice.
 	 *
 	 * @param string $request Request XML string.
 	 */
-	public function set_request( $request ) {
-		$this->request = $request;
+	public function add_request( $request ) {
+		array_push( $this->requests, $request );
 	}
 
 	/**
-	 * Set response XML to be displayed in response section of debug notice.
+	 * Add response XML to be displayed in responses section of debug notice.
 	 *
 	 * @param string $response Response XML string.
 	 */
-	public function set_response( $response ) {
-		$this->response = $response;
+	public function add_response( $response ) {
+		array_push( $this->responses, $response );
 	}
 }

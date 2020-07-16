@@ -217,22 +217,25 @@ class Product {
 	 * Updates a product image from a URL provided by Square (helper method).
 	 *
 	 * Note: does not save the product for persistence. If opening to public, consider changing this behavior.
+	 *       This function handles its own exceptions and logs them.
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param \WC_Product|int $product product object or product ID
+	 * @param \WC_Product|int $given_product product object or product ID
 	 * @param string $image_id
-	 * @return \WC_Product updated product
+	 * @todo Look at ussages of this function. Does it even need to return anything?
+	 * @return \WC_Product|int The product id of object that was passed in.
 	 */
-	public static function update_image_from_square( $product, $image_id ) {
+	public static function update_image_from_square( $given_product, $image_id ) {
 
-		$product = is_numeric( $product ) ? wc_get_product( $product ) : $product;
+		$product = is_numeric( $given_product ) ? wc_get_product( $given_product ) : $given_product;
+
+		if ( ! $product instanceof \WC_Product ) {
+			wc_square()->log( sprintf( 'Could not import image from Square at %1$s for attaching to product: Invalid product.', $image_url ) );
+			return $given_product;
+		}
 
 		try {
-
-			if ( ! $product instanceof \WC_Product ) {
-				throw new Framework\SV_WC_Plugin_Exception( 'Invalid product' );
-			}
 
 			$image_response = wc_square()->get_api()->retrieve_catalog_object( $image_id );
 
@@ -241,6 +244,10 @@ class Product {
 			}
 
 			$image_url = $image_response->get_data()->getObject()->getImageData()->getUrl();
+
+			if ( empty( $image_url ) ) {
+				throw new Framework\SV_WC_Plugin_Exception( 'Square image url empty' );
+			}
 
 			// grab remote image to upload into WordPress before attaching to product
 			$url_parts        = parse_url( $image_url );
@@ -398,6 +405,10 @@ class Product {
 	/**
 	 * Sets a product's synced with Square status.
 	 *
+	 * This function has a side effect where we also set the Product's
+	 * manage stock value. We ignore external type product when setting this manage
+	 * stock value.
+	 *
 	 * @since 2.0.0
 	 *
 	 * @param \WC_Product|int $product a valid product object or product ID
@@ -406,29 +417,29 @@ class Product {
 	 */
 	public static function set_synced_with_square( $product, $synced = 'yes' ) {
 
-		$success = false;
 		$product = is_numeric( $product ) ? wc_get_product( $product ) : $product;
 
-		if ( $product instanceof \WC_Product && in_array( $synced, [ 'yes', 'no' ], true ) ) {
+		if ( ! $product instanceof \WC_Product || ! in_array( $synced, [ 'yes', 'no' ], true ) ) {
+			return false;
+		}
 
-			// ensure only one term is associated with the product at any time
-			wp_delete_object_term_relationships( $product->get_id(), [ self::SYNCED_WITH_SQUARE_TAXONOMY ] );
+		// ensure only one term is associated with the product at any time
+		wp_delete_object_term_relationships( $product->get_id(), [ self::SYNCED_WITH_SQUARE_TAXONOMY ] );
 
-			if ( 'yes' === $synced ) {
+		// we have already set the value to "no" above by deleting the term relationship
+		// so it is safe to return with true.
+		if ( 'no' === $synced ) {
+			return true;
+		}
 
-				$set_term = wp_set_post_terms( $product->get_id(), [ $synced ], self::SYNCED_WITH_SQUARE_TAXONOMY );
-				$success  = is_array( $set_term );
+		$set_term = wp_set_post_terms( $product->get_id(), [ $synced ], self::SYNCED_WITH_SQUARE_TAXONOMY );
+		$success  = is_array( $set_term );
 
-				if ( wc_square()->get_settings_handler()->is_inventory_sync_enabled() ) {
-					$product->set_manage_stock( ! $product->is_type( 'variable' ) );
-				}
-
-				$product->save();
-
-			} else {
-
-				$success  = true;
-			}
+		// Function side effect see phpDoc for details:
+		if ( wc_square()->get_settings_handler()->is_inventory_sync_enabled()
+		&& 'external' !== $product->get_type() ) {
+			$product->set_manage_stock( ! $product->is_type( 'variable' ) );
+			$product->save();
 		}
 
 		return $success;

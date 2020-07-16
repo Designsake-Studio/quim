@@ -2,9 +2,9 @@
 Contributors: automattic, royho, woothemes, bor0
 Tags: credit card, square, woocommerce, inventory sync
 Requires at least: 4.6
-Tested up to: 5.3
+Tested up to: 5.4
 Requires PHP: 5.6
-Stable tag: 2.1.0
+Stable tag: 2.1.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -71,6 +71,11 @@ If you get stuck, you can ask for help in the [Plugin Forum](https://wordpress.o
 2. The payment gateway settings.
 
 == Changelog ==
+
+= 2.1.1 - 2020.03.23 =
+* Fix - Inventory/Stock updates as a result of checkout via PayPal Standard does not reflect on the Square item.
+* Fix - Error when trying to save an external product with the modified 'sync with square' value.
+* Fix - Move product check on a possibly invalid product out of the try block avoiding potential further errors.
 
 = 2.1.0 - 2020.02.11 =
 * Feature - Add support for SCA (3D Secure 2)

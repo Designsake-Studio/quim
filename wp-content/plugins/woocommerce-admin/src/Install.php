@@ -36,6 +36,10 @@ class Install {
 			'wc_admin_update_0230_rename_gross_total',
 			'wc_admin_update_0230_db_version',
 		),
+		'0.25.1' => array(
+			'wc_admin_update_0251_remove_unsnooze_action',
+			'wc_admin_update_0251_db_version',
+		),
 	);
 
 	/**
@@ -58,7 +62,7 @@ class Install {
 	 * Hook in tabs.
 	 */
 	public static function init() {
-		add_action( 'admin_init', array( __CLASS__, 'check_version' ), 5 );
+		add_action( 'init', array( __CLASS__, 'check_version' ), 5 );
 		add_filter( 'wpmu_drop_tables', array( __CLASS__, 'wpmu_drop_tables' ) );
 
 		// Add wc-admin report tables to list of WooCommerce tables.
@@ -82,6 +86,8 @@ class Install {
 	 */
 	public static function handle_option_migration( $default, $new_option ) {
 		if ( isset( self::$migrated_options[ $new_option ] ) ) {
+			wc_maybe_define_constant( 'WC_ADMIN_MIGRATING_OPTIONS', true );
+
 			// Avoid infinite loops - this filter is applied in add_option(), update_option(), and get_option().
 			remove_filter( "default_option_{$new_option}", array( __CLASS__, 'handle_option_migration' ), 10, 2 );
 
@@ -390,12 +396,23 @@ class Install {
 						array(
 							'per_page' => 1,
 							'hook'     => 'woocommerce_run_update_callback',
-							'search'   => json_encode( array( $update_callback ) ),
+							'search'   => wp_json_encode( array( $update_callback ) ),
 							'group'    => 'woocommerce-db-updates',
+							'status'   => 'pending',
 						)
 					);
 
-					if ( empty( $pending_jobs ) ) {
+					$complete_jobs = WC()->queue()->search(
+						array(
+							'per_page' => 1,
+							'hook'     => 'woocommerce_run_update_callback',
+							'search'   => wp_json_encode( array( $update_callback ) ),
+							'group'    => 'woocommerce-db-updates',
+							'status'   => 'complete',
+						)
+					);
+
+					if ( empty( $pending_jobs ) && empty( $complete_jobs ) ) {
 						WC()->queue()->schedule_single(
 							time() + $loop,
 							'woocommerce_run_update_callback',

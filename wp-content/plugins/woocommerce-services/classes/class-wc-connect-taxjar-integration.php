@@ -204,22 +204,14 @@ class WC_Connect_TaxJar_Integration {
 	}
 
 	/**
-	 * TaxJar supports USA, Canada, Australia, and the European Union
+	 * TaxJar supports USA, Canada, Australia, and the European Union + Great Britain
 	 * See: https://developers.taxjar.com/api/reference/#countries
 	 *
 	 * @return array Countries supported by TaxJar.
 	 */
 	public function get_supported_countries() {
-		$supported_countries = array_merge(
-			array(
-				'US',
-				'CA',
-				'AU',
-			),
-			WC()->countries->get_european_union_countries()
-		);
-
-		return $supported_countries;
+		// Hard code list instead of using `WC()->countries->get_european_union_countries()` just in case anyone else decides to leave the EU.
+		return array( 'US', 'CA', 'AU', 'AT', 'BE', 'BG', 'CY', 'CZ', 'DE', 'DK', 'EE', 'ES', 'FI', 'FR', 'GB', 'GR', 'HU', 'HR', 'IE', 'IT', 'LT', 'LU', 'LV', 'MT', 'NL', 'PL', 'PT', 'RO', 'SE', 'SI', 'SK' );
 	}
 
 	/**
@@ -867,6 +859,10 @@ class WC_Connect_TaxJar_Integration {
 				'to_zip' => $to_zip,
 				'to_city' => $to_city,
 			);
+
+			if ( 'GB' === $to_country ) {
+				$location['to_state'] = '';
+			}
 
 			// Add line item tax rates
 			foreach ( $taxes['line_items'] as $line_item_key => $line_item ) {

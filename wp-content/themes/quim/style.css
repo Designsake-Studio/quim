@@ -3360,3 +3360,13 @@ body.home .featured-products .single-product.Happy .product-img-home:before {
     body.archive .type-product { background-size: auto 500px !important; }
 }
 
+
+/* BUG HIDE / FIXES */
+.type-product .summary .related.products {
+    display: none;
+}
+
+.woocommerce-breadcrumb {
+    display: none;
+}
+

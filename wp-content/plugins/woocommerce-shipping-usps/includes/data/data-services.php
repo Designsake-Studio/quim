@@ -74,7 +74,10 @@ return apply_filters( 'wc_usps_services', array(
 			"33" => "Priority Mail&#0174; Hold For Pickup",
 			"47" => "Priority Mail&#0174; Regional Rate Box A",
 			"49" => "Priority Mail&#0174; Regional Rate Box B",
-		)
+		),
+
+		// Service IDs which are only available for commercial rates.
+		'commercial' => array( 47, 49 ),
 	),
 	// International
 	'I_EXPRESS_MAIL' => array(
