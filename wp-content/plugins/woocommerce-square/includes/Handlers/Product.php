@@ -249,75 +249,18 @@ class Product {
 				throw new Framework\SV_WC_Plugin_Exception( 'Square image url empty' );
 			}
 
+			if ( ! function_exists( 'media_sideload_image' ) ) {
+				require_once( ABSPATH . 'wp-admin/includes/media.php' );
+				require_once( ABSPATH . 'wp-admin/includes/file.php' );
+				require_once( ABSPATH . 'wp-admin/includes/image.php' );
+			}
+
 			// grab remote image to upload into WordPress before attaching to product
-			$url_parts        = parse_url( $image_url );
-			$url_parts        = explode( '/', $url_parts['path'] );
-			$file_name        = end( $url_parts );
-			$upload_dir       = wp_upload_dir();
-			$remote_file_data = file_get_contents( $image_url );
+			$attachment_id = media_sideload_image( $image_url, $product->get_id(), $product->get_title(), 'id' );
 
-			$iterator = 0;
-
-			do {
-
-				$file_prefix      = 0 === $iterator ? '' : $iterator . '_';
-				$local_file_path  = untrailingslashit( $upload_dir['path'] ) . '/' . $file_prefix . $file_name;
-				$iterator++;
-
-			} while ( file_exists( $local_file_path ) );
-
-			if ( empty( $remote_file_data ) ) {
-				throw new Framework\SV_WC_Plugin_Exception( 'Could not fetch remote image data' );
+			if ( is_wp_error( $attachment_id ) ) {
+				throw new Framework\SV_WC_Plugin_Exception( $attachment_id->get_error_message() );
 			}
-
-			$local_file = fopen( $local_file_path, 'wb' );
-
-			if ( ! $local_file ) {
-				throw new Framework\SV_WC_Plugin_Exception( 'Could not create new file' );
-			}
-
-			$write = fwrite( $local_file, $remote_file_data );
-			$close = fclose( $local_file );
-
-			if ( ! $write || ! $close ) {
-				throw new Framework\SV_WC_Plugin_Exception( 'Could not write to file' );
-			}
-
-			$wp_file = wp_check_filetype( basename( $local_file_path ) );
-
-			if ( ! $wp_file || ! isset( $wp_file['type'] ) ) {
-				throw new Framework\SV_WC_Plugin_Exception( 'WordPress could not open the imported file' );
-			}
-
-			// some attachment media functions may not be available from WordPress core at this time
-			if ( ! function_exists( 'wp_generate_attachment_metadata' ) || ! function_exists( 'wp_update_attachment_metadata' ) ) {
-				include_once( ABSPATH . 'wp-admin/includes/image.php' );
-			}
-
-			$attachment = [
-				'post_mime_type' => $wp_file['type'],
-				'post_title'     => $product->get_title(),
-				'post_content'   => '',
-				'post_status'    => 'inherit'
-			];
-
-			// create WordPress attachment in database
-			$attachment_id   = wp_insert_attachment( $attachment, $local_file_path );
-			$attachment_post = ! $attachment_id instanceof \WP_Error ? get_post( $attachment_id ) : null;
-
-			if ( ! $attachment_post ) {
-				throw new Framework\SV_WC_Plugin_Exception( 'WordPress cold not generate an attachment' );
-			}
-
-			$full_size_path = get_attached_file( $attachment_post->ID );
-
-			if ( ! $full_size_path ) {
-				throw new Framework\SV_WC_Plugin_Exception( 'WordPress could not fetch the attached file' );
-			}
-
-			$attachment_data = wp_generate_attachment_metadata( $attachment_id, $full_size_path );
-
-			wp_update_attachment_metadata( $attachment_id, $attachment_data );
 
 			// attach the newly updated image to product
 			$product->set_image_id( $attachment_id );

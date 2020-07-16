@@ -262,6 +262,10 @@ class Order {
 	 */
 	public function maybe_sync_stock_for_refund_from_other_gateway( $order_id, $refund_id ) {
 
+		if ( ! wc_square()->get_settings_handler()->is_inventory_sync_enabled() ) {
+			return;
+		}
+
 		// Confirm we are not processing the order through the Square gateway.
 		$order = wc_get_order( $order_id );
 		if ( ! $order instanceof \WC_Order || Plugin::GATEWAY_ID === $order->get_payment_method() ) {

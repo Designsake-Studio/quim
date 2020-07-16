@@ -53,6 +53,7 @@ class Lifecycle extends Framework\Plugin\Lifecycle {
 		$this->upgrade_versions = [
 			'2.0.0',
 			'2.0.4',
+			'2.1.5',
 		];
 	}
 
@@ -157,6 +158,17 @@ class Lifecycle extends Framework\Plugin\Lifecycle {
 		update_option( 'wc_square_settings', $v2_settings );
 	}
 
+	/**
+	 * Upgrades to version 2.1.5
+	 *
+	 * 2.1.5 updated the woocommerce_square_customers database schema.
+	 *
+	 * @see https://github.com/woocommerce/woocommerce-square/issues/359
+	 * @since 2.1.5
+	 */
+	protected function upgrade_to_2_1_5() {
+		Gateway\Customer_Helper::create_table();
+	}
 
 	/**
 	 * Migrates plugin settings from v1 to v2.

@@ -195,18 +195,20 @@ class Payment_Form extends Framework\SV_WC_Payment_Gateway_Payment_Form {
 	public function render_js() {
 
 		$args = [
-			'application_id'             => $this->get_gateway()->get_application_id(),
-			'ajax_log_nonce'             => wp_create_nonce( 'wc_' . $this->get_gateway()->get_id() . '_log_js_data' ),
-			'ajax_url'                   => admin_url( 'admin-ajax.php' ),
-			'csc_required'               => $this->get_gateway()->csc_enabled(),
-			'currency_code'              => get_woocommerce_currency(),
-			'general_error'              => __( 'An error occurred, please try again or try an alternate form of payment.', 'woocommerce-square' ),
-			'id'                         => $this->get_gateway()->get_id(),
-			'id_dasherized'              => $this->get_gateway()->get_id_dasherized(),
-			'is_3d_secure_enabled'       => $this->get_gateway()->is_3d_secure_enabled(),
-			'is_add_payment_method_page' => is_add_payment_method_page(),
-			'location_id'                => wc_square()->get_settings_handler()->get_location_id(),
-			'logging_enabled'            => $this->get_gateway()->debug_log(),
+			'application_id'                   => $this->get_gateway()->get_application_id(),
+			'ajax_log_nonce'                   => wp_create_nonce( 'wc_' . $this->get_gateway()->get_id() . '_log_js_data' ),
+			'ajax_url'                         => admin_url( 'admin-ajax.php' ),
+			'csc_required'                     => $this->get_gateway()->csc_enabled(),
+			'currency_code'                    => get_woocommerce_currency(),
+			'general_error'                    => __( 'An error occurred, please try again or try an alternate form of payment.', 'woocommerce-square' ),
+			'id'                               => $this->get_gateway()->get_id(),
+			'id_dasherized'                    => $this->get_gateway()->get_id_dasherized(),
+			'is_3d_secure_enabled'             => $this->get_gateway()->is_3d_secure_enabled(),
+			'is_checkout_registration_enabled' => 'yes' === get_option( 'woocommerce_enable_signup_and_login_from_checkout', 'no' ),
+			'is_user_logged_in'                => is_user_logged_in(),
+			'is_add_payment_method_page'       => is_add_payment_method_page(),
+			'location_id'                      => wc_square()->get_settings_handler()->get_location_id(),
+			'logging_enabled'                  => $this->get_gateway()->debug_log(),
 		];
 
 		// map the unique square card type string to our framework standards

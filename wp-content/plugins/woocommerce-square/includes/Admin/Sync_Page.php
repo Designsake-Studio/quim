@@ -143,6 +143,8 @@ class Sync_Page {
 
 		if ( ! $is_connected ) {
 			$disabled_reason = esc_html__( 'Please connect to Square to enable product sync.', 'woocommerce-square' );
+		} elseif ( ! wc_square()->get_settings_handler()->get_location_id() ) {
+			$disabled_reason = esc_html__( 'Please set the business location to enable product sync.', 'woocommerce-square' );
 		} elseif ( 0 === $synced_count ) {
 			$disabled_reason = esc_html__( 'There are currently no products marked to be synced with Square.', 'woocommerce-square' );
 		} elseif ( $sync_in_progress ) {

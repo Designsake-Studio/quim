@@ -92,6 +92,24 @@ class Response implements Framework\SV_WC_API_Response {
 
 
 	/**
+	 * Determines if the API response contains a particular error code.
+	 *
+	 * @since 2.1.6
+	 *
+	 * @return bool
+	 */
+	public function has_error_code( $error_code ) {
+
+		foreach( $this->get_errors() as $error ) {
+			if ( $error_code === $error->code ) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+
+	/**
 	 * Gets the response data as a string.
 	 *
 	 * @since 2.0.0

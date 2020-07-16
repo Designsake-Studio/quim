@@ -874,6 +874,7 @@ class Product_Import extends Stepped_Job {
 			}
 
 			update_post_meta( $variation_id, '_manage_stock', 'yes' );
+			update_post_meta( $variation_id, '_backorders', 'no');
 
 			$this->wc_save_product_price( $variation_id, $variation['regular_price'] );
 
