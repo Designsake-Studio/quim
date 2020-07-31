@@ -31,12 +31,9 @@
 	<script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/6616270.js"></script>
 
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,600,700,800&display=swap" rel="stylesheet">
-	
-  	<script src="<?php echo get_stylesheet_directory_uri(); ?>/js/circletype.min.js"></script>
-  	<script src="<?php echo get_stylesheet_directory_uri(); ?>/js/jquery.lettering-0.6.min.js"></script>
 
-	<!-- Poptin -->
-  	<script id='pixel-script-poptin' src='https://cdn.popt.in/pixel.js?id=402b2be52f091' async='true'></script>
+  <script src="<?php echo get_stylesheet_directory_uri(); ?>/js/circletype.min.js"></script>
+  <script src="<?php echo get_stylesheet_directory_uri(); ?>/js/jquery.lettering-0.6.min.js"></script>
 
 	<!-- Facebook Pixel -->
 	<script>
@@ -59,7 +56,7 @@
 	  window.dataLayer = window.dataLayer || [];
 	  function gtag(){dataLayer.push(arguments);}
 	  gtag('js', new Date());
-	
+
 	  gtag('config', 'UA-150093503-1');
 	</script>
 
@@ -134,7 +131,7 @@
 			</div>
 
 			<div class="cart">
-				
+
 				<a aria-label="cart" href="<?php echo WC()->cart->get_cart_url(); ?>"><i class="fas fa-shopping-cart"></i></a>
 
 				<?php if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) { $count = WC()->cart->cart_contents_count; ?>
