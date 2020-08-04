@@ -150,7 +150,7 @@ add_action( 'widgets_init', 'quim_widgets_init' );
  */
 function quim_scripts() {
 	wp_enqueue_style( 'quim-reset', get_template_directory_uri() . '/reset.css', array(), null, 'all' );
-	wp_enqueue_style( 'quim-style', get_stylesheet_uri() );
+	wp_enqueue_style( 'quim-style', get_stylesheet_uri(), array(), '20200804', 'all' );
 
 	wp_enqueue_script( 'quim-custom', get_template_directory_uri() . '/js/custom-rad.js', array(), '20191030', true );
 	wp_enqueue_script( 'owl-js', get_template_directory_uri() . '/js/owl.carousel.min.js', array(), '20191027', true );
@@ -162,7 +162,7 @@ add_action( 'wp_enqueue_scripts', 'quim_scripts' );
 
 
 /**
- * Extole Script 
+ * Extole Script
  */
 function queue_extole_confirmation_zone( $orderid ) {
 	wp_enqueue_script( 'extole_confirmation_zone', get_template_directory_uri() . '/js/extole-confirmation-zone.js' );
@@ -170,8 +170,8 @@ function queue_extole_confirmation_zone( $orderid ) {
     $orderDetails = array(
         'customerFirstName'=>  $order->get_billing_first_name(),
         'customerLastName'=>  $order->get_billing_last_name(),
-        'customerUserId'=> $order->get_user_id(), 
-        'customerOrderId'=> $order->get_transaction_id(), 
+        'customerUserId'=> $order->get_user_id(),
+        'customerOrderId'=> $order->get_transaction_id(),
         'customerEmail'=>  $order->get_billing_email(),
         'customerCartTotal'=>  $order->get_total(),
         'customerCouponCode'=>  $order->get_used_coupons(),
@@ -181,7 +181,7 @@ function queue_extole_confirmation_zone( $orderid ) {
 add_action( 'woocommerce_thankyou', 'queue_extole_confirmation_zone' );
 
 /**
- * Extole Header Script 
+ * Extole Header Script
  */
 function queue_extole_header_zone() {
 	wp_enqueue_script( 'extole_header_zone', get_template_directory_uri() . '/js/extole-header-zone.js' );
@@ -197,7 +197,7 @@ add_action( 'wp_head', 'queue_extole_header_zone' );
 
 
 /**
- * Extole Footer Script 
+ * Extole Footer Script
  */
 function queue_extole_footer_zone() {
 	wp_enqueue_script( 'extole_footer_zone', get_template_directory_uri() . '/js/extole-footer-zone.js' );
@@ -213,7 +213,7 @@ add_action( 'wp_footer', 'queue_extole_footer_zone' );
 
 
 /**
- * Extole Product Script 
+ * Extole Product Script
  */
 function queue_extole_zone_product() {
 	wp_enqueue_script( 'extole_zone_product', get_template_directory_uri() . '/js/extole-product-zone.js' );
@@ -386,7 +386,7 @@ function my_header_add_to_cart_fragment( $fragments ) {
     if ( $count > 0 ) {
         ?>
         <span class="cart-contents-count"><?php echo esc_html( $count ); ?></span>
-        <?php            
+        <?php
     }
         ?></a><?php
     $fragments['a.cart-contents'] = ob_get_clean();
