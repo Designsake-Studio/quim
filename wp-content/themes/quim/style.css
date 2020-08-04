@@ -100,6 +100,9 @@ button, button[type="button"], button[type="reset"], button[type="submit"] {
     font-family: 'Montserrat', san-serif;
 }
 
+
+
+
 /* =Extole
 -------------------------------------------------------------- */
 /* Header */
@@ -3385,6 +3388,12 @@ body.home .featured-products .single-product.Happy .product-img-home:before {
     padding-top: 0!important;
     padding-bottom: 0!important;
     line-height: 40px!important;
+}
+
+.kl-private-reset-css-Xuajs1 button[type=button] {
+    background-color: transparent;
+    width: auto;
+    padding: 0;
 }
 
 
