@@ -1,4 +1,6 @@
-<?php if ( ! defined('ABSPATH')) exit('No direct script access allowed');
+<?php if (! defined('ABSPATH')) {
+    exit('No direct script access allowed');
+}
 
 /**
  * Provide a public-facing view for the plugin
@@ -15,17 +17,17 @@
 $errors = self::$errors;
 
 ?>
-<?php if(!$this->js): ?>
+<?php if (!$this->js): ?>
 <!doctype html>
 <html lang="en" class="age-gate-restriced age-gate-standard">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <?php if($this->settings['appearance']['device_width']): ?>
+  <?php if ($this->settings['appearance']['device_width']): ?>
   <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
   <?php endif; ?>
-  <?php if (!current_theme_supports( 'title-tag' )): ?>
-    <?php switch($this->settings['appearance']['title_format']):
+  <?php if (!current_theme_supports('title-tag')): ?>
+    <?php switch ($this->settings['appearance']['title_format']):
       case 'page-name': ?>
       <title><?php wp_title($this->settings['appearance']['title_separator'], true, 'right'); ?> <?php bloginfo('name'); ?></title>
       <?php break; case 'name-page': ?>
@@ -34,12 +36,12 @@ $errors = self::$errors;
   <?php endif; ?>
   <?php wp_head(); ?>
 </head>
-<body class="age-restriction">
+<body class="age-restriction<?php echo($errors ? ' age-gate--error' : ''); ?>">
 <?php endif; ?>
 
 
   <div class="age-gate-wrapper">
-    <?php if($this->settings['appearance']['background_colour']): ?>
+    <?php if ($this->settings['appearance']['background_colour']): ?>
     <div class="age-gate-background-colour"></div>
 
     <?php endif; ?>
@@ -109,7 +111,7 @@ $errors = self::$errors;
 
         <?php
         /* Contitional for rechallenge */
-        if($this->restrictions->rechallenge || !$this->restrictions->rechallenge && !isset($_COOKIE['age_gate_failed'])): ?>
+        if ($this->restrictions->rechallenge || !$this->restrictions->rechallenge && !isset($_COOKIE['age_gate_failed'])): ?>
 
         <?php $extra = ''; $extra = $this->_check_filtered(apply_filters('pre_age_gate_custom_fields', $extra)); echo $extra; ?>
 
@@ -126,12 +128,12 @@ $errors = self::$errors;
         <p class="age-gate-remember-wrapper">
           <label class="age-gate-remember">
             <?php echo form_checkbox(
-              array(
+            array(
                 'name' => "age_gate[remember]"
               ),
-              1, // value
+            1, // value
               $this->restrictions->remember_auto_check // checked
-            ); ?>
+        ); ?>
             <?php echo __($this->messages->remember); ?>
           </label>
         </p>
@@ -147,7 +149,7 @@ $errors = self::$errors;
         <input type="submit" value="<?php echo __($this->messages->submit) ?>" class="age-gate-submit">
         <?php endif; ?>
 
-      <?php elseif(!$this->js && !$errors): ?>
+      <?php elseif (!$this->js && !$errors): ?>
 
             <p class="age-gate-error-message">
             <?php echo __($this->messages->errors->failed); ?>
@@ -157,9 +159,9 @@ $errors = self::$errors;
         <?php
           // user set "additional content"
           if ($this->messages->additional) {
-            echo '<div class="age-gate-additional-information">';
-            echo do_shortcode(wpautop(html_entity_decode(stripslashes(__($this->messages->additional)))));
-            echo "</div>";
+              echo '<div class="age-gate-additional-information">';
+              echo do_shortcode(wpautop(html_entity_decode(stripslashes(__($this->messages->additional)))));
+              echo "</div>";
           }
 
           // base 64 encode the age just to be a little obsure
@@ -169,14 +171,14 @@ $errors = self::$errors;
 
           echo form_hidden('action', 'age_gate_submit');
 
-          echo str_replace('id="age_gate[nonce]"', '', wp_nonce_field( 'age_gate_form', 'age_gate[nonce]', true, false) );
+          echo str_replace('id="age_gate[nonce]"', '', wp_nonce_field('age_gate_form', 'age_gate[nonce]', true, false));
 
-          if(self::$language && self::$language->current['language_code'] !== self::$language->default['language_code']){
-            echo form_hidden('lang', self::$language->current['language_code']);
+          if (self::$language && self::$language->current['language_code'] !== self::$language->default['language_code']) {
+              echo form_hidden('lang', self::$language->current['language_code']);
           }
 
           if ($this->restrictions->input_type === 'buttons') {
-            echo form_hidden('confirm_action', 0);
+              echo form_hidden('confirm_action', 0);
           }
         ?>
       </form>
@@ -188,7 +190,7 @@ $errors = self::$errors;
       ?>
   </div>
 
-<?php if(!$this->js): ?>
+<?php if (!$this->js): ?>
   <?php wp_footer(); ?>
   </body>
 </html>

@@ -1,4 +1,6 @@
-<?php if ( ! defined('ABSPATH')) exit('No direct script access allowed');
+<?php if (! defined('ABSPATH')) {
+    exit('No direct script access allowed');
+}
 
 /**
  * Provide a public-facing view for the plugin
@@ -13,13 +15,13 @@
  */
 ?>
 <div class="wrap">
-  <h2><?php echo esc_html( get_admin_page_title() ); ?></h2>
+  <h2><?php echo esc_html(get_admin_page_title()); ?></h2>
 
   <?php include AGE_GATE_PATH . 'admin/partials/parts/tabs.php'; ?>
 
   <form class="custom-form-fields" action="admin-post.php" method="post">
     <input type="hidden" name="action" value="age_gate_appearance">
-    <?php wp_nonce_field( 'age_gate_update_appearance', 'nonce'); ?>
+    <?php wp_nonce_field('age_gate_update_appearance', 'nonce'); ?>
 
     <table class="form-table">
     <tbody>
@@ -27,34 +29,34 @@
         <th scope="row"><label for="wp_age_gate_logo"><?php _e('Logo', 'age-gate'); ?></label></th>
         <td>
           <div class="image-preview-wrapper" data-option="logo">
-            <?php if($src = wp_get_attachment_url($values['logo'])): ?>
+            <?php if ($src = wp_get_attachment_url($values['logo'])): ?>
             <img class="image-preview" src="<?php echo $src; ?>">
             <?php endif; ?>
           </div>
 
           <?php echo form_submit(
-            array(
+    array(
               'type' => 'button'
             ),
-            __('Select image', 'age-gate'),
-            array(
+    __('Select image', 'age-gate'),
+    array(
               'data-option' => 'logo',
               'class' => 'button upload_image_button'
             )
-          ); ?>
+); ?>
 
           <?php
-            if($values['logo']){
-              echo form_submit(
-                array(
+            if ($values['logo']) {
+                echo form_submit(
+                    array(
                   'type' => 'button'
                 ),
-                __('Remove image', 'age-gate'),
-                array(
+                    __('Remove image', 'age-gate'),
+                    array(
                   'data-option' => 'logo',
                   'class' => 'button remove-image'
                 )
-              );
+                );
             }
 
           ?>
@@ -71,12 +73,12 @@
         <th scope="row"><label for="wp_age_gate_background_colour"><?php _e('Background colour', 'age-gate'); ?></label></th>
         <td>
           <?php echo form_input(
-            array(
+              array(
               'name' => 'ag_settings[background_colour]',
               'id' => 'wp_age_gate_background_colour'
             ),
-            $values['background_colour'],
-            array('class' => 'colour-picker')
+              $values['background_colour'],
+              array('class' => 'colour-picker')
           ); ?>
         </td>
       </tr>
@@ -90,14 +92,14 @@
             <div class="label">0%</div>
             <div class="range-slider">
               <?php echo form_input(
-                array(
+              array(
                   'type' => 'range',
                   'name' => 'ag_settings[background_opacity]',
                   'id' => 'wp_age_gate_background_opacity'
                 ),
-                $values['background_opacity'],
-                array('class' => 'slider', 'min'=> 0, 'max' => 1, 'step' => "0.1")
-              ); ?>
+              $values['background_opacity'],
+              array('class' => 'slider age-gate-range-slider', 'min'=> 0, 'max' => 1, 'step' => "0.1")
+          ); ?>
             </div>
             <div class="label">100%</div>
           </div>
@@ -110,45 +112,48 @@
         <th scope="row"><label for="wp_age_gate_background_image"><?php _e('Background image', 'age-gate'); ?></label></th>
         <td>
           <?php
-            $src = wp_get_attachment_url( $values['background_image'] );
+            $src = wp_get_attachment_url($values['background_image']);
           ?>
 
           <div class="image-preview-wrapper" data-option="background_image">
-            <?php if($src = wp_get_attachment_url($values['background_image'])): ?>
+            <?php if ($src = wp_get_attachment_url($values['background_image'])): ?>
             <img class="image-preview" src="<?php echo $src; ?>">
             <?php endif; ?>
           </div>
 
           <?php echo form_submit(
-            array(
+              array(
               'type' => 'button'
             ),
-            __('Select image', 'age-gate'),
-            array(
+              __('Select image', 'age-gate'),
+              array(
               'data-option' => 'background_image',
               'class' => 'button upload_image_button'
             )
           ); ?>
           <?php
-            if($values['background_image']){
-              echo form_submit(
-                array(
+            if ($values['background_image']) {
+                echo form_submit(
+                    array(
                   'type' => 'button'
                 ),
-                __('Remove image', 'age-gate'),
-                array(
+                    __('Remove image', 'age-gate'),
+                    array(
                   'data-option' => 'background_image',
                   'class' => 'button remove-image'
                 )
-              );
+                );
             }
 
           ?>
-          <?php echo form_input(array(
+          <?php echo form_input(
+              array(
             'name' => 'ag_settings[background_image]',
             'type' => 'hidden'
-          ), $values['background_image'],
-          array('class' => 'image_attachment_id', 'data-option' => 'background_image'));
+          ),
+              $values['background_image'],
+              array('class' => 'image_attachment_id', 'data-option' => 'background_image')
+          );
           ?>
 
 
@@ -160,28 +165,28 @@
         </th>
         <td>
           <?php echo form_dropdown(
-            array(
+              array(
               'name' => 'ag_settings[background_pos_y]',
               'id' => 'wp_age_gate_background_pos_y'
             ),
-            array(
+              array(
               'center' => __("Centre", 'age-gate'),
               'top' => __("Top", 'age-gate'),
               'bottom' => __("Bottom", 'age-gate'),
             ),
-            $values['background_pos_y']
+              $values['background_pos_y']
           ); ?>
           <?php echo form_dropdown(
-            array(
+              array(
               'name' => 'ag_settings[background_pos_x]',
               'id' => 'wp_age_gate_background_pos_x'
             ),
-            array(
+              array(
               'center' => __("Centre", 'age-gate'),
               'left' => __("Left", 'age-gate'),
               'right' => __("Right", 'age-gate'),
             ),
-            $values['background_pos_x']
+              $values['background_pos_x']
           ); ?>
         </td>
       </tr>
@@ -194,14 +199,14 @@
             <div class="label">0%</div>
             <div class="range-slider">
               <?php echo form_input(
-                array(
+              array(
                   'type' => 'range',
                   'name' => 'ag_settings[background_image_opacity]',
                   'id' => 'wp_age_gate_background_image_opacity'
                 ),
-                $values['background_image_opacity'],
-                array('class' => 'slider', 'min'=> 0, 'max' => 1, 'step' => "0.1")
-              ); ?>
+              $values['background_image_opacity'],
+              array('class' => 'slider age-gate-range-slider', 'min'=> 0, 'max' => 1, 'step' => "0.1")
+          ); ?>
             </div>
             <div class="label">100%</div>
           </div>
@@ -212,12 +217,12 @@
         <th scope="row"><label for="wp_age_gate_foreground_colour"><?php _e('Foreground colour', 'age-gate'); ?></label></th>
         <td>
           <?php echo form_input(
-            array(
+              array(
               'name' => 'ag_settings[foreground_colour]',
               'id' => 'wp_age_gate_foreground_colour'
             ),
-            $values['foreground_colour'],
-            array('class' => 'colour-picker')
+              $values['foreground_colour'],
+              array('class' => 'colour-picker')
           ); ?>
         </td>
       </tr>
@@ -230,14 +235,14 @@
             <div class="label">0%</div>
             <div class="range-slider">
               <?php echo form_input(
-                array(
+              array(
                   'type' => 'range',
                   'name' => 'ag_settings[foreground_opacity]',
                   'id' => 'wp_age_gate_foreground_opacity'
                 ),
-                $values['foreground_opacity'],
-                array('class' => 'slider', 'min'=> 0, 'max' => 1, 'step' => "0.1")
-              ); ?>
+              $values['foreground_opacity'],
+              array('class' => 'slider age-gate-range-slider', 'min'=> 0, 'max' => 1, 'step' => "0.1")
+          ); ?>
             </div>
             <div class="label">100%</div>
           </div>
@@ -250,13 +255,13 @@
         <td>
 
           <?php echo form_input(
-            array(
+                  array(
               'name' => 'ag_settings[text_colour]',
               'id' => 'wp_age_gate_text_colour'
             ),
-            $values['text_colour'],
-            array('class' => 'colour-picker')
-          ); ?>
+                  $values['text_colour'],
+                  array('class' => 'colour-picker')
+              ); ?>
         </td>
       </tr>
 
@@ -271,7 +276,7 @@
               ),
               1, // value
               $values['styling'] // checked
-            ); ?> <?php _e('Use plugin style on the front end', 'age-gate'); ?>
+          ); ?> <?php _e('Use plugin style on the front end', 'age-gate'); ?>
           </label>
           </td>
       </tr>
@@ -284,11 +289,11 @@
           <label>
 
             <?php echo form_dropdown(
-              array(
+                  array(
                 'name' => "ag_settings[transition]",
                 'id' => "wp_age_gate_transition"
               ),
-              [
+                  [
                 '' => __('No transition', 'age-gate'),
                 'up' => __('Slide up', 'age-gate'),
                 'down' => __('Slide down', 'age-gate'),
@@ -298,7 +303,7 @@
               ], // value
               $values['transition'], // checked
               ['class' => 'regular-text ltr']
-            ); ?><br /><?php _e('In JavaScript transition Age Gate out', 'age-gate'); ?>
+              ); ?><br /><?php _e('In JavaScript transition Age Gate out', 'age-gate'); ?>
           </label>
           <?php endif; ?>
           </td>
@@ -318,7 +323,7 @@
               ),
               1, // value
               $values['device_width'] // checked
-            ); ?> <?php _e('Add viewport meta to Age Gate page', 'age-gate'); ?><br><i>(width=device-width, minimum-scale=1, maximum-scale=1)</i>
+          ); ?> <?php _e('Add viewport meta to Age Gate page', 'age-gate'); ?><br><i>(width=device-width, minimum-scale=1, maximum-scale=1)</i>
           </label>
         </td>
       </tr>
@@ -329,11 +334,11 @@
         <td>
           <label>
             <?php echo form_checkbox(
-              array(
+                array(
                 'name' => "ag_settings[auto_tab]",
                 'id' => "wp_age_gate_auto_tab"
               ),
-              1, // value
+                1, // value
               $values['auto_tab'] // checked
             ); ?> <?php _e('Input fields will automatically tab to the next once filled', 'age-gate'); ?>
           </label>
@@ -346,11 +351,11 @@
         <td>
           <label>
             <?php echo form_checkbox(
-              array(
+                array(
                 'name' => "ag_settings[switch_title]",
                 'id' => "wp_age_gate_switch_title"
               ),
-              1, // value
+                1, // value
               $values['switch_title'] // checked
             ); ?> <?php _e('Change the page title when Age Gate is shown', 'age-gate'); ?>
           </label>
@@ -370,7 +375,7 @@
 
     </tbody>
   </table>
-  <?php if (!current_theme_supports( 'title-tag' ) && !$this->settings['advanced']['use_js']): ?>
+  <?php if (!current_theme_supports('title-tag') && !$this->settings['advanced']['use_js']): ?>
     <p><?php _e('Your theme does not have the recommended <code>title-tag</code> support', 'age-gate'); ?> <a href="https://codex.wordpress.org/Title_Tag"><span class="dashicons dashicons-external"></span></a></p>
     <p><?php _e('If you are unable to add support, add your preference for the title here', 'age-gate'); ?></p>
     <table class="form-table">
@@ -381,22 +386,22 @@
         <td>
           <label>
             <?php echo form_radio(
-              array(
+                array(
                 'name' => "ag_settings[title_format]",
                 'id' => "wp_age_gate_title_format_a"
               ),
-              'name-page', // value
+                'name-page', // value
               ('name-page' === $values['title_format']) // checked
             ); ?> <?php bloginfo('name'); ?> <?php echo $values['title_separator']; ?> <?php _e('Page title', 'age-gate');?>
 
           </label><br>
           <label>
             <?php echo form_radio(
-              array(
+                array(
                 'name' => "ag_settings[title_format]",
                 'id' => "wp_age_gate_title_format_b"
               ),
-              'page-name', // value
+                'page-name', // value
               ('page-name' === $values['title_format']) // checked
             ); ?> <?php _e('Page title', 'age-gate');?> <?php echo $values['title_separator'] ; ?> <?php bloginfo('name'); ?>
           </label>

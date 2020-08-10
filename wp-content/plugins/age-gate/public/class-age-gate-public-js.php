@@ -59,34 +59,39 @@ class Age_Gate_Public_JS extends Age_Gate_Public
 
         // use localize script to output AG settings
         $params = array(
-      'ajaxurl' => ('rest' === $this->settings['advanced']['endpoint'] ? get_rest_url(null, '/age-gate/v1/') : admin_url('admin-ajax.php')),
-      'settings' => array(
-        'age' => (int) $meta->age,
-        'type' => $meta->restrictions->restriction_type,
-        'bypass' => $meta->bypass,
-        'restrict' => $meta->restrict,
-        'title' => ($this->settings['appearance']['switch_title']) ? sprintf($title_text, $meta->age) . ' - ' . get_bloginfo('name') : false,
-        'current_title' => trim(wp_title('', false)),
-        'screen' => $this->_screen_type(),
-        'ignore_logged' => (int) $this->settings['restrictions']['ignore_logged'],
-        'rechallenge' => (int) $this->settings['restrictions']['rechallenge'],
-        'has_filter' => has_filter('age_gate_restricted'),
-        'viewport' => $this->settings['appearance']['device_width'],
-        'anon' => $this->settings['advanced']['anonymous_age_gate'],
-        'transition' => $this->settings['appearance']['transition']
-      ),
-      'misc' => [
-        'i' => $this->id,
-        't' => $this->type,
-        'qs' => $this->settings['advanced']['filter_qs']
-      ],
-      'errors' => array(
-        'invalid' => __($this->settings['messages']['invalid_input_msg']),
-        'failed' => __($this->settings['messages']['under_age_msg']),
-        'generic' => __($this->settings['messages']['generic_error_msg']),
-        'cookies' => __($this->settings['messages']['cookie_message'])
-      )
-    );
+            'ajaxurl' => ('rest' === $this->settings['advanced']['endpoint'] ? get_rest_url(null, '/age-gate/v1/') : admin_url('admin-ajax.php')),
+            'settings' => array(
+                'age' => (int) $meta->age,
+                'type' => $meta->restrictions->restriction_type,
+                'bypass' => $meta->bypass,
+                'restrict' => $meta->restrict,
+                'title' => ($this->settings['appearance']['switch_title']) ? sprintf($title_text, $meta->age) . ' - ' . get_bloginfo('name') : false,
+                'current_title' => trim(wp_title('', false)),
+                'screen' => $this->_screen_type(),
+                'ignore_logged' => (int) $this->settings['restrictions']['ignore_logged'],
+                'rechallenge' => (int) $this->settings['restrictions']['rechallenge'],
+                'has_filter' => has_filter('age_gate_restricted'),
+                'viewport' => $this->settings['appearance']['device_width'],
+                'anon' => $this->settings['advanced']['anonymous_age_gate'],
+                'transition' => $this->settings['appearance']['transition']
+            ),
+            'misc' => [
+                'i' => $this->id,
+                't' => $this->type,
+                'qs' => $this->settings['advanced']['filter_qs']
+            ],
+            'errors' => array(
+                'invalid' => __($this->settings['messages']['invalid_input_msg']),
+                'failed' => __($this->settings['messages']['under_age_msg']),
+                'generic' => __($this->settings['messages']['generic_error_msg']),
+                'cookies' => __($this->settings['messages']['cookie_message'])
+            )
+        );
+
+        $cookieName = $this->get_cookie_name();
+        if ($cookieName !== 'age_gate') {
+            $params['settings']['cn'] = $cookieName;
+        }
 
         $user_params = [];
         $user_params = apply_filters('age_gate_js_params', $user_params);
@@ -115,17 +120,57 @@ class Age_Gate_Public_JS extends Age_Gate_Public
     private function _get_category_info()
     {
         $inherit = [
-      'inherit' => true
-    ];
+            'inherit' => true
+        ];
+        
         sort($this->settings['advanced']['inherit_taxonomies']);
+        
         switch ($this->settings['restrictions']['restriction_type']) {
-      case 'selected':
-        $inherit['restrict'] = (wp_get_post_terms($this->id, $this->settings['advanced']['inherit_taxonomies'], ['meta_key' => '_age_gate-restrict']) ? true : false);
-        break;
-      default:
-        $inherit['bypass'] = (wp_get_post_terms($this->id, $this->settings['advanced']['inherit_taxonomies'], ['meta_key' => '_age_gate-bypass']) ? true : false);
-        break;
-    }
+            case 'selected':
+                $terms = wp_get_post_terms($this->id, $this->settings['advanced']['inherit_taxonomies']);
+
+                $restrictedTerms = [];
+                foreach ($terms as $term) {
+                    if (get_term_meta($term->term_id, '_age_gate-restrict', true)) {
+                        $restrictedTerms[$term->slug] = [
+                            'id' => $term->term_id,
+                            'slug' => $term->slug,
+                            'taxonomy' => $term->taxonomy,
+                        ];
+                    }
+                }
+
+                if ($restrictedTerms) {
+                    $restricted = true;
+                    $restricted = apply_filters('age_gate_inherited', $restricted, $this->meta, ['type' => 'inherited', 'taxonomies' => $restrictedTerms]);
+                    $inherit['restrict'] = $restricted;
+                }
+
+                break;
+            default:
+                $terms = wp_get_post_terms($this->id, $this->settings['advanced']['inherit_taxonomies']);
+
+                $bypassTerms = [];
+                foreach ($terms as $term) {
+                    if (get_term_meta($term->term_id, '_age_gate-bypass', true)) {
+                        $bypassTerms[$term->slug] = [
+                            'id' => $term->term_id,
+                            'slug' => $term->slug,
+                            'taxonomy' => $term->taxonomy,
+                        ];
+                    }
+                }
+
+
+                if ($bypassTerms) {
+                    $restricted = false;
+                    $restricted = apply_filters('age_gate_inherited', $restricted, $this->meta, ['type' => 'inherited', 'taxonomies' => $bypassTerms]);
+                    $inherit['bypass'] = $restricted;
+                }
+
+                break;
+            }
+        
         return $inherit;
     }
 
@@ -411,7 +456,7 @@ class Age_Gate_Public_JS extends Age_Gate_Public
           'age_gate_y' => 'required|numeric|min_len,4|max_len,4|min_numeric,'. $min_year .'|max_numeric,' . date('Y'),
         ],
                 $ag_rules
-      );
+            );
         }
 
         $validation_rules = array_merge($custom_rules, $ag_rules);

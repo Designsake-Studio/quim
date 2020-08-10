@@ -373,78 +373,82 @@ if( ! class_exists ( 'Wt_Smart_Coupon_Bulk_Generate' ) ) {
          */
 
         public function generate_bulk_coupon_action() {
-            check_admin_referer( 'wt_bulk_generate_coupon' );
+            
+            if ( ! Wt_Smart_Coupon_Security_Helper::check_write_access( 'smart_coupons', 'wt_bulk_generate_coupon' ) ) {
+                wp_die(__('You do not have sufficient permission to perform this operation', 'wt-smart-coupons-for-woocommerce-pro'));
+            }   
 
-                if( isset( $_POST['_wt_no_of_coupons']) && $_POST['_wt_no_of_coupons'] > 0 ) {
+            if( isset( $_POST['_wt_no_of_coupons']) && $_POST['_wt_no_of_coupons'] > 0 ) {
+                
+                $allowed_email =  Wt_Smart_Coupon_Security_Helper::sanitize_item( ( isset($_POST['customer_email']) ? $_POST['customer_email'] : '' ) );
+                if( $allowed_email!='' ) {
+                    $emails = explode(',',$allowed_email);
+                }
+                $coupon_need_to_genrate = Wt_Smart_Coupon_Security_Helper::sanitize_item($_POST['_wt_no_of_coupons'],'int');
+
+                if( isset($emails) && sizeof($emails) > 0 && sizeof($emails) < $_POST['_wt_no_of_coupons']  ) {
+                    $coupon_need_to_genrate = sizeof($emails) ;
+                }
+                if( isset( $_POST['wt_generate_coupon_and']) && ( $_POST['wt_generate_coupon_and'] == 'email_to_recipients' ||  $_POST['wt_generate_coupon_and'] == 'add_to_store' ) ) {
+
+                    for( $i = 0 ; $i < $coupon_need_to_genrate; $i++  ) {
+
+                        $prefix = Wt_Smart_Coupon_Security_Helper::sanitize_item($_POST['_wt_coupon_prefix']);
+                        $suffix = Wt_Smart_Coupon_Security_Helper::sanitize_item($_POST['_wt_coupon_suffix']);
+
+                        $coupon_length = Wt_Smart_Coupon_Admin::get_option('no_of_characters_for_bulk_generate');
+
+                        $coupon_code = Wt_Smart_Coupon_Admin::generate_random_coupon($prefix,$suffix,$coupon_length);
+
                     
-                    $allowed_email = ( isset($_POST['customer_email']) )? $_POST['customer_email'] : '';
-                    if( $allowed_email!='' ) {
-                        $emails = explode(',',$allowed_email);
-                    }
-                    $coupon_need_to_genrate = $_POST['_wt_no_of_coupons'];
-
-                    if( isset($emails) && sizeof($emails) > 0 && sizeof($emails) < $_POST['_wt_no_of_coupons']  ) {
-                        $coupon_need_to_genrate = sizeof($emails) ;
-                    }
-                    if( isset( $_POST['wt_generate_coupon_and']) && ( $_POST['wt_generate_coupon_and'] == 'email_to_recipients' ||  $_POST['wt_generate_coupon_and'] == 'add_to_store' ) ) {
-
-                        for( $i = 0 ; $i < $coupon_need_to_genrate; $i++  ) {
-
-                            $prefix = $_POST['_wt_coupon_prefix'];
-                            $suffix = $_POST['_wt_coupon_suffix'];
-
-                            $coupon_length = Wt_Smart_Coupon_Admin::get_option('no_of_characters_for_bulk_generate');
-
-                            $coupon_code = Wt_Smart_Coupon_Admin::generate_random_coupon($prefix,$suffix,$coupon_length);
-
                         
-                            
-                            $coupon_args = array(
-                                'post_title'    => strtolower( $coupon_code ),
-                                'post_content'  => '',
-                                'post_status'   => 'publish',
-                                'post_author'   => 1,
-                                'post_type'     => 'shop_coupon'
-                            );
+                        $coupon_args = array(
+                            'post_title'    => strtolower( $coupon_code ),
+                            'post_content'  => '',
+                            'post_status'   => 'publish',
+                            'post_author'   => 1,
+                            'post_type'     => 'shop_coupon'
+                        );
 
-                            $coupon_id  = wp_insert_post( $coupon_args );
-                            update_post_meta( $coupon_id, 'wt_bulk_genrated_coupon', true );
-                            $coupon     = get_post($coupon_id);
+                        $coupon_id  = wp_insert_post( $coupon_args );
+                        update_post_meta( $coupon_id, 'wt_bulk_genrated_coupon', true );
+                        $coupon     = get_post( $coupon_id );
+                        add_filter('wt_custom_coupon_unique_url', array( $this, 'wt_generate_coupon_id'),10,2);
+                        do_action('woocommerce_process_shop_coupon_meta',$coupon_id,$coupon);
+                        
+                        $coupon_obj = new WC_Coupon( $coupon_id );
+                        if( isset( $emails ) && !empty($emails)) {
+                            $coupon_obj->set_email_restrictions(  $emails[$i] );
 
-                            do_action('woocommerce_process_shop_coupon_meta',$coupon_id,$coupon);
-                            $coupon_obj = new WC_Coupon( $coupon_id );
-                            if( isset( $emails ) && !empty($emails)) {
-                                $coupon_obj->set_email_restrictions(  $emails[$i] );
-
-                            }
-                            $coupon_obj->save();
-
-                            if( $_POST['wt_generate_coupon_and'] == 'email_to_recipients' ) {
-                                WC()->mailer();
-                                do_action('wt_send_coupon_to_customer',$coupon_obj,strtolower( $coupon_code ),$emails[$i]  );
-
-                            }
                         }
-                        
-                    } elseif( $_POST['wt_generate_coupon_and'] && ( $_POST['wt_generate_coupon_and'] == 'export_as_csv_store' ) ) {
-                            
-                        $this->export_coupon( $_POST,$coupon_need_to_genrate );
+                        $coupon_obj->save();
 
-                    } else {
-                        header('Location: ' . $_SERVER['HTTP_REFERER']);
+                        if( $_POST['wt_generate_coupon_and'] == 'email_to_recipients' ) {
+                            WC()->mailer();
+                            do_action('wt_send_coupon_to_customer',$coupon_obj,strtolower( $coupon_code ),$emails[$i]  );
+
+                        }
                     }
-                    wp_safe_redirect( get_admin_url().'edit.php?post_type=shop_coupon' );
+                    
+                } elseif( $_POST['wt_generate_coupon_and'] && ( $_POST['wt_generate_coupon_and'] == 'export_as_csv_store' ) ) {
+                        
+                    $this->export_coupon( $_POST,$coupon_need_to_genrate );
 
                 } else {
-                    ?>
-                    <div class="postbox" id="">
-                        <div class="error notice">
-                            <p> <?php _e('Please enter a valid value for Number of Coupons to Generate', 'wt-smart-coupons-for-woocommerce-pro'); ?></p>
-                        </div>
-                    
-                    </div>
-                    <?php
+                    header('Location: ' . $_SERVER['HTTP_REFERER']);
                 }
+                wp_safe_redirect( get_admin_url().'edit.php?post_type=shop_coupon' );
+
+            } else {
+                ?>
+                <div class="postbox" id="">
+                    <div class="error notice">
+                        <p> <?php _e('Please enter a valid value for Number of Coupons to Generate', 'wt-smart-coupons-for-woocommerce-pro'); ?></p>
+                    </div>
+                
+                </div>
+                <?php
+            }
         }
 
         /**
@@ -455,8 +459,8 @@ if( ! class_exists ( 'Wt_Smart_Coupon_Bulk_Generate' ) ) {
          */
         public function export_coupon( $post,$no_of_coupon_need_to_genrate ) {
 
-            $prefix = $_POST['_wt_coupon_prefix'];
-            $suffix = $_POST['_wt_coupon_suffix'];
+            $prefix = Wt_Smart_Coupon_Security_Helper::sanitize_item($_POST['_wt_coupon_prefix']);
+            $suffix = Wt_Smart_Coupon_Security_Helper::sanitize_item($_POST['_wt_coupon_suffix']);
 
             $coupon_posts_headers = array ( 
                 'post_title'    => __( 'Coupon Code','wt-smart-coupons-for-woocommerce-pro' ),
@@ -468,9 +472,8 @@ if( ! class_exists ( 'Wt_Smart_Coupon_Bulk_Generate' ) ) {
             );
             $default_coupon_meta_fields = array(
                 '_wt_sc_shipping_methods'           => __( '_wt_sc_shipping_methods','wt-smart-coupons-for-woocommerce-pro' ),
-                '_wt_sc_payment_methods'            => __( '_wt_sc_shipping_methods','wt-smart-coupons-for-woocommerce-pro' ),
-                '_wt_sc_user_roles'                 => __( '_wt_sc_shipping_methods','wt-smart-coupons-for-woocommerce-pro' ),
-                '_wt_category_condition'            => __( '_wt_sc_shipping_methods','wt-smart-coupons-for-woocommerce-pro' ),
+                '_wt_sc_payment_methods'            => __( '_wt_sc_payment_methods','wt-smart-coupons-for-woocommerce-pro' ),
+                '_wt_sc_user_roles'                 => __( '_wt_sc_user_roles','wt-smart-coupons-for-woocommerce-pro' ),
                 '_wt_category_condition'            => __( '_wt_category_condition','wt-smart-coupons-for-woocommerce-pro' ),
                 '_wt_product_condition'             => __( '_wt_product_condition','wt-smart-coupons-for-woocommerce-pro' ),
                 '_wt_free_product_ids'              => __( '_wt_free_product_ids','wt-smart-coupons-for-woocommerce-pro' ),
@@ -518,11 +521,12 @@ if( ! class_exists ( 'Wt_Smart_Coupon_Bulk_Generate' ) ) {
                 
 
             }
+            
             $coupon_meta_headers = array_unique(array_merge($default_coupon_meta_fields,$coupon_meta_headers) );
-
+            
             $coupon_csv_header = array_merge($coupon_posts_headers,$coupon_meta_headers);
             $coupon_csv_data = array();
-
+            
             for( $i =0 ; $i < $no_of_coupon_need_to_genrate; $i++ ) {
 
                 $coupon_length = Wt_Smart_Coupon_Admin::get_option('no_of_characters_for_bulk_generate');
@@ -619,10 +623,12 @@ if( ! class_exists ( 'Wt_Smart_Coupon_Bulk_Generate' ) ) {
          function update_bulk_generate_settings( ) {
 
             if( isset( $_POST['update_wt_smart_coupon_general_settings'] ) ) {
-                check_admin_referer('wt_smart_coupons_general_settings');
+                if ( ! Wt_Smart_Coupon_Security_Helper::check_write_access( 'smart_coupons', 'wt_smart_coupons_general_settings' ) ) {
+                    wp_die(__('You do not have sufficient permission to perform this operation', 'wt-smart-coupons-for-woocommerce-pro'));
+                }
                 $smart_coupon_options = Wt_Smart_Coupon_Admin::get_options();
                 if( isset( $_POST['_wt_no_of_characters_for_bulk_generate'] ) && '' != $_POST['_wt_no_of_characters_for_bulk_generate']  ) {
-                    $no_charectors = sanitize_text_field( $_POST['_wt_no_of_characters_for_bulk_generate'] );                    
+                    $no_charectors = Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['_wt_no_of_characters_for_bulk_generate'] );                    
                 } else {
                     $no_charectors = 12; 
                 }
@@ -633,7 +639,21 @@ if( ! class_exists ( 'Wt_Smart_Coupon_Bulk_Generate' ) ) {
 
             }
         }
-        
+
+
+        /**
+         * Return coupon code as unique URL for URL coupon
+         *
+         * @since 1.3.1
+         * @param string $unique_url Unique URL from URL options
+         * @param string $coupon_code Coupon code 
+         * @return string
+         */
+        public function wt_generate_coupon_id( $unique_url, $coupon_code ) {
+            
+            return $coupon_code;
+
+        }
         
     }
 }

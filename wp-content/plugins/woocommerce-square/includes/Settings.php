@@ -130,6 +130,13 @@ class Settings extends \WC_Settings_API {
 			],
 		];
 
+		$fields['enable_sandbox'] = [
+			'title'       => __( 'Enable Sandbox Mode', 'woocommerce-square' ),
+			'label'       => '<span>' . __( 'Enable to set the plugin in sandbox mode.', 'woocommerce-square' ) . '</span>',
+			'type'        => 'checkbox',
+			'description' => __( 'After enabling you’ll see a new Sandbox settings section with two fields; Sandbox Application ID & Sandbox Access Token.', 'woocommerce-square' ),
+		];
+
 		if ( $this->is_sandbox() ) {
 			$fields['sandbox_settings']       = [
 				'type'        => 'title',
@@ -163,7 +170,7 @@ class Settings extends \WC_Settings_API {
 					/* translators: Placeholders: %1$s - <strong> tag, %2$s - </strong> tag, %3$s - <a> tag, %4$s - </a> tag */
 					__( 'Select a location to link to this site. Only %1$sactive%2$s %3$slocations%4$s that support credit card processing in Square can be linked.', 'woocommerce-square' ),
 					'<strong>', '</strong>',
-					'<a href="https://squareup.com/help/us/en/article/5580-manage-multiple-locations-with-square" target="_blank">', '</a>'
+					'<a href="https://docs.woocommerce.com/document/woocommerce-square/#section-4" target="_blank">', '</a>'
 				),
 				'options' => [], // this is populated on display
 			];
@@ -254,8 +261,7 @@ class Settings extends \WC_Settings_API {
 
 		$fields = parent::get_form_fields();
 
-		if ( ! empty( $fields['location_id'] ) ) {
-
+		if ( ! empty( $fields['location_id'] ) && did_action( 'wc_square_initialized' ) && $this->is_admin_settings_screen() ) {
 			$locations = [
 				'' => __( 'Please choose a location', 'woocommerce-square' ),
 			];
@@ -271,6 +277,7 @@ class Settings extends \WC_Settings_API {
 			}
 
 			$fields['location_id']['options'] = $locations;
+
 		}
 
 		return $fields;
@@ -602,7 +609,19 @@ class Settings extends \WC_Settings_API {
 	 */
 	public function get_locations() {
 
-		if ( ! is_array( $this->locations ) ) {
+		// if locations have already been fetched, no need to fetch again
+		if ( is_array( $this->locations ) ) {
+
+			return $this->locations;
+		}
+
+		// don't always need to refetch when not on Settings screen
+		if ( ! $this->is_admin_settings_screen() ) {
+
+			$this->locations = get_transient( 'wc_square_locations' );
+		}
+
+		if ( ! is_array( $this->locations ) && did_action( 'wc_square_initialized' ) ) {
 
 			$this->locations = [];
 
@@ -610,6 +629,7 @@ class Settings extends \WC_Settings_API {
 
 				// cache the locations returned so they can be used elsewhere
 				$this->locations = $this->get_plugin()->get_api( $this->get_access_token(), $this->is_sandbox() )->get_locations();
+				set_transient( 'wc_square_locations', $this->locations, HOUR_IN_SECONDS );
 
 				// check the returned IDs against what's currently configured
 				$stored_location_id = $this->get_location_id();
@@ -796,6 +816,29 @@ class Settings extends \WC_Settings_API {
 		return (array) get_option( 'wc_square_refresh_tokens', [] );
 	}
 
+	/**
+	 * Gets setting enabled sandbox.
+	 *
+	 * @since 2.1.2
+	 *
+	 * @return string
+	 */
+	public function get_enable_sandbox() {
+		return $this->get_option( 'enable_sandbox' );
+	}
+
+	/**
+	 * Tells is if the setting for enabling sandbox is checked.
+	 *
+	 * @since 2.1.2
+	 *
+	 * @return boolean
+	 */
+	public function is_sandbox_setting_enabled() {
+		// we also need to check the checkbox as it is not store on the first load after submission.
+		return 'yes' == $this->get_enable_sandbox() || isset( $_POST['wc_square_enable_sandbox'] );
+	}
+
 
 	/**
 	 * Gets the configured environment.
@@ -805,7 +848,8 @@ class Settings extends \WC_Settings_API {
 	 * @return string
 	 */
 	public function get_environment() {
-		return defined( 'WC_SQUARE_SANDBOX' ) && WC_SQUARE_SANDBOX ? 'sandbox' : 'production';
+		$sanboxed = ( defined( 'WC_SQUARE_SANDBOX' ) && WC_SQUARE_SANDBOX ) || $this->is_sandbox_setting_enabled();
+		return $sanboxed ? 'sandbox' : 'production';
 	}
 
 
@@ -821,5 +865,13 @@ class Settings extends \WC_Settings_API {
 		return $this->plugin;
 	}
 
-
+	/**
+	 * Determines if the current request is for the Square admin settings screen.
+	 *
+	 * @since 2.1.5
+	 * @return bool True if the current request is for the Square admin settings, otherwise false.
+	 */
+	public function is_admin_settings_screen() {
+		return isset( $_GET['page'], $_GET['tab'] ) && 'wc-settings' === $_GET['page'] && Plugin::PLUGIN_ID === $_GET['tab'];
+	}
 }

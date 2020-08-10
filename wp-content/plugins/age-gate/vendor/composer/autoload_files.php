@@ -6,6 +6,5 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'ef55b063b9ee0ba7e3e1dfb9a6dae703' => $vendorDir . '/mcaskill/php-html-build-attributes/Function.HTML-Build-Attributes.php',
     'da253f61703e9c22a5a34f228526f05a' => $vendorDir . '/wixel/gump/gump.class.php',
 );

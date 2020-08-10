@@ -56,23 +56,23 @@
               <legend class="screen-reader-text"><?php _e('Select an option', 'age-gate'); ?></legend>
               <label>
                 <?php echo form_radio(
-                    array(
+    array(
                     'name' => 'ag_settings[endpoint]',
                     'id' => 'wp_age_gate_use_standard'
                   ),
-                    'ajax',
-                    ($values['endpoint'] === 'ajax')
-                ); ?> <?php _e('Admin Ajax', 'age-gate'); ?>
+    'ajax',
+    ($values['endpoint'] === 'ajax')
+); ?> <?php _e('Admin Ajax', 'age-gate'); ?>
               </label><br>
               <label>
                 <?php echo form_radio(
-                    array(
+    array(
                     'name' => 'ag_settings[endpoint]',
                     'id' => 'wp_age_gate_use_standard'
                   ),
-                    'rest',
-                    ($values['endpoint'] === 'rest')
-                ); ?> <?php _e('REST API', 'age-gate'); ?>
+    'rest',
+    ($values['endpoint'] === 'rest')
+); ?> <?php _e('REST API', 'age-gate'); ?>
               </label>
               <p class="note"><?php _e('Where to send the AJAX request', 'age-gate'); ?></p>
 
@@ -86,13 +86,13 @@
               <legend class="screen-reader-text"><?php _e('Select an option', 'age-gate'); ?></legend>
               <label>
                 <?php echo form_checkbox(
-                    array(
+    array(
                     'name' => 'ag_settings[post_to_self]',
                     'id' => 'wp_age_gate_post_to_self'
                   ),
-                    'ajax',
-                    ($values['post_to_self'])
-                ); ?> <?php _e('Check to post to self', 'age-gate'); ?>
+    'ajax',
+    ($values['post_to_self'])
+); ?> <?php _e('Check to post to self', 'age-gate'); ?>
               </label>
               <p class="note"><?php _e('In standard mode, post the Age Gate to the current page, rather the admin-post', 'age-gate'); ?></p>
             </fieldset>
@@ -103,13 +103,13 @@
           <td>
             <label>
               <?php echo form_checkbox(
-                    array(
+    array(
                   'name' => 'ag_settings[js_hooks]',
                   'id' => 'wp_age_gate_js_hooks'
                 ),
-                    1,
-                    $values['js_hooks']
-                ); ?>
+    1,
+    $values['js_hooks']
+); ?>
         <?php echo sprintf(__('%s and %s filters available in JS files', 'age-gate'), '<code>age_gate_restricted</code>', '<code>age_gate_set_cookie</code>') ?>
             </label>
 
@@ -121,13 +121,13 @@
           <td>
             <label>
               <?php echo form_checkbox(
-                  array(
+    array(
                   'name' => 'ag_settings[filter_qs]',
                   'id' => 'wp_age_gate_filter_qs'
                 ),
-                  1,
-                  $values['filter_qs']
-              ); ?> <?php echo sprintf(__('Send query string to %s filter', 'age-gate'), '<code>age_gate_restricted</code>') ?>
+    1,
+    $values['filter_qs']
+); ?> <?php echo sprintf(__('Send query string to %s filter', 'age-gate'), '<code>age_gate_restricted</code>') ?>
             </label>
 
           </td>
@@ -147,13 +147,13 @@
               <legend class="screen-reader-text"><?php _e('Select an option', 'age-gate'); ?></legend>
               <label>
                 <?php echo form_checkbox(
-                  array(
+    array(
                     'name' => 'ag_settings[anonymous_age_gate]',
                     'id' => 'wp_age_gate_anonymous_age_gate'
                   ),
-                  1,
-                  $values['anonymous_age_gate']
-              ); ?> <?php _e('Use anonymous Age Gate', 'age-gate'); ?>
+    1,
+    $values['anonymous_age_gate']
+); ?> <?php _e('Use anonymous Age Gate', 'age-gate'); ?>
               </label>
               <p class="note"><?php _e('This option makes Age Gate only store if a user has passed the challange and not an age for extra privacy', 'age-gate'); ?></p>
             </fieldset>
@@ -172,13 +172,13 @@
             <?php foreach ($tax as $key => $taxonomy): ?>
               <label>
                 <?php echo form_checkbox(
-                    array(
+    array(
                     'name' => 'ag_settings[inherit_taxonomies]['.$taxonomy->name.']',
                     'id' => 'wp_age_gate_inherit_taxonomies'
                   ),
-                    $taxonomy->name,
-                    isset($values['inherit_taxonomies'][$taxonomy->name])
-                ); ?> <?php echo $taxonomy->label; ?>
+    $taxonomy->name,
+    isset($values['inherit_taxonomies'][$taxonomy->name])
+); ?> <?php echo $taxonomy->label; ?>
               </label>
             <?php endforeach; ?>
 
@@ -192,13 +192,13 @@
         <td>
           <label>
             <?php echo form_checkbox(
-                    array(
+    array(
                 'name' => 'ag_settings[enable_import_export]',
                 'id' => 'wp_age_gate_enable_import_export'
               ),
-                    1,
-                    $values['enable_import_export']
-                ); ?> <?php _e('Enable settings import/export', 'age-gate'); ?>
+    1,
+    $values['enable_import_export']
+); ?> <?php _e('Enable settings import/export', 'age-gate'); ?>
           </label>
         </td>
       </tr>
@@ -210,23 +210,23 @@
         <td>
           <label>
             <?php echo form_radio(
-                array(
+    array(
                 'name' => 'ag_settings[full_nav]',
                 'id' => 'wp_age_gate_full_nav_off'
               ),
-                'off',
-                ($values['full_nav'] === 'off')
-            ); ?> <?php _e('Off - don&rsquo;t show in toolbar', 'age-gate'); ?>
+    'off',
+    ($values['full_nav'] === 'off')
+); ?> <?php _e('Off - don&rsquo;t show in toolbar', 'age-gate'); ?>
           </label><br />
           <label>
             <?php echo form_radio(
-                array(
+    array(
                 'name' => 'ag_settings[full_nav]',
                 'id' => 'wp_age_gate_full_nav_toggle'
               ),
-                'toggle',
-                ($values['full_nav'] === 'toggle')
-            ); ?> <?php _e('Toggle - menu option to switch Age Gate on/off. Only displays on restriced content', 'age-gate'); ?></label>
+    'toggle',
+    ($values['full_nav'] === 'toggle')
+); ?> <?php _e('Toggle - menu option to switch Age Gate on/off. Only displays on restriced content', 'age-gate'); ?></label>
         </td>
       </tr>
     </table>
@@ -261,13 +261,13 @@
           <td>
             <label>
               <?php echo form_checkbox(
-                array(
+    array(
                   'name' => 'ag_settings[enable_quicktags]',
                   'id' => 'wp_age_gate_enable_quicktags'
                 ),
-                1,
-                $values['enable_quicktags']
-            ); ?> <?php _e('Enable quicktags in messaging WYSIWYG', 'age-gate'); ?>.
+    1,
+    $values['enable_quicktags']
+); ?> <?php _e('Enable quicktags in messaging WYSIWYG', 'age-gate'); ?>.
             </label>
           </td>
         </tr>
@@ -284,13 +284,13 @@
         <td>
           <label>
             <?php echo form_checkbox(
-                  array(
+    array(
                 'name' => 'ag_settings[use_default_lang]',
                 'id' => 'wp_age_gate_use_default_lang'
               ),
-                  1,
-                  $values['use_default_lang']
-              ); ?>
+    1,
+    $values['use_default_lang']
+); ?>
             <?php _e('Use the default language if a translation is missing') ?>
           </label>
         </td>
@@ -313,13 +313,13 @@
               <legend class="screen-reader-text"><?php _e('Select an option', 'age-gate'); ?></legend>
               <label>
                 <?php echo form_checkbox(
-                array(
+    array(
                     'name' => 'ag_settings[dev_notify]',
                     'id' => 'wp_age_gate_dev_notify'
                   ),
-                1,
-                $values['dev_notify']
-            ); ?> <?php _e('Show messages about new development versions', 'age-gate'); ?>
+    1,
+    $values['dev_notify']
+); ?> <?php _e('Show messages about new development versions', 'age-gate'); ?>
               </label>
             </fieldset>
           </td>
@@ -334,13 +334,13 @@
               <legend class="screen-reader-text"><?php _e('Select an option', 'age-gate'); ?></legend>
               <label>
                 <?php echo form_checkbox(
-                    array(
+    array(
                     'name' => 'ag_settings[dev_hide_warning]',
                     'id' => 'wp_age_gate_dev_hide_warning'
                   ),
-                    1,
-                    $values['dev_hide_warning']
-                ); ?> <?php _e('Hide the development warning message', 'age-gate'); ?>
+    1,
+    $values['dev_hide_warning']
+); ?> <?php _e('Hide the development warning message', 'age-gate'); ?>
               </label>
             </fieldset>
           </td>
@@ -349,6 +349,27 @@
       </tbody>
     </table>
     <?php endif; ?>
+    <h3><?php _e('Cookie name', 'age-gate'); ?></h3>
+    <p><?php _e('You can can set a custom name for the Age Gate cookie. Note it will be prepended with <code>ag_</code> to attempt to avoid conflicts', 'age-gate'); ?></p>
+    <p><em><?php _e('You should only change this setting in exceptional circumstances, e.g. you have removed remember me from the site.', 'age-gate'); ?></em></p>
+    <table class="form-table">
+      <tbody>
+          <tr>
+            <th scope="row">
+                <?php echo __('Cookie name', 'age-gate'); ?>
+            </th>
+            <td>
+              <?php echo form_input(array(
+                'name' => 'ag_settings[cookie_name]',
+                'type' => 'text',
+                // 'id' => 'wp_age_gate_' . $field
+              ), $values['cookie_name'], array('class' => 'regular-text ltr', 'pattern'=>"[a-z_]+"));
+              ?>
+              <p class="note"><?php _e('May contain lowercase letters and underscores only', 'age-gate'); ?></p>
+            </td>
+          </tr>        
+      </tbody>
+    </table>
 
     <h3><?php _e('Custom bots', 'age-gate'); ?></h3>
     <p><?php _e('You can add the user agent string of any bots that are not automatically picked up', 'age-gate'); ?></p>

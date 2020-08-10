@@ -64,7 +64,7 @@ if( ! class_exists('WT_Giveaway_Free_Product_Admin') ) {
 
                     ?>
                     <p class="form-field"><label><?php _e( 'Quantity', 'wt-smart-coupons-for-woocommerce-pro' ); ?></label>
-                        <input type="number" step="1" min="1" name="wt_product_discount_quantity" value="<?php echo ( '' !== $discount_quantity ) ? esc_attr( $discount_quantity ) : 1; ?>" placeholder="<?php echo esc_attr__( '1', 'wt-smart-coupons-for-woocommerce-pro' ); ?>" style="width: 5em;"> 
+                        <input type="number" step="1" min="1" name="_wt_product_discount_quantity" value="<?php echo ( '' !== $discount_quantity ) ? esc_attr( $discount_quantity ) : 1; ?>" placeholder="<?php echo esc_attr__( '1', 'wt-smart-coupons-for-woocommerce-pro' ); ?>" style="width: 5em;"> 
                         <?php echo wc_help_tip( __( 'Specified quantity of the product will be added to the cart.', 'wt-smart-coupons-for-woocommerce-pro' ) ); ?>
                     </p>
                     <?php // End managing Quantity. ?>
@@ -79,9 +79,9 @@ if( ! class_exists('WT_Giveaway_Free_Product_Admin') ) {
                     <div class = "give_away_product_discount">
                         <p class="form-field">
                             <label><?php echo esc_html__( 'Giveaway discount ', 'wt-smart-coupons-for-woocommerce-pro' ); ?></label>
-                            <input type="number" step="0.01" name="wt_product_discount_amount" value="<?php echo ( '' !== $discount_amount ) ? esc_attr( $discount_amount ) : ''; ?>" placeholder="<?php echo esc_attr__( '00.00', 'wt-smart-coupons-for-woocommerce-pro' ); ?>" style="width: 5em;">
+                            <input type="number" step="0.01" name="_wt_product_discount_amount" value="<?php echo ( '' !== $discount_amount ) ? esc_attr( $discount_amount ) : ''; ?>" placeholder="<?php echo esc_attr__( '00.00', 'wt-smart-coupons-for-woocommerce-pro' ); ?>" style="width: 5em;">
                             
-                            <select name="wt_product_discount_type">
+                            <select name="_wt_product_discount_type">
                                 <option value="percent" <?php selected( $discount_type, 'percent' ); ?>><?php echo esc_html__( '%', 'wt-smart-coupons-for-woocommerce-pro' ); ?></option>
                                 <option value="flat" <?php selected( $discount_type, 'flat' ); ?>><?php echo esc_html( get_woocommerce_currency_symbol() ); ?></option>
                             </select>
@@ -118,7 +118,7 @@ if( ! class_exists('WT_Giveaway_Free_Product_Admin') ) {
 
             if( isset($_POST['_wt_free_product_ids']) && $_POST['_wt_free_product_ids']!='' ) {
 
-                update_post_meta($post_id, '_wt_free_product_ids', implode(',', $_POST['_wt_free_product_ids'] ) );
+                update_post_meta($post_id, '_wt_free_product_ids', implode(',', Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['_wt_free_product_ids'], 'int_arr' ) ) );
             } else {
                 update_post_meta($post_id, '_wt_free_product_ids', '');
             }
@@ -129,19 +129,19 @@ if( ! class_exists('WT_Giveaway_Free_Product_Admin') ) {
                 update_post_meta($post_id, 'wt_apply_discount_before_tax_calculation', 0 );
             }
 
-            if( isset( $_POST['wt_product_discount_amount']) && '' != $_POST['wt_product_discount_amount'] ) {
-                update_post_meta($post_id, '_wt_product_discount_amount',$_POST['wt_product_discount_amount'] );
+            if( isset( $_POST['_wt_product_discount_amount']) && '' != $_POST['_wt_product_discount_amount'] ) {
+                update_post_meta($post_id, '_wt_product_discount_amount',Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['_wt_product_discount_amount'], 'float' ) );
             } else {
                 update_post_meta($post_id, '_wt_product_discount_amount', '' );
             }
-            if( isset( $_POST['wt_product_discount_type']) && '' != $_POST['wt_product_discount_type'] ) {
-                update_post_meta($post_id, '_wt_product_discount_type',$_POST['wt_product_discount_type'] );
+            if( isset( $_POST['_wt_product_discount_type']) && '' != $_POST['_wt_product_discount_type'] ) {
+                update_post_meta($post_id, '_wt_product_discount_type',Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['_wt_product_discount_type'] ) );
             } else {
                 update_post_meta($post_id, '_wt_product_discount_type', 'percent' );
             }
 
-            if( isset( $_POST['wt_product_discount_quantity']) && '' != $_POST['wt_product_discount_quantity'] ) {
-                update_post_meta($post_id, '_wt_product_discount_quantity',$_POST['wt_product_discount_quantity'] );
+            if( isset( $_POST['_wt_product_discount_quantity']) && '' != $_POST['_wt_product_discount_quantity'] ) {
+                update_post_meta($post_id, '_wt_product_discount_quantity',Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['_wt_product_discount_quantity'], 'int' ) );
             } else {
 
                 update_post_meta($post_id, '_wt_product_discount_quantity', 1);
@@ -154,6 +154,11 @@ if( ! class_exists('WT_Giveaway_Free_Product_Admin') ) {
          */
         function wt_products_and_variations_no_parent() {
 
+            check_ajax_referer( 'search-products', 'security' );
+            if (!current_user_can('manage_woocommerce')) 
+            {
+                wp_die(__('You do not have sufficient permission to perform this operation', 'wt-smart-coupons-for-woocommerce-pro'));
+            }
             add_filter('woocommerce_json_search_found_products',array($this,'exclude_parent_product_from_search'),10,1);
             
             $products = WC_AJAX::json_search_products('',true);

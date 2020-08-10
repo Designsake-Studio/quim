@@ -63,6 +63,25 @@ if( ! class_exists ( 'Wt_Smart_Coupon_import' ) ) {
             $this->import_coupon_form();
         }
 
+        /**
+         * expiry_date format
+         *
+         * @since  2.3.0
+         * @param  string $expiry_date
+         * @param bool $as_timestamp (default: false)
+         * @return string|int
+         */
+        protected function get_coupon_expiry_date( $expiry_date, $as_timestamp = false ) {
+            if ( '' != $expiry_date ) {
+                if ( $as_timestamp ) {
+                    return strtotime( $expiry_date );
+                }
+
+                return date( 'Y-m-d', strtotime( $expiry_date ) );
+            }
+
+            return '';
+        }
 
         /**
          * Display imprt Coupon form on import page
@@ -71,20 +90,23 @@ if( ! class_exists ( 'Wt_Smart_Coupon_import' ) ) {
         public function import_coupon_form() {
 
             $step = empty( $_GET['step'] ) ? 0 : (int) $_GET['step'];
-
             switch( $step ) {
                 case 0: 
                     $this->display_import_form();
                     break;
                 case 1: 
-                    check_admin_referer( 'wt_import_smart_coupon' );
+                    if ( !Wt_Smart_Coupon_Security_Helper::check_write_access( 'smart_coupons', 'wt_import_smart_coupon' ) ) {
+                        wp_die(__('You do not have sufficient permission to perform this operation', 'wt-smart-coupons-for-woocommerce-pro'));
+                    }
                     if( $this->handle_import_coupon() ) {
                         $this->render_csv_row();
                     }
                     break;
                 
                 case 2:
-                    check_admin_referer( 'wt_import_smart_coupon_step_2' );
+                    if ( !Wt_Smart_Coupon_Security_Helper::check_write_access( 'smart_coupons', 'wt_import_smart_coupon_step_2' ) ) {
+                        wp_die(__('You do not have sufficient permission to perform this operation', 'wt-smart-coupons-for-woocommerce-pro'));
+                    }
                     $this->import_coupon_from_csv();
 
             }
@@ -123,7 +145,7 @@ if( ! class_exists ( 'Wt_Smart_Coupon_import' ) ) {
                             _e(' Columns <i>post_title</i> and <i>discount_type</i> are mandatory for the import. Duplicate coupons will be skipped during import. ','wt-smart-coupons-for-woocommerce-pro'); ?>
                         </p>
                         <form enctype="multipart/form-data" id="import-coupon" class="form import-coupon" action="<?php echo get_admin_url(); ?>admin.php?page=wt-smart-coupon&tab=import_coupon&step=1" method="POST">
-                                <?php wp_nonce_field(  'wt_import_smart_coupon' ); ?>
+                                <?php wp_nonce_field(  'wt_import_smart_coupon', '_wpnonce'); ?>
                             
                                 <div class="wt-import-input-file-container">
                                     <table class="form-table">
@@ -257,21 +279,19 @@ if( ! class_exists ( 'Wt_Smart_Coupon_import' ) ) {
 
                 while ( ( $postmeta = fgetcsv( $handle, 0 ) ) !== FALSE ) {
                     foreach ( $header as $key => $heading ) {
-                        if ( ! $heading ) continue;
-                        if( !isset( $coupon_heades[$j] ) ) break;
 
-                        $s_heading = strtolower( $heading );
-                        $row[ $coupon_heades[$j] ] = ( isset( $postmeta[$key] ) ) ? $this->format_data_from_csv( $postmeta[$key], $enc ) : '';
-                        $raw_headers[ $coupon_heades[$j] ] = $heading;
-                        $j++;
+                    $key = remove_accents($key);
+                    if (!$heading)
+                    continue;
+                    $s_heading = remove_accents($heading);
+                    $row[$s_heading] = ( isset($postmeta[$key]) ) ? $this->format_data_from_csv($postmeta[$key], $enc) : '';
+                    $raw_headers[$s_heading] = $s_heading;
                     }
                     break;
                 }
 
                 fclose( $handle );
             }
-
-
             ?>
 
             <div id="wt_import_coupon_top-step-2" class="meta-box-sortables ui-sortable">
@@ -282,7 +302,7 @@ if( ! class_exists ( 'Wt_Smart_Coupon_import' ) ) {
                             <p><?php _e('Map the basic columns against your CSV column names respectively. ','wt-smart-coupons-for-woocommerce-pro'); ?></p>
                         </div>
                         <form enctype="multipart/form-data" id="import-coupon" class="form import-coupon" action="<?php echo get_admin_url(); ?>admin.php?page=wt-smart-coupon&tab=import_coupon&step=2" method="POST">
-                            <?php wp_nonce_field( 'wt_import_smart_coupon_step_2' ); ?>
+                            <?php wp_nonce_field( 'wt_import_smart_coupon_step_2', '_wpnonce' ); ?>
                             <input name="wt_import_id" type="hidden" value="<?php echo $this->id; ?>" />
                             <table class="widefat wt_smart_coupon_import_table">   
                                 <thead>
@@ -344,7 +364,7 @@ if( ! class_exists ( 'Wt_Smart_Coupon_import' ) ) {
          */
         public function import_coupon_from_csv( ) {
             global $wpdb;
-            $this->id  = (isset( $_POST['wt_import_id']) )?  $_POST['wt_import_id'] : '';
+            $this->id  = (isset( $_POST['wt_import_id']) )?  Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['wt_import_id'], 'int' ) : '';
             if( ! $this->id ) {
                     echo '<p><strong>' . __( 'The file does not exist, please try again.', 'wt-smart-coupons-for-woocommerce-pro') . '</strong><br />';
                     die();
@@ -401,7 +421,7 @@ if( ! class_exists ( 'Wt_Smart_Coupon_import' ) ) {
                 $header = fgetcsv( $handle, 0 );
 
                 if( isset( $_POST['mapto'] ) && !empty( $_POST['mapto'] )) {
-                    $map_head =  ( $_POST['mapto'] );
+                    $map_head =  ( Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['mapto'], 'text_arr' ) );
 
                 }
 
@@ -452,7 +472,8 @@ if( ! class_exists ( 'Wt_Smart_Coupon_import' ) ) {
                                 handle              :   '<?php echo $handle; ?>',
                                 start_position      :   start_pos,
                                 end_position        :   end_pos,
-                                email_on_import     :   <?php  echo $this->email_coupon_on_import; ?>
+                                email_on_import     :   <?php  echo $this->email_coupon_on_import; ?>,
+                                _wpnonce          :   '<?php echo wp_create_nonce( "wt_smart_coupons_import_nonce")?>'
                                
                             };
                             
@@ -565,15 +586,16 @@ if( ! class_exists ( 'Wt_Smart_Coupon_import' ) ) {
              * @since 1.2,1
              */
             function import_start( ) {
-                $file               = ( isset( $_POST['file'] ) )? $_POST['file'] : $this->id;
-                $handle             = ( isset( $_POST['handle'] ) )? $_POST['handle'] : '';
+                if ( !Wt_Smart_Coupon_Security_Helper::check_write_access( 'smart_coupons', 'wt_smart_coupons_import_nonce' ) ) {
+                    wp_die(__('You do not have sufficient permission to perform this operation', 'wt-smart-coupons-for-woocommerce-pro'));
+                }
+                $file               = ( isset( $_POST['file'] ) )? stripslashes( $_POST['file'] ) : $this->id;
+                $handle             = ( isset( $_POST['handle'] ) )? Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['handle']) : '';
                 $header             = ( isset( $_POST['header'] ) )? json_decode(stripslashes( $_POST['header'] ))   :  array(); 
-                // var_dump($header );
-                // die();
                 $map_head           = ( isset( $_POST['map_head'] ) )?  json_decode(stripslashes( $_POST['map_head'] )) :  array(); 
-                $start_position     = ( isset( $_POST['start_position'] ) )? $_POST['start_position'] : 0;
-                $end_position       = ( isset( $_POST['end_position'] ) )? $_POST['end_position'] : '';
-                $flag               = ( isset( $_POST['flag'] ) )? $_POST['flag'] : false;
+                $start_position     = ( isset( $_POST['start_position'] ) )? Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['start_position'], 'int' ) : 0;
+                $end_position       = ( isset( $_POST['end_position'] ) )? Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['end_position'], 'int' ) : '';
+                $flag               = ( isset( $_POST['flag'] ) )? Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['flag'] ) : false;
                 $email_on_import    = ( isset( $_POST['email_on_import'] ) &&  $_POST['email_on_import'] )?  true : false;
     
                 $map_head = (array) $map_head;
@@ -664,10 +686,10 @@ if( ! class_exists ( 'Wt_Smart_Coupon_import' ) ) {
                                 update_post_meta( $coupon_id, 'wt_bulk_genrated_coupon_csv_import', true );
 
                                 $coupon_obj = new WC_Coupon( $coupon_id );
-
+                                
                                 foreach( $coupon_meta_data as $meta_key => $meta_value ) {
+                                   
                                     update_post_meta( $coupon_id, $meta_key, $meta_value );
-
                                     /** 
                                      * fix #6586
                                      * Meta key timestamp need to update */
@@ -693,9 +715,6 @@ if( ! class_exists ( 'Wt_Smart_Coupon_import' ) ) {
                                 if( $coupon_obj->is_type('store_credit')){
                                     update_post_meta( $coupon_id, '_wt_smart_coupon_credit_activated', true );
                                 }
-
-                                // $coupon_obj->save();
-        
                                 $responce[] = array(
                                     'row'=> $this->row_parsed,
                                     'error' => false,

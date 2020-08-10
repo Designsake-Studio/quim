@@ -393,3 +393,25 @@ function my_header_add_to_cart_fragment( $fragments ) {
     return $fragments;
 }
 add_filter( 'woocommerce_add_to_cart_fragments', 'my_header_add_to_cart_fragment' );
+
+
+// remove breadcrumbs from product pages
+add_action( 'init', 'woo_remove_wc_breadcrumbs' );
+function woo_remove_wc_breadcrumbs() {
+    remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20, 0 );
+    remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_related_products', 20 );
+}
+
+// Adds Social Icons to the Age Gate (Plugin)
+add_filter('age_gate_after', 'after_age_gate', 10, 1);
+function after_age_gate($after){
+
+  $after .= '<div class="custom-markup">';
+  $after .= "	<a class='facebook' href='https://www.facebook.com/quim.rock/'>Facebook</a>
+				<a class='instagram' href='https://www.instagram.com/its.quim/'>Instagram</a>
+				<a class='twitter' href='https://twitter.com/quimrock'>Twitter</a>";
+  $after .= '</div>';
+
+  return $after;
+}
+

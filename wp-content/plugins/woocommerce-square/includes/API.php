@@ -330,12 +330,14 @@ class API extends Framework\SV_WC_API_Base {
 		$body .= "\r\n";
 
 		$body .= '--boundary' . "\r\n";
-		$body .= 'Content-Disposition: form-data; name="image"; filename="' . esc_attr( basename( $image_path ) ) . '"' . "\r\n";
+		$body .= 'Content-Disposition: form-data; name="file"; filename="' . esc_attr( basename( $image_path ) ) . '"' . "\r\n";
 		$body .= 'Content-Type: image/jpeg' . "\r\n\r\n";
 		$body .= $image . "\r\n";
 		$body .= '--boundary--';
 
-		$response = wp_remote_post( 'https://connect.squareup.com/v2/catalog/images', [
+		$url = $this->client->getConfig()->getHost() . '/v2/catalog/images';
+
+		$response = wp_remote_post( $url, [
 			'headers' => $headers,
 			'body'    => $body,
 		] );

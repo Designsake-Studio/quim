@@ -1,5 +1,16 @@
 *** USPS Shipping ***
 
+2020-07-01 - version 4.4.45
+* Fix - Dimensions not passing correctly when using "Pack into boxes" method.
+
+2020-06-05 - version 4.4.44
+* Add - Setting to control tax status.
+* Tweak - Order shipping line item show quoted package name instead of product dimensions.
+* Tweak - WC 4.2 compatibility.
+
+2020-04-30 - version 4.4.43
+* Tweak - WC 4.1 compatibility.
+
 2020-04-21 - version 4.4.42
 * Fix - Do not include Regional Rate boxes for Retail rates.
 

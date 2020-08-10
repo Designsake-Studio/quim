@@ -266,7 +266,7 @@ if( ! class_exists ( 'WT_smart_Coupon_Enable_Module' ) ) {
         function enable_disable_features_content() {
 
             if( isset( $_POST['update_wt_smart_coupon_enabled_modules'] )  ) {
-                $enabled_modules = isset( $_POST['wt_enable_feature'] ) ? $_POST['wt_enable_feature'] : array();
+                $enabled_modules = isset( $_POST['wt_enable_feature'] ) ? Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['wt_enable_feature'], 'text_arr' ) : array();
                 if( is_array( $enabled_modules )  ) {
                     $this->enable_modules( $enabled_modules );
 

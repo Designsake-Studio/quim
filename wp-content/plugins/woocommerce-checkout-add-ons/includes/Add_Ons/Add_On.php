@@ -37,6 +37,12 @@ defined( 'ABSPATH' ) or exit;
 abstract class Add_On extends \WC_Data {
 
 
+	/** @var string apply percentage adjustment on cart subtotal */
+	const PERCENTAGE_ADJUSTMENT_SUBTOTAL = 'woocommerce_checkout_order_subtotal';
+	/** @var string apply percentage adjustment on cart total */
+	const PERCENTAGE_ADJUSTMENT_TOTAL = 'woocommerce_checkout_order_total';
+
+
 	/** @var string ID for this add-on */
 	protected $id = '';
 
@@ -407,7 +413,7 @@ abstract class Add_On extends \WC_Data {
 
 		// Calculate the percentage if necessary.
 		if ( 'percent' === $cost_type ) {
-			$cost = ( $cost / 100 ) * WC()->cart->cart_contents_total;
+			$cost = $this->calculate_percentage_adjustment( $cost );
 		}
 
 		$cost_html = '';
@@ -1053,6 +1059,28 @@ abstract class Add_On extends \WC_Data {
 		}
 
 		return $should_display;
+	}
+
+
+	/**
+	 * Calculates percentage adjustment.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @param float $percentage adjustment percentage
+	 * @return float
+	 */
+	public function calculate_percentage_adjustment( $percentage ) {
+
+		$apply_percentage_on = get_option( 'woocommerce_checkout_add_ons_percentage_adjustment_from', Add_On::PERCENTAGE_ADJUSTMENT_SUBTOTAL );
+
+		if ( Add_On::PERCENTAGE_ADJUSTMENT_SUBTOTAL === $apply_percentage_on ) {
+			$cost = ( $percentage / 100 ) * WC()->cart->get_subtotal();
+		} else {
+			$cost = ( $percentage / 100 ) * WC()->cart->cart_contents_total;
+		}
+
+		return $cost;
 	}
 
 

@@ -4,10 +4,9 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit4086d73bc23d7584ad92a6beec8f2092
+class ComposerStaticInitb5b8e5139f85ae4ac7593f8655ba1a80
 {
     public static $files = array (
-        'ef55b063b9ee0ba7e3e1dfb9a6dae703' => __DIR__ . '/..' . '/mcaskill/php-html-build-attributes/Function.HTML-Build-Attributes.php',
         'da253f61703e9c22a5a34f228526f05a' => __DIR__ . '/..' . '/wixel/gump/gump.class.php',
     );
 
@@ -16,6 +15,10 @@ class ComposerStaticInit4086d73bc23d7584ad92a6beec8f2092
         array (
             'Jaybizzle\\CrawlerDetect\\' => 24,
         ),
+        'G' => 
+        array (
+            'GUMP\\' => 5,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
@@ -23,13 +26,17 @@ class ComposerStaticInit4086d73bc23d7584ad92a6beec8f2092
         array (
             0 => __DIR__ . '/..' . '/jaybizzle/crawler-detect/src',
         ),
+        'GUMP\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/wixel/gump/src',
+        ),
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit4086d73bc23d7584ad92a6beec8f2092::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit4086d73bc23d7584ad92a6beec8f2092::$prefixDirsPsr4;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitb5b8e5139f85ae4ac7593f8655ba1a80::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitb5b8e5139f85ae4ac7593f8655ba1a80::$prefixDirsPsr4;
 
         }, null, ClassLoader::class);
     }

@@ -71,13 +71,13 @@
             <?php if (!$this->settings['advanced']['anonymous_age_gate']): ?>
             <label>
               <?php echo form_checkbox(
-                    array(
+    array(
                   'name' => "ag_settings[multi_age]",
                   'id' => "wp_age_gate_multi_age"
                 ),
-                    1, // value
+    1, // value
                 $values['multi_age'] // checked
-                ); ?> <?php _e("Ability to add a custom age on a per page level ", 'age-gate'); ?>
+); ?> <?php _e("Ability to add a custom age on a per page level ", 'age-gate'); ?>
             </label>
             <?php else: ?>
               <p><?php _e('This setting is unavailable with "Anonymous Age Gate" selected in the advanced tab', 'age-gate'); ?></p>
@@ -119,7 +119,7 @@
               ); ?>
           </td>
         </tr>
-        <tr class="ag-option--button-order" style="display:<?php echo ($values['input_type'] === 'buttons') ? 'table-row"' : 'none'; ?>">
+        <tr class="ag-option--button-order" style="display:<?php echo ($values['input_type'] === 'buttons') ? 'table-row' : 'none'; ?>">
           <th scope="row"><label for="wp_age_gate_button_order"><?php _e("Button order", 'age-gate'); ?></label></th>
           <td>
             <?php echo form_dropdown(
@@ -140,13 +140,13 @@
           <td>
             <label>
               <?php echo form_checkbox(
-                array(
+                  array(
                   'name' => "ag_settings[inherit_category]",
                   'id' => "wp_age_gate_inherit_category"
                 ),
-                1, // value
+                  1, // value
                 $values['inherit_category'] // checked
-            ); ?> <?php _e("Posts will inherit their taxonomies restriction settings", 'age-gate'); ?>
+              ); ?> <?php _e("Posts will inherit their taxonomies restriction settings", 'age-gate'); ?>
             </label>
           </td>
         </tr>
@@ -169,14 +169,14 @@
           <th scope="row"><label for="wp_age_gate_remember_days"><?php _e("Remember length", 'age-gate'); ?></label></th>
           <td>
             <?php echo form_input(
-                  array(
+                array(
                 'name' => 'ag_settings[remember_days]',
                 'type' => 'number',
                 'id' => 'wp_age_gate_remember_days'
               ),
-                  $values['remember_days'],
-                  array('class' => 'small-text ltr')
-              ); ?>
+                $values['remember_days'],
+                array('class' => 'small-text ltr')
+            ); ?>
             <?php $options = array(
               'days'         => __('Days', 'age-gate'),
               'hours'        => __('Hours', 'age-gate'),
@@ -231,13 +231,13 @@
           <td>
             <label>
               <?php echo form_checkbox(
-                  array(
+                array(
                   'name' => "ag_settings[rechallenge]",
                   'id' => "wp_age_gate_rechallenge"
                 ),
-                  1, // value
+                1, // value
                 $values['rechallenge'] // checked
-              ); ?> <?php _e("If someone fails the age test, they can try again.", 'age-gate'); ?>
+            ); ?> <?php _e("If someone fails the age test, they can try again.", 'age-gate'); ?>
             </label>
           </td>
         </tr>

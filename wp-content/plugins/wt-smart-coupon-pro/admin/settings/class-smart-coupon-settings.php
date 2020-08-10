@@ -63,10 +63,10 @@ if( ! class_exists ( 'WT_smart_Coupon_Settings' ) ) {
             $updated = false;
 
             if( isset( $_POST[ 'update_wt_smart_coupon_settings'] )) {
+                if ( !Wt_Smart_Coupon_Security_Helper::check_write_access( 'smart_coupons', 'wt_smart_coupons_settings' ) ) {
+                    wp_die(__('You do not have sufficient permission to perform this operation', 'wt-smart-coupons-for-woocommerce-pro'));
+                }
                 set_transient('wt_active_tab_genral_settings','styling',30);
-                check_admin_referer('wt_smart_coupons_settings');
-
-                
                 $smart_coupon_options = Wt_Smart_Coupon_Admin::get_options();
 
                 $coupon_types = $this->get_coupon_style_types();
@@ -96,7 +96,9 @@ if( ! class_exists ( 'WT_smart_Coupon_Settings' ) ) {
             }
 
             if( isset( $_POST['update_wt_smart_coupon_general_settings'] ) ) {
-                check_admin_referer('wt_smart_coupons_general_settings');
+                if ( !Wt_Smart_Coupon_Security_Helper::check_write_access( 'smart_coupons', 'wt_smart_coupons_general_settings' ) ) {
+                    wp_die(__('You do not have sufficient permission to perform this operation', 'wt-smart-coupons-for-woocommerce-pro'));
+                }
                 set_transient('wt_active_tab_genral_settings','general-settings',30);
                 $smart_coupon_options = Wt_Smart_Coupon_Admin::get_options();
 
@@ -114,19 +116,19 @@ if( ! class_exists ( 'WT_smart_Coupon_Settings' ) ) {
 
 
                 if( isset( $_POST['_wt_coupon_prefix'] ) && '' != $_POST['_wt_coupon_prefix'] ) {
-                    $wt_copon_general_settings['wt_coupon_prefix'] = $_POST['_wt_coupon_prefix'] ;
+                    $wt_copon_general_settings['wt_coupon_prefix'] = Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['_wt_coupon_prefix'] ) ;
                 } else {
                     $wt_copon_general_settings['wt_coupon_prefix'] = '';
                 }
 
                 if( isset( $_POST['_wt_coupon_suffix'] ) && '' != $_POST['_wt_coupon_suffix'] ) {
-                    $wt_copon_general_settings['wt_coupon_suffix'] = $_POST['_wt_coupon_suffix'] ;
+                    $wt_copon_general_settings['wt_coupon_suffix'] = Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['_wt_coupon_suffix'] ) ;
                 } else {
                     $wt_copon_general_settings['wt_coupon_suffix'] = '';
                 }
 
                 if( isset( $_POST['_wt_coupon_length'] ) && '' != $_POST['_wt_coupon_length'] ) {
-                    $wt_copon_general_settings['wt_coupon_length'] = $_POST['_wt_coupon_length'] ;
+                    $wt_copon_general_settings['wt_coupon_length'] = Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['_wt_coupon_length'], 'int' ); ;
                 } else {
                     $wt_copon_general_settings['wt_coupon_length'] = 12;
                 }

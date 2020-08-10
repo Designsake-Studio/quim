@@ -6,4 +6,5 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'SkyVerge\\WooCommerce\\Checkout_Add_Ons\\' => array($baseDir . '/includes'),
 );

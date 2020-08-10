@@ -9,8 +9,10 @@ if( ! class_exists ( 'Wt_Smart_Coupon_Store_Credit_Order' ) ) {
         
         
         public function __construct( ) {
-			$this->store_credit_options = Wt_Smart_Coupon_Admin::get_option('wt_store_credit_settings');
-			$this->apply_before_tax = $this->store_credit_options['apply_store_credit_before_tax'];
+            $this->store_credit_options = Wt_Smart_Coupon_Admin::get_option('wt_store_credit_settings');
+            if( isset( $this->store_credit_options ) && isset( $this->store_credit_options['apply_store_credit_before_tax'] )){
+                $this->apply_before_tax = $this->store_credit_options['apply_store_credit_before_tax'];
+            }
         }
 
         

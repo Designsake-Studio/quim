@@ -1,12 +1,12 @@
 === ACF Content Analysis for Yoast SEO ===
 Contributors: yoast, angrycreative, kraftner, marcusforsberg, viktorfroberg, joostdevalk, atimmer, jipmoors, theorboman
 Tags: Yoast, SEO, ACF, Advanced Custom Fields, analysis, Search Engine Optimization
-Requires at least: 5.3
-Tested up to: 5.4
+Requires at least: 5.2
+Tested up to: 5.4.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
-Stable tag: 2.3.0
-Requires PHP: 5.2.4
+Stable tag: 2.4.1
+Requires PHP: 5.6.20
 
 WordPress plugin that adds the content of all ACF fields to the Yoast SEO score analysis.
 
@@ -27,13 +27,13 @@ Previously called Yoast ACF Analysis.
 == Filters ==
 
 = Remove specific field from scoring =
-`add_filter( 'yoast-acf-analysis/blacklist_name', function ( $blacklist_name ) {
+`add_filter( 'Yoast\WP\ACF\blacklist_name', function ( $blacklist_name ) {
     $blacklist_name->add( 'my-field-name' );
     return $blacklist_name;
 });`
 
 = Remove field type from scoring =
-`add_filter( 'yoast-acf-analysis/blacklist_type', function ( $blacklist_type ) {
+`add_filter( 'Yoast\WP\ACF\blacklist_type', function ( $blacklist_type ) {
     // text, image etc
     $blacklist_type->add( 'text' );
     $blacklist_type->add( 'image' );
@@ -41,19 +41,49 @@ Previously called Yoast ACF Analysis.
 });`
 
 = Define custom field a specific heading value =
-`add_filter( 'yoast-acf-analysis/headlines', function ( $headlines ) {
+`add_filter( 'Yoast\WP\ACF\headlines', function ( $headlines ) {
     // value from 1-6, 1=h1, 6=h6
     $headlines['field_591eb45f2be86'] = 3;
     return $headlines;
 });`
 
 = Change refresh rate =
-`add_filter( 'yoast-acf-analysis/refresh_rate', function () {
+`add_filter( 'Yoast\WP\ACF\refresh_rate', function () {
     // Refresh rates in milliseconds
     return 1000;
 });`
 
 == Changelog ==
+
+= 2.4.1 =
+
+Released June 10th, 2020
+
+Bugfixes:
+
+* Fixes a bug where an error would be thrown when using the Classic Editor plugin.
+* Fixes a bug where custom fields were no longer analyzed when using the Classic Editor plugin.
+
+= 2.4.0 =
+
+Released June 4th, 2020
+
+Enhancements:
+
+* Add support for ACF blocks. Props to [TimVevida](https://github.com/TimVevida).
+
+Other:
+
+* Fixes a couple of typos in the code documentation. Props to [akkspros](https://github.com/akkspros).
+* Deprecates `Yoast_ACF_Analysis_Facade::get_filter_name()`. Use hard-coded hook names instead.
+* Deprecates the  yoast-acf-analysis/config` filter hook in favor of the `Yoast\WP\ACF\config` hook.
+* Deprecates the `yoast-acf-analysis/headlines` filter hook in favor of the `Yoast\WP\ACF\headlines` hook.
+* Deprecates the `yoast-acf-analysis/blacklist_type` filter hook in favor of the `Yoast\WP\ACF\blacklist_type` hook.
+* Deprecates the `yoast-acf-analysis/blacklist_name` filter hook in favor of the `Yoast\WP\ACF\blacklist_name` hook.
+* Deprecates the `yoast-acf-analysis/scraper_config` filter hook in favor of the `Yoast\WP\ACF\scraper_config` hook.
+* Deprecates the `yoast-acf-analysis/refresh_rate` filter hook in favor of the `Yoast\WP\ACF\refresh_rate` hook.
+* Deprecates the `yoast-acf-analysis/field_selectors` filter hook in favor of the `Yoast\WP\ACF\field_selectors` hook.
+* Deprecates the `yoast-acf-analysis/field_order` filter hook in favor of the `Yoast\WP\ACF\field_order` hook.
 
 = 2.3.0 =
 

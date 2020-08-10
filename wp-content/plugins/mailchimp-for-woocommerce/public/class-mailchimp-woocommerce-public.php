@@ -63,6 +63,7 @@ class MailChimp_WooCommerce_Public {
 		wp_localize_script($this->plugin_name, 'mailchimp_public_data', array(
 			'site_url' => site_url(),
 			'ajax_url' => admin_url('admin-ajax.php'),
+			'language' => substr( get_locale(), 0, 2 )
 		));
 
         // Enqueued script with localized data.
@@ -75,9 +76,15 @@ class MailChimp_WooCommerce_Public {
         //}
 	}
 
-    public function add_inline_footer_script(){
-        if (($fragment = mailchimp_get_connected_site_script_fragment()) && !empty($fragment)) {
-            echo $fragment;
+    /**
+     * Add the inline footer script if the filter allows it.
+     */
+    public function add_inline_footer_script()
+    {
+        if (apply_filters( 'mailchimp_add_inline_footer_script', true)) {
+            if (($fragment = mailchimp_get_connected_site_script_fragment()) && !empty($fragment)) {
+                echo $fragment;
+            }
         }
     }
 }

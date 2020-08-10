@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Checkout Add-Ons 2.2.5\n"
+"Project-Id-Version: WooCommerce Checkout Add-Ons 2.3.0\n"
 "Report-Msgid-Bugs-To: "
 "https://woocommerce.com/my-account/marketplace-ticket-form/\n"
-"POT-Creation-Date: 2020-02-06 15:20:52+00:00\n"
+"POT-Creation-Date: 2020-06-09 17:27:16+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,32 +13,32 @@ msgstr ""
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
-#: includes/Add_Ons/Add_On.php:232
+#: includes/Add_Ons/Add_On.php:238
 msgid "(no name)"
 msgstr ""
 
-#: includes/Add_Ons/Add_On.php:445
+#: includes/Add_Ons/Add_On.php:451
 msgid "Free!"
 msgstr ""
 
-#: includes/Add_Ons/Add_On.php:844 includes/Admin/Add_Ons_List_Table.php:70
+#: includes/Add_Ons/Add_On.php:850 includes/Admin/Add_Ons_List_Table.php:70
 #: includes/Admin/Add_Ons_List_Table.php:591
 msgid "Required"
 msgstr ""
 
-#: includes/Add_Ons/Add_On.php:845
+#: includes/Add_Ons/Add_On.php:851
 msgid "Display in View Orders screen"
 msgstr ""
 
-#: includes/Add_Ons/Add_On.php:846
+#: includes/Add_Ons/Add_On.php:852
 msgid "Allow Sorting on View Orders screen"
 msgstr ""
 
-#: includes/Add_Ons/Add_On.php:847
+#: includes/Add_Ons/Add_On.php:853
 msgid "Allow Filtering on View Orders screen"
 msgstr ""
 
-#: includes/Add_Ons/Add_On.php:851
+#: includes/Add_Ons/Add_On.php:857
 msgid "Renew with Subscriptions"
 msgstr ""
 
@@ -386,16 +386,28 @@ msgstr ""
 msgid "Checkout Add-ons display"
 msgstr ""
 
-#: includes/Admin/Admin.php:783
+#: includes/Admin/Admin.php:768
+msgid "Calculate add-on percentage-based prices from"
+msgstr ""
+
+#: includes/Admin/Admin.php:805
 msgid "Before Billing Details"
 msgstr ""
 
-#: includes/Admin/Admin.php:784
+#: includes/Admin/Admin.php:806
 msgid "After Billing Details"
 msgstr ""
 
-#: includes/Admin/Admin.php:785
+#: includes/Admin/Admin.php:807
 msgid "Before Order Summary"
+msgstr ""
+
+#: includes/Admin/Admin.php:842
+msgid "Order subtotal"
+msgstr ""
+
+#: includes/Admin/Admin.php:843
+msgid "Order total"
 msgstr ""
 
 #: includes/Admin/Handlers/Shop_Order.php:164

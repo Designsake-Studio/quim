@@ -162,7 +162,8 @@ if( ! class_exists ( 'Wt_smart_coupon_exclude_product_from_coupon' ) ) {
                 return $valid;
             }
             $excluded_products = $this->get_disabled_product();
-            if( !is_array( $excluded_products['disabled_products'] ) || empty( $excluded_products['disabled_products'])) {
+
+            if( !isset( $excluded_products['disabled_products'] ) || !is_array( $excluded_products['disabled_products'] ) || empty( $excluded_products['disabled_products'])) {
                 return $valid;
             }
             

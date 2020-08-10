@@ -100,10 +100,12 @@ if(!class_exists('Wt_Smart_Coupon_Storecredit_Denominations') ) {
          */
         function save_denomination_settings( ) {
             if( isset( $_POST['update_wt_smart_coupon_store_credit_settings'] ) ) {
-                check_admin_referer('wt_smart_coupons_store_credit_settings');
+                if ( !Wt_Smart_Coupon_Security_Helper::check_write_access( 'smart_coupons', 'wt_smart_coupons_store_credit_settings' ) ) {
+                    wp_die(__('You do not have sufficient permission to perform this operation', 'wt-smart-coupons-for-woocommerce-pro'));
+                }
                 $denomination_option = array( 
-                    'display_option'    => ( isset( $_POST['store_credit_display_option'] ) ) ? $_POST['store_credit_display_option'] : 'user_specific_only',
-                    'denominations'     => ( isset( $_POST['store_crdit_denominations'] ) ) ? $_POST['store_crdit_denominations'] : '',
+                    'display_option'    => ( isset( $_POST['store_credit_display_option'] ) ) ? Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['store_credit_display_option'] ) : 'user_specific_only',
+                    'denominations'     => ( isset( $_POST['store_crdit_denominations'] ) ) ? Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['store_crdit_denominations'] ) : '',
                 );
 
                 $this->set_option( $denomination_option );
@@ -149,8 +151,9 @@ if(!class_exists('Wt_Smart_Coupon_Storecredit_Denominations') ) {
             $displayed_denominaton = false;
             if( 'user_specific_only' != $settings['display_option'] && '' != $settings['denominations'] ) {
                 $denomination_items = explode(',',$settings['denominations']);
-
-                array_walk($denomination_items, create_function('&$val','$val = trim($val);'));
+                array_walk($denomination_items, function(&$val){
+                    $val = trim($val);
+                });
                 $denomination_items  = array_unique( array_filter( $denomination_items ) );
 
                 $displayed_denominaton = true;

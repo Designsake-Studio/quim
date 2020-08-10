@@ -66,7 +66,8 @@ $config->defaults = (object) array(
     'enable_import_export',
     'filter_qs',
     'post_to_self',
-    'js_hooks'
+    'js_hooks',
+    'cookie_name'
   ],
   'appearance' => [
     'logo',

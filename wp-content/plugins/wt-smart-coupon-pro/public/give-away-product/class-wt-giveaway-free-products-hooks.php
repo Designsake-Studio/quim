@@ -48,6 +48,8 @@ if( ! class_exists ( 'WT_Giveaway_Free_Product_Hooks' ) ) {
 			$this->add_action('woocommerce_coupon_data_panels', $give_away_product_admin, 'give_away_free_product_tab_content', 10, 1);
 			$this->add_action('woocommerce_process_shop_coupon_meta', $give_away_product_admin, 'process_shop_coupon_meta_give_away', 10, 2);
 			$this->add_action( 'wp_ajax_woocommerce_json_search_products_and_variations_without_parent', $give_away_product_admin, 'wt_products_and_variations_no_parent'  );
+			$this->add_filter( 'woocommerce_cart_item_removed',$give_away_product, 'remove_free_products_from_cart', 10, 2);
+
 
         }
 

@@ -135,8 +135,8 @@ if( ! class_exists ( 'Wt_Smart_Coupon_Schedule_Store_Credit' ) ) {
                 update_post_meta( $order_id, 'wt_smart_coupon_schedule',  $coupon_schedule );
                 update_post_meta( $order_id, 'wt_smart_coupon_schedule_timestamp',  strtotime( $coupon_schedule ) );
 
-                $coupon_email = isset( $_POST['wt_credit_coupon_send_to'] )? $_POST['wt_credit_coupon_send_to'] : '';
-				$coupon_message = isset( $_POST['wt_credit_coupon_send_to_message'] )? $_POST['wt_credit_coupon_send_to_message'] : '';
+                $coupon_email = isset( $_POST['wt_credit_coupon_send_to'] )? Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['wt_credit_coupon_send_to'] ) : '';
+				$coupon_message = isset( $_POST['wt_credit_coupon_send_to_message'] )? Wt_Smart_Coupon_Security_Helper::sanitize_item( $_POST['wt_credit_coupon_send_to_message'] ) : '';
 
                 $order       = wc_get_order( $order_id );
                 $order_items = $order->get_items();

@@ -244,6 +244,7 @@ class WC_Shipping_USPS extends WC_Shipping_Method {
 		$this->debug                    = 'yes' === $this->get_option( 'debug_mode' );
 		$this->shippingrates            = $this->get_option( 'shippingrates', 'ALL' );
 		$this->flat_rate_boxes          = apply_filters( 'usps_flat_rate_boxes', $this->flat_rate_boxes );
+		$this->tax_status               = $this->get_option( 'tax_status' );
 
 		return true;
 	}
@@ -432,6 +433,16 @@ class WC_Shipping_USPS extends WC_Shipping_Method {
 				'desc_tip'    => true,
 				'custom_attributes' => array(
 					'required' => true,
+				),
+			),
+			'tax_status' => array(
+				'title'       => __( 'Tax Status', 'woocommerce-shipping-usps' ),
+				'type'        => 'select',
+				'description' => '',
+				'default'     => 'taxable',
+				'options'     => array(
+					'taxable' => __( 'Taxable', 'woocommerce-shipping-usps' ),
+					'none'    => __( 'None', 'woocommerce-shipping-usps' ),
 				),
 			),
 			'offer_rates'              => array(
@@ -992,13 +1003,13 @@ class WC_Shipping_USPS extends WC_Shipping_Method {
 
 				$dimensions = array( wc_get_dimension( $values['data']->get_length(), 'in' ), wc_get_dimension( $values['data']->get_height(), 'in' ), wc_get_dimension( $values['data']->get_width(), 'in' ) );
 
-				sort( $dimensions );
+				sort( $dimensions, SORT_NUMERIC );
 
 				if ( max( $dimensions ) > 12 ) {
 					$size = 'LARGE';
 				}
 
-				$girth = $dimensions[0] + $dimensions[0] + $dimensions[1] + $dimensions[1];
+				$girth = $this->get_girth( $dimensions );
 			} else {
 				$dimensions = array( 0, 0, 0 );
 				$girth      = 0;
@@ -1106,14 +1117,14 @@ class WC_Shipping_USPS extends WC_Shipping_Method {
 
 			$dimensions = array( wc_get_dimension( $values['data']->get_length(), 'in' ), wc_get_dimension( $values['data']->get_height(), 'in' ), wc_get_dimension( $values['data']->get_width(), 'in' ) );
 
-			sort( $dimensions );
+			sort( $dimensions, SORT_NUMERIC );
 
 			if ( max( $dimensions ) <= 12 ) {
 				$total_regular_item_weight += ( $weight * $values['quantity'] );
 				continue;
 			}
 
-			$girth = $dimensions[0] + $dimensions[0] + $dimensions[1] + $dimensions[1];
+			$girth = $this->get_girth( $dimensions );
 
 			if ( $domestic ) {
 				$request  = '<Package ID="' . $this->generate_package_id( $item_id, $values['quantity'], $dimensions[2], $dimensions[1], $dimensions[0], $weight ) . '">' . "\n";
@@ -1298,14 +1309,14 @@ class WC_Shipping_USPS extends WC_Shipping_Method {
 				$newbox->set_max_weight( 20 );
 			}
 		}
-		
+
 		// Add items.
 		foreach ( $package['contents'] as $item_id => $values ) {
 			if ( ! $values['data']->needs_shipping() ) {
 				continue;
 			}
 			if ( $values['data']->get_length() && $values['data']->get_height() && $values['data']->get_width() ) {
-				$dimensions = array( wc_get_dimension( $values['data']->get_length(), 'in' ), wc_get_dimension( $values['data']->get_height(), 'in' ), wc_get_dimension( $values['data']->get_width(), 'in' ) );
+				$dimensions = array( wc_get_dimension( $values['data']->get_length(), 'in' ), wc_get_dimension( $values['data']->get_width(), 'in' ), wc_get_dimension( $values['data']->get_height(), 'in' ) );
 			} else {
 				$this->shipping_debug->add_note( sprintf( __( 'Product #%d is missing dimensions! Using 1x1x1.', 'woocommerce-shipping-usps' ), $item_id ) );
 				$dimensions = array( 1, 1, 1 );
@@ -1322,9 +1333,9 @@ class WC_Shipping_USPS extends WC_Shipping_Method {
 			}
 			for ( $i = 0; $i < $values['quantity']; $i ++ ) {
 				$boxpack->add_item(
-					$dimensions[2],
-					$dimensions[1],
 					$dimensions[0],
+					$dimensions[1],
+					$dimensions[2],
 					$weight,
 					$declared_value
 				);
@@ -1358,11 +1369,11 @@ class WC_Shipping_USPS extends WC_Shipping_Method {
 			$weight     = $box_package->weight;
 			$size       = 'REGULAR';
 			$dimensions = array( $box_package->length, $box_package->width, $box_package->height );
-			sort( $dimensions );
+			sort( $dimensions, SORT_NUMERIC );
 			if ( max( $dimensions ) > 12 ) {
 				$size = 'LARGE';
 			}
-			$girth = $dimensions[0] + $dimensions[0] + $dimensions[1] + $dimensions[1];
+			$girth = $this->get_girth( $dimensions );
 			if ( $dimensions[2] <= 27 && $dimensions[1] <= 17 && $dimensions[0] <= 17 &&
 				$weight <= 35 ) {
 				// From USPS website
@@ -2086,31 +2097,24 @@ class WC_Shipping_USPS extends WC_Shipping_Method {
 							$rate_cost = 0;
 						}
 					}
-					$meta_data = $this->get_rate_meta_data(
-						array(
-							'length' => $package_length,
-							'width'  => $package_width,
-							'height' => $package_height,
-							'weight' => $package_weight,
-							'qty'    => 1,
-						)
-					);
+
+					$meta_data = wp_strip_all_tags( htmlspecialchars_decode( (string) $quote->{'MailService'} ) );
 
 					$this->prepare_rate( 'none', $rate_id, $label, $rate_cost, $meta_data, $sort );
 				}
 			} else {
-
 				// Loop defined services.
 				foreach ( $this->services as $service => $values ) {
 
 					if ( $domestic && strpos( $service, 'D_' ) !== 0 || ! $domestic && strpos( $service, 'I_' ) !== 0 ) {
 						continue;
 					}
-					$rate_code      = (string) $service;
-					$rate_id        = $this->id . ':' . $rate_code;
-					$rate_name      = (string) $values['name'];
-					$rate_cost      = null;
-					$svc_commitment = null;
+					$rate_code           = (string) $service;
+					$rate_id             = $this->id . ':' . $rate_code;
+					$rate_name           = (string) $values['name'];
+					$rate_cost           = null;
+					$svc_commitment      = null;
+					$quoted_package_name = null;
 
 					// Loop through rate quotes returned from USPS.
 					foreach ( $quotes as $quote ) {
@@ -2269,13 +2273,13 @@ class WC_Shipping_USPS extends WC_Shipping_Method {
 												continue 2;
 											}
 										} elseif ( strstr( $service_name, 'Parcel' ) ) {
-											$girth = ( $package_width + $package_height ) * 2;
+											$girth = $this->get_girth( array( $package_width, $package_height ) );
 
 											if ( $girth + $package_length > 108 ) {
 												continue 2;
 											}
 										} elseif ( strstr( $service_name, 'Package' ) ) {
-											$girth = ( $package_width + $package_height ) * 2;
+											$girth = $this->get_girth( array( $package_width, $package_height ) );
 
 											if ( $girth + $package_length > 108 ) {
 												continue 2;
@@ -2294,6 +2298,10 @@ class WC_Shipping_USPS extends WC_Shipping_Method {
 								$rate_cost      = $cost;
 								$svc_commitment = $quote->SvcCommitments;
 							}
+
+							if ( ! is_null( $rate_cost ) ) {
+								$quoted_package_name = wp_strip_all_tags( htmlspecialchars_decode( (string) $quote->{'MailService'} ) );
+							}
 						}
 					}
 
@@ -2309,6 +2317,7 @@ class WC_Shipping_USPS extends WC_Shipping_Method {
 								'height' => $package_height,
 								'weight' => $package_weight,
 								'qty'    => 'per_item' === $this->packing_method ? $cart_item_qty : 0,
+								'name'   => $quoted_package_name,
 							)
 						);
 
@@ -2398,5 +2407,24 @@ class WC_Shipping_USPS extends WC_Shipping_Method {
 			}
 		}
 		return false;
+	}
+
+	/**
+	 * Calculates the girth of the package from dimensions.
+	 * 
+	 * Ref: https://www.ups.com/us/en/help-center/packaging-and-supplies/prepare-overize.page
+	 *
+	 * @since 4.4.45
+	 * @param array $dimensions The dimension to calculate from.
+	 * @return int $girth
+	 */
+	protected function get_girth( $dimensions = null ) {
+		if ( is_null( $dimensions ) ) {
+			return 0;
+		}
+
+		$girth = round( ( $dimensions[0] * 2 ) + ( $dimensions[1] * 2 ) );
+
+		return $girth;
 	}
 }

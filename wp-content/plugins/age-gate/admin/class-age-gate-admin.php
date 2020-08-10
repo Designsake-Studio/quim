@@ -60,6 +60,9 @@ class Age_Gate_Admin extends Age_Gate_Common
      */
     public function enqueue_scripts($hook)
     {
+        if (is_customize_preview()) {
+            return;
+        }
 
         /**
          * This function is provided for demonstration purposes only.
@@ -112,6 +115,14 @@ class Age_Gate_Admin extends Age_Gate_Common
                 echo '<div id="message" class="notice notice-' . $message['status'] . ' is-dismissible"><p>'. $message['message'] .'</p></div>';
             }
         }
+        
+        if (version_compare(PHP_VERSION, '7.0.0') < 0) {
+            if (!get_transient('wp_age_gate_php_7')) {
+                echo '<div id="message" class="age-gate-php-warning notice notice-warning is-dismissible"><p>'. __('Your PHP version is out dated, the next major version of Age Gate may not support this version') .'</p></div>';
+                set_transient('wp_age_gate_php_7', 1, MONTH_IN_SECONDS);
+            }
+        }
+
 
         if (current_user_can(AGE_GATE_CAP_ACCESS)) {
             $this->_dev_notices();
@@ -303,13 +314,13 @@ class Age_Gate_Admin extends Age_Gate_Common
             $t  = esc_sql("_transient_timeout_%_age_gate%");
 
             $sql = $wpdb->prepare(
-            "
+                "
 	      SELECT option_name, option_value
 	      FROM $options
 	      WHERE option_name LIKE '%s'
 	    ",
-            $t
-      );
+                $t
+            );
 
             $transients = $wpdb->get_results($sql);
 
@@ -330,10 +341,11 @@ class Age_Gate_Admin extends Age_Gate_Common
         if (isset($_REQUEST['ag_switch'])) {
             global $pagenow;
             if ($this->_can_age_gate() &&  isset($_REQUEST['page']) && $_REQUEST['page'] === 'age-gate' && wp_verify_nonce($_REQUEST['_wpnonce'], 'age-gate-toggle')) {
+                $cookieName = $this->get_cookie_name();
                 if ($_REQUEST['ag_switch'] !== 'hide') {
-                    setcookie('age_gate', '', time() - 3600, COOKIEPATH, COOKIE_DOMAIN);
+                    setcookie($cookieName, '', time() - 3600, COOKIEPATH, COOKIE_DOMAIN);
                 } else {
-                    setcookie('age_gate', 99, time() + 3600, COOKIEPATH, COOKIE_DOMAIN);
+                    setcookie($cookieName, 99, time() + 3600, COOKIEPATH, COOKIE_DOMAIN);
                 }
             }
             wp_redirect($_SERVER['HTTP_REFERER']);

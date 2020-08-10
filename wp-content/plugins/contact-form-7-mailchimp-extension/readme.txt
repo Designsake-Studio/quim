@@ -23,7 +23,7 @@ Wordpress Extension For Mailchimp (Chimpmatic Lite). Integrate Contact Form 7 wi
 = Key Features =
 
 * FREE!
-* [Easy to use](https://chimpmatic.com/help/contact-form-7-mailchimp-extension)
+* [Easy to use](https://chimpmatic.com/help/connect-contact-form-7-with-mailchimp)
 * Support for [many custom fields](https://renzojohnson.com/contributions/contact-form-7-mailchimp-extension/mailchimp-custom-fields)
 * Unlimited [contact forms](https://renzojohnson.com/contributions/contact-form-7-mailchimp-extension/mailchimp-custom-fields)
 * Use a different [Mailchimp API key](https://chimpmatic.com/help/contact-form-7-mailchimp-extension) per contact form
@@ -36,16 +36,16 @@ Wordpress Extension For Mailchimp (Chimpmatic Lite). Integrate Contact Form 7 wi
 
 = Premium Features =
 
-* NEW [Tag Existing Mailchimp Subscribers](https://chimpmatic.com)
-* NEW [Group Existing Mailchimp Subscribers](https://chimpmatic.com)
-* NEW [Unlimited Mailchimp Custom Fields](https://chimpmatic.com)
+* NEW [Tag Existing Mailchimp Subscribers](https://chimpmatic.com/pricing)
+* NEW [Group Existing Mailchimp Subscribers](https://chimpmatic.com/faq)
+* NEW [Unlimited Mailchimp Custom Fields](https://chimpmatic.com/pro)
 * NEW [Mailchimp Email Verification](https://chimpmatic.com)
 * NEW [Unsubscribe](https://chimpmatic.com)
 * NEW [Archive](https://chimpmatic.com)
 * NEW [Delete (Permanently)](https://chimpmatic.com)
 * Unlimited [Mailchimp Tags](https://chimpmatic.com)
 * Unlimited [Mailchimp Groups](https://chimpmatic.com)
-* [Support for birthday](https://chimpmatic.com)
+* [Support for birthday](https://chimpmatic.com/help/sending-birthday-fields-to-mailchimp)
 * [Support for language](https://chimpmatic.com)
 * [Support for text/html](https://chimpmatic.com)
 * [Support for Mailchimp categories](https://chimpmatic.com)
@@ -77,8 +77,8 @@ For basic usage, you can also have a look at the [Contact Form 7 Mailchimp Exten
 
 Do you have questions or issues with Contact Form 7 Mailchimp Extension? Use these support channels appropriately.
 
-1. [Basic setup - Mailchimp Extension 101](https://renzojohnson.com/contributions/contact-form-7-mailchimp-extension/mailchimp-contact-form)
-2. [Contact Form 7 Mailchimp Extension Docs](https://renzojohnson.com/contributions/contact-form-7-mailchimp-extension/mailchimp-contact-form)
+1. [Connect to Mailchimp - Basic setup - Mailchimp Extension 101](https://chimpmatic.com/help/connect-contact-form-7-with-mailchimp)
+2. [Contact Form 7 Mailchimp Extension Docs](https://chimpmatic.com/help)
 3. [Contact Form 7 Mailchimp](https://chimpmatic.com/help/contact-form-7-mailchimp-extension)
 4. [Mailchimp API Key](https://chimpmatic.com/how-to-find-your-mailchimp-api-key)
 4. [Mailchimp Tags or Labels](https://chimpmatic.com/how-to-find-your-mailchimp-api-key)
