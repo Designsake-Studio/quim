@@ -49,7 +49,6 @@
 	  fbq('track', 'PageView');
 	</script>
 	<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=2486995651410953&ev=PageView&noscript=1"/></noscript>
-<img src="https://b1img.com/ff927674de5c4a61a470d0f215afde90/uni_tag">
 
 
 	<!-- Global site tag (gtag.js) - Google Analytics -->

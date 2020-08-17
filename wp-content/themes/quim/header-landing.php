@@ -17,7 +17,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="profile" href="https://gmpg.org/xfn/11">
 	<script src="https://code.jquery.com/jquery-latest.min.js"></script>
-<img src="https://b1img.com/ff927674de5c4a61a470d0f215afde90/uni_tag">
 
   	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
 
