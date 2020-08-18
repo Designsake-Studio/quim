@@ -35,6 +35,8 @@
   <script src="<?php echo get_stylesheet_directory_uri(); ?>/js/circletype.min.js"></script>
   <script src="<?php echo get_stylesheet_directory_uri(); ?>/js/jquery.lettering-0.6.min.js"></script>
 
+	<img src="https://b1img.com/ff927674de5c4a61a470d0f215afde90/uni_tag" role="none" style="display: none;" />
+
 	<!-- Facebook Pixel -->
 	<script>
 	  !function(f,b,e,v,n,t,s)
