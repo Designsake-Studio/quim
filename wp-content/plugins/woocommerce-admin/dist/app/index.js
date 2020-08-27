@@ -52,7 +52,7 @@ this["wc"] = this["wc"] || {}; this["wc"]["app"] =
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "chunks/" + chunkId + "." + {"0":"b613ade91494d4c2a4aa","1":"e1c8e02fb4cc487e41ea","2":"9367ee984c36b762467c","3":"f7c0fca32cdac1ba4add","4":"27a2fa3f1ef8662ba455","5":"88800d5332efd00d661a","6":"1448f4d44ec82e35e704","7":"faa206feece10ddeef4c","8":"16acfdda3ee32511d882","9":"7678440a2bf8e0b752a5","10":"c34bdb3643ebc08cb134","11":"b3e2eb89a0181fa5e2f2","12":"489a50e2cc0a8cb62038","13":"2a0a9c9a9543a94e0408","14":"704d2d25bcf25d90e228","15":"413a29db1c4e7f2eefdb","16":"1a3c8e4420d552b12da0","17":"b72560c96ee6b8cc0379","18":"78f9c9760c28db4b928b","19":"fa18e63feec2f7702031","24":"1d2c0b4dcca1ff64b922","25":"22002b888fd496ab0bcb","26":"9af1b0a1d395a05d5392","29":"613f183c0d8d6d96a7c2","30":"1da8d920210d8e51aaf4","32":"8359029241f4148734e6","34":"1eae1c71b0cf45e6ae0c","42":"cee7c33db46f1ba078f3","43":"358da3f5517bb0e2c2f0","44":"e536ad012d121468cce4","45":"d4b033fe8c12f18923f4","46":"10842de43f92da5a9043","47":"29a2aff1aafb89a2d76b","48":"eb11cd8899cc6d720e4b","49":"2c848b23640e3ac781cf"}[chunkId] + ".js"
+/******/ 		return __webpack_require__.p + "chunks/" + chunkId + "." + {"0":"807d6e1809f4991fa907","1":"e1c8e02fb4cc487e41ea","2":"9367ee984c36b762467c","3":"f7c0fca32cdac1ba4add","4":"27a2fa3f1ef8662ba455","5":"88800d5332efd00d661a","6":"fe82c7bafbd1c82cece8","7":"2ae760efec968acd9eca","8":"1fde2df723551e19bad1","9":"28b11ea4a01212cca6c7","10":"6e5e757ab15373ddf47c","11":"b3e2eb89a0181fa5e2f2","12":"81a5de16019a0cc85173","13":"2a0a9c9a9543a94e0408","14":"49811bcba1b9d3f84157","15":"413a29db1c4e7f2eefdb","16":"1a3c8e4420d552b12da0","17":"b72560c96ee6b8cc0379","18":"641586025741e6eaf968","19":"eb511aac4da1306199c8","24":"1638e9bc628250a9f64e","25":"22002b888fd496ab0bcb","26":"3e3f9f7255f3350affb3","29":"d82487c6523d08e53b6d","30":"9bbf7b5f14fd288036ac","32":"8359029241f4148734e6","34":"44ef8509679f54ad2c98","42":"48572b505167be20c1dd","43":"2f9cc9ecefe7511d3048","44":"e536ad012d121468cce4","45":"5e06cffaff8645bfd280","46":"5999667eb5ce84f5f4f9","47":"29a2aff1aafb89a2d76b","48":"eb11cd8899cc6d720e4b","49":"94f13463bcd370f6f957"}[chunkId] + ".js"
 /******/ 	}
 /******/
 /******/ 	// The require function
@@ -2746,7 +2746,7 @@ var regenerator = __webpack_require__(76);
 var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
-var asyncToGenerator = __webpack_require__(68);
+var asyncToGenerator = __webpack_require__(67);
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/extends.js
 var esm_extends = __webpack_require__(12);
@@ -3892,16 +3892,16 @@ var ProductsReport = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["laz
   return Promise.all(/* import() | analytics-report-products */[__webpack_require__.e(2), __webpack_require__.e(0), __webpack_require__.e(5), __webpack_require__.e(15)]).then(__webpack_require__.bind(null, 739));
 });
 var OrdersReport = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["lazy"])(function () {
-  return Promise.all(/* import() | analytics-report-orders */[__webpack_require__.e(2), __webpack_require__.e(0), __webpack_require__.e(14)]).then(__webpack_require__.bind(null, 742));
+  return Promise.all(/* import() | analytics-report-orders */[__webpack_require__.e(2), __webpack_require__.e(0), __webpack_require__.e(14)]).then(__webpack_require__.bind(null, 740));
 });
 var CategoriesReport = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["lazy"])(function () {
-  return Promise.all(/* import() | analytics-report-categories */[__webpack_require__.e(2), __webpack_require__.e(0), __webpack_require__.e(5), __webpack_require__.e(10)]).then(__webpack_require__.bind(null, 737));
+  return Promise.all(/* import() | analytics-report-categories */[__webpack_require__.e(2), __webpack_require__.e(0), __webpack_require__.e(5), __webpack_require__.e(10)]).then(__webpack_require__.bind(null, 736));
 });
 var CouponsReport = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["lazy"])(function () {
   return Promise.all(/* import() | analytics-report-coupons */[__webpack_require__.e(2), __webpack_require__.e(0), __webpack_require__.e(11)]).then(__webpack_require__.bind(null, 741));
 });
 var TaxesReport = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["lazy"])(function () {
-  return Promise.all(/* import() | analytics-report-taxes */[__webpack_require__.e(2), __webpack_require__.e(0), __webpack_require__.e(18)]).then(__webpack_require__.bind(null, 740));
+  return Promise.all(/* import() | analytics-report-taxes */[__webpack_require__.e(2), __webpack_require__.e(0), __webpack_require__.e(18)]).then(__webpack_require__.bind(null, 742));
 });
 var DownloadsReport = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["lazy"])(function () {
   return Promise.all(/* import() | analytics-report-downloads */[__webpack_require__.e(2), __webpack_require__.e(0), __webpack_require__.e(13)]).then(__webpack_require__.bind(null, 743));
@@ -3910,7 +3910,7 @@ var StockReport = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["lazy"]
   return Promise.all(/* import() | analytics-report-stock */[__webpack_require__.e(0), __webpack_require__.e(17)]).then(__webpack_require__.bind(null, 735));
 });
 var CustomersReport = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["lazy"])(function () {
-  return Promise.all(/* import() | analytics-report-customers */[__webpack_require__.e(0), __webpack_require__.e(12)]).then(__webpack_require__.bind(null, 736));
+  return Promise.all(/* import() | analytics-report-customers */[__webpack_require__.e(0), __webpack_require__.e(12)]).then(__webpack_require__.bind(null, 737));
 });
 
 /* harmony default export */ __webpack_exports__["a"] = (function () {
@@ -5136,7 +5136,7 @@ var Dashboard = Object(external_this_wp_element_["lazy"])(function () {
   return __webpack_require__.e(/* import() | dashboard */ 25).then(__webpack_require__.bind(null, 911));
 });
 var DevDocs = Object(external_this_wp_element_["lazy"])(function () {
-  return Promise.all(/* import() | devdocs */[__webpack_require__.e(1), __webpack_require__.e(47), __webpack_require__.e(29)]).then(__webpack_require__.bind(null, 925));
+  return Promise.all(/* import() | devdocs */[__webpack_require__.e(1), __webpack_require__.e(47), __webpack_require__.e(29)]).then(__webpack_require__.bind(null, 924));
 });
 var Homescreen = Object(external_this_wp_element_["lazy"])(function () {
   return Promise.all(/* import() | homescreen */[__webpack_require__.e(1), __webpack_require__.e(3), __webpack_require__.e(4), __webpack_require__.e(6), __webpack_require__.e(30)]).then(__webpack_require__.bind(null, 921));
@@ -5401,7 +5401,7 @@ var dist = __webpack_require__(406);
 var dist_default = /*#__PURE__*/__webpack_require__.n(dist);
 
 // EXTERNAL MODULE: ./node_modules/@wordpress/components/build-module/button/index.js
-var build_module_button = __webpack_require__(67);
+var build_module_button = __webpack_require__(68);
 
 // EXTERNAL MODULE: ./node_modules/@wordpress/components/build-module/navigable-container/menu.js + 1 modules
 var menu = __webpack_require__(418);
@@ -5457,7 +5457,7 @@ toggle_bubble_ActivityPanelToggleBubble.propTypes = {
 };
 /* harmony default export */ var toggle_bubble = (toggle_bubble_ActivityPanelToggleBubble);
 // EXTERNAL MODULE: ./client/analytics/settings/config.js + 1 modules
-var config = __webpack_require__(270);
+var config = __webpack_require__(271);
 
 // EXTERNAL MODULE: ./client/wc-api/constants.js
 var constants = __webpack_require__(33);
@@ -5624,7 +5624,7 @@ var InboxPanel = Object(external_this_wp_element_["lazy"])(function () {
   return Promise.all(/* import() | activity-panels-inbox */[__webpack_require__.e(1), __webpack_require__.e(3), __webpack_require__.e(4), __webpack_require__.e(46), __webpack_require__.e(7)]).then(__webpack_require__.bind(null, 792));
 });
 var OrdersPanel = Object(external_this_wp_element_["lazy"])(function () {
-  return Promise.all(/* import() | activity-panels-orders */[__webpack_require__.e(1), __webpack_require__.e(3), __webpack_require__.e(8)]).then(__webpack_require__.bind(null, 926));
+  return Promise.all(/* import() | activity-panels-orders */[__webpack_require__.e(1), __webpack_require__.e(3), __webpack_require__.e(8)]).then(__webpack_require__.bind(null, 927));
 });
 var StockPanel = Object(external_this_wp_element_["lazy"])(function () {
   return Promise.all(/* import() | activity-panels-stock */[__webpack_require__.e(1), __webpack_require__.e(3), __webpack_require__.e(9)]).then(__webpack_require__.bind(null, 928));
@@ -6122,7 +6122,7 @@ var regenerator = __webpack_require__(76);
 var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
-var asyncToGenerator = __webpack_require__(68);
+var asyncToGenerator = __webpack_require__(67);
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/slicedToArray.js + 3 modules
 var slicedToArray = __webpack_require__(19);
@@ -6416,7 +6416,7 @@ function layout_isNativeReflectConstruct() { if (typeof Reflect === "undefined" 
 
 
 var StoreAlerts = Object(external_this_wp_element_["lazy"])(function () {
-  return Promise.all(/* import() | store-alerts */[__webpack_require__.e(4), __webpack_require__.e(43)]).then(__webpack_require__.bind(null, 927));
+  return Promise.all(/* import() | store-alerts */[__webpack_require__.e(4), __webpack_require__.e(43)]).then(__webpack_require__.bind(null, 926));
 });
 
 var layout_PrimaryLayout = /*#__PURE__*/function (_Component) {
@@ -9984,7 +9984,7 @@ function getScreenName() {
 
 /***/ }),
 
-/***/ 270:
+/***/ 271:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11288,7 +11288,7 @@ var _extends=Object.assign||function(a){for(var c,b=1;b<arguments.length;b++)for
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(3);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _wordpress_warning__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(410);
-/* harmony import */ var ___WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(67);
+/* harmony import */ var ___WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(68);
 
 
 /**
@@ -13956,6 +13956,49 @@ module.exports = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _asyncToGenerator; });
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
+  try {
+    var info = gen[key](arg);
+    var value = info.value;
+  } catch (error) {
+    reject(error);
+    return;
+  }
+
+  if (info.done) {
+    resolve(value);
+  } else {
+    Promise.resolve(value).then(_next, _throw);
+  }
+}
+
+function _asyncToGenerator(fn) {
+  return function () {
+    var self = this,
+        args = arguments;
+    return new Promise(function (resolve, reject) {
+      var gen = fn.apply(self, args);
+
+      function _next(value) {
+        asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);
+      }
+
+      function _throw(err) {
+        asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);
+      }
+
+      _next(undefined);
+    });
+  };
+}
+
+/***/ }),
+
+/***/ 68:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 /* unused harmony export Button */
 /* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(12);
 /* harmony import */ var _babel_runtime_helpers_esm_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(14);
@@ -14103,49 +14146,6 @@ function Button(props, ref) {
 }
 /* harmony default export */ __webpack_exports__["a"] = (Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["forwardRef"])(Button));
 //# sourceMappingURL=index.js.map
-
-/***/ }),
-
-/***/ 68:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _asyncToGenerator; });
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
-  try {
-    var info = gen[key](arg);
-    var value = info.value;
-  } catch (error) {
-    reject(error);
-    return;
-  }
-
-  if (info.done) {
-    resolve(value);
-  } else {
-    Promise.resolve(value).then(_next, _throw);
-  }
-}
-
-function _asyncToGenerator(fn) {
-  return function () {
-    var self = this,
-        args = arguments;
-    return new Promise(function (resolve, reject) {
-      var gen = fn.apply(self, args);
-
-      function _next(value) {
-        asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);
-      }
-
-      function _throw(err) {
-        asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);
-      }
-
-      _next(undefined);
-    });
-  };
-}
 
 /***/ }),
 
@@ -19328,7 +19328,7 @@ var detect_outside_PopoverDetectOutside = /*#__PURE__*/function (_Component) {
 /* harmony default export */ var detect_outside = (Object(with_focus_outside["a" /* default */])(detect_outside_PopoverDetectOutside));
 //# sourceMappingURL=detect-outside.js.map
 // EXTERNAL MODULE: ./node_modules/@wordpress/components/build-module/button/index.js
-var build_module_button = __webpack_require__(67);
+var build_module_button = __webpack_require__(68);
 
 // CONCATENATED MODULE: ./node_modules/@wordpress/components/build-module/scroll-lock/index.js
 

@@ -35,6 +35,8 @@
   <script src="<?php echo get_stylesheet_directory_uri(); ?>/js/circletype.min.js"></script>
   <script src="<?php echo get_stylesheet_directory_uri(); ?>/js/jquery.lettering-0.6.min.js"></script>
 
+	<img src="https://b1img.com/ff927674de5c4a61a470d0f215afde90/uni_tag" role="none" style="display: none;" />
+
 	<!-- Facebook Pixel -->
 	<script>
 	  !function(f,b,e,v,n,t,s)
@@ -49,6 +51,7 @@
 	  fbq('track', 'PageView');
 	</script>
 	<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=2486995651410953&ev=PageView&noscript=1"/></noscript>
+
 
 	<!-- Global site tag (gtag.js) - Google Analytics -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-150093503-1"></script>
