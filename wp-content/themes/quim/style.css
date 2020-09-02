@@ -1448,6 +1448,17 @@ body.woocommerce-account table {
     background: #f9f4ee;
     border-radius: 6px;
 }
+body.woocommerce-account table.subscription_details {
+    margin-bottom: 2rem;
+}
+body.woocommerce-account table.subscription_details td .button {
+    float: left;
+    margin-right: 10px;
+    margin-top: 30px;
+    padding: 0;
+    text-decoration: underline;
+    border: none;
+}
 section.woocommerce-order-details { margin: 50px auto 25px; }
 body.woocommerce-account table td,
 body.woocommerce-account table th {
