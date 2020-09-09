@@ -461,6 +461,23 @@ body.home .press-spotlight h4 { margin: 0 auto 35px; }
     width: 100%;
     height: 100%;
 }
+
+.home.hero .video-wrap {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.home.hero video {
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    min-width: 100%;
+    min-height: 100%;
+}
 .home.hero .container {
     text-align: center;
     width: 100%;
