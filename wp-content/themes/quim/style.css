@@ -418,6 +418,7 @@ body.single .cat-links { display: none; }
     padding: 5vh 0;
     background: #1A283F;
 }
+
 .press-spotlight h4 {
     color: #00A1D5;
     font-weight: 400;
@@ -449,7 +450,6 @@ body.home .press-spotlight h4 { margin: 0 auto 35px; }
     background-color: #ffe6f1 !important;
     background-size: cover !important;
     background-position: top center !important;
-
 }
 
 .home.hero::after {
@@ -714,6 +714,7 @@ body.home .about.fifty.reverse a.cta {
     left: 0;
     z-index: 1;
 }
+
 .hero .container {
     position: relative;
     z-index: 9;
