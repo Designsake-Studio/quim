@@ -1178,14 +1178,6 @@ span.subtitle {
     display: none;
 }
 
-.wcsatt-options-product-prompt {
-    /*margin-bottom: 2rem;*/
-}
-
-.wcsatt-options-product-prompt label {
-    /*display: flex;*/
-}
-
 .wcsatt-options-product-prompt label input[type=radio] {
     height: 0;
     width: 0;
@@ -1193,7 +1185,6 @@ span.subtitle {
 }
 .wcsatt-options-product-prompt-radio label>span {
     display: block;
-   /* border: 2px solid blue;*/
     padding-left: 50px;
     position: relative;
     line-height: 40px;
@@ -1222,6 +1213,16 @@ span.subtitle {
     background-color: #3a3025;
     opacity: 0;
     cursor: pointer;
+}
+
+body.postid-353 .wcsatt-options-product-prompt-radio label>span {
+    color: #08265c;
+}
+body.postid-353 .wcsatt-options-product-prompt-radio label>span::before {
+    border-color: #08265c;
+}
+body.postid-353 .wcsatt-options-product-prompt-radio label>span::after {
+    background-color: #08265c;
 }
 .wcsatt-options-product-prompt label input[type=radio]:checked + span::after {
     opacity: 1;
