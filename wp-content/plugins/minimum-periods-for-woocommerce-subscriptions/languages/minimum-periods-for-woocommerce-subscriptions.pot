@@ -1,0 +1,107 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Minimum Periods for WooCommerce Subscriptions\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-09-09 20:30+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Language-Team: \n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. %1$s: Opening Strong Tag, %2$s: Closing Strong Tag, %3$s: Opening WooCommerce link tag, %4$s: Closing link tag
+#: admin/class-minimum-periods-for-woocommerce-subscriptions-admin.php:142
+#, php-format
+msgid ""
+"%1$sMinimum Periods for WooCommerce Subscriptions is inactive.%2$s The "
+"%3$sWooCommerce plugin%4$s must be active for Minimum Periods to work."
+msgstr ""
+
+#. %1$s: Opening Strong Tag, %2$s: Closing Strong Tag, %3$s: Opening WooCommerce Subscriptions link tag, %4$s: Closing link tag
+#: admin/class-minimum-periods-for-woocommerce-subscriptions-admin.php:123
+#, php-format
+msgid ""
+"%1$sMinimum Periods for WooCommerce Subscriptions is inactive.%2$s The "
+"%3$sWooCommerce Subscriptions plugin%4$s must be active for Minimum Periods "
+"to work."
+msgstr ""
+
+#: admin/class-minimum-periods-for-woocommerce-subscriptions-admin.php:182
+msgid "Allow subscribers to cancel their subscriptions"
+msgstr ""
+
+#: admin/partials/minimum-periods-for-woocommerce-subscriptions-admin-display.php:18
+msgid "Cancelling"
+msgstr ""
+
+#. Description of the plugin
+msgid ""
+"Configure minimum periods for WooCommerce Subscriptions before allowing "
+"customers to cancel their subscription."
+msgstr ""
+
+#: admin/class-minimum-periods-for-woocommerce-subscriptions-admin.php:185
+msgid "Default Minimum Period(s)"
+msgstr ""
+
+#: admin/partials/minimum-periods-for-woocommerce-subscriptions-admin-display.php:29
+msgid "e.g. 2"
+msgstr ""
+
+#: admin/class-minimum-periods-for-woocommerce-subscriptions-admin.php:178
+msgid "Enable Cancelling"
+msgstr ""
+
+#. URI of the plugin
+#. Author URI of the plugin
+msgid "https://wpextend.io"
+msgstr ""
+
+#: admin/partials/minimum-periods-for-woocommerce-subscriptions-admin-display.php:26
+msgid "Minimum Period(s)"
+msgstr ""
+
+#. Name of the plugin
+msgid "Minimum Periods for WooCommerce Subscriptions"
+msgstr ""
+
+#: admin/class-minimum-periods-for-woocommerce-subscriptions-admin.php:172
+msgctxt "options section heading"
+msgid "Cancelling"
+msgstr ""
+
+#: admin/partials/minimum-periods-for-woocommerce-subscriptions-admin-display.php:21
+msgid "Override storewide settings"
+msgstr ""
+
+#: admin/partials/minimum-periods-for-woocommerce-subscriptions-admin-display.php:27
+msgid "Set 0 to allow subscribers to cancel immediately."
+msgstr ""
+
+#: admin/class-minimum-periods-for-woocommerce-subscriptions-admin.php:55
+msgid "Settings"
+msgstr ""
+
+#: admin/class-minimum-periods-for-woocommerce-subscriptions-admin.php:190
+msgid ""
+"The minimum number of periods/orders will be used store-wide for all "
+"subscription products."
+msgstr ""
+
+#: admin/class-minimum-periods-for-woocommerce-subscriptions-admin.php:191
+msgid ""
+"The number of periods/orders to be completed before a customer can cancel "
+"their subscription on their my-account page. Leave blank if this will be "
+"configured on a per-product basis."
+msgstr ""
+
+#: admin/partials/minimum-periods-for-woocommerce-subscriptions-admin-display.php:20
+msgid "Use storewide settings"
+msgstr ""
+
+#. Author of the plugin
+msgid "WP Extend"
+msgstr ""
