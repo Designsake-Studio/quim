@@ -1085,6 +1085,9 @@ body.archive .type-product p {
     clear: both;
 }
 body.archive .type-product p.price { font-size: 1.2em; margin-top: 5px; }
+body.archive .type-product p.price small,
+body.archive .type-product p.price .wcsatt-sub-discount { font-size: .9em; font-weight: 600;}
+body.archive .type-product p.price small .wcsatt-dash { font-weight: normal; }
 body.archive .type-product a.button {
     float: left;
     margin: 15px 0 0;
@@ -1247,6 +1250,10 @@ ul.wcsatt-options-prompt-radios li label {
     border: 2px solid #3a3025;
     background-color: transparent;
     color: #3a3025;
+}
+body.postid-353 .wcsatt-options-product-dropdown {
+    color: #08265c;
+    border-color: #08265c;
 }
 body.single-product form.cart {
     margin: 0 20px 30px 0;
