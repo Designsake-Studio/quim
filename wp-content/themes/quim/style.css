@@ -1736,6 +1736,12 @@ table.shop_table_responsive input[type="number"] { max-width: 100px; }
     font-size: .9em;
 }
 
+.cart_totals table.shop_table_responsive tr.recurring-total td p {
+    text-align: right;
+    padding-left: 10px;
+    font-size: .8rem;
+}
+
 .cart_totals tr.order-total.recurring-total {
     padding: 5px 10px;
 
