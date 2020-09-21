@@ -1237,12 +1237,21 @@ ul.wcsatt-options-prompt-radios li label {
 .wcsatt-options-product-dropdown-label {
     line-height: 45px;
     margin: 0 10px 0 0;
+    display: none;
 }
 .wcsatt-options-wrapper {
     margin-bottom: 2rem;
 }
 .wcsatt-options-product-wrapper {
     display: flex;
+    flex-wrap: wrap;
+}
+
+.wcsatt-options-product-wrapper::after {
+    content: 'Pause, edit or cancel after your second shipment';
+    display: block;
+    font-size: .8rem;
+    width: 100%;
 }
 .wcsatt-options-product-dropdown {
     padding: 10px;
@@ -1250,6 +1259,7 @@ ul.wcsatt-options-prompt-radios li label {
     border: 2px solid #3a3025;
     background-color: transparent;
     color: #3a3025;
+    margin-bottom: .5rem;
 }
 body.postid-353 .wcsatt-options-product-dropdown {
     color: #08265c;
@@ -1781,6 +1791,12 @@ table.shop_table_responsive input[type="number"] { max-width: 100px; }
     background-color: #1A283F;
     color: #EBDCCD;
 }
+
+.cart_totals tr.order-total.recurring-total .first-payment-date::after {
+    content: '*Minimum 2 orders*';
+    display: block;
+    font-size: 80%;
+}
 .cart_totals tr.order-total.recurring-total td  {
     width: 60%!important;
 }
@@ -1796,6 +1812,18 @@ table.shop_table_responsive input[type="number"] { max-width: 100px; }
 }
 .cart-collaterals { width: 30%; display: inline-block; float: left; }
 
+
+.cart-collaterals .subscribe-promo {
+    margin-left: 50px;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #1A283F;
+    color: #f9f4ee;
+}
+
+.cart-collaterals .subscribe-promo p {
+    margin-bottom: 0;
+}
 /* Cart Upsell */
 .cross-sells { color: inherit; }
 .cross-sells p { margin: 0 0 5px; }

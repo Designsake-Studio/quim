@@ -20,6 +20,7 @@ defined( 'ABSPATH' ) || exit;
 do_action( 'woocommerce_before_cart' ); ?>
 
 <div class="cart-left">
+
 <form class="woocommerce-cart-form" action="<?php echo esc_url( wc_get_cart_url() ); ?>" method="post">
 	<?php do_action( 'woocommerce_before_cart_table' ); ?>
 
@@ -164,6 +165,9 @@ do_action( 'woocommerce_before_cart' ); ?>
 </div>
 
 <div class="cart-collaterals">
+	<div class="subscribe-promo">
+		<p>Want to save 20% on each order of Quim? Subscribe and save today!</p>
+	</div>
 	<?php
 		/**
 		 * Cart collaterals hook.
