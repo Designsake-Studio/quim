@@ -250,9 +250,19 @@
                         "class": "",
                         "id": ""
                     },
-                    "message": "Products are automatically fed in.",
-                    "new_lines": "wpautop",
-                    "esc_html": 0
+                    "post_type": [
+                        "product"
+                    ],
+                    "taxonomy": "",
+                    "filters": [
+                        "search"
+                    ],
+                    "elements": [
+                        "featured_image"
+                    ],
+                    "min": 4,
+                    "max": 4,
+                    "return_format": "object"
                 }
             ]
         },
