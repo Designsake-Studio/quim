@@ -298,7 +298,7 @@
                     "key": "field_5dadf2da70e1f",
                     "label": "Products",
                     "name": "",
-                    "type": "message",
+                    "type": "relationship",
                     "instructions": "",
                     "required": 0,
                     "conditional_logic": 0,
@@ -307,9 +307,19 @@
                         "class": "",
                         "id": ""
                     },
-                    "message": "Products are automatically fed in.",
-                    "new_lines": "wpautop",
-                    "esc_html": 0
+                    "post_type": [
+                        "product"
+                    ],
+                    "taxonomy": "",
+                    "filters": [
+                        "search"
+                    ],
+                    "elements": [
+                        "featured_image"
+                    ],
+                    "min": 4,
+                    "max": 4,
+                    "return_format": "object"
                 }
             ]
         },
@@ -560,5 +570,5 @@
     ],
     "active": 1,
     "description": "",
-    "modified": 1599665265
+    "modified": 1600893673
 }
