@@ -67,6 +67,7 @@ if ( empty( $product ) || ! $product->is_visible() ) {
 	<div class="woocommerce-product-details__short-description">
 		<?php echo $short_description; // WPCS: XSS ok. ?>
 	</div>
+
 	<?php
 	/**
 	 * Hook: woocommerce_after_shop_loop_item.
@@ -77,6 +78,5 @@ if ( empty( $product ) || ! $product->is_visible() ) {
 	do_action( 'woocommerce_after_shop_loop_item' );
 	?>
 	<a class="learn-more" href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>">Learn More</a>
-	<span id="extole_zone_product"></span>
 	</div>
 </div>
