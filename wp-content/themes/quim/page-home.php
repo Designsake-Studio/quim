@@ -15,19 +15,19 @@ get_header(); ?>
         $cta = get_sub_field('hero_cta');
         $productimg = get_sub_field('product_image');
         $productimgalt = get_sub_field('product_image_alt');
-        $type = get_sub_field('background_type');
-        $video = get_sub_field('background_video');
+        // $type = get_sub_field('background_type');
+        // $video = get_sub_field('background_video');
         ?>
-        <?php if($type == 'img') : ?>
+        <?php //if($type == 'img') : ?>
     	<div class="home hero" style="background: #0a4271 url('<?php echo $background; ?>') fixed no-repeat center center; background-size: contain;">
-        <?php elseif($type == 'vid') : ?>
-            <div class="home hero">
+        <?php //elseif($type == 'vid') : ?>
+            <!-- <div class="home hero">
                 <div class="video-wrap">
                     <video autoplay muted loop id="homeHero">
                       <source src="<?php echo $video; ?>" type="video/mp4">
                     </video>
-                </div>
-        <?php endif; ?>
+                </div> -->
+        <?php //endif; ?>
     	    <div class="container wow fadeIn">
     	        <h2><?php echo $title; ?></h2>
                 <?php if( $description ): ?>
