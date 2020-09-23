@@ -1759,9 +1759,7 @@ table.shop_table_responsive input[type="number"] { max-width: 100px; }
 }
 
 .cart_totals tr.order-total.recurring-total {
-    padding: 5px 10px;
-
-    padding-bottom: 40px;
+    padding: 10px 10px 70px 10px;
     position: relative;
     font-size: 1.1rem;
 
@@ -1782,7 +1780,7 @@ table.shop_table_responsive input[type="number"] { max-width: 100px; }
     position: absolute;
     left: 0;
     bottom: 0;
-    padding: 5px 10px;
+    padding: 10px 10px;
     width: 100%;
     text-align: center;
     text-transform: uppercase;
@@ -1791,10 +1789,19 @@ table.shop_table_responsive input[type="number"] { max-width: 100px; }
     color: #EBDCCD;
 }
 
+.cart_totals tr.order-total.recurring-total .first-payment-date small {
+    font-size: .9rem;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 5px;
+    letter-spacing: 0.06em;
+}
+
 .cart_totals tr.order-total.recurring-total .first-payment-date::after {
     content: '*Minimum 2 orders*';
     display: block;
     font-size: 80%;
+    text-transform: none;
 }
 .cart_totals tr.order-total.recurring-total td  {
     width: 60%!important;
@@ -1818,6 +1825,13 @@ table.shop_table_responsive input[type="number"] { max-width: 100px; }
     margin-bottom: 10px;
     background-color: #1A283F;
     color: #f9f4ee;
+    display: block;
+    text-decoration: none;
+    transition: background-color .2s ease-in;
+}
+
+.cart-collaterals .subscribe-promo:hover {
+    background-color: #DD5841;
 }
 
 .cart-collaterals .subscribe-promo p {
