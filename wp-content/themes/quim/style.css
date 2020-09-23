@@ -1735,8 +1735,6 @@ table.shop_table_responsive input[type="number"] { max-width: 100px; }
 .shop_table .recurring-total {
     background: #f9f4ee;
     padding: 5px 10px;
-    /*background: pink;
-    padding: 5px;*/
 }
 
 .shop_table .recurring-total th {
