@@ -1738,9 +1738,7 @@ table.shop_table_responsive input[type="number"] { max-width: 100px; }
 }
 
 .shop_table .recurring-total th {
-    width: 40%!important;
-
-
+    width: 70px!important;
 }
 .cart_totals table.shop_table_responsive tr.recurring-total td,
 .cart_totals table.shop_table_responsive tr.recurring-total th {
@@ -1775,9 +1773,55 @@ table.shop_table_responsive input[type="number"] { max-width: 100px; }
     letter-spacing: 0;
     text-align:right;
 }
+.cart_totals table.shop_table_responsive tr.recurring-total.shipping {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.cart_totals table.shop_table_responsive tr.recurring-total.shipping td {
+    width: 100%;
+    display: flex;
+}
+.cart_totals table.shop_table_responsive tr.recurring-total.shipping td ul {
+    width: 100%;
+}
+.cart_totals table.shop_table_responsive tr.recurring-total.shipping td ul li {
+    padding-left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-indent: 0;
+    padding: 10px 0;
+    font-size: .8rem;
+    letter-spacing: 0;
+}
 
+.cart_totals table.shop_table_responsive tr.shipping.recurring-total ul li input {
+    flex-shrink: 1;
+    flex-grow: 0;
+    width: 16px;
+    margin: 0;
+    margin-right: 15px;
+}
+.cart_totals table.shop_table_responsive tr.shipping.recurring-total ul li label {
+    display: block;
+    flex-grow: 1;
+    text-align: right;
+    display: flex;
+    text-align: left;
+}
+.cart_totals table.shop_table_responsive tr.shipping.recurring-total ul li label span.amount {
+    margin-left: auto;
+    width: 50px;
+    flex-basis: 50px;
+}
+table.woocommerce-checkout-review-order-table tr.order-total.recurring-total {
+    position: relative;
+}
+
+table.woocommerce-checkout-review-order-table tr.order-total.recurring-total .first-payment-date,
 .cart_totals tr.order-total.recurring-total .first-payment-date {
-    position: absolute;
+    /*position: absolute;
     left: 0;
     bottom: 0;
     padding: 10px 10px;
@@ -1786,7 +1830,7 @@ table.shop_table_responsive input[type="number"] { max-width: 100px; }
     text-transform: uppercase;
     letter-spacing: 0;
     background-color: #1A283F;
-    color: #EBDCCD;
+    color: #EBDCCD;*/
 }
 
 .cart_totals tr.order-total.recurring-total .first-payment-date small {
@@ -1927,6 +1971,7 @@ tr.woocommerce-shipping-totals.shipping {
     position: relative;
     padding: 5px 0 40px;
     margin: 0 0 10px;
+    min-width: 400px;
 }
 tr.woocommerce-shipping-totals.shipping:after {
     content: '*Please note, these products are only available for shipping in the USA';
@@ -1997,6 +2042,50 @@ tr.woocommerce-shipping-totals.shipping span.woocommerce-Price-amount.amount {
     text-align: center;
 }
 
+table.woocommerce-checkout-review-order-table tfoot tr.recurring-totals th {
+    color: #DD5841;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 2em;
+    padding-top: 20px;
+    height: 40px;
+}
+
+table.woocommerce-checkout-review-order-table tfoot .recurring-total.shipping {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+}
+table.woocommerce-checkout-review-order-table tfoot .recurring-total.shipping td ul li {
+    padding-left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-indent: 0;
+    padding: 10px 0;
+
+    letter-spacing: 0;
+}
+
+table.woocommerce-checkout-review-order-table tfoot .shipping.recurring-total ul li input {
+    flex-shrink: 1;
+    flex-grow: 0;
+    width: 16px;
+    margin: 0;
+    margin-right: 15px;
+}
+table.woocommerce-checkout-review-order-table tfoot .shipping.recurring-total ul li label {
+    display: block;
+    flex-grow: 1;
+    text-align: right;
+    display: flex;
+    text-align: left;
+}
+table.woocommerce-checkout-review-order-table tfoot .shipping.recurring-total ul li label span.amount {
+    margin-left: auto;
+    width: 50px;
+    flex-basis: 50px;
+}
 
 
 /* =Checkout
@@ -2013,6 +2102,12 @@ body.woocommerce-checkout h1.entry-title { display: none; }
     margin-left: 5%;
     margin-top: -75px;
 }
+@media only screen and (max-width: 1052px) {
+    .woocommerce-checkout-review-order {
+        margin-top: 0;
+        margin-left: 0;
+    }
+}
 .checkout h3 {
     font-size: 2em;
     line-height: 1.5em;
@@ -2025,9 +2120,12 @@ table.woocommerce-checkout-review-order-table {
     margin: 0 5%;
     width: 90%;
 }
-table.woocommerce-checkout-review-order-table > tfoot {
-    display: flex;
-    flex-direction: column;
+table.woocommerce-checkout-review-order-table > tfoot .cart-subtotal {
+
+}
+table.woocommerce-checkout-review-order-table tr .product-name,
+table.woocommerce-checkout-review-order-table tr .product-total {
+    width: 50%;
 }
 #payment {
     width: 90%;
@@ -2706,6 +2804,7 @@ p.age-gate-remember-wrapper input[type="checkbox"] {
         overflow: hidden;
         background-size: contain!important;
     }
+
 
 }
 
