@@ -2025,6 +2025,10 @@ table.woocommerce-checkout-review-order-table {
     margin: 0 5%;
     width: 90%;
 }
+table.woocommerce-checkout-review-order-table > tfoot {
+    display: flex;
+    flex-direction: column;
+}
 #payment {
     width: 90%;
     margin: 0 auto;
