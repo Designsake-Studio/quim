@@ -165,9 +165,9 @@ do_action( 'woocommerce_before_cart' ); ?>
 </div>
 
 <div class="cart-collaterals">
-	<div class="subscribe-promo">
+	<a href="/shop" class="subscribe-promo">
 		<p>Want to save 20% on each order of Quim? Subscribe and save today!</p>
-	</div>
+	</a>
 	<?php
 		/**
 		 * Cart collaterals hook.
