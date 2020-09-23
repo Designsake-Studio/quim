@@ -256,6 +256,7 @@ body.home header#masthead li.woocommerce-mini-cart-item.mini_cart_item a { color
     box-shadow:         -1px 2px 8px 0px rgba(47, 47, 47, 0.19);
 }
 header#masthead .cart:hover .widget_shopping_cart_content { opacity: 1 !important;}
+body.woocommerce-cart header#masthead .cart:hover .widget_shopping_cart_content { opacity: 0 !important; pointer-events: none;}
 img.attachment-woocommerce_thumbnail.size-woocommerce_thumbnail { width: 110px; }
 li.woocommerce-mini-cart-item.mini_cart_item {
     padding: 15px;
