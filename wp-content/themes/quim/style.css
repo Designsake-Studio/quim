@@ -1174,96 +1174,7 @@ span.subtitle {
     font-size: 1.4em;
     line-height: 1.6em;
     letter-spacing: 0.04em;
-}
 
-.entry-summary p.price .wcsatt-sub-options,
-.entry-summary p.price .wcsatt-sub-discount {
-    display: none;
-}
-
-.wcsatt-options-product-prompt label input[type=radio] {
-    height: 0;
-    width: 0;
-    opacity: 0;
-}
-.wcsatt-options-product-prompt-radio label>span {
-    display: block;
-    padding-left: 50px;
-    position: relative;
-    line-height: 40px;
-    font-weight: 600;
-    color: #3a3025;
-}
-.wcsatt-options-product-prompt-radio label>span::before {
-    content: '';
-    height: 30px;
-    width: 30px;
-    position: absolute;
-    left: 0;
-    top: 5px;
-    border-radius: 50%;
-    border: 2px solid #3a3025;
-    cursor: pointer;
-}
-.wcsatt-options-product-prompt-radio label>span::after {
-    content: '';
-    height: 20px;
-    width: 20px;
-    position: absolute;
-    left: 5px;
-    top: 10px;
-    border-radius: 50%;
-    background-color: #3a3025;
-    opacity: 0;
-    cursor: pointer;
-}
-
-body.postid-353 .wcsatt-options-product-prompt-radio label>span {
-    color: #08265c;
-}
-body.postid-353 .wcsatt-options-product-prompt-radio label>span::before {
-    border-color: #08265c;
-}
-body.postid-353 .wcsatt-options-product-prompt-radio label>span::after {
-    background-color: #08265c;
-}
-.wcsatt-options-product-prompt label input[type=radio]:checked + span::after {
-    opacity: 1;
-}
-
-ul.wcsatt-options-prompt-radios li label {
-    display: flex;
-}
-.wcsatt-options-product-dropdown-label {
-    line-height: 45px;
-    margin: 0 10px 0 0;
-    display: none;
-}
-.wcsatt-options-wrapper {
-    margin-bottom: 2rem;
-}
-.wcsatt-options-product-wrapper {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.wcsatt-options-product-wrapper::after {
-    content: 'Pause, edit or cancel after your second shipment.';
-    display: block;
-    font-size: .8rem;
-    width: 100%;
-}
-.wcsatt-options-product-dropdown {
-    padding: 10px;
-    font-family: 'Montserrat', sans-serif;
-    border: 2px solid #3a3025;
-    background-color: transparent;
-    color: #3a3025;
-    margin-bottom: .5rem;
-}
-body.postid-353 .wcsatt-options-product-dropdown {
-    color: #08265c;
-    border-color: #08265c;
 }
 body.single-product form.cart {
     margin: 0 20px 30px 0;
@@ -3742,5 +3653,97 @@ button.needsclick.DismissButton__closeButtonImage-spg526-0.kvcQJV.kl-private-res
 
 /* hide cart popup on cart page */
 body.woocommerce-cart header#masthead .cart:hover .widget_shopping_cart_content { opacity: 0 !important; pointer-events: none;}
+
+
+/* subscription styles on product pages */
+.entry-summary p.price .wcsatt-sub-options,
+.entry-summary p.price .wcsatt-sub-discount {
+    display: none;
+}
+
+.wcsatt-options-product-prompt label input[type=radio] {
+    height: 0;
+    width: 0;
+    opacity: 0;
+}
+.wcsatt-options-product-prompt-radio label>span {
+    display: block;
+    padding-left: 50px;
+    position: relative;
+    line-height: 40px;
+    font-weight: 600;
+    color: #3a3025;
+}
+.wcsatt-options-product-prompt-radio label>span::before {
+    content: '';
+    height: 30px;
+    width: 30px;
+    position: absolute;
+    left: 0;
+    top: 5px;
+    border-radius: 50%;
+    border: 2px solid #3a3025;
+    cursor: pointer;
+}
+.wcsatt-options-product-prompt-radio label>span::after {
+    content: '';
+    height: 20px;
+    width: 20px;
+    position: absolute;
+    left: 5px;
+    top: 10px;
+    border-radius: 50%;
+    background-color: #3a3025;
+    opacity: 0;
+    cursor: pointer;
+}
+
+body.postid-353 .wcsatt-options-product-prompt-radio label>span {
+    color: #08265c;
+}
+body.postid-353 .wcsatt-options-product-prompt-radio label>span::before {
+    border-color: #08265c;
+}
+body.postid-353 .wcsatt-options-product-prompt-radio label>span::after {
+    background-color: #08265c;
+}
+.wcsatt-options-product-prompt label input[type=radio]:checked + span::after {
+    opacity: 1;
+}
+
+ul.wcsatt-options-prompt-radios li label {
+    display: flex;
+}
+.wcsatt-options-product-dropdown-label {
+    line-height: 45px;
+    margin: 0 10px 0 0;
+    display: none;
+}
+.wcsatt-options-wrapper {
+    margin-bottom: 2rem;
+}
+.wcsatt-options-product-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.wcsatt-options-product-wrapper::after {
+    content: 'Pause, edit or cancel after your second shipment.';
+    display: block;
+    font-size: .8rem;
+    width: 100%;
+}
+.wcsatt-options-product-dropdown {
+    padding: 10px;
+    font-family: 'Montserrat', sans-serif;
+    border: 2px solid #3a3025;
+    background-color: transparent;
+    color: #3a3025;
+    margin-bottom: .5rem;
+}
+body.postid-353 .wcsatt-options-product-dropdown {
+    color: #08265c;
+    border-color: #08265c;
+}
 
 
