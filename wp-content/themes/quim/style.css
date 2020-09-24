@@ -3639,24 +3639,14 @@ table.shop_table_responsive input[type="number"] {
     margin-bottom: 0;
 }
 
-.cart_totals table.shop_table,
-.cart_totals table.shop_table tbody,
-.cart_totals table.shop_table tr,
-.cart_totals table.shop_table_responsive tr th,
-.cart_totals table.shop_table_responsive tr td {
-    /*border: 1px solid black;*/
-}
-
+/* Cart Totals Style */
 .cart_totals table.shop_table tbody {
-    /*border-color: red!important;*/
     border-spacing: 4px;
     display: block;
     border-collapse: collapse;
 }
 
 .cart_totals table.shop_table_responsive tr th {
-    /*border-color: green;*/
-
     width: auto;
 }
 
@@ -3666,10 +3656,6 @@ table.shop_table_responsive input[type="number"] {
     }
 }
 
-/*.cart_totals table.shop_table_responsive tr td {
-    border-color: purple;
-}*/
-
 .shipping.recurring-total ul li {
     text-indent: 0;
     padding: 0;
@@ -3677,10 +3663,71 @@ table.shop_table_responsive input[type="number"] {
     align-items: center;
 }
 
-.cart_totals table.shop_table_responsive tr.recurring-totals th {
+.cart_totals table.shop_table_responsive tr.recurring-totals th,
+table.woocommerce-checkout-review-order-table tr.recurring-totals th {
     font-size: 1.6em;
     font-weight: 700;
     color: #dd5841;
+}
+
+table.woocommerce-checkout-review-order-table tr.recurring-totals th {
+    padding-top: 1rem;
+}
+
+.cart_totals tr.order-total.recurring-total {
+    position: relative;
+    padding-bottom: 90px;
+}
+table.woocommerce-checkout-review-order-table tr.order-total.recurring-total .first-payment-date {
+    display: none;
+}
+.cart_totals tr.order-total.recurring-total .first-payment-date {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    padding: 10px 10px;
+    width: 100%;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0;
+    background-color: #1A283F;
+    color: #EBDCCD;
+}
+
+.cart_totals tr.order-total.recurring-total .first-payment-date small {
+    font-size: .9rem;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 5px;
+    letter-spacing: 0.06em;
+    line-height: 1;
+}
+
+.cart_totals tr.order-total.recurring-total .first-payment-date::after {
+    content: '*Minimum 2 orders*';
+    display: block;
+    font-size: 80%;
+    text-transform: none;
+    line-height: 1;
+}
+.cart_totals tr.order-total.recurring-total td  {
+    width: 60%!important;
+}
+
+tr.woocommerce-shipping-totals.shipping td {
+    width: 100%;
+}
+
+/* CHECKOUT
+===================================== */
+
+
+.woocommerce-checkout-review-order table.shop_table,
+.woocommerce-checkout-review-order table.shop_table tbody,
+.woocommerce-checkout-review-order table.shop_table tr,
+.woocommerce-checkout-review-order table.shop_table_responsive tr th,
+.woocommerce-checkout-review-order table.shop_table_responsive tr td {
+    /* border: 1px solid black; */
 }
 
 /* TABLE STUFF */
@@ -3776,47 +3823,7 @@ table.shop_table_responsive input[type="number"] {
 /*table.woocommerce-checkout-review-order-table tr.order-total.recurring-total {
     position: relative;
 }*/
-.cart_totals tr.order-total.recurring-total {
-    position: relative;
-    padding-bottom: 90px;
-}
-table.woocommerce-checkout-review-order-table tr.order-total.recurring-total .first-payment-date,
-.cart_totals tr.order-total.recurring-total .first-payment-date {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    padding: 10px 10px;
-    width: 100%;
-    text-align: center;
-    text-transform: uppercase;
-    letter-spacing: 0;
-    background-color: #1A283F;
-    color: #EBDCCD;
-}
 
-.cart_totals tr.order-total.recurring-total .first-payment-date small {
-    font-size: .9rem;
-    font-weight: 600;
-    display: block;
-    margin-bottom: 5px;
-    letter-spacing: 0.06em;
-    line-height: 1;
-}
-
-.cart_totals tr.order-total.recurring-total .first-payment-date::after {
-    content: '*Minimum 2 orders*';
-    display: block;
-    font-size: 80%;
-    text-transform: none;
-    line-height: 1;
-}
-.cart_totals tr.order-total.recurring-total td  {
-    width: 60%!important;
-}
-
-@media only screen and (max-width: 800px) {
-
-}
 
 
 /*tr.woocommerce-shipping-totals.shipping {
