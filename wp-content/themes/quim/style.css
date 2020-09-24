@@ -3518,8 +3518,8 @@ body.postid-353 .wcsatt-options-product-dropdown {
     border-color: #08265c;
 }
 
-/* TABLE STUFF */
-/*body.woocommerce-account table.subscription_details {
+/* account styles */
+body.woocommerce-account table.subscription_details {
     margin-bottom: 2rem;
 }
 body.woocommerce-account table.subscription_details td .button {
@@ -3529,8 +3529,10 @@ body.woocommerce-account table.subscription_details td .button {
     padding: 0;
     text-decoration: underline;
     border: none;
-}*/
+}
 
+
+/* TABLE STUFF */
 /*ul.wcsatt-options {
 }
 
