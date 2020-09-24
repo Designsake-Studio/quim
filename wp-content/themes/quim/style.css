@@ -1397,17 +1397,6 @@ body.woocommerce-account table {
     background: #f9f4ee;
     border-radius: 6px;
 }
-body.woocommerce-account table.subscription_details {
-    margin-bottom: 2rem;
-}
-body.woocommerce-account table.subscription_details td .button {
-    float: left;
-    margin-right: 10px;
-    margin-top: 30px;
-    padding: 0;
-    text-decoration: underline;
-    border: none;
-}
 section.woocommerce-order-details { margin: 50px auto 25px; }
 body.woocommerce-account table td,
 body.woocommerce-account table th {
@@ -1586,20 +1575,6 @@ body.woocommerce-cart h1.entry-title {
     background: #cebfaf !important;
 }
 
-
-ul.wcsatt-options {
-}
-
-ul.wcsatt-options input[type=radio],
-ul.wcsatt-options label span.subscription-option-details,
-ul.wcsatt-options label span.one-time-option-details {
-    display: none;
-}
-
-ul.wcsatt-options label input[type=radio]:checked + span.one-time-option-details,
-ul.wcsatt-options label input[type=radio]:checked + span.subscription-option-details {
-    display: block;
-}
 /* Cart Grid */
 table.shop_table_responsive.cart {
     margin: 0 auto 2vh;
@@ -1633,133 +1608,8 @@ table.shop_table_responsive tr td.product-name a{
     text-decoration: none;
 }
 table.shop_table_responsive input[type="number"] { max-width: 100px; }
-.cart_totals table.shop_table_responsive tr.recurring-totals {
-    margin-top: 20px;
-}
-.cart_totals table.shop_table_responsive tr.recurring-totals th {
-    font-size: 1.6em;
-    font-weight: 700;
-    color: #dd5841;
-}
-.shop_table .recurring-totals,
-.shop_table .recurring-total {
-    background: #f9f4ee;
-    padding: 5px 10px;
-}
 
-.shop_table .recurring-total th {
-    width: 70px!important;
-}
-.cart_totals table.shop_table_responsive tr.recurring-total td,
-.cart_totals table.shop_table_responsive tr.recurring-total th {
-    font-size: .75em;
-    line-height: 1.2;
-}
 
-.cart_totals table.shop_table_responsive tr.recurring-total td {
-    font-size: .9em;
-}
-
-.cart_totals table.shop_table_responsive tr.recurring-total td p {
-    text-align: right;
-    padding-left: 10px;
-    font-size: .8rem;
-}
-
-.cart_totals tr.order-total.recurring-total {
-    padding: 10px 10px 70px 10px;
-    position: relative;
-    font-size: 1.1rem;
-
-}
-.cart_totals tr.order-total.recurring-total th,
-.cart_totals tr.order-total.recurring-total td strong {
-    font-size: 1.3rem;
-}
-.cart_totals tr.order-total.recurring-total td strong  {
-    display: block;
-}
-.cart_totals tr.order-total.recurring-total td {
-    letter-spacing: 0;
-    text-align:right;
-}
-.cart_totals table.shop_table_responsive tr.recurring-total.shipping {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-.cart_totals table.shop_table_responsive tr.recurring-total.shipping td {
-    width: 100%;
-    display: flex;
-}
-.cart_totals table.shop_table_responsive tr.recurring-total.shipping td ul {
-    width: 100%;
-}
-.cart_totals table.shop_table_responsive tr.recurring-total.shipping td ul li {
-    padding-left: 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    text-indent: 0;
-    padding: 10px 0;
-    font-size: .8rem;
-    letter-spacing: 0;
-}
-
-.cart_totals table.shop_table_responsive tr.shipping.recurring-total ul li input {
-    flex-shrink: 1;
-    flex-grow: 0;
-    width: 16px;
-    margin: 0;
-    margin-right: 15px;
-}
-.cart_totals table.shop_table_responsive tr.shipping.recurring-total ul li label {
-    display: block;
-    flex-grow: 1;
-    text-align: right;
-    display: flex;
-    text-align: left;
-}
-.cart_totals table.shop_table_responsive tr.shipping.recurring-total ul li label span.amount {
-    margin-left: auto;
-    width: 50px;
-    flex-basis: 50px;
-}
-table.woocommerce-checkout-review-order-table tr.order-total.recurring-total {
-    position: relative;
-}
-
-table.woocommerce-checkout-review-order-table tr.order-total.recurring-total .first-payment-date,
-.cart_totals tr.order-total.recurring-total .first-payment-date {
-    /*position: absolute;
-    left: 0;
-    bottom: 0;
-    padding: 10px 10px;
-    width: 100%;
-    text-align: center;
-    text-transform: uppercase;
-    letter-spacing: 0;
-    background-color: #1A283F;
-    color: #EBDCCD;*/
-}
-
-.cart_totals tr.order-total.recurring-total .first-payment-date small {
-    font-size: .9rem;
-    font-weight: 600;
-    display: block;
-    margin-bottom: 5px;
-    letter-spacing: 0.06em;
-}
-
-.cart_totals tr.order-total.recurring-total .first-payment-date::after {
-    content: '*Minimum 2 orders*';
-    display: block;
-    font-size: 80%;
-    text-transform: none;
-}
-.cart_totals tr.order-total.recurring-total td  {
-    width: 60%!important;
-}
 .woocommerce-cart-form {
     background: #f9f4ee;
     border-radius: 6px;
@@ -1772,25 +1622,6 @@ table.woocommerce-checkout-review-order-table tr.order-total.recurring-total .fi
 }
 .cart-collaterals { width: 30%; display: inline-block; float: left; }
 
-
-.cart-collaterals .subscribe-promo {
-    margin-left: 50px;
-    padding: 10px;
-    margin-bottom: 10px;
-    background-color: #1A283F;
-    color: #f9f4ee;
-    display: block;
-    text-decoration: none;
-    transition: background-color .2s ease-in;
-}
-
-.cart-collaterals .subscribe-promo:hover {
-    background-color: #DD5841;
-}
-
-.cart-collaterals .subscribe-promo p {
-    margin-bottom: 0;
-}
 /* Cart Upsell */
 .cross-sells { color: inherit; }
 .cross-sells p { margin: 0 0 5px; }
@@ -1881,7 +1712,6 @@ tr.woocommerce-shipping-totals.shipping {
     position: relative;
     padding: 5px 0 40px;
     margin: 0 0 10px;
-    min-width: 400px;
 }
 tr.woocommerce-shipping-totals.shipping:after {
     content: '*Please note, these products are only available for shipping in the USA';
@@ -1952,50 +1782,6 @@ tr.woocommerce-shipping-totals.shipping span.woocommerce-Price-amount.amount {
     text-align: center;
 }
 
-table.woocommerce-checkout-review-order-table tfoot tr.recurring-totals th {
-    color: #DD5841;
-    font-weight: 700;
-    text-transform: uppercase;
-    font-size: 2em;
-    padding-top: 20px;
-    height: 40px;
-}
-
-table.woocommerce-checkout-review-order-table tfoot .recurring-total.shipping {
-    display: flex;
-    flex-direction: column;
-    padding: 0;
-}
-table.woocommerce-checkout-review-order-table tfoot .recurring-total.shipping td ul li {
-    padding-left: 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    text-indent: 0;
-    padding: 10px 0;
-
-    letter-spacing: 0;
-}
-
-table.woocommerce-checkout-review-order-table tfoot .shipping.recurring-total ul li input {
-    flex-shrink: 1;
-    flex-grow: 0;
-    width: 16px;
-    margin: 0;
-    margin-right: 15px;
-}
-table.woocommerce-checkout-review-order-table tfoot .shipping.recurring-total ul li label {
-    display: block;
-    flex-grow: 1;
-    text-align: right;
-    display: flex;
-    text-align: left;
-}
-table.woocommerce-checkout-review-order-table tfoot .shipping.recurring-total ul li label span.amount {
-    margin-left: auto;
-    width: 50px;
-    flex-basis: 50px;
-}
 
 
 /* =Checkout
@@ -2012,12 +1798,6 @@ body.woocommerce-checkout h1.entry-title { display: none; }
     margin-left: 5%;
     margin-top: -75px;
 }
-@media only screen and (max-width: 1052px) {
-    .woocommerce-checkout-review-order {
-        margin-top: 0;
-        margin-left: 0;
-    }
-}
 .checkout h3 {
     font-size: 2em;
     line-height: 1.5em;
@@ -2029,13 +1809,6 @@ h3#order_review_heading {
 table.woocommerce-checkout-review-order-table {
     margin: 0 5%;
     width: 90%;
-}
-table.woocommerce-checkout-review-order-table > tfoot .cart-subtotal {
-
-}
-table.woocommerce-checkout-review-order-table tr .product-name,
-table.woocommerce-checkout-review-order-table tr .product-total {
-    width: 50%;
 }
 #payment {
     width: 90%;
@@ -2714,7 +2487,6 @@ p.age-gate-remember-wrapper input[type="checkbox"] {
         overflow: hidden;
         background-size: contain!important;
     }
-
 
 }
 
@@ -3746,4 +3518,242 @@ body.postid-353 .wcsatt-options-product-dropdown {
     border-color: #08265c;
 }
 
+/* TABLE STUFF */
+/*body.woocommerce-account table.subscription_details {
+    margin-bottom: 2rem;
+}
+body.woocommerce-account table.subscription_details td .button {
+    float: left;
+    margin-right: 10px;
+    margin-top: 30px;
+    padding: 0;
+    text-decoration: underline;
+    border: none;
+}*/
+
+/*ul.wcsatt-options {
+}
+
+ul.wcsatt-options input[type=radio],
+ul.wcsatt-options label span.subscription-option-details,
+ul.wcsatt-options label span.one-time-option-details {
+    display: none;
+}
+
+ul.wcsatt-options label input[type=radio]:checked + span.one-time-option-details,
+ul.wcsatt-options label input[type=radio]:checked + span.subscription-option-details {
+    display: block;
+}*/
+
+/*.cart_totals table.shop_table_responsive tr.recurring-totals {
+    margin-top: 20px;
+}
+.cart_totals table.shop_table_responsive tr.recurring-totals th {
+    font-size: 1.6em;
+    font-weight: 700;
+    color: #dd5841;
+}
+.shop_table .recurring-totals,
+.shop_table .recurring-total {
+    background: #f9f4ee;
+    padding: 5px 10px;
+}
+
+.shop_table .recurring-total th {
+    width: 70px!important;
+}
+.cart_totals table.shop_table_responsive tr.recurring-total td,
+.cart_totals table.shop_table_responsive tr.recurring-total th {
+    font-size: .75em;
+    line-height: 1.2;
+}
+
+.cart_totals table.shop_table_responsive tr.recurring-total td {
+    font-size: .9em;
+}
+
+.cart_totals table.shop_table_responsive tr.recurring-total td p {
+    text-align: right;
+    padding-left: 10px;
+    font-size: .8rem;
+}
+
+.cart_totals tr.order-total.recurring-total {
+    padding: 10px 10px 70px 10px;
+    position: relative;
+    font-size: 1.1rem;
+
+}
+.cart_totals tr.order-total.recurring-total th,
+.cart_totals tr.order-total.recurring-total td strong {
+    font-size: 1.3rem;
+}
+.cart_totals tr.order-total.recurring-total td strong  {
+    display: block;
+}
+.cart_totals tr.order-total.recurring-total td {
+    letter-spacing: 0;
+    text-align:right;
+}
+.cart_totals table.shop_table_responsive tr.recurring-total.shipping {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.cart_totals table.shop_table_responsive tr.recurring-total.shipping td {
+    width: 100%;
+    display: flex;
+}
+.cart_totals table.shop_table_responsive tr.recurring-total.shipping td ul {
+    width: 100%;
+}
+.cart_totals table.shop_table_responsive tr.recurring-total.shipping td ul li {
+    padding-left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-indent: 0;
+    padding: 10px 0;
+    font-size: .8rem;
+    letter-spacing: 0;
+}
+
+.cart_totals table.shop_table_responsive tr.shipping.recurring-total ul li input {
+    flex-shrink: 1;
+    flex-grow: 0;
+    width: 16px;
+    margin: 0;
+    margin-right: 15px;
+}
+.cart_totals table.shop_table_responsive tr.shipping.recurring-total ul li label {
+    display: block;
+    flex-grow: 1;
+    text-align: right;
+    display: flex;
+    text-align: left;
+}
+.cart_totals table.shop_table_responsive tr.shipping.recurring-total ul li label span.amount {
+    margin-left: auto;
+    width: 50px;
+    flex-basis: 50px;
+}
+table.woocommerce-checkout-review-order-table tr.order-total.recurring-total {
+    position: relative;
+}*/
+
+table.woocommerce-checkout-review-order-table tr.order-total.recurring-total .first-payment-date,
+.cart_totals tr.order-total.recurring-total .first-payment-date {
+    /*position: absolute;
+    left: 0;
+    bottom: 0;
+    padding: 10px 10px;
+    width: 100%;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0;
+    background-color: #1A283F;
+    color: #EBDCCD;*/
+}
+
+/*.cart_totals tr.order-total.recurring-total .first-payment-date small {
+    font-size: .9rem;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 5px;
+    letter-spacing: 0.06em;
+}
+
+.cart_totals tr.order-total.recurring-total .first-payment-date::after {
+    content: '*Minimum 2 orders*';
+    display: block;
+    font-size: 80%;
+    text-transform: none;
+}
+.cart_totals tr.order-total.recurring-total td  {
+    width: 60%!important;
+}*/
+
+/*.cart-collaterals .subscribe-promo {
+    margin-left: 50px;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #1A283F;
+    color: #f9f4ee;
+    display: block;
+    text-decoration: none;
+    transition: background-color .2s ease-in;
+}
+
+.cart-collaterals .subscribe-promo:hover {
+    background-color: #DD5841;
+}
+
+.cart-collaterals .subscribe-promo p {
+    margin-bottom: 0;
+}*/
+
+/*tr.woocommerce-shipping-totals.shipping {
+    min-width: 400px;
+}*/
+
+/*table.woocommerce-checkout-review-order-table tfoot tr.recurring-totals th {
+    color: #DD5841;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 2em;
+    padding-top: 20px;
+    height: 40px;
+}
+
+table.woocommerce-checkout-review-order-table tfoot .recurring-total.shipping {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+}
+table.woocommerce-checkout-review-order-table tfoot .recurring-total.shipping td ul li {
+    padding-left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-indent: 0;
+    padding: 10px 0;
+
+    letter-spacing: 0;
+}
+
+table.woocommerce-checkout-review-order-table tfoot .shipping.recurring-total ul li input {
+    flex-shrink: 1;
+    flex-grow: 0;
+    width: 16px;
+    margin: 0;
+    margin-right: 15px;
+}
+table.woocommerce-checkout-review-order-table tfoot .shipping.recurring-total ul li label {
+    display: block;
+    flex-grow: 1;
+    text-align: right;
+    display: flex;
+    text-align: left;
+}
+table.woocommerce-checkout-review-order-table tfoot .shipping.recurring-total ul li label span.amount {
+    margin-left: auto;
+    width: 50px;
+    flex-basis: 50px;
+}*/
+
+/*
+@media only screen and (max-width: 1052px) {
+    .woocommerce-checkout-review-order {
+        margin-top: 0;
+        margin-left: 0;
+    }
+}*/
+
+/*table.woocommerce-checkout-review-order-table > tfoot .cart-subtotal {
+
+}
+table.woocommerce-checkout-review-order-table tr .product-name,
+table.woocommerce-checkout-review-order-table tr .product-total {
+    width: 50%;
+}*/
 
