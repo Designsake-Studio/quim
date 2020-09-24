@@ -16,12 +16,12 @@ Tags: custom-background, custom-logo, custom-menu, featured-images, threaded-com
 /* =Global
 -------------------------------------------------------------- */
 body {
-	background: #EBDCCD;
-	color: #1A283F;
+    background: #EBDCCD;
+    color: #1A283F;
     font-family: 'Montserrat', sans-serif;
     font-weight: 400;
-	font-size: 16px;
-	line-height: 26px;
+    font-size: 16px;
+    line-height: 26px;
     -webkit-font-smoothing: subpixel-antialiased;
 }
 strong { font-weight: 600; }
@@ -34,8 +34,8 @@ a, a:link, a:visited {
 a:hover { color: #1A283F; }
 
 h1,h2,h3,h4,h5 {
-	font-weight: 700;
-	color: #DD5841;
+    font-weight: 700;
+    color: #DD5841;
     text-transform: uppercase;
     letter-spacing: 0.06em;
     margin: 5px 0 25px;
@@ -52,9 +52,9 @@ ul, ol { margin: 0; padding: 0; }
 li { list-style: none; }
 .page { margin: 0; }
 .container {
-	width: 90vw;
-	max-width: 1500px;
-	margin: 0 auto;
+    width: 90vw;
+    max-width: 1500px;
+    margin: 0 auto;
     position: relative;
     overflow: hidden;
 }
@@ -107,7 +107,7 @@ button, button[type="button"], button[type="reset"], button[type="submit"] {
 -------------------------------------------------------------- */
 /* Header */
 #extole_zone_global_header {
-	display: none;
+    display: none;
     width: 100%;
     text-align: center;
 }
@@ -181,11 +181,11 @@ header#masthead .container>* { flex: 1 0 33.33%; }
 
 header#masthead .site-branding { text-align: center; }
 header#masthead .site-branding .site-title {
-	background: url('images/Quim_Logo_Blue.png') no-repeat center center;
-	background-size: contain;
-	width: 100%;
-	height: 60px;
-	text-indent: -999em;
+    background: url('images/Quim_Logo_Blue.png') no-repeat center center;
+    background-size: contain;
+    width: 100%;
+    height: 60px;
+    text-indent: -999em;
 }
 header#masthead .site-branding .site-title a { display: block; width: 100%; height: 100%; }
 
@@ -1154,7 +1154,7 @@ h1.product_title {
     margin: 5px 0;
     position: relative;
     text-align: left;
- 	padding-top: 60px;
+    padding-top: 60px;
 }
 h1.product_title:after {
     content: "\2122";
@@ -2142,9 +2142,9 @@ input#ship-to-different-address-checkbox  { width: auto; display: inline-block; 
     margin: 15px 0;
 }
 .woocommerce-account-fields label span:after {
-	font-size: 0.8em;
-	content: 'SAVE BILLING DETAILS SECURELY FOR THE NEXT TIME YOU SHOP QUIM.';
-	display: block;
+    font-size: 0.8em;
+    content: 'SAVE BILLING DETAILS SECURELY FOR THE NEXT TIME YOU SHOP QUIM.';
+    display: block;
 }
 h3#ship-to-different-address { font-size: 1.1em; }
 .place-order button {
@@ -2992,8 +2992,8 @@ footer.entry-footer {
     z-index: 2;
 }
 footer.site-footer {
-	background: #1A283F;
-	color: #eddccc;
+    background: #1A283F;
+    color: #eddccc;
     position: relative;
     padding: 70px 0;
 }
@@ -3037,9 +3037,9 @@ ul#menu-footer li a { text-decoration: none; }
 /* Widgets */
 footer.site-footer a:hover { color: #6d809e; }
 footer.site-footer .footer-columns {
-	display: flex;
-	justify-content: space-between;
-	flex-wrap: wrap;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
 }
 footer.site-footer .footer-columns>* {
     flex: 1 0 33.3333%;
@@ -3659,7 +3659,7 @@ body.home .featured-products .single-product.Happy .product-img-home:before {
         font-size: 2.25em;
         line-height: 1.2em;
         letter-spacing: 0.02em;
-	}
+    }
     .about.hero { height: 80vh; background-attachment: scroll !important;}
     .about.card { background-attachment: scroll !important;}
     .about.card .floating h3 { width: 80%; margin: -75px 0 10px; }
