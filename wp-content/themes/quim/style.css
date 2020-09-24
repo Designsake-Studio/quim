@@ -3570,7 +3570,6 @@ body.woocommerce-checkout .site-main.container {
 }
 
 /* Order Summary */
-
 .product-name a {
     font-weight: 600;
     font-size: .8rem;
@@ -3600,6 +3599,25 @@ table.shop_table_responsive input[type="number"] {
 }
 .product-subtotal {
     font-size: .9rem;
+}
+
+/* Subscribe Promo */
+.cart-collaterals .subscribe-promo {
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #1A283F;
+    color: #f9f4ee;
+    display: block;
+    text-decoration: none;
+    transition: background-color .2s ease-in;
+}
+
+.cart-collaterals .subscribe-promo:hover {
+    background-color: #DD5841;
+}
+
+.cart-collaterals .subscribe-promo p {
+    margin-bottom: 0;
 }
 
 
@@ -3732,24 +3750,7 @@ table.woocommerce-checkout-review-order-table tr.order-total.recurring-total .fi
     width: 60%!important;
 }*/
 
-/*.cart-collaterals .subscribe-promo {
-    margin-left: 50px;
-    padding: 10px;
-    margin-bottom: 10px;
-    background-color: #1A283F;
-    color: #f9f4ee;
-    display: block;
-    text-decoration: none;
-    transition: background-color .2s ease-in;
-}
 
-.cart-collaterals .subscribe-promo:hover {
-    background-color: #DD5841;
-}
-
-.cart-collaterals .subscribe-promo p {
-    margin-bottom: 0;
-}*/
 
 /*tr.woocommerce-shipping-totals.shipping {
     min-width: 400px;
