@@ -3532,10 +3532,59 @@ body.woocommerce-account table.subscription_details td .button {
 }
 
 
-/* TABLE STUFF */
-/*ul.wcsatt-options {
+/* CART & CHECKOUT
+------------------------------------- */
+
+/* adjust width of cart and checkout pages */
+body.woocommerce-cart .site-main.container,
+body.woocommerce-checkout .site-main.container {
+    width: 100vw;
+    padding-left: 30px;
+    padding-right: 30px;
+    max-width: 1620px;
+}
+/* CART
+------------------------------------- */
+
+.cart-left {
+    width: calc(100% - 600px);
 }
 
+.cart-collaterals {
+    width: 600px;
+    padding-left: 50px;
+}
+
+.cart_totals {
+    padding-left: 0;
+}
+
+@media only screen and (max-width: 1199px) {
+    .cart-left,
+    .cart-collaterals {
+        width: 100%;
+    }
+    .cart-collaterals {
+        padding-left: 0;
+    }
+}
+
+/* Order Summary */
+
+.product-name a {
+    font-weight: 600;
+    font-size: .8rem;
+    display: block;
+    padding: 0 5px;
+}
+
+img.attachment-woocommerce_thumbnail.size-woocommerce_thumbnail {
+    width: 80px;
+}
+ul.wcsatt-options label {
+    text-transform: none;
+    letter-spacing: 0;
+}
 ul.wcsatt-options input[type=radio],
 ul.wcsatt-options label span.subscription-option-details,
 ul.wcsatt-options label span.one-time-option-details {
@@ -3545,8 +3594,16 @@ ul.wcsatt-options label span.one-time-option-details {
 ul.wcsatt-options label input[type=radio]:checked + span.one-time-option-details,
 ul.wcsatt-options label input[type=radio]:checked + span.subscription-option-details {
     display: block;
-}*/
+}
+table.shop_table_responsive input[type="number"] {
+    max-width: 60px;
+}
+.product-subtotal {
+    font-size: .9rem;
+}
 
+
+/* TABLE STUFF */
 /*.cart_totals table.shop_table_responsive tr.recurring-totals {
     margin-top: 20px;
 }
