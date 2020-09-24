@@ -1706,12 +1706,14 @@ button[type="submit"].button[name="update_cart"] {
     justify-content: space-between;
 }
 .cart_totals .cart-subtotal>* { padding: 0; }
-tr.woocommerce-shipping-totals.shipping {
+tr.woocommerce-shipping-totals.shipping,
+tr.shipping.recurring-total {
     display: flex;
     flex-direction: column;
     position: relative;
     padding: 5px 0 40px;
     margin: 0 0 10px;
+    align-items: flex-start!important;
 }
 tr.woocommerce-shipping-totals.shipping:after {
     content: '*Please note, these products are only available for shipping in the USA';
@@ -1725,14 +1727,26 @@ tr.woocommerce-shipping-totals.shipping:after {
     text-transform: none;
     letter-spacing: 0;
 }
+
+tr.shipping.recurring-total tr td,
 tr.woocommerce-shipping-totals.shipping tr td { display: block; }
+
+tr.shipping.recurring-total tr td li,
 tr.woocommerce-shipping-totals.shipping tr td li { padding: 5px 0; }
+
+tr.shipping.recurring-total td li,
+tr.woocommerce-shipping-totals.shipping td li {
+    line-height: 40px;
+    height: 40px;
+}
+tr.shipping.recurring-total input,
 tr.woocommerce-shipping-totals.shipping input{
     float: left;
     width: auto;
-    margin-top: 8px;
-    margin-right: 15px;
+    margin-top: 8px!important;
+    margin-right: 15px!important;
 }
+tr.woocommerce-shipping-totals.shipping ul label,
 .woocommerce-shipping-methods label {
     color: inherit;
     font-size: 0.9em;
