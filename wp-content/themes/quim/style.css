@@ -1698,6 +1698,8 @@ button[type="submit"].button[name="update_cart"] {
 
 /* Cart Total */
 .cart_totals table.shop_table { display: block; }
+
+.woocommerce-checkout-review-order table.shop_table tr,
 .cart_totals table.shop_table tr {
     width: 100%;
     display: flex;
@@ -1711,9 +1713,15 @@ tr.shipping.recurring-total {
     display: flex;
     flex-direction: column;
     position: relative;
-    padding: 5px 0 40px;
+    padding: 20px 0 40px;
     margin: 0 0 10px;
-    align-items: flex-start!important;
+    align-items: stretch!important;
+    width: 100%;
+}
+/*tr.woocommerce-shipping-totals.shipping th, */
+tr.woocommerce-shipping-totals.shipping td {
+    width: 100%;
+    display: block;
 }
 tr.woocommerce-shipping-totals.shipping:after {
     content: '*Please note, these products are only available for shipping in the USA';
@@ -1736,8 +1744,8 @@ tr.woocommerce-shipping-totals.shipping tr td li { padding: 5px 0; }
 
 tr.shipping.recurring-total td li,
 tr.woocommerce-shipping-totals.shipping td li {
-    line-height: 40px;
-    height: 40px;
+    line-height: 20px;
+    min-height: 40px;
 }
 tr.shipping.recurring-total input,
 tr.woocommerce-shipping-totals.shipping input{
@@ -3247,7 +3255,7 @@ body.home .featured-products .single-product.Happy .product-img-home:before {
     .cart_totals .cart-subtotal>* { padding: 10px 0;  width: 100%;}
     .cart_totals table.shop_table tr { display: block; }
     ul#shipping_method,
-    .shipping.recurring-total ul { clear: left; margin-top: 30px; display: block;}
+    .shipping.recurring-total ul { clear: left; margin-top: 10px; display: block;}
 
     /* Checkout */
     .widget_shopping_cart_content { display: none; }
@@ -3662,6 +3670,10 @@ table.shop_table_responsive input[type="number"] {
     display: flex;
     align-items: center;
 }
+
+/*tr.shipping.recurring-total td li {
+    line-height: 30px;
+}*/
 
 .cart_totals table.shop_table_responsive tr.recurring-totals th,
 table.woocommerce-checkout-review-order-table tr.recurring-totals th {
