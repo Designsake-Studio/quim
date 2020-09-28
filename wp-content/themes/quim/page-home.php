@@ -15,19 +15,23 @@ get_header(); ?>
         $cta = get_sub_field('hero_cta');
         $productimg = get_sub_field('product_image');
         $productimgalt = get_sub_field('product_image_alt');
-        // $type = get_sub_field('background_type');
-        // $video = get_sub_field('background_video');
+        $type = get_sub_field('background_type');
+        $video = get_sub_field('background_video');
+        $xs_image = get_sub_field('mobile_image')
         ?>
-        <?php //if($type == 'img') : ?>
-    	<div class="home hero" style="background: #0a4271 url('<?php echo $background; ?>') fixed no-repeat center center; background-size: contain;">
-        <?php //elseif($type == 'vid') : ?>
-            <!-- <div class="home hero">
+        <?php if($type == 'img') : ?>
+    	<div class="home hero <?php if(!empty($xs_image)) { echo ' has-xs-img'; } ?>" style="background: #0a4271 url('<?php echo $background; ?>') fixed no-repeat center center; background-size: contain;">
+        <?php elseif($type == 'vid') : ?>
+            <div class="home hero <?php if(!empty($xs_image)) { echo ' has-xs-img'; } ?>">
                 <div class="video-wrap">
-                    <video autoplay muted loop id="homeHero">
+                    <video autoplay playsinline muted loop id="homeHero">
                       <source src="<?php echo $video; ?>" type="video/mp4">
                     </video>
-                </div> -->
-        <?php //endif; ?>
+                </div>
+        <?php endif; ?>
+        <?php if(!empty($xs_image)) { ?>
+            <div class="mobile-bg" style="background-image: url('<?php echo $xs_image['sizes']['large']; ?>');"></div>
+        <?php } ?>
     	    <div class="container wow fadeIn">
     	        <h2><?php echo $title; ?></h2>
                 <?php if( $description ): ?>
