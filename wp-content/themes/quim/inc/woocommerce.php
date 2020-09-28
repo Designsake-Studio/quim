@@ -305,3 +305,19 @@ if ( ! function_exists( 'filter_woocommerce_loop_add_to_cart_link' ) ) {
 }
 
 
+
+if ( ! function_exists( 'coupon_disable_on_susbcription' ) ) {
+	/**
+	 * Disable coupons on subscription purchases
+	 */
+	function coupon_disable_on_susbcription( $is_valid, $product, $instance, $values ) {
+
+		if ( ! empty( $values[ 'wcsatt_data'][ 'active_subscription_scheme' ] ) ) {
+			$is_valid = false;
+		}
+
+	return $is_valid;
+	}
+	add_filter( 'woocommerce_coupon_is_valid_for_product', 'coupon_disable_on_susbcription', 10, 4 );
+}
+
