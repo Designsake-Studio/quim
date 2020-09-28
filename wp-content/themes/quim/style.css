@@ -1177,12 +1177,12 @@ span.subtitle {
 
 }
 body.single-product form.cart {
-    margin: 0 20px 30px 0;
+    margin: 0 20px 20px 0;
     width: auto;
-    float: left;
+    /*float: left;*/
 }
 body.single-product form.cart .quantity { display: none; }
-body.single-product .entry-summary form.cart button { margin: 0 20px 0 0; padding: 15px 45px; }
+body.single-product .entry-summary form.cart button { margin: 0 20px 0 0; padding: 15px 45px; min-width:244px;}
 
 body.single-product .woocommerce-message {
     font-size: 0.9em;
@@ -3164,7 +3164,7 @@ body.home .featured-products .single-product.Happy .product-img-home:before {
 
     body.single-product form.cart { margin: 0 0 10px; float: none; max-width: inherit;}
     body.single #extole_zone_product .extole-cta-button { padding: 20px 55px; }
-    body.single-product .entry-summary form.cart button { margin: 0; padding: 15px 60px; width: auto;}
+    body.single-product .entry-summary form.cart button { margin: 0; padding: 15px 60px; width: auto; min-width: 0;}
 
     body.single-product div.product.product_cat-thc h1.product_title:before, body.archive .type-product:nth-child(3) h2:before, body.archive .type-product:nth-child(4) h2:before {
         bottom: 100px;
