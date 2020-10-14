@@ -53,15 +53,6 @@
 	<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=2486995651410953&ev=PageView&noscript=1"/></noscript>
 
 
-	<!-- Global site tag (gtag.js) - Google Analytics -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-150093503-1"></script>
-	<script>
-	  window.dataLayer = window.dataLayer || [];
-	  function gtag(){dataLayer.push(arguments);}
-	  gtag('js', new Date());
-
-	  gtag('config', 'UA-150093503-1');
-	</script>
 
   	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
   	<script src="<?php echo get_stylesheet_directory_uri(); ?>/js/wow.min.js"></script>
