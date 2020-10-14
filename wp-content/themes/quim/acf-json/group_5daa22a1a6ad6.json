@@ -183,7 +183,7 @@
                         ]
                     ],
                     "wrapper": {
-                        "width": "100",
+                        "width": "50",
                         "class": "",
                         "id": ""
                     },
@@ -215,12 +215,36 @@
                         ]
                     ],
                     "wrapper": {
-                        "width": "",
+                        "width": "50",
                         "class": "",
                         "id": ""
                     },
                     "default_value": "",
                     "placeholder": ""
+                },
+                {
+                    "key": "field_5f726c74449d8",
+                    "label": "Mobile Image",
+                    "name": "mobile_image",
+                    "type": "image",
+                    "instructions": "This image will display by default on mobile, whether you have a video, image or gif here. If no mobile is added, mobile will display the same media as desktop. Mobile images should be oriented for a portrait style layout (ie. less wide than tall)",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "preview_size": "medium",
+                    "library": "all",
+                    "min_width": "",
+                    "min_height": "",
+                    "min_size": "",
+                    "max_width": "",
+                    "max_height": "",
+                    "max_size": "",
+                    "mime_types": ""
                 }
             ]
         },
@@ -570,5 +594,5 @@
     ],
     "active": 1,
     "description": "",
-    "modified": 1600893673
+    "modified": 1601335939
 }

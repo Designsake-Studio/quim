@@ -449,7 +449,6 @@ body.home .press-spotlight h4 { margin: 0 auto 35px; }
     background-color: #ffe6f1 !important;
     background-size: cover !important;
     background-position: top center !important;
-
 }
 
 .home.hero::after {
@@ -462,6 +461,7 @@ body.home .press-spotlight h4 { margin: 0 auto 35px; }
     height: 100%;
 }
 
+.home.hero .mobile-bg,
 .home.hero .video-wrap {
     position: absolute;
     left: 0;
@@ -469,6 +469,13 @@ body.home .press-spotlight h4 { margin: 0 auto 35px; }
     width: 100%;
     height: 100%;
     overflow: hidden;
+}
+
+.home.hero .mobile-bg {
+    display: none;
+    background-size: cover;
+    background-position: fixed;
+    background-repeat: no-repeat;
 }
 
 .home.hero video {
@@ -2289,6 +2296,15 @@ p.age-gate-remember-wrapper input[type="checkbox"] {
     }
 }
 @media only screen and (max-width: 992px) {
+    .home.hero.has-xs-img {
+        background-image: none!important;
+    }
+    .home.hero.has-xs-img .video-wrap {
+        display: none;
+    }
+    .home.hero.has-xs-img .mobile-bg {
+        display: block;
+    }
     .landing.hero .container {
         width: 96vw;
     }
