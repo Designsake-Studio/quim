@@ -284,3 +284,40 @@ add_filter('woocommerce_hold_stock_for_checkout',  'quim_disable_hold_stock_for_
 function mwb_disable_hold_stock_for_checkout(){
 	return false;
 }
+
+
+
+if ( ! function_exists( 'filter_woocommerce_loop_add_to_cart_link' ) ) {
+	/**
+	 * Replace "select options" button on shop page with add to cart
+	 */
+	function filter_woocommerce_loop_add_to_cart_link( $link, $product ) {
+
+    if ( is_shop() && $product->product_type === 'simple' ) {
+      $product_id = $product->get_id();
+      $product_sku = $product->get_sku();
+      $link = '<a rel="nofollow" href="?add-to-cart=' . $product_id . '" data-quantity="1" data-product_id="' . $product_id . '" data-product_sku="' . $product_sku . '" class="button product_type_simple add_to_cart_button ajax_add_to_cart add-to-cart" aria-label="Add to cart">Add to cart</a>';
+    }
+
+    return $link;
+	}
+	add_filter( 'woocommerce_loop_add_to_cart_link', 'filter_woocommerce_loop_add_to_cart_link', 10, 2 );
+}
+
+
+
+if ( ! function_exists( 'coupon_disable_on_susbcription' ) ) {
+	/**
+	 * Disable coupons on subscription purchases
+	 */
+	function coupon_disable_on_susbcription( $is_valid, $product, $instance, $values ) {
+
+		if ( ! empty( $values[ 'wcsatt_data'][ 'active_subscription_scheme' ] ) ) {
+			$is_valid = false;
+		}
+
+	return $is_valid;
+	}
+	add_filter( 'woocommerce_coupon_is_valid_for_product', 'coupon_disable_on_susbcription', 10, 4 );
+}
+

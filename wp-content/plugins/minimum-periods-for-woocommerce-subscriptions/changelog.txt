@@ -1,0 +1,19 @@
+*** Minimum Periods for WooCommerce Subscriptions Changelog ***
+
+2020-09-09 - Version 1.1.0
+* New: Added support for variable subscriptions
+* Fix: PHP Warning if period set to 0
+* Tweak: WooCommerce 4.5 Compatibility 
+
+2020-09-03 - Version 1.0.2
+* Fix: Remove redundant script/style enqueues
+* Fix: Ensure plugin action links return on dependency check
+* Tweak: Updated WP coding standards
+
+2020-08-31 - Version 1.0.1
+* Fix: Possible fatal error on WC_Subscriptions_Admin class check
+* Tweak: Wordpress 5.5 compatibility
+* Tweak: WooCommerce 4.4 compatibility
+
+2020-07-04 - version 1.0.0
+* Initial release

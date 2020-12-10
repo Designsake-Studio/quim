@@ -94,10 +94,10 @@
                     "maxlength": ""
                 },
                 {
-                    "key": "field_5daa22a1ad74c",
-                    "label": "Background",
-                    "name": "hero_image",
-                    "type": "image",
+                    "key": "field_5f58f3fdf974d",
+                    "label": "Background Type",
+                    "name": "background_type",
+                    "type": "select",
                     "instructions": "",
                     "required": 0,
                     "conditional_logic": 0,
@@ -106,16 +106,17 @@
                         "class": "",
                         "id": ""
                     },
-                    "return_format": "url",
-                    "preview_size": "medium",
-                    "library": "all",
-                    "min_width": "",
-                    "min_height": "",
-                    "min_size": "",
-                    "max_width": "",
-                    "max_height": "",
-                    "max_size": "",
-                    "mime_types": ""
+                    "choices": {
+                        "img": "Image (Static image or gif)",
+                        "vid": "Video"
+                    },
+                    "default_value": false,
+                    "allow_null": 0,
+                    "multiple": 0,
+                    "ui": 0,
+                    "return_format": "value",
+                    "ajax": 0,
+                    "placeholder": ""
                 },
                 {
                     "key": "field_5dadfb411d492",
@@ -155,6 +156,86 @@
                         "id": ""
                     },
                     "return_format": "url",
+                    "preview_size": "medium",
+                    "library": "all",
+                    "min_width": "",
+                    "min_height": "",
+                    "min_size": "",
+                    "max_width": "",
+                    "max_height": "",
+                    "max_size": "",
+                    "mime_types": ""
+                },
+                {
+                    "key": "field_5daa22a1ad74c",
+                    "label": "Background Image",
+                    "name": "hero_image",
+                    "type": "image",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_5f58f3fdf974d",
+                                "operator": "==",
+                                "value": "img"
+                            }
+                        ]
+                    ],
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "url",
+                    "preview_size": "medium",
+                    "library": "all",
+                    "min_width": "",
+                    "min_height": "",
+                    "min_size": "",
+                    "max_width": "",
+                    "max_height": "",
+                    "max_size": "",
+                    "mime_types": ""
+                },
+                {
+                    "key": "field_5f58f440f974e",
+                    "label": "Background Video",
+                    "name": "background_video",
+                    "type": "url",
+                    "instructions": ".mp4 link",
+                    "required": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_5f58f3fdf974d",
+                                "operator": "==",
+                                "value": "vid"
+                            }
+                        ]
+                    ],
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": ""
+                },
+                {
+                    "key": "field_5f726c74449d8",
+                    "label": "Mobile Image",
+                    "name": "mobile_image",
+                    "type": "image",
+                    "instructions": "This image will display by default on mobile, whether you have a video, image or gif here. If no mobile is added, mobile will display the same media as desktop. Mobile images should be oriented for a portrait style layout (ie. less wide than tall)",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
                     "preview_size": "medium",
                     "library": "all",
                     "min_width": "",
@@ -241,7 +322,7 @@
                     "key": "field_5dadf2da70e1f",
                     "label": "Products",
                     "name": "",
-                    "type": "message",
+                    "type": "relationship",
                     "instructions": "",
                     "required": 0,
                     "conditional_logic": 0,
@@ -250,9 +331,19 @@
                         "class": "",
                         "id": ""
                     },
-                    "message": "Products are automatically fed in.",
-                    "new_lines": "wpautop",
-                    "esc_html": 0
+                    "post_type": [
+                        "product"
+                    ],
+                    "taxonomy": "",
+                    "filters": [
+                        "search"
+                    ],
+                    "elements": [
+                        "featured_image"
+                    ],
+                    "min": 4,
+                    "max": 4,
+                    "return_format": "object"
                 }
             ]
         },
@@ -503,5 +594,5 @@
     ],
     "active": 1,
     "description": "",
-    "modified": 1583449976
+    "modified": 1601335939
 }

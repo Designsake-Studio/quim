@@ -1,0 +1,43 @@
+#mpws_cancelling_heading {
+	padding: 1em 0.7em 0;
+	border-top: 1px solid rgba(0,0,0,0.1);
+	margin-top: 1em !important;
+}
+
+.mpws_cancelling_form {
+	border-bottom: 1px solid rgba(0,0,0,0.1);
+	padding: 0 1em 0;
+	margin-bottom: 4em !important;
+}
+
+#mpws_cancelling_heading, .mpws_cancelling_form, .options_group.allow_cancelling_group {
+	background: rgba(0,0,0,0.05);
+	display: block;
+	margin: 0;
+}
+
+.options_group.allow_cancelling_group {
+	border-top: 1px solid #eee !important;
+	border-bottom: none !important;
+}
+
+.options_group.allow_cancelling_group:after {
+	content: ".";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+
+
+.woocommerce_variations .mpws_allow_cancelling_field,
+.woocommerce_variations .mpws_allow_cancelling_periods_variation {
+	background: rgba(0,0,0,0.05);
+	display: block;
+	margin: 0;
+	padding: 1em;
+}
+
+.woocommerce_variations .mpws_allow_cancelling_periods_variation {
+	padding-top: 0;
+}

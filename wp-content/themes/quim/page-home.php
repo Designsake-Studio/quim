@@ -5,8 +5,8 @@ Template Name: Home
 
 get_header(); ?>
 
-	<?php if( have_rows('hero') ): 
-        while( have_rows('hero') ): the_row(); 
+	<?php if( have_rows('hero') ):
+        while( have_rows('hero') ): the_row();
         // vars
         $title = get_sub_field('hero_title');
         $description = get_sub_field('hero_description');
@@ -15,10 +15,23 @@ get_header(); ?>
         $cta = get_sub_field('hero_cta');
         $productimg = get_sub_field('product_image');
         $productimgalt = get_sub_field('product_image_alt');
+        $type = get_sub_field('background_type');
+        $video = get_sub_field('background_video');
+        $xs_image = get_sub_field('mobile_image')
         ?>
-
-    	<div class="home hero" style="background: #0a4271 url('<?php echo $background; ?>') fixed no-repeat center center; background-size: contain;">
-           
+        <?php if($type == 'img') : ?>
+    	<div class="home hero <?php if(!empty($xs_image)) { echo ' has-xs-img'; } ?>" style="background: #0a4271 url('<?php echo $background; ?>') fixed no-repeat center center; background-size: contain;">
+        <?php elseif($type == 'vid') : ?>
+            <div class="home hero <?php if(!empty($xs_image)) { echo ' has-xs-img'; } ?>">
+                <div class="video-wrap">
+                    <video autoplay playsinline muted loop id="homeHero">
+                      <source src="<?php echo $video; ?>" type="video/mp4">
+                    </video>
+                </div>
+        <?php endif; ?>
+        <?php if(!empty($xs_image)) { ?>
+            <div class="mobile-bg" style="background-image: url('<?php echo $xs_image['sizes']['large']; ?>');"></div>
+        <?php } ?>
     	    <div class="container wow fadeIn">
     	        <h2><?php echo $title; ?></h2>
                 <?php if( $description ): ?>
@@ -68,8 +81,8 @@ get_header(); ?>
         </div>
     </div>
 
-	<?php if( have_rows('featured_products') ): 
-        while( have_rows('featured_products') ): the_row(); 
+	<?php if( have_rows('featured_products') ):
+        while( have_rows('featured_products') ): the_row();
         // vars
         $title = get_sub_field('title');
         $description = get_sub_field('description');
@@ -105,9 +118,9 @@ get_header(); ?>
         <div class="fullwidth-image" style="background: #000000 url('<?php the_field('home_fullwidth_image'); ?>') fixed no-repeat center center; background-size: cover;">
         </div>
     <?php endif; ?>
-    
-    <?php if( have_rows('card') ): 
-        while( have_rows('card') ): the_row(); 
+
+    <?php if( have_rows('card') ):
+        while( have_rows('card') ): the_row();
         // vars
         $title = get_sub_field('title');
         $description = get_sub_field('description');
@@ -151,8 +164,8 @@ get_header(); ?>
         </div>
     </div>
 
-	<?php if( have_rows('fifty') ): 
-        while( have_rows('fifty') ): the_row(); 
+	<?php if( have_rows('fifty') ):
+        while( have_rows('fifty') ): the_row();
         // vars
         $title = get_sub_field('title');
         $description = get_sub_field('description');

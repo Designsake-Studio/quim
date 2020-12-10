@@ -56,14 +56,14 @@
 	<!-- End Facebook Pixel Code -->
 
 	<!-- Global site tag (gtag.js) - Google Analytics -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-150093503-1"></script>
+	<!-- <script async src="https://www.googletagmanager.com/gtag/js?id=UA-150093503-1"></script>
 	<script>
 	  window.dataLayer = window.dataLayer || [];
 	  function gtag(){dataLayer.push(arguments);}
 	  gtag('js', new Date());
 
 	  gtag('config', 'UA-150093503-1');
-	</script>
+	</script> -->
 
   	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
   	<script src="<?php echo get_stylesheet_directory_uri(); ?>/js/wow.min.js"></script>
