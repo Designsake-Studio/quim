@@ -26,7 +26,7 @@ namespace WooCommerce\Square\Handlers;
 use SkyVerge\WooCommerce\PluginFramework\v5_4_0 as Framework;
 use WooCommerce\Square\Emails;
 
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * Emails handler class.
@@ -47,8 +47,8 @@ class Email {
 	 */
 	public function __construct() {
 		// add email handlers to WooCommerce core
-		add_action( 'woocommerce_loaded',        [ $this, 'init_emails' ] );
-		add_filter( 'woocommerce_email_classes', [ $this, 'get_email_classes' ] );
+		add_action( 'woocommerce_loaded', array( $this, 'init_emails' ) );
+		add_filter( 'woocommerce_email_classes', array( $this, 'get_email_classes' ) );
 	}
 
 	/**
@@ -92,7 +92,7 @@ class Email {
 	 * @param \WC_Email[] $emails associative array of email IDs and objects
 	 * @return \WC_Email[]
 	 */
-	public function get_email_classes( $emails = [] ) {
+	public function get_email_classes( $emails = array() ) {
 		// init emails if uninitialized
 		$this->init_emails();
 

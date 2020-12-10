@@ -23,7 +23,7 @@
 
 namespace WooCommerce\Square\Gateway;
 
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 use SkyVerge\WooCommerce\PluginFramework\v5_4_0 as Framework;
 
@@ -40,8 +40,8 @@ class Customer_Helper {
 	public static function add_customers( array $customers ) {
 		global $wpdb;
 
-		$placeholders = [];
-		$values       = [];
+		$placeholders = array();
+		$values       = array();
 
 		$query = "INSERT INTO {$wpdb->prefix}woocommerce_square_customers (square_id, email_address) VALUES ";
 
@@ -81,10 +81,10 @@ class Customer_Helper {
 
 		if ( is_email( $email_address ) ) {
 
-			$params = [
+			$params = array(
 				'square_id'     => wc_clean( $square_id ),
 				'email_address' => wc_clean( $email_address ),
-			];
+			);
 
 			if ( $user_id && is_numeric( $user_id ) ) {
 				$params['user_id'] = (int) $user_id;
@@ -111,10 +111,12 @@ class Customer_Helper {
 
 		if ( is_email( $email_address ) ) {
 
-			$square_id = $wpdb->get_var( $wpdb->prepare(
-				"SELECT square_id FROM {$wpdb->prefix}woocommerce_square_customers WHERE email_address = %s",
-				$email_address
-			) );
+			$square_id = $wpdb->get_var(
+				$wpdb->prepare(
+					"SELECT square_id FROM {$wpdb->prefix}woocommerce_square_customers WHERE email_address = %s",
+					$email_address
+				)
+			);
 		}
 
 		return $square_id;
@@ -124,14 +126,16 @@ class Customer_Helper {
 	public static function get_customers_by_email( $email_address ) {
 		global $wpdb;
 
-		$square_ids = [];
+		$square_ids = array();
 
 		if ( is_email( $email_address ) ) {
 
-			$square_ids = $wpdb->get_col( $wpdb->prepare(
-				"SELECT square_id FROM {$wpdb->prefix}woocommerce_square_customers WHERE email_address = %s",
-				$email_address
-			) );
+			$square_ids = $wpdb->get_col(
+				$wpdb->prepare(
+					"SELECT square_id FROM {$wpdb->prefix}woocommerce_square_customers WHERE email_address = %s",
+					$email_address
+				)
+			);
 		}
 
 		return $square_ids;
@@ -149,10 +153,12 @@ class Customer_Helper {
 	public static function is_customer_indexed( $square_id ) {
 		global $wpdb;
 
-		$result = $wpdb->get_var( $wpdb->prepare(
-			"SELECT * FROM {$wpdb->prefix}woocommerce_square_customers WHERE square_id = %s",
-			$square_id
-		) );
+		$result = $wpdb->get_var(
+			$wpdb->prepare(
+				"SELECT * FROM {$wpdb->prefix}woocommerce_square_customers WHERE square_id = %s",
+				$square_id
+			)
+		);
 
 		return (bool) $result;
 	}

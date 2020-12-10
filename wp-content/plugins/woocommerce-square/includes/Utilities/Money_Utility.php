@@ -23,7 +23,7 @@
 
 namespace WooCommerce\Square\Utilities;
 
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 use SkyVerge\WooCommerce\PluginFramework\v5_4_0 as Framework;
 
@@ -49,10 +49,12 @@ class Money_Utility {
 	 */
 	public static function amount_to_money( $amount, $currency ) {
 
-		return new \SquareConnect\Model\Money( [
-			'amount'   => self::amount_to_cents( $amount, $currency ),
-			'currency' => $currency,
-		] );
+		return new \SquareConnect\Model\Money(
+			array(
+				'amount'   => self::amount_to_cents( $amount, $currency ),
+				'currency' => $currency,
+			)
+		);
 	}
 
 
@@ -106,7 +108,7 @@ class Money_Utility {
 	 */
 	public static function get_currency_decimals( $currency ) {
 
-		$other_currencies = [
+		$other_currencies = array(
 			'BIF' => 0,
 			'CLP' => 0,
 			'DJF' => 0,
@@ -123,7 +125,7 @@ class Money_Utility {
 			'XAF' => 0,
 			'XOF' => 0,
 			'XPF' => 0,
-		];
+		);
 
 		if ( Framework\SV_WC_Plugin_Compatibility::is_wc_version_gte( '3.5' ) ) {
 
@@ -136,7 +138,7 @@ class Money_Utility {
 
 		} else {
 
-			$currencies     = [];
+			$currencies     = array();
 			$currency_codes = get_woocommerce_currencies();
 
 			foreach ( $currency_codes as $code => $name ) {

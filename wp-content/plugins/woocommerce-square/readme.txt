@@ -1,10 +1,10 @@
 === WooCommerce Square ===
-Contributors: automattic, royho, woothemes, bor0
+Contributors: woocommerce, automattic, royho, woothemes, bor0, mattdallan, menakas, chickenn00dle, jorgeatorres, jamesgallan, achyuthajoy
 Tags: credit card, square, woocommerce, inventory sync
 Requires at least: 4.6
-Tested up to: 5.4
+Tested up to: 5.5
 Requires PHP: 5.6
-Stable tag: 2.1.6
+Stable tag: 2.2.5
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -71,6 +71,55 @@ If you get stuck, you can ask for help in the [Plugin Forum](https://wordpress.o
 2. The payment gateway settings.
 
 == Changelog ==
+
+= 2.2.5 - 2020.11.24 =
+* Fix - Correctly saves inventory sync time when sync fails so items are re-synced on next attempt. PR#448
+* Fix - Fixes warnings introduced with PHP 8. PR#533
+* Fix - Corrects the plugin support URL. PR#539
+* Fix - Allows imports containing products with variable pricing to complete successfully. PR#540
+* Tweak - Updates assets to reflect WooCommerce color change. PR#544
+
+= 2.2.4 - 2020.10.30 =
+* Fix - Prevents logging anything if logging is disabled. PR#493
+* Fix - Fixes a bug where products are imported even when it is not available at the store's location. PR#537
+
+= 2.2.3 - 2020.10.23 =
+* Fix - Display the correct stock quantity amount on all variations when product data is sent to Square. PR#503
+* Fix - Avoid IDEMPOTENCY_KEY_REUSED API errors when syncing product data from WooCommerce to Square by using a more unique API request key. PR#528
+* Fix - Added customer_id to Orders API to link Customers & Transactions on Square Dashboard and Transactions CSV Export. PR#527
+* Fix - Issues with the postal code not matching WooCommerce data while saving cards. PR#501
+* Fix - Prevents the "Send product data to Square" checkbox from being enabled when products and variations contain empty or duplicate SKUs. PR#525
+* Fix - Issues that caused the Square Payment Form to be unclickable on the checkout page. PR#530
+* Fix - Compatibility issues with the Square Payment form and conditional payment gateway extensions. PR#530
+
+= 2.2.2 - 2020.09.15 =
+* Fix - Don't import a new copy of each product image from Square when updating products during the import process. PR#513
+
+= 2.2.1 - 2020.09.11 =
+* New - Make the "Update existing products" part of the new import process optional by adding a new checkbox on Import Products modal. PR#508
+* Fix - Stop the import process from getting stuck in a loop when reaching the time limit. PR#511
+* Fix - Don't import/update categories from Square that are attached to products that cannot be found in WooCommerce. PR#511
+* Fix - "idempotency_key must not be greater than 45 length" errors returned by some payment requests on stores using custom order number plugins. PR#507
+
+= 2.2.0 - 2020.08.31 =
+* Feature - Import new product variations from square to existing products in WooCommerce. PR#475
+* Feature - Variations that are removed from Square will now be removed from products in WooCommerce during import. PR#475
+* Feature - Upgrade to the Square Payments and Refunds API. PR#408
+* Feature - New orders can be refunded up to one year after payment (up from 120 days). PR#408
+* Fix - Only import products from Square that have non-empty SKUs. PR#475
+* Fix - Empty product categories imported from Square into WooCommerce. PR#475
+* Fix - Assign existing products to new categories imported from Square. PR#475
+* Fix - Prevents loading of Square Assets on all pages except My Account -> Payment Methods & Checkout. PR#469
+* Fix - Square Product Import & Product Manual Sync not triggering on mobile browsers. PR#472
+* Fix - 3D Secure Verification Token is missing, Intent mismatch and other checkout errors related to SCA for merchants outside of the EU. PR#471
+* Fix - Updated some of our documentation and support links in admin notices so they no longer redirect to an old URL or a 404 page. PR#474
+* Fix - Use pagination to fetch inventory counts from Square. PR#478
+* Fix - Display WooCommerce checkout validation errors along with Square payment form errors. PR#476
+* Fix - Switching between sandbox and production environments will now show correct business locations. PR#462
+* Fix - Don't wipe a customer's saved cards on when we receive an API error. PR#460
+* Fix - Exclude draft and pending products from syncing from WooCommerce to Square. PR#484
+* Fix - DevTools errors caused by missing minified JS files.
+* Fix - PHP errors when syncing large amounts of products (`get_data() on null` and `getCursor() on a string`). PR#497
 
 = 2.1.6 - 2020.07.15 =
 * Fix - Make the "Sync Now" button disabled when no business location is set in Square settings.

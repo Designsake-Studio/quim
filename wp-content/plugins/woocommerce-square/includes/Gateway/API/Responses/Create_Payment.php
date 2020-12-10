@@ -28,19 +28,19 @@ defined( 'ABSPATH' ) || exit;
 use SkyVerge\WooCommerce\PluginFramework\v5_4_0 as Framework;
 
 /**
- * The Charge API response object.
+ * The Create Payment API response object.
  *
- * @since 2.0.0
+ * @since 2.2.0
  *
- * @method \SquareConnect\Model\ChargeResponse get_data()
+ * @method \SquareConnect\Model\CreatePaymentResponse get_data()
  */
-class Charge extends \WooCommerce\Square\Gateway\API\Response implements Framework\SV_WC_Payment_Gateway_API_Authorization_Response {
+class Create_Payment extends \WooCommerce\Square\Gateway\API\Response implements Framework\SV_WC_Payment_Gateway_API_Authorization_Response {
 
 
 	/**
 	 * Determines if the charge was held.
 	 *
-	 * @since 2.0.0
+	 * @since 2.2.0
 	 *
 	 * @return bool
 	 */
@@ -49,8 +49,8 @@ class Charge extends \WooCommerce\Square\Gateway\API\Response implements Framewo
 		$held = parent::transaction_held();
 
 		// ensure the tender is CAPTURED
-		if ( $this->get_tender() ) {
-			$held = 'AUTHORIZED' === $this->get_tender()->getCardDetails()->getStatus();
+		if ( $this->get_payment() ) {
+			$held = 'AUTHORIZED' === $this->get_payment()->getCardDetails()->getStatus();
 		}
 
 		return $held;
@@ -63,78 +63,66 @@ class Charge extends \WooCommerce\Square\Gateway\API\Response implements Framewo
 	/**
 	 * Gets the authorization code.
 	 *
-	 * @since 2.0.0
+	 * @since 2.2.0
 	 *
 	 * @return string
 	 */
 	public function get_authorization_code() {
 
-		return $this->get_tender() ? $this->get_tender()->getId() : '';
+		return $this->get_payment() ? $this->get_payment()->getId() : '';
 	}
 
 
 	/**
-	 * Gets the transaction ID.
+	 * Gets the transaction (payment) ID.
 	 *
-	 * @since 2.0.0
+	 * @since 2.2.0
 	 *
 	 * @return string
 	 */
 	public function get_transaction_id() {
 
-		return $this->get_transaction() ? $this->get_transaction()->getId() : '';
+		return $this->get_payment() ? $this->get_payment()->getId() : '';
 	}
+
 
 
 	/**
 	 * Gets the location ID.
 	 *
-	 * @since 2.0.0
+	 * @since 2.2.0
 	 *
 	 * @return string
 	 */
 	public function get_location_id() {
 
-		return $this->get_transaction() ? $this->get_transaction()->getLocationId() : '';
+		return $this->get_payment() ? $this->get_payment()->getLocationId() : '';
 	}
 
 
 	/**
 	 * Gets the Square order ID, if any.
 	 *
-	 * @since 2.0.0
+	 * @since 2.2.0
 	 *
 	 * @return string
 	 */
 	public function get_square_order_id() {
 
-		return $this->get_transaction() ? $this->get_transaction()->getOrderId() : '';
+		return $this->get_payment() ? $this->get_payment()->getOrderId() : '';
 	}
 
 
 	/**
-	 * Gets the Square tender (auth) object.
+	 * Gets the Square payment object.
 	 *
-	 * @since 2.0.0
+	 * @since 2.2.0
 	 *
-	 * @return \SquareConnect\Model\Tender|null
+	 * @return \SquareConnect\Model\Payment|null
 	 */
-	public function get_tender() {
+	public function get_payment() {
 
-		return $this->get_transaction() ? current( $this->get_transaction()->getTenders() ) : null;
-	}
-
-
-	/**
-	 * Gets the Square transaction object.
-	 *
-	 * @since 2.0.0
-	 *
-	 * @return \SquareConnect\Model\Transaction|null
-	 */
-	public function get_transaction() {
-
-		return ! $this->has_errors() && $this->get_data()->getTransaction() ? $this->get_data()->getTransaction() : null;
+		return ! $this->has_errors() && $this->get_data()->getPayment() ? $this->get_data()->getPayment() : null;
 	}
 
 
@@ -150,7 +138,6 @@ class Charge extends \WooCommerce\Square\Gateway\API\Response implements Framewo
 		$message_id = '';
 
 		switch ( $this->get_status_code() ) {
-
 			case 'CARD_DECLINED':
 				$message_id = 'card_declined';
 				break;

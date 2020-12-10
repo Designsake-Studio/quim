@@ -27,7 +27,7 @@ use SkyVerge\WooCommerce\PluginFramework\v5_4_0 as Framework;
 use WooCommerce\Square\Plugin;
 use WooCommerce\Square\Handlers\Product;
 
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * Order handler class.
@@ -39,16 +39,16 @@ class Order {
 	/**
 	 * Array of previous stock values.
 	 *
-	 * @var []
+	 * @var array
 	 */
-	private $previous_stock = [];
+	private $previous_stock = array();
 
 	/**
 	 * Array of product IDs that have been scheduled for sync in this request.
 	 *
-	 * @var []
+	 * @var array
 	 */
-	private $products_to_sync = [];
+	private $products_to_sync = array();
 
 
 	/**
@@ -59,16 +59,16 @@ class Order {
 	public function __construct() {
 
 		// remove Square variation IDs from order item meta
-		add_action( 'woocommerce_hidden_order_itemmeta', [ $this, 'hide_square_order_item_meta' ] );
+		add_action( 'woocommerce_hidden_order_itemmeta', array( $this, 'hide_square_order_item_meta' ) );
 
 		// ADD hooks for stock syncs based on changes from orders not from this gateway
-		add_action( 'woocommerce_checkout_order_processed', [ $this, 'maybe_sync_stock_for_order_via_other_gateway' ], 10, 3 );
+		add_action( 'woocommerce_checkout_order_processed', array( $this, 'maybe_sync_stock_for_order_via_other_gateway' ), 10, 3 );
 
 		// Add specific hook for paypal IPN callback
-		add_action( 'valid-paypal-standard-ipn-request', [ $this, 'maybe_sync_stock_for_order_via_paypal' ], 10, 1 );
+		add_action( 'valid-paypal-standard-ipn-request', array( $this, 'maybe_sync_stock_for_order_via_paypal' ), 10, 1 );
 
 		// ADD hooks to listen to refunds on orders from other gateways.
-		add_action( 'woocommerce_order_refunded', [ $this, 'maybe_sync_stock_for_refund_from_other_gateway' ], 10, 2 );
+		add_action( 'woocommerce_order_refunded', array( $this, 'maybe_sync_stock_for_refund_from_other_gateway' ), 10, 2 );
 	}
 
 
@@ -97,11 +97,11 @@ class Order {
 	 * @param array $posted values returned from PayPal Standard IPN callback.
 	 */
 	public function maybe_sync_stock_for_order_via_paypal( $posted ) {
-		if ( empty( $posted[ 'custom' ] ) ) {
+		if ( empty( $posted['custom'] ) ) {
 			return;
 		}
 
-		$raw_order = json_decode( $posted[ 'custom' ] );
+		$raw_order = json_decode( $posted['custom'] );
 		if ( empty( $raw_order->order_id ) ) {
 			return;
 		}
@@ -152,10 +152,10 @@ class Order {
 
 		$this->cache_previous_stock( $order );
 
-		add_action( 'woocommerce_product_set_stock', [ $this, 'maybe_stage_inventory_updates_for_product' ] );
-		add_action( 'woocommerce_variation_set_stock', [ $this, 'maybe_stage_inventory_updates_for_product' ] );
+		add_action( 'woocommerce_product_set_stock', array( $this, 'maybe_stage_inventory_updates_for_product' ) );
+		add_action( 'woocommerce_variation_set_stock', array( $this, 'maybe_stage_inventory_updates_for_product' ) );
 
-		add_action( 'shutdown', [ $this, 'maybe_sync_staged_inventory_updates' ] );
+		add_action( 'shutdown', array( $this, 'maybe_sync_staged_inventory_updates' ) );
 	}
 
 	/**
@@ -225,7 +225,7 @@ class Order {
 	 */
 	public function maybe_sync_staged_inventory_updates() {
 
-		$inventory_adjustments       = [];
+		$inventory_adjustments = array();
 
 		foreach ( $this->products_to_sync as $product_id => $adjustment ) {
 
@@ -272,8 +272,8 @@ class Order {
 			return;
 		}
 
-		$refund = new \WC_Order_Refund( $refund_id );
-		$inventory_adjustments = [];
+		$refund                = new \WC_Order_Refund( $refund_id );
+		$inventory_adjustments = array();
 		foreach ( $refund->get_items() as $item ) {
 
 			if ( 'line_item' !== $item->get_type() ) {
@@ -285,7 +285,7 @@ class Order {
 				continue;
 			}
 
-			$adjustment = -1 * ( $item->get_quantity() ); // we want a positive value to increase the stock and a negative number to decrease it.
+			$adjustment           = -1 * ( $item->get_quantity() ); // we want a positive value to increase the stock and a negative number to decrease it.
 			$inventory_adjustment = Product::get_inventory_change_adjustment_type( $product, $adjustment );
 
 			if ( empty( $inventory_adjustment ) ) {
