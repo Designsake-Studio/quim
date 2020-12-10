@@ -134,7 +134,7 @@ class WC_Connect_TaxJar_Integration {
 			'title'    => __( 'Automated taxes', 'woocommerce-services' ),
 			'id'       => self::OPTION_NAME, // TODO: save in `wc_connect_options`?
 			'desc_tip' => $this->get_tax_tooltip(),
-			'desc'     => $enabled ? '<p>' . __( 'Powered by WooCommerce Services.', 'woocommerce-services' ) . '</p>' : '',
+			'desc'     => $enabled ? '<p>' . __( 'Powered by WooCommerce Tax. If automated taxes are enabled, you\'ll need to enter prices exclusive of tax.', 'woocommerce-services' ) . '</p>' : '',
 			'default'  => 'no',
 			'type'     => 'select',
 			'class'    => 'wc-enhanced-select',
@@ -315,15 +315,15 @@ class WC_Connect_TaxJar_Integration {
 		$invalid_postcode = false !== strpos( $formatted_message, 'isn\'t a valid postal code for' );
 		if ( ! is_admin() && ( $state_zip_mismatch || $invalid_postcode ) ) {
 			$fields = WC()->countries->get_address_fields();
-			$postcode_field_name = __( 'Postcode / ZIP', 'woocommerce-services' );
+			$postcode_field_name = __( 'ZIP/Postal code', 'woocommerce-services' );
 			if ( isset( $fields['billing_postcode'] ) && isset( $fields['billing_postcode']['label'] ) ) {
 				$postcode_field_name = $fields['billing_postcode']['label'];
 			}
 
 			if ( $state_zip_mismatch ) {
-				$message = sprintf( _x( '%s does not match the selected state.', '%s - Postcode/Zip checkout field label', 'woocommerce-services' ), $postcode_field_name );
+				$message = sprintf( _x( '%s does not match the selected state.', '%s - ZIP/Postal code checkout field label', 'woocommerce-services' ), $postcode_field_name );
 			} else {
-				$message = sprintf( _x( 'Invalid %s entered.', '%s - Postcode/Zip checkout field label', 'woocommerce-services' ), $postcode_field_name );
+				$message = sprintf( _x( 'Invalid %s entered.', '%s - ZIP/Postal code checkout field label', 'woocommerce-services' ), $postcode_field_name );
 			}
 
 			if ( ! wc_has_notice( $message, 'error' ) ) {
