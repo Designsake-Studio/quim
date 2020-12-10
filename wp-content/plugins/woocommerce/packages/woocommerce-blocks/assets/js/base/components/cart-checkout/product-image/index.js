@@ -7,13 +7,14 @@ import PropTypes from 'prop-types';
 
 /**
  * Formats and returns an image element.
+ *
+ * @param {Object} props       Incoming props for the component.
+ * @param {Object} props.image Image properties.
  */
 const ProductImage = ( { image = {} } ) => {
 	const imageProps = {
-		src: image.src || PLACEHOLDER_IMG_SRC,
+		src: image.thumbnail || PLACEHOLDER_IMG_SRC,
 		alt: decodeEntities( image.alt ) || '',
-		srcSet: image.srcset || '',
-		sizes: image.sizes || '',
 	};
 
 	return <img { ...imageProps } alt={ imageProps.alt } />;
@@ -22,9 +23,7 @@ const ProductImage = ( { image = {} } ) => {
 ProductImage.propTypes = {
 	image: PropTypes.shape( {
 		alt: PropTypes.string,
-		src: PropTypes.string,
-		srcsizes: PropTypes.string,
-		srcset: PropTypes.string,
+		thumbnail: PropTypes.string,
 	} ),
 };
 

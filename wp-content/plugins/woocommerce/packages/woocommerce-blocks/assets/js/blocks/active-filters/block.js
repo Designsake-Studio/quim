@@ -18,6 +18,10 @@ import ActiveAttributeFilters from './active-attribute-filters';
 
 /**
  * Component displaying active filters.
+ *
+ * @param {Object} props Incoming props for the component.
+ * @param {Object} props.attributes Incoming attributes for the block.
+ * @param {boolean} props.isEditor Whether or not in the editor context.
  */
 const ActiveFiltersBlock = ( {
 	attributes: blockAttributes,
@@ -41,8 +45,15 @@ const ActiveFiltersBlock = ( {
 				setMinPrice( undefined );
 				setMaxPrice( undefined );
 			},
+			displayStyle: blockAttributes.displayStyle,
 		} );
-	}, [ minPrice, maxPrice, formatPriceRange ] );
+	}, [
+		minPrice,
+		maxPrice,
+		blockAttributes.displayStyle,
+		setMinPrice,
+		setMaxPrice,
+	] );
 
 	const activeAttributeFilters = useMemo( () => {
 		return productAttributes.map( ( attribute ) => {
@@ -52,13 +63,14 @@ const ActiveFiltersBlock = ( {
 			return (
 				<ActiveAttributeFilters
 					attributeObject={ attributeObject }
+					displayStyle={ blockAttributes.displayStyle }
 					slugs={ attribute.slug }
 					key={ attribute.attribute }
 					operator={ attribute.operator }
 				/>
 			);
 		} );
-	}, [ productAttributes ] );
+	}, [ productAttributes, blockAttributes.displayStyle ] );
 
 	const hasFilters = () => {
 		return (
@@ -96,6 +108,7 @@ const ActiveFiltersBlock = ( {
 									'Small',
 									'woocommerce'
 								),
+								displayStyle: blockAttributes.displayStyle,
 							} ) }
 							{ renderRemovableListItem( {
 								type: __(
@@ -106,6 +119,7 @@ const ActiveFiltersBlock = ( {
 									'Blue',
 									'woocommerce'
 								),
+								displayStyle: blockAttributes.displayStyle,
 							} ) }
 						</Fragment>
 					) : (

@@ -33,6 +33,11 @@ const currencyToNumberFormat = ( currency ) => {
  * Takes a price and returns a formatted price using the NumberFormat component.
  *
  * @param {Object} props Component props.
+ * @param {string} props.className CSS class used.
+ * @param {number} props.value Value of money amount.
+ * @param {Object} props.currency Currency configuration object.
+ * @param {function():any} props.onValueChange Function to call when value changes.
+ * @param {Object} props.props Rest of props passed into component.
  */
 const FormattedMonetaryAmount = ( {
 	className,
@@ -51,7 +56,11 @@ const FormattedMonetaryAmount = ( {
 		return null;
 	}
 
-	const classes = classNames( 'wc-block-formatted-money-amount', className );
+	const classes = classNames(
+		'wc-block-formatted-money-amount',
+		'wc-block-components-formatted-money-amount',
+		className
+	);
 	const numberFormatProps = {
 		displayType: 'text',
 		...props,

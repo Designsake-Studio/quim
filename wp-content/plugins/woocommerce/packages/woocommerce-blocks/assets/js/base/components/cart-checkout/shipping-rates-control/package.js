@@ -30,29 +30,29 @@ const Package = ( {
 		<>
 			{ title && (
 				<Title
-					className="wc-block-shipping-rates-control__package-title"
+					className="wc-block-components-shipping-rates-control__package-title"
 					headingLevel="3"
 				>
 					{ title }
 				</Title>
 			) }
 			{ showItems && (
-				<ul className="wc-block-shipping-rates-control__package-items">
+				<ul className="wc-block-components-shipping-rates-control__package-items">
 					{ Object.values( shippingRate.items ).map( ( v ) => {
 						const name = decodeEntities( v.name );
 						const quantity = v.quantity;
 						return (
 							<li
 								key={ name }
-								className="wc-block-shipping-rates-control__package-item"
+								className="wc-block-components-shipping-rates-control__package-item"
 							>
 								<Label
 									label={ `${ name } ×${ quantity }` }
 									screenReaderLabel={ sprintf(
-										// translators: %s name of the product (ie: Sunglasses), %d number of units in the current cart package
+										// translators: %1$s name of the product (ie: Sunglasses), %2$d number of units in the current cart package
 										_n(
-											'%s (%d unit)',
-											'%s (%d units)',
+											'%1$s (%2$d unit)',
+											'%1$s (%2$d units)',
 											quantity,
 											'woocommerce'
 										),
@@ -80,7 +80,8 @@ const Package = ( {
 	if ( collapsible ) {
 		return (
 			<Panel
-				className="wc-block-shipping-rates-control__package"
+				className="wc-block-components-shipping-rates-control__package"
+				hasBorder={ true }
 				initialOpen={ true }
 				title={ header }
 			>
@@ -91,7 +92,7 @@ const Package = ( {
 	return (
 		<div
 			className={ classNames(
-				'wc-block-shipping-rates-control__package',
+				'wc-block-components-shipping-rates-control__package',
 				className
 			) }
 		>

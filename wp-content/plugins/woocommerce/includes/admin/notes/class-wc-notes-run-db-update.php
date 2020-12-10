@@ -10,7 +10,7 @@
 defined( 'ABSPATH' ) || exit;
 
 use \Automattic\Jetpack\Constants;
-use \Automattic\WooCommerce\Admin\Notes\WC_Admin_Note;
+use Automattic\WooCommerce\Admin\Notes\Note;
 
 /**
  * WC_Notes_Run_Db_Update.
@@ -58,7 +58,7 @@ class WC_Notes_Run_Db_Update {
 			// Remove weird duplicates. Leave the first one.
 			$current_notice = array_shift( $note_ids );
 			foreach ( $note_ids as $note_id ) {
-				$note = new WC_Admin_Note( $note_id );
+				$note = new Note( $note_id );
 				$data_store->delete( $note );
 			}
 			return $current_notice;
@@ -77,8 +77,8 @@ class WC_Notes_Run_Db_Update {
 			return;
 		}
 
-		$note = new WC_Admin_Note( $note_id );
-		$note->set_status( WC_Admin_Note::E_WC_ADMIN_NOTE_ACTIONED );
+		$note = new Note( $note_id );
+		$note->set_status( Note::E_WC_ADMIN_NOTE_ACTIONED );
 		$note->save();
 	}
 
@@ -89,19 +89,15 @@ class WC_Notes_Run_Db_Update {
 	 *  - actions are set up for the first 'Update database' notice, and
 	 *  - URL for note's action is equal to the given URL (to check for potential nonce update).
 	 *
-	 * @param WC_Admin_Note   $note            Note to check.
-	 * @param string          $update_url      URL to check the note against.
-	 * @param array( string ) $current_actions List of actions to check for.
+	 * @param Note               $note            Note to check.
+	 * @param string             $update_url      URL to check the note against.
+	 * @param array<int, string> $current_actions List of actions to check for.
 	 * @return bool
 	 */
 	private static function note_up_to_date( $note, $update_url, $current_actions ) {
 		$actions = $note->get_actions();
-		if ( count( $current_actions ) === count( array_intersect( wp_list_pluck( $actions, 'name' ), $current_actions ) )
-			&& in_array( $update_url, wp_list_pluck( $actions, 'query' ), true ) ) {
-			return true;
-		}
-
-		return false;
+		return count( $current_actions ) === count( array_intersect( wp_list_pluck( $actions, 'name' ), $current_actions ) )
+			&& in_array( $update_url, wp_list_pluck( $actions, 'query' ), true );
 	}
 
 	/**
@@ -115,7 +111,7 @@ class WC_Notes_Run_Db_Update {
 	private static function update_needed_notice( $note_id = null ) {
 		$update_url = html_entity_decode(
 			wp_nonce_url(
-				add_query_arg( 'do_update_woocommerce', 'true', admin_url( 'admin.php?page=wc-settings' ) ),
+				add_query_arg( 'do_update_woocommerce', 'true', wc_get_current_admin_url() ? wc_get_current_admin_url() : admin_url( 'admin.php?page=wc-settings' ) ),
 				'wc_db_update',
 				'wc_db_update_nonce'
 			)
@@ -139,9 +135,9 @@ class WC_Notes_Run_Db_Update {
 		);
 
 		if ( $note_id ) {
-			$note = new WC_Admin_Note( $note_id );
+			$note = new Note( $note_id );
 		} else {
-			$note = new WC_Admin_Note();
+			$note = new Note();
 		}
 
 		// Check if the note needs to be updated (e.g. expired nonce or different note type stored in the previous run).
@@ -155,13 +151,13 @@ class WC_Notes_Run_Db_Update {
 			/* translators: %1$s: opening <a> tag %2$s: closing </a> tag*/
 			. sprintf( ' ' . esc_html__( 'The database update process runs in the background and may take a little while, so please be patient. Advanced users can alternatively update via %1$sWP CLI%2$s.', 'woocommerce' ), '<a href="https://github.com/woocommerce/woocommerce/wiki/Upgrading-the-database-using-WP-CLI">', '</a>' )
 		);
-		$note->set_type( WC_Admin_Note::E_WC_ADMIN_NOTE_UPDATE );
+		$note->set_type( Note::E_WC_ADMIN_NOTE_UPDATE );
 		$note->set_name( self::NOTE_NAME );
 		$note->set_content_data( (object) array() );
 		$note->set_source( 'woocommerce-core' );
 		// In case db version is out of sync with WC version or during the next update, the notice needs to show up again,
 		// so set it to unactioned.
-		$note->set_status( WC_Admin_Note::E_WC_ADMIN_NOTE_UNACTIONED );
+		$note->set_status( Note::E_WC_ADMIN_NOTE_UNACTIONED );
 
 		// Set new actions.
 		$note->clear_actions();
@@ -185,7 +181,7 @@ class WC_Notes_Run_Db_Update {
 		$cron_disabled       = Constants::is_true( 'DISABLE_WP_CRON' );
 		$cron_cta            = $cron_disabled ? __( 'You can manually run queued updates here.', 'woocommerce' ) : __( 'View progress →', 'woocommerce' );
 
-		$note = new WC_Admin_Note( $note_id );
+		$note = new Note( $note_id );
 		$note->set_title( __( 'WooCommerce database update in progress', 'woocommerce' ) );
 		$note->set_content( __( 'WooCommerce is updating the database in the background. The database update process may take a little while, so please be patient.', 'woocommerce' ) );
 
@@ -214,7 +210,7 @@ class WC_Notes_Run_Db_Update {
 				add_query_arg(
 					'wc-hide-notice',
 					'update',
-					admin_url( 'admin.php?page=wc-settings' )
+					wc_get_current_admin_url() ? wc_get_current_admin_url() : admin_url( 'admin.php?page=wc-settings' )
 				),
 				'woocommerce_hide_notices_nonce',
 				'_wc_notice_nonce'
@@ -231,7 +227,7 @@ class WC_Notes_Run_Db_Update {
 			),
 		);
 
-		$note = new WC_Admin_Note( $note_id );
+		$note = new Note( $note_id );
 
 		// Check if the note needs to be updated (e.g. expired nonce or different note type stored in the previous run).
 		if ( self::note_up_to_date( $note, $hide_notices_url, wp_list_pluck( $note_actions, 'name' ) ) ) {
@@ -270,13 +266,12 @@ class WC_Notes_Run_Db_Update {
 				return;
 			}
 
-			$note = new WC_Admin_Note( $note_id );
+			$note = new Note( $note_id );
 			if ( $note::E_WC_ADMIN_NOTE_ACTIONED === $note->get_status() ) {
 				// Db update not needed && note actioned -> don't show it.
 				return;
 			} else {
 				// Db update not needed && notice is unactioned -> Thank you note.
-				\WC_Install::update_db_version();
 				self::update_done_notice( $note_id );
 				return;
 			}
