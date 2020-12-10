@@ -5,7 +5,7 @@
 /**
  * The public-facing functionality of the plugin.
  *
- * @link       https://philsbury.uk
+ * @link       https://agegate.io
  * @since      2.0.0
  *
  * @package    Age_Gate
@@ -30,6 +30,11 @@ class Age_Gate_Public_JS extends Age_Gate_Public
     {
         parent::__construct();
         $this->js = $this->settings['advanced']['use_js'];
+        if (!class_exists('Parsedown')) {
+            require_once AGE_GATE_PATH . 'includes/Parsedown.php';
+        }
+
+        $this->parsedown = new Parsedown;
     }
 
     public function ajax_setup()
@@ -59,7 +64,7 @@ class Age_Gate_Public_JS extends Age_Gate_Public
 
         // use localize script to output AG settings
         $params = array(
-            'ajaxurl' => ('rest' === $this->settings['advanced']['endpoint'] ? get_rest_url(null, '/age-gate/v1/') : admin_url('admin-ajax.php')),
+            'ajaxurl' => ('rest' === $this->settings['advanced']['endpoint'] ? apply_filters('age_gate/ajax/rest_url', get_rest_url(null, '/age-gate/v1/')) : admin_url('admin-ajax.php')),
             'settings' => array(
                 'age' => (int) $meta->age,
                 'type' => $meta->restrictions->restriction_type,
@@ -81,10 +86,10 @@ class Age_Gate_Public_JS extends Age_Gate_Public
                 'qs' => $this->settings['advanced']['filter_qs']
             ],
             'errors' => array(
-                'invalid' => __($this->settings['messages']['invalid_input_msg']),
-                'failed' => __($this->settings['messages']['under_age_msg']),
-                'generic' => __($this->settings['messages']['generic_error_msg']),
-                'cookies' => __($this->settings['messages']['cookie_message'])
+                'invalid' => $this->parsedown->line(__($this->settings['messages']['invalid_input_msg'])),
+                'failed' => $this->parsedown->line(__($this->settings['messages']['under_age_msg'])),
+                'generic' => $this->parsedown->line(__($this->settings['messages']['generic_error_msg'])),
+                'cookies' => $this->parsedown->line(__($this->settings['messages']['cookie_message']))
             )
         );
 
@@ -200,17 +205,17 @@ class Age_Gate_Public_JS extends Age_Gate_Public
             return false;
         }
         register_rest_route('age-gate/v1', '/check', array(
-      'methods' => 'GET',
-      'callback' => array($this, 'age_gate_rest')
+            'methods' => 'GET',
+            'callback' => array($this, 'age_gate_rest')
 
-    ));
+        ));
 
         // rest route for filter
         register_rest_route('age-gate/v1', '/filter', array(
-      'methods' => 'GET',
-      'callback' => array($this, 'age_gate_filters_rest')
+            'methods' => 'GET',
+            'callback' => array($this, 'age_gate_filters_rest')
 
-    ));
+        ));
     }
 
     public function age_gate_filters_rest()
@@ -259,8 +264,6 @@ class Age_Gate_Public_JS extends Age_Gate_Public
 
     private function _handle_input_submission($data)
     {
-        $redirect = $data['_wp_http_referer'];
-
         $form_data = $this->flatten($data);
 
         $is_valid = $this->_validate($form_data);
@@ -270,22 +273,25 @@ class Age_Gate_Public_JS extends Age_Gate_Public
             do_action("age_gate_form_{$status}", $this->_hook_data($form_data), $this->_filter_errors($is_valid));
 
             return [
-        'status' => 'error',
-        'messages' => $this->_filter_errors($is_valid),
-        'redirect' => false
-      ];
+                'status' => 'error',
+                'messages' => $this->_filter_errors($is_valid),
+                'redirect' => false
+            ];
         }
 
         // inputs are valid - check their age
         $user_age = $this->_calc_age($data['age_gate']);
 
         if ($this->_test_user_age($user_age, $data['age_gate']['age'])) {
+            $redirect = apply_filters('age_gate/success/redirect', false, $data);
+
             $response = [
-        'status' => 'success',
-        'age' => $user_age,
-        'remember' => ((int) !isset($data['age_gate']['remember']) ? false : $this->settings['restrictions']['remember_days']),
-        'timescale' => $this->settings['restrictions']['remember_timescale']
-      ];
+                'status' => 'success',
+                'age' => $user_age,
+                'remember' => ((int) !isset($data['age_gate']['remember']) ? false : $this->settings['restrictions']['remember_days']),
+                'timescale' => $this->settings['restrictions']['remember_timescale'],
+                'redirect' => $redirect,
+            ];
 
             if (!isset($data['age_gate']['remember'])) {
                 $response['remember'] = apply_filters('age_gate_cookie_length', $response['remember']);
@@ -297,20 +303,20 @@ class Age_Gate_Public_JS extends Age_Gate_Public
             $status = 'failed';
             $errors = [];
             if (isset($data['lang'])) {
-                $errors['age_gate_failed'] = $this->_get_translated_setting('messages', 'under_age_msg', $data['lang']);
+                $errors['age_gate_failed'] = $this->parsedown->line($this->_get_translated_setting('messages', 'under_age_msg', $data['lang']));
                 $redirect_url = $this->_get_translated_setting('restrictions', 'fail_link', $data['lang']);
             } else {
-                $errors['age_gate_failed'] = $this->settings['messages']['under_age_msg'];
+                $errors['age_gate_failed'] = $this->parsedown->line($this->settings['messages']['under_age_msg']);
                 $redirect_url = $this->settings['restrictions']['fail_link'];
             }
 
             do_action("age_gate_form_{$status}", $this->_hook_data($form_data), $errors);
 
             return [
-        'status' => 'error',
-        'messages' => $errors,
-        'redirect' => ($redirect_url ? $redirect_url : false)
-      ];
+                'status' => 'error',
+                'messages' => $errors,
+                'redirect' => ($redirect_url ? $redirect_url : false)
+            ];
         }
 
         do_action("age_gate_form_{$status}", $this->_hook_data($form_data));
@@ -318,7 +324,6 @@ class Age_Gate_Public_JS extends Age_Gate_Public
     }
     private function _handle_button_submission($data)
     {
-        $redirect = $data['_wp_http_referer'];
         $form_data = $this->flatten($data);
 
         if (!$form_data['confirm_action']) {
@@ -326,18 +331,18 @@ class Age_Gate_Public_JS extends Age_Gate_Public
 
             $errors = [];
             if (isset($data['lang'])) {
-                $errors['buttons'] = $this->_get_translated_setting('messages', 'under_age_msg', $data['lang']);
+                $errors['buttons'] = $this->parsedown->line($this->_get_translated_setting('messages', 'under_age_msg', $data['lang']));
                 $redirect_url = $this->_get_translated_setting('restrictions', 'fail_link', $data['lang']);
             } else {
-                $errors['buttons'] = $this->settings['messages']['under_age_msg'];
+                $errors['buttons'] = $this->parsedown->line($this->settings['messages']['under_age_msg']);
                 $redirect_url = $this->settings['restrictions']['fail_link'];
             }
 
             $response = [
-        'status' => 'error',
-        'messages' => $errors,
-        'redirect' => ($redirect_url ? $redirect_url : false)
-      ];
+                'status' => 'error',
+                'messages' => $errors,
+                'redirect' => ($redirect_url ? $redirect_url : false)
+            ];
 
             do_action("age_gate_form_{$status}", $this->_hook_data($form_data), $errors);
 
@@ -351,10 +356,10 @@ class Age_Gate_Public_JS extends Age_Gate_Public
                 do_action("age_gate_form_{$status}", $this->_hook_data($form_data), $errors);
 
                 $response = [
-          'status' => 'error',
-          'messages' => $errors,
-          'redirect' => false
-        ];
+                    'status' => 'error',
+                    'messages' => $errors,
+                    'redirect' => false
+                ];
 
                 return $response;
             } else {
@@ -362,12 +367,16 @@ class Age_Gate_Public_JS extends Age_Gate_Public
                 $status = 'success';
                 do_action("age_gate_form_{$status}", $this->_hook_data($form_data));
 
+                $redirect = apply_filters('age_gate/success/redirect', false, $data);
+
+
                 $response = [
-          'status' => 'success',
-          'age' => $data['age_gate']['age'],
-          'remember' => ((int) !isset($data['age_gate']['remember']) ? false : $this->settings['restrictions']['remember_days']),
-          'timescale' => $this->settings['restrictions']['remember_timescale']
-        ];
+                    'status' => 'success',
+                    'age' => $data['age_gate']['age'],
+                    'remember' => ((int) !isset($data['age_gate']['remember']) ? false : $this->settings['restrictions']['remember_days']),
+                    'timescale' => $this->settings['restrictions']['remember_timescale'],
+                    'redirect' => $redirect
+                ];
 
                 if (!isset($data['age_gate']['remember'])) {
                     $response['remember'] = apply_filters('age_gate_cookie_length', $response['remember']);
@@ -451,8 +460,8 @@ class Age_Gate_Public_JS extends Age_Gate_Public
 
             $ag_rules = array_merge(
                 [
-          'age_gate_d' => 'required|numeric|min_len,2|max_len,2|max_numeric,31',
-          'age_gate_m' => 'required|numeric|min_len,2|max_len,2|max_numeric,12',
+          'age_gate_d' => 'required|numeric|min_len,1|max_len,2|max_numeric,31',
+          'age_gate_m' => 'required|numeric|min_len,1|max_len,2|max_numeric,12',
           'age_gate_y' => 'required|numeric|min_len,4|max_len,4|min_numeric,'. $min_year .'|max_numeric,' . date('Y'),
         ],
                 $ag_rules
@@ -523,7 +532,7 @@ class Age_Gate_Public_JS extends Age_Gate_Public
     /**
      * Function to return filters
      */
-    public function age_gate_filters($data = false, $return = false)
+    public function age_gate_filters($data = [], $return = false)
     {
         if (!$data) {
             $data = $this->validation->sanitize($_POST);

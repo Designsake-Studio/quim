@@ -5,7 +5,7 @@
 /**
  * The admin-specific functionality of the plugin.
  *
- * @link       https://philsbury.uk
+ * @link       https://agegate.io
  * @since      2.0.0
  *
  * @package    Age_Gate
@@ -49,11 +49,15 @@ class Age_Gate_Messaging extends Age_Gate_Common
     public function display_options_page()
     {
         $language_values = (isset($this->settings['messages']['lang']) ? $this->settings['messages']['lang'] : []);
-        unset($this->settings['messages']['lang']);
+        if (isset($this->settings['messages']['lang'])) {
+            unset($this->settings['messages']['lang']);
+        }
         $values = $this->_filter_values($this->settings['messages'], null);
 
         $language_validation = (isset($this->settings['validation']['lang']) ? $this->settings['validation']['lang'] : []);
-        unset($this->settings['validation']['lang']);
+        if (isset($this->settings['validation']['lang'])) {
+            unset($this->settings['validation']['lang']);
+        }
         $validation = $this->_filter_validation($this->settings['validation'], null);
 
         if (self::$language) {
@@ -93,14 +97,14 @@ class Age_Gate_Messaging extends Age_Gate_Common
         $post['ag_settings']['additional'] = esc_html($additional);
 
         foreach ($additional_langs as $lang => $value) {
-          $post['ag_settings']['lang'][$lang]['additional'] = $value;
+            $post['ag_settings']['lang'][$lang]['additional'] = $value;
         }
 
         if (! isset($post['nonce']) || ! wp_verify_nonce($post['nonce'], 'age_gate_update_messages')) {
             $this->_set_admin_notice(array('message' => __('Sorry, your nonce did not verify.', 'age-gate'), 'status' => 'error'));
 
             // set_transient( 'age_gate_admin_notice',  );
-            wp_redirect($post['_wp_http_referer']);
+            wp_redirect(add_query_arg(['page' => 'age-gate-messaging'], admin_url('admin.php')));
             exit;
         }
 
@@ -124,7 +128,7 @@ class Age_Gate_Messaging extends Age_Gate_Common
             $this->_set_admin_notice(array('message' => __('You are using the JavaScript implementation of Age Gate, if you have caching enabled ensure you purge it to see your changes.', 'age-gate'), 'status' => 'info'));
         }
 
-        wp_redirect($post['_wp_http_referer']);
+        wp_redirect(add_query_arg(['page' => 'age-gate-messaging'], admin_url('admin.php')));
     }
 
     /**

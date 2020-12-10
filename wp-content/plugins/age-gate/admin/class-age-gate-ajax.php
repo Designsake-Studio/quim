@@ -3,7 +3,7 @@
 /**
  * Handle any AJAX Requests.
  *
- * @link       https://philsbury.uk
+ * @link       https://agegate.io
  * @since      2.0.0
  *
  * @package    Age_Gate

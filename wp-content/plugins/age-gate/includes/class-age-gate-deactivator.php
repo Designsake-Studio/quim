@@ -3,7 +3,7 @@
 /**
  * Fired during plugin deactivation
  *
- * @link       https://philsbury.uk
+ * @link       https://agegate.io
  * @since      1.0.0
  *
  * @package    Age_Gate

@@ -7,7 +7,7 @@
  *
  * This file is used to markup the public-facing aspects of the plugin.
  *
- * @link       https://philsbury.uk
+ * @link       https://agegate.io
  * @since      2.0.0
  *
  * @package    Age_Gate
@@ -92,7 +92,7 @@ $errors = self::$errors;
         <?php if ($this->user_age && $this->user_age < $this->age && !$errors && !isset($_COOKIE['age_gate_failed']) && !$this->js): ?>
           <div class="age-gate-error">
             <p class="age-gate-error-message">
-              <?php echo __($this->messages->errors->failed); ?>
+              <?php echo $this->parsedown->line(__($this->messages->errors->failed)); ?>
             </p>
           </div>
         <?php endif; ?>
@@ -152,7 +152,7 @@ $errors = self::$errors;
       <?php elseif (!$this->js && !$errors): ?>
 
             <p class="age-gate-error-message">
-            <?php echo __($this->messages->errors->failed); ?>
+            <?php echo $this->parsedown->line(__($this->messages->errors->failed)); ?>
             </p>
 
         <?php endif; ?>
@@ -160,7 +160,10 @@ $errors = self::$errors;
           // user set "additional content"
           if ($this->messages->additional) {
               echo '<div class="age-gate-additional-information">';
-              echo do_shortcode(wpautop(html_entity_decode(stripslashes(__($this->messages->additional)))));
+              $content = html_entity_decode($this->messages->additional);
+              $content = $this->stripslashes_deep($content);
+              $content = do_shortcode(wpautop(wptexturize(stripslashes($content))));
+              echo $content;
               echo "</div>";
           }
 

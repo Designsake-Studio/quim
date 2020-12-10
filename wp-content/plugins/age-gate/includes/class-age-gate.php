@@ -8,7 +8,7 @@
  * A class definition that includes attributes and functions used across both the
  * public-facing side of the site and the admin area.
  *
- * @link       https://philsbury.uk
+ * @link       https://agegate.io
  * @since      1.0.0
  *
  * @package    Age_Gate
@@ -155,6 +155,8 @@ class Age_Gate
         require_once AGE_GATE_PATH . 'public/class-age-gate-public-js.php';
         require_once AGE_GATE_PATH . 'public/class-age-gate-public-validation.php';
         require_once AGE_GATE_PATH . 'public/class-age-gate-public-registration.php';
+        require_once AGE_GATE_PATH . 'public/class-age-gate-public-shortcode.php';
+        require_once AGE_GATE_PATH . 'public/class-age-gate-public-rest.php';
 
 
         $this->loader = new Age_Gate_Loader();
@@ -214,6 +216,8 @@ class Age_Gate
         $this->loader->add_action('admin_print_footer_scripts', $plugin_admin, 'editor_scripts');
         $this->loader->add_action('admin_init', $plugin_admin, 'purge_transients');
         $this->loader->add_action('admin_init', $plugin_admin, 'ag_toggle');
+        $this->loader->add_action('in_admin_header', $plugin_admin, 'in_admin_header');
+
 
         /**
          * Admin Class Filters
@@ -378,6 +382,8 @@ class Age_Gate
         $plugin_js = new Age_Gate_Public_JS;
         $plugin_registration = new Age_Gate_Registration;
         $plugin_lang = new Age_Gate_Multi_Lingual;
+        new Age_Gate_Shortcode;
+        new Age_Gate_Rest;
 
         /**
          * Public Class Actions
@@ -411,9 +417,9 @@ class Age_Gate
          * Submission Class Actions
          */
         // Form submission actions, need to technically be registered as Admin Hooks!
-        $this->loader->add_action('admin_post_age_gate_submit', $plugin_submission, 'handle_form_submission');
-        $this->loader->add_action('admin_post_nopriv_age_gate_submit', $plugin_submission, 'handle_form_submission');
-        $this->loader->add_action('init', $plugin_submission, 'self_post');
+        // $this->loader->add_action('admin_post_age_gate_submit', $plugin_submission, 'handle_form_submission');
+        // $this->loader->add_action('admin_post_nopriv_age_gate_submit', $plugin_submission, 'handle_form_submission');
+        $this->loader->add_action('init', $plugin_submission, 'self_post', 999);
         
         /**
          * Submission Class Filters

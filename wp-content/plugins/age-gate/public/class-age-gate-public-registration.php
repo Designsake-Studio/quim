@@ -3,7 +3,7 @@
 /**
  * The public-facing functionality of the plugin.
  *
- * @link       https://philsbury.uk
+ * @link       https://agegate.io
  * @since      2.0.0
  * @deprecated 2.0.3
  *

@@ -5,7 +5,7 @@
  *
  * This file is used to markup the public-facing aspects of the plugin.
  *
- * @link       https://philsbury.uk
+ * @link       https://agegate.io
  * @since      1.0.0
  *
  * @package    Age_Gate
@@ -15,7 +15,7 @@
 <div class="wrap">
   <h2><?php echo esc_html( get_admin_page_title() ); ?></h2>
 
-  <?php include AGE_GATE_PATH . 'admin/partials/parts/tabs.php'; ?>
+  <?php //include AGE_GATE_PATH . 'admin/partials/parts/tabs.php'; ?>
 
   <form class="custom-form-fields" action="admin-post.php" method="post">
     <input type="hidden" name="action" value="age_gate_messages">

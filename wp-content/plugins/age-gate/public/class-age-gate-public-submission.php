@@ -5,7 +5,7 @@
 /**
  * The public-facing functionality of the plugin.
  *
- * @link       https://philsbury.uk
+ * @link       https://agegate.io
  * @since      1.0.0
  *
  * @package    Age_Gate
@@ -71,7 +71,7 @@ class Age_Gate_Submission extends Age_Gate_Public
      */
     public function self_post()
     {
-        if (isset($_POST['action']) && $_POST['action'] === 'age_gate_submit' && $this->settings['advanced']['post_to_self'] && !$this->settings['advanced']['use_js']) {
+        if (isset($_POST['action']) && $_POST['action'] === 'age_gate_submit' && !$this->settings['advanced']['use_js']) {
             if (!function_exists('wp_redirect')) {
                 require(ABSPATH  . WPINC . DIRECTORY_SEPARATOR . 'pluggable.php');
             }
@@ -104,8 +104,9 @@ class Age_Gate_Submission extends Age_Gate_Public
     public function handle_form_submission()
     {
         $post = $this->validation->sanitize($_POST);
+
         $post['age_gate']['age'] = $this->_decode_age($post['age_gate']['age']);
-        $redirect = $post['_wp_http_referer'];
+        $redirect = $this->getRedirectUrl();
         $status = 'success';
 
         // handle if it's just buttons
@@ -119,7 +120,7 @@ class Age_Gate_Submission extends Age_Gate_Public
 
     private function _handle_button_submission($data)
     {
-        $redirect = $data['_wp_http_referer'];
+        $redirect = $this->getRedirectUrl();
 
         $form_data = $this->flatten($data);
         
@@ -157,7 +158,7 @@ class Age_Gate_Submission extends Age_Gate_Public
                 do_action("age_gate_form_{$status}", $this->_hook_data($form_data), $errors);
 
                 $this->_set_error_message($errors, $form_data);
-                wp_redirect($data['_wp_http_referer']);
+                wp_redirect($this->getRedirectUrl());
                 exit;
             } else {
                 $this->_set_cookie($data['age_gate']['age'], isset($data['age_gate']['remember']));
@@ -166,13 +167,15 @@ class Age_Gate_Submission extends Age_Gate_Public
         }
 
         do_action("age_gate_form_{$status}", $this->_hook_data($form_data));
+        $successRedirect = apply_filters('age_gate/success/redirect', $redirect, $data);
 
-        wp_redirect($redirect);
+        $redirect = $successRedirect ?: $redirect;
+        wp_safe_redirect($redirect);
         exit;
     }
     private function _handle_input_submission($data)
     {
-        $redirect = $data['_wp_http_referer'];
+        $redirect = $this->getRedirectUrl();
         $form_data = $this->flatten($data);
         // wp_die(print_r($form_data), 1);
 
@@ -184,7 +187,7 @@ class Age_Gate_Submission extends Age_Gate_Public
             do_action("age_gate_form_{$status}", $this->_hook_data($form_data), $errors);
 
             $this->_set_error_message($errors, $form_data);
-            wp_redirect($data['_wp_http_referer']);
+            wp_safe_redirect($this->getRedirectUrl());
             exit;
         }
 
@@ -215,13 +218,16 @@ class Age_Gate_Submission extends Age_Gate_Public
 
         do_action("age_gate_form_{$status}", $this->_hook_data($form_data), $errors);
 
-        wp_redirect($redirect);
+        $successRedirect = apply_filters('age_gate/success/redirect', $redirect, $data);
+        $redirect = $successRedirect ?: $redirect;
+
+        wp_safe_redirect($redirect);
         exit;
     }
 
     private function _hook_data($data)
     {
-        $data['age_gate_content'] = $data['_wp_http_referer'];
+        $data['age_gate_content'] = $this->getRedirectUrl();
         unset($data['age_gate_nonce']);
         unset($data['action']);
         unset($data['_wp_http_referer']);
@@ -260,8 +266,8 @@ class Age_Gate_Submission extends Age_Gate_Public
 
             $ag_rules = array_merge(
                 [
-                    'age_gate_d' => 'required|numeric|min_len,2|max_len,2|max_numeric,31',
-                    'age_gate_m' => 'required|numeric|min_len,2|max_len,2|max_numeric,12',
+                    'age_gate_d' => 'required|numeric|min_len,1|max_len,2|max_numeric,31',
+                    'age_gate_m' => 'required|numeric|min_len,1|max_len,2|max_numeric,12',
                     'age_gate_y' => 'required|numeric|min_len,4|max_len,4|min_numeric,'. $min_year .'|max_numeric,' . date('Y'),
                 ],
                 $ag_rules
