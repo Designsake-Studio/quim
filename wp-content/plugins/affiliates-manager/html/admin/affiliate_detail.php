@@ -110,7 +110,8 @@ $user = $this->viewData['user'];
 		function showConfirmDialog(message, confirmText, confirmCallback)
 		{
 			var buttons = new Object;
-			buttons['Cancel'] = function() { jQuery(this).dialog('close'); };
+			var cancelText = "<?php _e( 'Cancel', 'affiliates-manager' ) ?>";
+			buttons[cancelText] = function() { jQuery(this).dialog('close'); };
 			buttons[confirmText] = function() {
 				jQuery(this).dialog('close');
 				confirmCallback();
@@ -156,7 +157,7 @@ $user = $this->viewData['user'];
 				  }
 				} ]
 			);
-			jQuery("#confirmMessage").html('<?php _e( 'Do you want to block all future applications from this email address, or allow them to sign up at a later date?', 'affiliates-manager' ) ?>');
+			jQuery("#confirmMessage").html("<?php _e( 'Do you want to block all future applications from this email address, or allow them to sign up at a later date?', 'affiliates-manager' ) ?>");
 			jQuery("#dialog-confirm").dialog('open');
 
 

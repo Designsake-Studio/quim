@@ -3,8 +3,8 @@ Contributors: wp.insider, affmngr, ElementGreen
 Donate link: https://wpaffiliatemanager.com/
 Tags: affiliate, affiliates manager, affiliate marketing, affiliate plugin, affiliates, referral, affiliate program, ads, advertising, affiliate tool, digital downloads, e-commerce, tracking, track affiliates, leads, affiliate software, woocommerce, affiliate campaign, paypal  
 Requires at least: 3.5
-Tested up to: 5.5
-Stable tag: 2.7.6
+Tested up to: 5.6
+Stable tag: 2.8.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -134,6 +134,20 @@ View screenshots in the following page:
 https://wpaffiliatemanager.com/screen-shots/
 
 == Changelog ==
+
+= 2.8.0 =
+- Fixed a country code issue on the registration form.
+- Updated the language files.
+
+= 2.7.9 =
+- French translation improvements (contributed by Th0masL).
+- Made Cancel button translatable in the confirm dialogue.
+
+= 2.7.8 =
+- Security related improvements to the form data.
+
+= 2.7.7 =
+- Made some changes to impression tracking to fix "Cannot modify header information" warning on some sites. The fix was provided by Nathan Hadsall.
 
 = 2.7.6 =
 - Made some improvements to prevent duplicate clicks.
