@@ -1,5 +1,22 @@
 *** WooCommerce All Products For Subscriptions ***
 
+2020.12.04 - version 3.1.20
+* Fix - Resolved a script enqueuing issue affecting localized dashboards when the 'WooCommerce' string is translated.
+* Fix - Cart item plan changes not applied on the 'woocommerce_update_cart_action_cart_updated' hook.
+* Fix - Fixed 'no longer available subscription plan' error when adding the same Composite Product to the cart multiple times, with different plans.
+
+2020.11.10 - version 3.1.19
+* Feature - Let customers add carts to subscriptions without necessarily offering cart plans using `add_filter( 'wcsatt_add_cart_to_subscription_supported', '__return_true' );`.
+* Fix - Cart-level plan selector is unresponsive when ordering again.
+* Fix - Bundle/composite container price appears empty in mini-cart widget when making a one-time purchase.
+* Fix - Ensure that the product object exists when restoring the subscription state of bundled products from order items.
+* Fix - Fatal error when trying to switch a deleted product.
+
+2020.09.29 - version 3.1.18
+* Feature - Add quickview support in Flatsome.
+* Tweak - Keep subscription plan options visible in Bundles (version 6.4+) and Composites (version 7.1+) when form validation fails.
+* Fix - Fixed some issues with Bundle/Composite container cart item prices/subtotals when using 'Item Grouping > Flat/None'.
+
 2020.08.20 - version 3.1.17
 * Fix - Recurring coupons not applied to subscriptions that contain items purchased using a cart subscription plan when running manual AutomateWoo workflows.
 * Fix - Product Bundles and Composite Products with a fixed-length plan cannot be switched.
