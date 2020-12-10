@@ -234,7 +234,7 @@ class WC_Shipstation_API_Export extends WC_Shipstation_API_Request {
 					$this->xml_append( $item_xml, 'Name', $product->get_title() );
 					// image data
 					$image_id   = $product->get_image_id();
-					$image_url = $image_id ? current( wp_get_attachment_image_src( $image_id, 'shop_thumbnail' ) ) : '';
+					$image_url = $image_id ? current( wp_get_attachment_image_src( $image_id, 'woocommerce_gallery_thumbnail' ) ) : '';
 					$this->xml_append( $item_xml, 'ImageUrl', $image_url );
 
 					$this->xml_append( $item_xml, 'Weight', wc_get_weight( $product->get_weight(), 'oz' ), false );
@@ -293,7 +293,7 @@ class WC_Shipstation_API_Export extends WC_Shipstation_API_Request {
 
 			// Append items XML
 			$order_xml->appendChild( $items_xml );
-			$orders_xml->appendChild( $order_xml );
+			$orders_xml->appendChild( apply_filters( 'woocommerce_shipstation_export_order_xml', $order_xml ) );
 
 			$exported ++;
 

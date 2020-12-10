@@ -1,10 +1,10 @@
-=== WooCommerce ShipStation Gateway ===
-Contributors: automattic, royho, akeda, mattyza, bor0, woothemes, dwainm, laurendavissmith001
+=== WooCommerce ShipStation Integration ===
+Contributors: woocommerce, automattic, royho, akeda, mattyza, bor0, woothemes, dwainm, laurendavissmith001
 Tags: shipping, woocommerce, automattic
 Requires at least: 4.4
-Tested up to: 5.4
+Tested up to: 5.5
 Requires PHP: 5.6
-Stable tag: 4.1.37
+Stable tag: 4.1.40
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -45,6 +45,18 @@ For help setting up and configuring, please refer to our [user guide](https://do
 If you get stuck, you can ask for help in the Plugin Forum.
 
 == Changelog ==
+
+= 4.1.40 - 2020-11-24 =
+* Tweak - PHP 8 compatibility fixes.
+
+= 4.1.39 - 2020-10-06 =
+* Add   - Add woocommerce_shipstation_export_order_xml filter.
+* Tweak - Update Readme.
+* Tweak - WC 4.5 compatibility.
+* Fix   - Updated shop_thumbnail to woocommerce_gallery_thumbnail for thumbnail export.
+
+= 4.1.38 - 2020-08-19 =
+* Tweak - WordPress 5.5 compatibility.
 
 = 4.1.37 - 2020-06-05 =
 * Tweak - Dismiss activation notice independent of user.
