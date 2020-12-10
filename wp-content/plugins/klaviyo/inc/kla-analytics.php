@@ -23,10 +23,19 @@ class WPKlaviyoAnalytics {
     }
 
     /**
+     * Check WooCommerce plugin status, and run is_checkout() function
+     */
+    function is_woocommerce_checkout_page() {
+        if ( is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
+            return is_checkout();
+        }
+    }
+
+    /**
      * Add klaviyo.js as external resource if public API key is set.
      */
     function insert_analytics() {
-        if ( $this->klaviyo_public_key == '' ) {
+        if ( $this->klaviyo_public_key == '' || $this->is_woocommerce_checkout_page() ) {
           return;
         }
 

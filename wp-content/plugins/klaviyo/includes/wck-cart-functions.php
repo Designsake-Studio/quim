@@ -13,7 +13,6 @@
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 function add_composite_products_cart ($composite_products) {
-
   foreach ($composite_products as $product) {
     $container = array();
     foreach ($product as $i => $v) {
@@ -26,15 +25,15 @@ function add_composite_products_cart ($composite_products) {
           'variation_id' => $item['variation_id'],
           'attributes' => $item['attributes'],
         );
-        } else {
-          $container[$container_id] = array(
+      } else {
+        $container[$container_id] = array(
           'product_id' => $item['product_id'],
           'quantity' => $item['quantity'],
-          );
-        }
+        );
       }
-      $added = WC_CP()->cart->add_composite_to_cart( $v['composite_id'], $v['composite_quantity'], $container );
     }
+    $added = WC_CP()->cart->add_composite_to_cart( $v['composite_id'], $v['composite_quantity'], $container );
+  }
 }
 
 function add_encoded_composite($container_ids,$values) {
@@ -64,7 +63,7 @@ function add_encoded_composite($container_ids,$values) {
         )
       );
     }
-    array_push($composite_product,$args);
+    array_push($composite_product, $args);
   }
   return $composite_product;
 }
@@ -88,31 +87,41 @@ function wck_rebuild_cart() {
   // Exit if in back-end
   if(is_admin()){return;}
   global $woocommerce;
+
   // Exit if not on cart page or no wck_rebuild_cart parameter
-  $current_url = explode( '?', (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]" );
+  $current_url = build_current_url();
   $utm_wck_rebuild_cart = isset($_GET['wck_rebuild_cart']) ? $_GET['wck_rebuild_cart'] : '';
   if($current_url[0]!==wc_get_cart_url() || $utm_wck_rebuild_cart==='') {return;}
 
   // Rebuild cart
   $woocommerce->cart->empty_cart(true);
+  $woocommerce->cart->get_cart();
 
   $kl_cart = json_decode(base64_decode($utm_wck_rebuild_cart), true);
   $composite_products = $kl_cart['composite'];
   $normal_products = $kl_cart['normal_products'];
 
-  $container = array();
   foreach ($normal_products as $product) {
     $cart_key = $woocommerce->cart->add_to_cart($product['product_id'],$product['quantity'],$product['variation_id'],$product['variation']);
   }
+
   if ( class_exists( 'WC_Composite_Products' ) ) {
     add_composite_products_cart($composite_products);
-    }
-    $carturl = wc_get_cart_url();
-    if ($current_url[0]==wc_get_cart_url()){
-      header("Refresh:0; url=".$carturl);
-    }
   }
 
+  $carturl = wc_get_cart_url();
+  if ($current_url[0]==wc_get_cart_url()){
+      header("Refresh:0; url=".$carturl);
+  }
+}
+
+function build_current_url() {
+  $server_protocol = isset($_SERVER['HTTPS']) ? 'https' : 'http';
+  $server_host = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : '';
+  $server_uri = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
+
+  return explode( '?', $server_protocol . '://' . $server_host . $server_uri );
+}
 
 /**
  * Insert tracking code code for tracking started checkout.
@@ -195,7 +204,7 @@ function wck_insert_checkout_tracking($checkout) {
       'Quantity' => $values['quantity'],
       'ProductID' => $parent_product_id,
       'VariantID' => $product->get_id(),
-      'Name' => addslashes($product->get_name()),
+      'Name' => $product->get_name(),
       'URL' => $product->get_permalink(),
       'Images' => array(
         array(
@@ -264,8 +273,11 @@ add_action( 'wp_enqueue_scripts', 'load_started_checkout' );
  *
  */
 function load_started_checkout() {
+    $token = get_option('klaviyo_settings')['public_api_key'];
+
     if ( is_checkout() ) {
         wp_enqueue_script( 'wck_started_checkout', plugins_url( '/js/wck-started-checkout.js', __FILE__ ), null, null, true );
+        wp_localize_script( 'wck_started_checkout', 'public_key', array( 'token' => $token ));
     }
 }
 
