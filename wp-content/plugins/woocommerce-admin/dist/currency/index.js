@@ -82,7 +82,7 @@ this["wc"] = this["wc"] || {}; this["wc"]["currency"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 704);
+/******/ 	return __webpack_require__(__webpack_require__.s = 715);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -94,7 +94,7 @@ this["wc"] = this["wc"] || {}; this["wc"]["currency"] =
 
 /***/ }),
 
-/***/ 201:
+/***/ 298:
 /***/ (function(module, exports) {
 
 (function() { module.exports = this["wc"]["number"]; }());
@@ -108,11 +108,9 @@ this["wc"] = this["wc"] || {}; this["wc"]["currency"] =
 
 /***/ }),
 
-/***/ 6:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ 5:
+/***/ (function(module, exports) {
 
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _defineProperty; });
 function _defineProperty(obj, key, value) {
   if (key in obj) {
     Object.defineProperty(obj, key, {
@@ -128,21 +126,118 @@ function _defineProperty(obj, key, value) {
   return obj;
 }
 
+module.exports = _defineProperty;
+
 /***/ }),
 
-/***/ 704:
+/***/ 55:
+/***/ (function(module, exports) {
+
+(function() { module.exports = this["wp"]["hooks"]; }());
+
+/***/ }),
+
+/***/ 57:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export logged */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return deprecated; });
+/* harmony import */ var _wordpress_hooks__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(55);
+/* harmony import */ var _wordpress_hooks__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_hooks__WEBPACK_IMPORTED_MODULE_0__);
+/**
+ * WordPress dependencies
+ */
+
+/**
+ * Object map tracking messages which have been logged, for use in ensuring a
+ * message is only logged once.
+ *
+ * @type {Object}
+ */
+
+var logged = Object.create(null);
+/**
+ * Logs a message to notify developers about a deprecated feature.
+ *
+ * @param {string}  feature             Name of the deprecated feature.
+ * @param {?Object} options             Personalisation options
+ * @param {?string} options.version     Version in which the feature will be removed.
+ * @param {?string} options.alternative Feature to use instead
+ * @param {?string} options.plugin      Plugin name if it's a plugin feature
+ * @param {?string} options.link        Link to documentation
+ * @param {?string} options.hint        Additional message to help transition away from the deprecated feature.
+ *
+ * @example
+ * ```js
+ * import deprecated from '@wordpress/deprecated';
+ *
+ * deprecated( 'Eating meat', {
+ * 	version: 'the future',
+ * 	alternative: 'vegetables',
+ * 	plugin: 'the earth',
+ * 	hint: 'You may find it beneficial to transition gradually.',
+ * } );
+ *
+ * // Logs: 'Eating meat is deprecated and will be removed from the earth in the future. Please use vegetables instead. Note: You may find it beneficial to transition gradually.'
+ * ```
+ */
+
+function deprecated(feature) {
+  var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  var version = options.version,
+      alternative = options.alternative,
+      plugin = options.plugin,
+      link = options.link,
+      hint = options.hint;
+  var pluginMessage = plugin ? " from ".concat(plugin) : '';
+  var versionMessage = version ? " and will be removed".concat(pluginMessage, " in version ").concat(version) : '';
+  var useInsteadMessage = alternative ? " Please use ".concat(alternative, " instead.") : '';
+  var linkMessage = link ? " See: ".concat(link) : '';
+  var hintMessage = hint ? " Note: ".concat(hint) : '';
+  var message = "".concat(feature, " is deprecated").concat(versionMessage, ".").concat(useInsteadMessage).concat(linkMessage).concat(hintMessage); // Skip if already logged.
+
+  if (message in logged) {
+    return;
+  }
+  /**
+   * Fires whenever a deprecated feature is encountered
+   *
+   * @param {string}  feature             Name of the deprecated feature.
+   * @param {?Object} options             Personalisation options
+   * @param {?string} options.version     Version in which the feature will be removed.
+   * @param {?string} options.alternative Feature to use instead
+   * @param {?string} options.plugin      Plugin name if it's a plugin feature
+   * @param {?string} options.link        Link to documentation
+   * @param {?string} options.hint        Additional message to help transition away from the deprecated feature.
+   * @param {?string} message             Message sent to console.warn
+   */
+
+
+  Object(_wordpress_hooks__WEBPACK_IMPORTED_MODULE_0__["doAction"])('deprecated', feature, options, message); // eslint-disable-next-line no-console
+
+  console.warn(message);
+  logged[message] = true;
+}
+//# sourceMappingURL=index.js.map
+
+/***/ }),
+
+/***/ 715:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getCurrencyData", function() { return getCurrencyData; });
-/* harmony import */ var _babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6);
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5);
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(0);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(3);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _woocommerce_number__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(201);
+/* harmony import */ var _woocommerce_number__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(298);
 /* harmony import */ var _woocommerce_number__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_woocommerce_number__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _wordpress_deprecated__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(57);
 
 
 
@@ -166,7 +261,7 @@ function _objectSpread(target) {
 
     if (i % 2) {
       ownKeys(Object(source), true).forEach(function (key) {
-        Object(_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(target, key, source[key]);
+        _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(target, key, source[key]);
       });
     } else if (Object.getOwnPropertyDescriptors) {
       Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
@@ -185,13 +280,10 @@ function _objectSpread(target) {
 
 
 
-/**
- * WooCommerce dependencies
- */
 
 
 
-var Currency = function Currency(currencySetting) {
+var CurrencyFactory = function CurrencyFactory(currencySetting) {
   var currency;
   setCurrency(currencySetting);
 
@@ -224,7 +316,7 @@ var Currency = function Currency(currencySetting) {
    */
 
 
-  function formatCurrency(number) {
+  function formatAmount(number) {
     var formattedNumber = Object(_woocommerce_number__WEBPACK_IMPORTED_MODULE_3__["numberFormat"])(currency, number);
 
     if (formattedNumber === '') {
@@ -236,6 +328,25 @@ var Currency = function Currency(currencySetting) {
         symbol = _currency.symbol; // eslint-disable-next-line @wordpress/valid-sprintf
 
     return Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["sprintf"])(priceFormat, symbol, formattedNumber);
+  }
+  /**
+   * Formats money value.
+   *
+   * @deprecated
+   *
+   * @param   {number|string} number number to format
+   * @return {?string} A formatted string.
+   */
+
+
+  function formatCurrency(number) {
+    Object(_wordpress_deprecated__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"])('Currency().formatCurrency', {
+      version: '5.0.0',
+      alternative: 'Currency().formatAmount',
+      plugin: 'WooCommerce',
+      hint: '`formatAmount` accepts the same arguments as formatCurrency'
+    });
+    return formatAmount(number);
   }
   /**
    * Get the default price format from a currency.
@@ -268,10 +379,11 @@ var Currency = function Currency(currencySetting) {
   }
 
   return {
-    getCurrency: function getCurrency() {
+    getCurrencyConfig: function getCurrencyConfig() {
       return _objectSpread({}, currency);
     },
     setCurrency: setCurrency,
+    formatAmount: formatAmount,
     formatCurrency: formatCurrency,
     getPriceFormat: getPriceFormat,
 
@@ -298,7 +410,7 @@ var Currency = function Currency(currencySetting) {
 
     /**
      * Get the string representation of a floating point number to the precision used by the current currency.
-     * This is different from `formatCurrency` by not returning the currency symbol.
+     * This is different from `formatAmount` by not returning the currency symbol.
      *
      * @param  {number|string} number A floating point number (or integer), or string that converts to a number
      * @return {string}               The original number rounded to a decimal point
@@ -331,15 +443,15 @@ var Currency = function Currency(currencySetting) {
       if (number < 0) {
         return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("span", {
           className: "is-negative"
-        }, formatCurrency(number));
+        }, formatAmount(number));
       }
 
-      return formatCurrency(number);
+      return formatAmount(number);
     }
   };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Currency);
+/* harmony default export */ __webpack_exports__["default"] = (CurrencyFactory);
 /**
  * Returns currency data by country/region. Contains code, symbol, position, thousands separator, decimal separator, and precision.
  *

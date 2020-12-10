@@ -1,8 +1,6 @@
 <?php
 /**
  * REST API bootstrap.
- *
- * @package WooCommerce Admin/Classes
  */
 
 namespace Automattic\WooCommerce\Admin\API;
@@ -76,6 +74,7 @@ class Init {
 			'Automattic\WooCommerce\Admin\API\Reports\Products\Controller',
 			'Automattic\WooCommerce\Admin\API\Reports\Variations\Controller',
 			'Automattic\WooCommerce\Admin\API\Reports\Products\Stats\Controller',
+			'Automattic\WooCommerce\Admin\API\Reports\Variations\Stats\Controller',
 			'Automattic\WooCommerce\Admin\API\Reports\Revenue\Stats\Controller',
 			'Automattic\WooCommerce\Admin\API\Reports\Orders\Controller',
 			'Automattic\WooCommerce\Admin\API\Reports\Orders\Stats\Controller',
@@ -93,18 +92,10 @@ class Init {
 			'Automattic\WooCommerce\Admin\API\Taxes',
 			'Automattic\WooCommerce\Admin\API\Themes',
 			'Automattic\WooCommerce\Admin\API\Plugins',
+			'Automattic\WooCommerce\Admin\API\OnboardingProfile',
+			'Automattic\WooCommerce\Admin\API\OnboardingTasks',
+			'Automattic\WooCommerce\Admin\API\OnboardingThemes',
 		);
-
-		if ( Loader::is_onboarding_enabled() ) {
-			$controllers = array_merge(
-				$controllers,
-				array(
-					'Automattic\WooCommerce\Admin\API\OnboardingProfile',
-					'Automattic\WooCommerce\Admin\API\OnboardingTasks',
-					'Automattic\WooCommerce\Admin\API\OnboardingThemes',
-				)
-			);
-		}
 
 		// The performance indicators controller must be registered last, after other /stats endpoints have been registered.
 		$controllers[] = 'Automattic\WooCommerce\Admin\API\Reports\PerformanceIndicators\Controller';
@@ -127,30 +118,31 @@ class Init {
 		return array_merge(
 			$data_stores,
 			array(
-				'report-revenue-stats'   => 'Automattic\WooCommerce\Admin\API\Reports\Orders\Stats\DataStore',
-				'report-orders'          => 'Automattic\WooCommerce\Admin\API\Reports\Orders\DataStore',
-				'report-orders-stats'    => 'Automattic\WooCommerce\Admin\API\Reports\Orders\Stats\DataStore',
-				'report-products'        => 'Automattic\WooCommerce\Admin\API\Reports\Products\DataStore',
-				'report-variations'      => 'Automattic\WooCommerce\Admin\API\Reports\Variations\DataStore',
-				'report-products-stats'  => 'Automattic\WooCommerce\Admin\API\Reports\Products\Stats\DataStore',
-				'report-categories'      => 'Automattic\WooCommerce\Admin\API\Reports\Categories\DataStore',
-				'report-taxes'           => 'Automattic\WooCommerce\Admin\API\Reports\Taxes\DataStore',
-				'report-taxes-stats'     => 'Automattic\WooCommerce\Admin\API\Reports\Taxes\Stats\DataStore',
-				'report-coupons'         => 'Automattic\WooCommerce\Admin\API\Reports\Coupons\DataStore',
-				'report-coupons-stats'   => 'Automattic\WooCommerce\Admin\API\Reports\Coupons\Stats\DataStore',
-				'report-downloads'       => 'Automattic\WooCommerce\Admin\API\Reports\Downloads\DataStore',
-				'report-downloads-stats' => 'Automattic\WooCommerce\Admin\API\Reports\Downloads\Stats\DataStore',
-				'admin-note'             => 'Automattic\WooCommerce\Admin\Notes\DataStore',
-				'report-customers'       => 'Automattic\WooCommerce\Admin\API\Reports\Customers\DataStore',
-				'report-customers-stats' => 'Automattic\WooCommerce\Admin\API\Reports\Customers\Stats\DataStore',
-				'report-stock-stats'     => 'Automattic\WooCommerce\Admin\API\Reports\Stock\Stats\DataStore',
+				'report-revenue-stats'    => 'Automattic\WooCommerce\Admin\API\Reports\Orders\Stats\DataStore',
+				'report-orders'           => 'Automattic\WooCommerce\Admin\API\Reports\Orders\DataStore',
+				'report-orders-stats'     => 'Automattic\WooCommerce\Admin\API\Reports\Orders\Stats\DataStore',
+				'report-products'         => 'Automattic\WooCommerce\Admin\API\Reports\Products\DataStore',
+				'report-variations'       => 'Automattic\WooCommerce\Admin\API\Reports\Variations\DataStore',
+				'report-products-stats'   => 'Automattic\WooCommerce\Admin\API\Reports\Products\Stats\DataStore',
+				'report-variations-stats' => 'Automattic\WooCommerce\Admin\API\Reports\Variations\Stats\DataStore',
+				'report-categories'       => 'Automattic\WooCommerce\Admin\API\Reports\Categories\DataStore',
+				'report-taxes'            => 'Automattic\WooCommerce\Admin\API\Reports\Taxes\DataStore',
+				'report-taxes-stats'      => 'Automattic\WooCommerce\Admin\API\Reports\Taxes\Stats\DataStore',
+				'report-coupons'          => 'Automattic\WooCommerce\Admin\API\Reports\Coupons\DataStore',
+				'report-coupons-stats'    => 'Automattic\WooCommerce\Admin\API\Reports\Coupons\Stats\DataStore',
+				'report-downloads'        => 'Automattic\WooCommerce\Admin\API\Reports\Downloads\DataStore',
+				'report-downloads-stats'  => 'Automattic\WooCommerce\Admin\API\Reports\Downloads\Stats\DataStore',
+				'admin-note'              => 'Automattic\WooCommerce\Admin\Notes\DataStore',
+				'report-customers'        => 'Automattic\WooCommerce\Admin\API\Reports\Customers\DataStore',
+				'report-customers-stats'  => 'Automattic\WooCommerce\Admin\API\Reports\Customers\Stats\DataStore',
+				'report-stock-stats'      => 'Automattic\WooCommerce\Admin\API\Reports\Stock\Stats\DataStore',
 			)
 		);
 	}
 
 	/**
 	 * Add the currency symbol (in addition to currency code) to each Order
-	 * object in REST API responses. For use in formatCurrency().
+	 * object in REST API responses. For use in formatAmount().
 	 *
 	 * @param {WP_REST_Response} $response REST response object.
 	 * @returns {WP_REST_Response}
