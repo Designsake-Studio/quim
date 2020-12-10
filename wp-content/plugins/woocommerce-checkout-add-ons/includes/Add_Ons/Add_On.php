@@ -418,7 +418,11 @@ abstract class Add_On extends \WC_Data {
 
 		$cost_html = '';
 
-		$display_cost = 'incl' === WC()->cart->tax_display_cart ? $this->get_cost_including_tax( $cost ) : $cost;
+		if ( Framework\SV_WC_Plugin_Compatibility::is_wc_version_gte( '4.4' ) ) {
+			$display_cost = 'incl' === WC()->cart->get_tax_price_display_mode() ? $this->get_cost_including_tax( $cost ) : $cost;
+		} else {
+			$display_cost = 'incl' === WC()->cart->tax_display_cart ? $this->get_cost_including_tax( $cost ) : $cost;
+		}
 
 		if ( $cost > 0 ) {
 
@@ -1058,7 +1062,16 @@ abstract class Add_On extends \WC_Data {
 			}
 		}
 
-		return $should_display;
+		/**
+		 * Filter to allow merchants to control when an add-on is displayed on the checkout page without being bound by
+		 * the limitations of the plugin display rules.
+		 *
+		 * @since 2.3.1-dev.1
+		 *
+		 * @param bool $should_display true if the add-on will be displayed in the checkout page
+		 * @param Add_On $add_on Add-On instance
+		 */
+		return (bool) apply_filters( 'wc_checkout_add_ons_should_display', $should_display, $this );
 	}
 
 
