@@ -59,6 +59,9 @@ class WCS_Admin_Meta_Boxes {
 
 		// After calculating subscription/renewal order line item taxes, update base location tax item meta.
 		add_action( 'woocommerce_ajax_add_order_item_meta', array( __CLASS__, 'store_item_base_location_tax' ), 10, 3 );
+
+		// Prevent WC core's stock handling when saving the line item meta box for subscriptions.
+		add_filter( 'woocommerce_prevent_adjust_line_item_product_stock', array( __CLASS__, 'prevent_subscription_line_item_stock_handling' ), 10, 2 );
 	}
 
 	/**
@@ -374,14 +377,13 @@ class WCS_Admin_Meta_Boxes {
 		}
 
 		if ( $needs_price_lock ) {
-			// So the help tip is initialized when the line items are reloaded, we need to add the 'tips' class to the element.
-			$help_tip = wcs_help_tip( __( "This order contains line items with prices above the current product price. To override the product's live price when the customer pays for this order, lock in the manual price increases.", 'woocommerce-subscriptions' ) );
-			$help_tip = str_replace( 'woocommerce-help-tip', 'woocommerce-help-tip tips', $help_tip );
+			$help_tip = __( "This order contains line items with prices above the current product price. To override the product's live price when the customer pays for this order, lock in the manual price increases.", 'woocommerce-subscriptions' );
 
 			printf(
 				'<div id="wcs_order_price_lock"><label for="wcs-order-price-lock">%s</label>%s<input id="wcs-order-price-lock" type="checkbox" name="wcs_order_price_lock" value="yes" %s></div>',
 				esc_html__( 'Lock manual price increases', 'woocommerce-subscriptions' ),
-				$help_tip, // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped
+				// So the help tip is initialized when the line items are reloaded, we need to add the 'tips' class to the element.
+				wcs_help_tip( $help_tip, false, 'woocommerce-help-tip tips' ),
 				checked( $order->get_meta( '_manual_price_increases_locked' ), 'true', false )
 			);
 		}
@@ -444,5 +446,27 @@ class WCS_Admin_Meta_Boxes {
 			$line_item->update_meta_data( '_subtracted_base_location_tax', WC_Tax::calc_tax( $line_item->get_product()->get_price() * $line_item->get_quantity(), $base_tax_rates, true ) );
 			$line_item->save();
 		}
+	}
+
+	/**
+	 * Prevents WC core's handling of stock for subscriptions saved via the edit subscription screen.
+	 *
+	 * Hooked onto 'woocommerce_prevent_adjust_line_item_product_stock' which is triggered in
+	 * wc_maybe_adjust_line_item_product_stock() via:
+	 *    - WC_AJAX::remove_order_item().
+	 *    - wc_save_order_items().
+	 *
+	 * @since 3.1.0
+	 *
+	 * @param WC_Order_Item $item The line item being saved/updated via the edit subscription screen.
+	 * @return bool Whether to reduce stock for the line item.
+	 */
+	public static function prevent_subscription_line_item_stock_handling( $prevent_stock_handling, $item ) {
+
+		if ( wcs_is_subscription( $item->get_order_id() ) ) {
+			$prevent_stock_handling = true;
+		}
+
+		return $prevent_stock_handling;
 	}
 }
