@@ -3,8 +3,8 @@
 Contributors: SomewhereWarm, Prospress
 Tags: woocommerce, subscriptions, subscribe, order, cart, product, convert, product type, bundle, composite, extension, plan
 Requires at least: 4.4
-Tested up to: 5.5
-Stable tag: 3.1.20
+Tested up to: 5.6
+Stable tag: 3.1.21
 WC requires at least: 3.3
 WC tested up to: 4.8
 License: GNU General Public License v3.0

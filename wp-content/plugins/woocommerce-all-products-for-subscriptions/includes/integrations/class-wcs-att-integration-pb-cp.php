@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Compatibility with Product Bundles and Composite Products.
  *
  * @class    WCS_ATT_Integration_PB_CP
- * @version  3.1.20
+ * @version  3.1.21
  */
 class WCS_ATT_Integration_PB_CP {
 
@@ -230,7 +230,7 @@ class WCS_ATT_Integration_PB_CP {
 		add_filter( 'woocommerce_subscriptions_switch_is_identical_product', array( __CLASS__, 'bundle_is_identical' ), 10, 6 );
 
 		// Only allow content switching: Bundle schemes should be limited to the one matching the subscription while the product is being switched.
-		add_filter( 'wcsatt_product_subscription_schemes', array( __CLASS__, 'limit_switched_bundle_type_schemes' ), 10, 2 );
+		add_filter( 'wcsatt_product_subscription_schemes', array( __CLASS__, 'limit_switched_bundle_type_schemes' ), 100, 2 );
 
 		// Disallow plan switching for bundle types. Only content switching permitted!
 		add_filter( 'wcsatt_force_subscription', array( __CLASS__, 'force_switched_bundle_type_subscription' ), 10, 2 );
@@ -1281,26 +1281,36 @@ class WCS_ATT_Integration_PB_CP {
 
 			$is_feature_supported = false;
 
-		} elseif ( 'subscription_content_switching' === $feature && false === $is_feature_supported && self::is_bundle_type_product( $product ) ) {
+		} elseif ( 'subscription_content_switching' === $feature && self::is_bundle_type_product( $product ) ) {
 
+			// Switching Bundles/Composites required changes in WCS that are available after v2.6.0.
 			if ( version_compare( WC_Subscriptions::$version, '2.6.0' ) >= 0 ) {
 
-				if ( $product->is_type( 'bundle' ) ) {
+				$subscription_has_fixed_length = isset( $args[ 'subscription' ] ) ? $args[ 'subscription' ]->get_time( 'end', '' ) : false;
+				// Length Proration must be enabled for switching to be possible when the current subscription/plan has a fixed length.
+				if ( $subscription_has_fixed_length && 'yes' !== get_option( WC_Subscriptions_Admin::$option_prefix . '_apportion_length', 'no' ) ) {
 
-					$option_value = get_option( 'woocommerce_subscriptions_allow_switching_product_bundle_contents', 'yes' );
+					$is_feature_supported = false;
 
-					if ( 'no' !== $option_value ) {
-						$subscription_schemes = WCS_ATT_Product_Schemes::get_subscription_schemes( $product );
-						$is_feature_supported = sizeof( $subscription_schemes ) && ( $product->contains( 'options' ) || $product->contains( 'priced_indefinitely' ) );
-					}
+				} else {
 
-				} elseif ( $product->is_type( 'composite' ) ) {
+					if ( $product->is_type( 'bundle' ) ) {
 
-					$option_value = get_option( 'woocommerce_subscriptions_allow_switching_composite_product_contents', 'yes' );
+						$option_value = get_option( 'woocommerce_subscriptions_allow_switching_product_bundle_contents', 'yes' );
 
-					if ( 'no' !== $option_value ) {
-						$subscription_schemes = WCS_ATT_Product_Schemes::get_subscription_schemes( $product );
-						$is_feature_supported = sizeof( $subscription_schemes );
+						if ( 'no' !== $option_value ) {
+							$subscription_schemes = WCS_ATT_Product_Schemes::get_subscription_schemes( $product );
+							$is_feature_supported = sizeof( $subscription_schemes ) && ( $product->contains( 'options' ) || $product->contains( 'priced_indefinitely' ) );
+						}
+
+					} elseif ( $product->is_type( 'composite' ) ) {
+
+						$option_value = get_option( 'woocommerce_subscriptions_allow_switching_composite_product_contents', 'yes' );
+
+						if ( 'no' !== $option_value ) {
+							$subscription_schemes = WCS_ATT_Product_Schemes::get_subscription_schemes( $product );
+							$is_feature_supported = sizeof( $subscription_schemes );
+						}
 					}
 				}
 			}
@@ -1582,10 +1592,15 @@ class WCS_ATT_Integration_PB_CP {
 
 				// Does a matching scheme exist?
 				foreach ( $schemes as $scheme_id => $scheme ) {
-					if ( $scheme->matches_subscription( $subscription ) ) {
+					if ( $scheme->matches_subscription( $subscription, array( 'upcoming_renewals' => false ) ) ) {
 						$schemes = array( $scheme_id => $scheme );
 						break;
 					}
+				}
+
+				// We should never make any plans available for switching here if a match was not found.
+				if ( count( $schemes ) > 1 ) {
+					$schemes = array();
 				}
 			}
 		}
