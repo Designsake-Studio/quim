@@ -11,8 +11,8 @@
  * the readme will list any important changes.
  *
  * @see https://docs.woocommerce.com/document/template-structure/
- * @package WooCommerce/Templates
- * @version 3.0.0
+ * @package WooCommerce\Templates
+ * @version 4.4.0
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -24,11 +24,11 @@ if ( $cross_sells ) : ?>
 		<?php woocommerce_product_loop_start(); ?>
 
 			<?php foreach ( $cross_sells as $cross_sell ) : ?>
-				
+
 				<?php
 					$post_object = get_post( $cross_sell->get_id() );
 
-					setup_postdata( $GLOBALS['post'] =& $post_object ); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.OverrideProhibited, Squiz.PHP.DisallowMultipleAssignments.Found
+					setup_postdata( $GLOBALS['post'] =& $post_object ); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited, Squiz.PHP.DisallowMultipleAssignments.Found
 
 					wc_get_template_part( 'content', 'product' );
 				?>
