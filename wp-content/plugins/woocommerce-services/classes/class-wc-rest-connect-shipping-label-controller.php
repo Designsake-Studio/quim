@@ -93,6 +93,7 @@ class WC_REST_Connect_Shipping_Label_Controller extends WC_REST_Connect_Base_Con
 				'carrier_id' => $label_data->label->carrier_id,
 				'service_name' => $service_names[ $index ],
 				'status' => $label_data->label->status,
+				'commercial_invoice_url' => $label_data->label->commercial_invoice_url,
 			);
 
 			$package = $settings[ 'packages' ][ $index ];
@@ -105,9 +106,13 @@ class WC_REST_Connect_Shipping_Label_Controller extends WC_REST_Connect_Base_Con
 				$label_meta[ 'package_name' ] = __( 'Unknown package', 'woocommerce-services' );
 			}
 
+			$label_meta[ 'is_letter' ] = isset( $package[ 'is_letter' ] ) ? $package[ 'is_letter' ] : false;
+
 			$product_names = array();
+			$product_ids = array();
 			foreach ( $package[ 'products' ] as $product_id ) {
 				$product = wc_get_product( $product_id );
+				$product_ids[] = $product_id;
 
 				if ( $product ) {
 					$product_names[] = $product->get_title();
@@ -118,6 +123,7 @@ class WC_REST_Connect_Shipping_Label_Controller extends WC_REST_Connect_Base_Con
 			}
 
 			$label_meta[ 'product_names' ] = $product_names;
+			$label_meta[ 'product_ids' ] = $product_ids;
 
 			array_unshift( $purchased_labels_meta, $label_meta );
 		}

@@ -23,7 +23,7 @@
 
 namespace WooCommerce\Square\Gateway\API\Requests;
 
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 use SkyVerge\WooCommerce\PluginFramework\v5_4_0 as Framework;
 use SquareConnect\Api\TransactionsApi;
@@ -148,10 +148,10 @@ class Transactions extends \WooCommerce\Square\API\Request {
 			$this->square_request->setOrderId( $order->square_order_id );
 		}
 
-		$this->square_api_args = [
+		$this->square_api_args = array(
 			$this->get_location_id(),
 			$this->square_request,
-		];
+		);
 	}
 
 
@@ -166,10 +166,10 @@ class Transactions extends \WooCommerce\Square\API\Request {
 
 		$this->square_api_method = 'captureTransaction';
 
-		$this->square_api_args = [
+		$this->square_api_args = array(
 			$this->get_location_id(),
 			$order->capture->trans_id,
-		];
+		);
 	}
 
 
@@ -185,7 +185,7 @@ class Transactions extends \WooCommerce\Square\API\Request {
 		$this->square_api_method = 'createRefund';
 
 		// The refund objects are sorted by date DESC, so the last one created will be at the start of the array
-		$refunds = $order->get_refunds();
+		$refunds    = $order->get_refunds();
 		$refund_obj = $refunds[0];
 
 		$this->square_request = new CreateRefundRequest();
@@ -195,11 +195,11 @@ class Transactions extends \WooCommerce\Square\API\Request {
 
 		$this->square_request->setAmountMoney( Money_Utility::amount_to_money( $order->refund->amount, $order->get_currency() ) );
 
-		$this->square_api_args = [
+		$this->square_api_args = array(
 			$this->get_location_id(),
 			$order->refund->trans_id,
 			$this->square_request,
-		];
+		);
 	}
 
 
@@ -214,10 +214,10 @@ class Transactions extends \WooCommerce\Square\API\Request {
 
 		$this->square_api_method = 'voidTransaction';
 
-		$this->square_api_args = [
+		$this->square_api_args = array(
 			$this->get_location_id(),
 			$order->refund->trans_id,
-		];
+		);
 	}
 
 
@@ -232,10 +232,10 @@ class Transactions extends \WooCommerce\Square\API\Request {
 
 		$this->square_api_method = 'retrieveTransaction';
 
-		$this->square_api_args = [
+		$this->square_api_args = array(
 			$this->get_location_id(),
 			$transaction_id,
-		];
+		);
 	}
 
 

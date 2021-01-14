@@ -1,11 +1,11 @@
 === Age Gate ===
 Contributors: philsbury
-Tags: age, age verification, age verify, adults-only, modal, over 16, over 18, over 19, over 20, over 21, pop-up, popup, restrict, splash, beer, alcohol, restriction
+Tags: age, age verification, age gate, adult, age restriction, age verify, adults-only, modal, over 16, over 18, over 19, over 20, over 21, pop-up, popup, restrict, splash, beer, alcohol, restriction
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=donate%40wordpressagegate%2ecom&lc=GB&item_name=Age%20Gate&item_number=Age%20Gate%20Donation&no_note=0&currency_code=GBP&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHostedGuest
-Requires at least: 4.7.3
+Requires at least: 5.0.0
 Requires PHP: 5.6
-Tested up to: 5.4.1
-Stable tag: 2.6.1
+Tested up to: 5.6
+Stable tag: 2.13.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -19,6 +19,7 @@ __Features__
 * Ask users to verify their age on page load
 * SEO Friendly - common bots and crawlers are omitted from age checks
 * Ability to add custom user agents for less common bots
+* Shortcode for in content restrictions
 * Choose to restrict an entire site, or selected content
 * Select a different age on individual content
 * Allow certain content to not be age gated under "all content" mode
@@ -74,6 +75,57 @@ From version 1.4.0 those using caching can select the "Cache Bypass" option to a
 6. Manage what users can change Age Gate's setting, restrict posts and exclude settings from certain post types.
 
 == Changelog ==
+= 2.13.5 =
+* Fixed potential securtity threat
+* Fixed issue in JS mode with some caching minification
+
+= 2.13.4 =
+* Bugfix for rechallenge in standard mode when using shortcode
+
+= 2.13.3 =
+* Bugfixes in Shortcode
+
+= 2.13.2 =
+* Added support for single digit entry on day/month inputs
+
+= 2.13.1 =
+* Fixed Viewport meta tag to only affect when Age Gate is shown
+
+= 2.13.0 =
+* Allow markdown in message fields
+
+= 2.12.0 =
+* Added filter for REST URL
+
+= 2.11.0 =
+* Adds simple test to auto detect Wordpress caching
+
+= 2.10.2 =
+* Fixed HTML rendering in Additional Content
+
+= 2.10.1 =
+* Fixed additional content display
+
+= 2.10.0 =
+* Added network activation support
+* Fixed issue in multisite experienced but some users
+
+= 2.9.0 =
+* Added Age Gate as a Shortcode
+* Updated admin area UI
+
+= 2.8.0 = 
+* Added some behind the scenes tweaks
+
+= 2.7.2 = 
+* Fixed auto tabbing not working
+
+= 2.7.1 =
+* Fixed event issue in IE11 introduced in 2.7.0
+
+= 2.7.0 =
+* Added additional internal actions/filters for Regional support
+* Update JS event triggering
 
 = 2.6.1 = 
 * Fixed users being able to resubmit in JS mode when the is a redirection and no rechallenge
@@ -356,6 +408,9 @@ From version 1.4.0 those using caching can select the "Cache Bypass" option to a
 * Initial release
 
 == Upgrade Notice ==
+= 2.13.5 =
+* Fixed a potential security risk. Update recommended.
+
 = 2.3.0 =
 * Background colour now has it's own element `.age-gate-background-colour` rather that styling `.age-gate-wrapper`
 

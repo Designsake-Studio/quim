@@ -21,27 +21,38 @@ class MailChimp_WooCommerce_Rest_Api
         register_rest_route(static::$namespace, '/ping', array(
             'methods' => 'GET',
             'callback' => array($this, 'ping'),
+            'permission_callback' => '__return_true',
         ));
 
         // Right now we only have a survey disconnect endpoint.
         register_rest_route(static::$namespace, "/survey/disconnect", array(
             'methods' => 'POST',
             'callback' => array($this, 'post_disconnect_survey'),
+            'permission_callback' => array($this, 'permission_callback'),
         ));
 
         // Sync Stats
-        if (mailchimp_get_allowed_capability()) {
-            register_rest_route(static::$namespace, '/sync/stats', array(
-                'methods' => 'GET',
-                'callback' => array($this, 'get_sync_stats'),
-            ));
-        }
+        register_rest_route(static::$namespace, '/sync/stats', array(
+            'methods' => 'GET',
+            'callback' => array($this, 'get_sync_stats'),
+            'permission_callback' => array($this, 'permission_callback'),
+        ));
 
         // remove review banner
         register_rest_route(static::$namespace, "/review-banner", array(
             'methods' => 'GET',
             'callback' => array($this, 'dismiss_review_banner'),
+            'permission_callback' => array($this, 'permission_callback'),
         ));
+    }
+
+    /**
+     * @return bool
+     */
+    public function permission_callback()
+    {
+        $cap = mailchimp_get_allowed_capability();
+        return ($cap === 'manage_woocommerce' || $cap === 'manage_options' );
     }
 
     /**

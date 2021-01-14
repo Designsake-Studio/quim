@@ -5,7 +5,7 @@
 /**
  * The admin-specific functionality of the plugin.
  *
- * @link       https://philsbury.uk
+ * @link       https://agegate.io
  * @since      1.0.0
  *
  * @package    Age_Gate
@@ -367,5 +367,15 @@ class Age_Gate_Admin extends Age_Gate_Common
         }
 
         return false;
+    }
+
+    /**
+     * Add new header bar
+     *
+     * @return void
+     */
+    public function in_admin_header()
+    {
+        include AGE_GATE_PATH . 'admin/partials/general/admin-header.php';
     }
 }

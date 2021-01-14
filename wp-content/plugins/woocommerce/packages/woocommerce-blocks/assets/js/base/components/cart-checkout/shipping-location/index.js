@@ -11,6 +11,9 @@ import { decodeEntities } from '@wordpress/html-entities';
 
 /**
  * Shows a formatted shipping location.
+ *
+ * @param {Object} props Incoming props for the component.
+ * @param {Object} props.address Incoming address information.
  */
 const ShippingLocation = ( { address } ) => {
 	// we bail early if we don't have an address.
@@ -41,7 +44,7 @@ const ShippingLocation = ( { address } ) => {
 
 	return (
 		formattedLocation && (
-			<span className="wc-block-cart__shipping-address">
+			<span className="wc-block-components-shipping-address">
 				{ sprintf(
 					/* Translators: %s location. */
 					__( 'Shipping to %s', 'woocommerce' ),

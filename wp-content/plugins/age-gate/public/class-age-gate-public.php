@@ -7,7 +7,7 @@ use Jaybizzle\CrawlerDetect\CrawlerDetect;
 /**
  * The public-facing functionality of the plugin.
  *
- * @link       https://philsbury.uk
+ * @link       https://agegate.io
  * @since      1.0.0
  *
  * @package    Age_Gate
@@ -275,6 +275,7 @@ class Age_Gate_Public extends Age_Gate_Common
 
         if ($this->restricted && !$this->settings['advanced']['use_js']) {
             self::$isRestricted = true;
+            
             return AGE_GATE_PATH . 'public/class-age-gate-public-output.php';
         }
         return $template;
@@ -623,8 +624,13 @@ class Age_Gate_Public extends Age_Gate_Common
     protected function _filter_errors($errors)
     {
         $new_errors = [];
+        if (!class_exists('Parsedown')) {
+            require_once AGE_GATE_PATH . 'includes/Parsedown.php';
+        }
+
+        $parsedown = new Parsedown();
         foreach ($errors as $field => $error) {
-            $new_errors[$field] = apply_filters('age_gate_error_' . $field, $error['message'], $error['rule']);
+            $new_errors[$field] = apply_filters('age_gate_error_' . $field, $parsedown->line($error['message']), $error['rule']);
         }
 
         return $new_errors;
@@ -634,8 +640,14 @@ class Age_Gate_Public extends Age_Gate_Common
     {
         $opt = get_option('wp_age_gate_advanced', array());
 
+        if (!class_exists('Parsedown')) {
+            require_once AGE_GATE_PATH . 'includes/Parsedown.php';
+        }
+
+        $parsedown = new Parsedown();
+
         if (!$opt['use_js'] && is_array(self::$errors) && array_key_exists($key, self::$errors)) {
-            return '<p class="age-gate-error-message">' . strip_tags(__(self::$errors[$key])) . '</p>';
+            return '<p class="age-gate-error-message">' . $parsedown->line(strip_tags(__(self::$errors[$key]))) . '</p>';
         }
 
         if ($opt['use_js']) {
@@ -650,6 +662,63 @@ class Age_Gate_Public extends Age_Gate_Common
         if (!$opt['use_js'] && is_array(self::$submitted) && array_key_exists($key, self::$submitted)) {
             return self::$submitted[$key];
         }
+    }
+
+    protected function getRedirectUrl()
+    {
+        $refererUrl = wp_get_referer();
+        $url = parse_url($refererUrl);
+
+        $refererUrl = isset($url['path']) ? home_url($url['path']) : home_url();
+        $redirect = false;
+
+        if ($id = url_to_postid($refererUrl)) {
+            $redirect = get_permalink($id);
+        }
+
+        if ($redirect) {
+            return wp_validate_redirect($redirect, home_url());
+        }
+
+        foreach (get_terms() as $term) {
+            $termLink = @get_term_link($term->term_id);
+            if ($termLink === $refererUrl) {
+                $redirect = $termLink;
+            }
+        }
+
+        if ($redirect) {
+            return wp_validate_redirect($redirect, home_url());
+        }
+
+        $postTypes = get_post_types(
+            [
+                'public' => true
+            ]
+        );
+
+        foreach ($postTypes as $postType) {
+            $ptUrl = get_post_type_archive_link($postType);
+            if ($ptUrl === $refererUrl) {
+                $redirect = $ptUrl;
+            }
+        }
+
+        if ($redirect) {
+            return wp_validate_redirect($redirect, home_url());
+        }
+
+        preg_match('/' . str_replace('/', '\/', trailingslashit(site_url())) . '([0-9]{4})\/?([0-9]{2})?\/?([0-9]+)?/', $refererUrl, $matches);
+
+        if ($matches) {
+            $redirect = $matches[0];
+        }
+
+        if ($redirect) {
+            return wp_validate_redirect($redirect, home_url());
+        }
+
+        return home_url();
     }
 }
 

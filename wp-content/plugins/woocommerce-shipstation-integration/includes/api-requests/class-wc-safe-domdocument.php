@@ -60,13 +60,13 @@ class WC_Safe_DOMDocument extends DOMDocument {
 
 		$old = null;
 
-		if ( function_exists( 'libxml_disable_entity_loader' ) ) {
+		if ( function_exists( 'libxml_disable_entity_loader' ) && \PHP_VERSION_ID < 80000 ) {
 			$old = libxml_disable_entity_loader( true );
 		}
 
 		$return = parent::loadXML( $source, $options );
 
-		if ( ! is_null( $old ) ) {
+		if ( ! is_null( $old ) && \PHP_VERSION_ID < 80000 ) {
 			libxml_disable_entity_loader( $old );
 		}
 

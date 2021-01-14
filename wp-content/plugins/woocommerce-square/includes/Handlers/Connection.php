@@ -23,7 +23,7 @@
 
 namespace WooCommerce\Square\Handlers;
 
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 use SkyVerge\WooCommerce\PluginFramework\v5_4_0 as Framework;
 use SquareConnect\Model\ListCustomersResponse;
@@ -75,15 +75,15 @@ class Connection {
 	 */
 	protected function add_hooks() {
 
-		add_action( 'admin_action_wc_' . $this->get_plugin()->get_id() . '_connected', [ $this, 'handle_connected' ] );
+		add_action( 'admin_action_wc_' . $this->get_plugin()->get_id() . '_connected', array( $this, 'handle_connected' ) );
 
-		add_action( 'admin_action_wc_' . $this->get_plugin()->get_id() . '_disconnect', [ $this, 'handle_disconnect' ] );
+		add_action( 'admin_action_wc_' . $this->get_plugin()->get_id() . '_disconnect', array( $this, 'handle_disconnect' ) );
 
 		// refresh the connection, triggered by Action Scheduler
-		add_action( 'wc_' . $this->get_plugin()->get_id() . '_refresh_connection', [ $this, 'refresh_connection' ] );
+		add_action( 'wc_' . $this->get_plugin()->get_id() . '_refresh_connection', array( $this, 'refresh_connection' ) );
 
 		// index customers, triggered by Action Scheduler
-		add_action( 'wc_' . $this->get_plugin()->get_id() . '_index_customers', [ $this, 'index_customers' ] );
+		add_action( 'wc_' . $this->get_plugin()->get_id() . '_index_customers', array( $this, 'index_customers' ) );
 	}
 
 
@@ -107,13 +107,16 @@ class Connection {
 
 		if ( empty( $access_token ) ) {
 			$this->get_plugin()->log( 'Error: No access token was received.' );
-			add_action( 'admin_notices', function () {
-			?>
-				<div class="notice notice-error is-dismissible">
-					<p><?php _e( 'Square Error: We could not connect to Square. No access token was given.!', 'woocommerce-square' ); ?></p>
-				</div>
-			<?php
-			});
+			add_action(
+				'admin_notices',
+				function () {
+					?>
+						<div class="notice notice-error is-dismissible">
+							<p><?php _e( 'Square Error: We could not connect to Square. No access token was given.!', 'woocommerce-square' ); ?></p>
+						</div>
+					<?php
+				}
+			);
 			return;
 		}
 
@@ -228,7 +231,7 @@ class Connection {
 		// Make sure that all refresh actions are cancelled before scheduling it.
 		$this->unschedule_refresh();
 
-		as_schedule_single_action( time() + $interval, 'wc_' . $this->get_plugin()->get_id() . '_refresh_connection', [], $this->get_plugin()->get_id() );
+		as_schedule_single_action( time() + $interval, 'wc_' . $this->get_plugin()->get_id() . '_refresh_connection', array(), $this->get_plugin()->get_id() );
 	}
 
 
@@ -257,12 +260,12 @@ class Connection {
 				return;
 			}
 
-			$request = [
-				'body' => [
+			$request = array(
+				'body'    => array(
 					'token' => $this->get_plugin()->get_settings_handler()->get_refresh_token(),
-				],
+				),
 				'timeout' => 45,
-			];
+			);
 
 			// make the request
 			$response = wp_remote_post( $this->get_refresh_url(), $request );
@@ -288,7 +291,7 @@ class Connection {
 			$this->get_plugin()->get_settings_handler()->update_access_token( $response->get_token() );
 
 			// In case square updates the refresh token.
-			if( $response->get_refresh_token() ) {
+			if ( $response->get_refresh_token() ) {
 				$this->get_plugin()->get_settings_handler()->update_refresh_token( $response->get_refresh_token() );
 				$this->get_plugin()->log( 'Connection successfully refreshed.' );
 			}
@@ -314,7 +317,7 @@ class Connection {
 	 * @since 2.0.0
 	 */
 	protected function unschedule_refresh() {
-		as_unschedule_all_actions( 'wc_' . $this->get_plugin()->get_id() . '_refresh_connection', [], $this->get_plugin()->get_id() );
+		as_unschedule_all_actions( 'wc_' . $this->get_plugin()->get_id() . '_refresh_connection', array(), $this->get_plugin()->get_id() );
 	}
 
 
@@ -343,9 +346,7 @@ class Connection {
 					$this->schedule_customer_index( $response->get_data()->getCursor() );
 				}
 			}
-
 		} catch ( Framework\SV_WC_Plugin_Exception $exception ) {
-
 
 		}
 	}
@@ -360,8 +361,8 @@ class Connection {
 	 */
 	protected function schedule_customer_index( $cursor = '' ) {
 
-		if ( false === as_next_scheduled_action( 'wc_' . $this->get_plugin()->get_id() . '_index_customers', [ $cursor ], $this->get_plugin()->get_id() ) ) {
-			as_schedule_single_action( time(), 'wc_' . $this->get_plugin()->get_id() . '_index_customers', [ $cursor ], $this->get_plugin()->get_id() );
+		if ( false === as_next_scheduled_action( 'wc_' . $this->get_plugin()->get_id() . '_index_customers', array( $cursor ), $this->get_plugin()->get_id() ) ) {
+			as_schedule_single_action( time(), 'wc_' . $this->get_plugin()->get_id() . '_index_customers', array( $cursor ), $this->get_plugin()->get_id() );
 		}
 	}
 
@@ -438,10 +439,10 @@ class Connection {
 		$action       = 'wc_' . $this->get_plugin()->get_id() . '_connected';
 		$redirect_url = wp_nonce_url( add_query_arg( 'action', $action, admin_url() ), $action );
 
-		$args = [
+		$args = array(
 			'redirect' => urlencode( urlencode( $redirect_url ) ),
 			'scopes'   => implode( ',', $this->get_scopes() ),
-		];
+		);
 
 		return add_query_arg( $args, $url );
 	}
@@ -484,7 +485,7 @@ class Connection {
 	 */
 	protected function get_scopes() {
 
-		$scopes = [
+		$scopes = array(
 			'MERCHANT_PROFILE_READ',
 			'PAYMENTS_READ',
 			'PAYMENTS_WRITE',
@@ -497,7 +498,7 @@ class Connection {
 			'ITEMS_WRITE',
 			'INVENTORY_READ',
 			'INVENTORY_WRITE',
-		];
+		);
 
 		return (array) apply_filters( 'wc_' . $this->get_plugin()->get_id() . '_connection_scopes', $scopes );
 	}

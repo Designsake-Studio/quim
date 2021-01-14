@@ -44,6 +44,7 @@ class WC_ShipStation_Integration extends WC_Integration {
 		add_action( 'woocommerce_update_options_integration_shipstation', array( $this, 'process_admin_options' ) );
 		add_filter( 'woocommerce_subscriptions_renewal_order_meta_query', array( $this, 'subscriptions_renewal_order_meta_query' ), 10, 4 );
 		add_action( 'wp_loaded', array( $this, 'hide_notices' ) );
+		add_filter( 'woocommerce_translations_updates_for_woocommerce_shipstation_integration', '__return_true' );
 
 		$hide_notice = get_option( 'wc_shipstation_hide_activate_notice', '' );
 		$settings_notice_dismissed = get_user_meta( get_current_user_id(), 'dismissed_shipstation-setup_notice' );

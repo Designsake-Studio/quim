@@ -2,7 +2,7 @@
 /**
  * List tables: products.
  *
- * @package  WooCommerce/Admin
+ * @package  WooCommerce\Admin
  * @version  3.3.0
  */
 
@@ -15,7 +15,7 @@ if ( class_exists( 'WC_Admin_List_Table_Products', false ) ) {
 }
 
 if ( ! class_exists( 'WC_Admin_List_Table', false ) ) {
-	include_once 'abstract-class-wc-admin-list-table.php';
+	include_once __DIR__ . '/abstract-class-wc-admin-list-table.php';
 }
 
 /**
@@ -395,11 +395,12 @@ class WC_Admin_List_Table_Products extends WC_Admin_List_Table {
 	/**
 	 * Search by SKU or ID for products.
 	 *
-	 * @deprecated Logic moved to query_filters.
+	 * @deprecated 4.4.0 Logic moved to query_filters.
 	 * @param string $where Where clause SQL.
 	 * @return string
 	 */
 	public function sku_search( $where ) {
+		wc_deprecated_function( 'WC_Admin_List_Table_Products::sku_search', '4.4.0', 'Logic moved to query_filters.' );
 		return $where;
 	}
 
@@ -416,7 +417,7 @@ class WC_Admin_List_Table_Products extends WC_Admin_List_Table {
 		unset( $views['mine'] );
 
 		// Add sorting link.
-		if ( current_user_can( 'edit_others_pages' ) ) {
+		if ( current_user_can( 'edit_others_products' ) ) {
 			$class            = ( isset( $wp_query->query['orderby'] ) && 'menu_order title' === $wp_query->query['orderby'] ) ? 'current' : '';
 			$query_string     = remove_query_arg( array( 'orderby', 'order' ) );
 			$query_string     = add_query_arg( 'orderby', rawurlencode( 'menu_order title' ), $query_string );

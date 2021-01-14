@@ -23,7 +23,7 @@
 
 namespace WooCommerce\Square;
 
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 use SkyVerge\WooCommerce\PluginFramework\v5_4_0 as Framework;
 use SquareConnect\Model\Customer;
@@ -46,6 +46,24 @@ class Gateway extends Framework\SV_WC_Payment_Gateway_Direct {
 	/** @var Gateway\API API base instance */
 	private $api;
 
+	/**
+	 * As per documentation, as of now, SCA is enabled only for UK merchants, but to be implemented for Europe.
+	 * As other currencies get supported, add them here.
+	 *
+	 * @since 2.2.0
+	 *
+	 * @var array $sca_supported_currencies Currencies for which SCA(3DS) is supported
+	 */
+	private $sca_supported_currencies = array( 'GBP' );
+
+	/**
+	 * Square Payment Form instance
+	 * Null by default.
+	 *
+	 * @since 2.2.3
+	 *
+	 */
+	private $payment_form = null;
 
 	/**
 	 * Constructs the class.
@@ -54,39 +72,46 @@ class Gateway extends Framework\SV_WC_Payment_Gateway_Direct {
 	 */
 	public function __construct() {
 
-		parent::__construct( Plugin::GATEWAY_ID, wc_square(), [
-			'method_title'       => __( 'Square', 'woocommerce-square' ),
-			'method_description' => __( 'Allow customers to use Square to securely pay with their credit cards', 'woocommerce-square' ),
-			'payment_type'       => self::PAYMENT_TYPE_CREDIT_CARD,
-			'supports'           => [
-				self::FEATURE_PRODUCTS,
-				self::FEATURE_CARD_TYPES,
-				self::FEATURE_DETAILED_CUSTOMER_DECLINE_MESSAGES,
-				self::FEATURE_PAYMENT_FORM,
-				self::FEATURE_CREDIT_CARD_AUTHORIZATION,
-				self::FEATURE_CREDIT_CARD_CHARGE,
-				self::FEATURE_CREDIT_CARD_CHARGE_VIRTUAL,
-				self::FEATURE_CREDIT_CARD_CAPTURE,
-				self::FEATURE_REFUNDS,
-				self::FEATURE_VOIDS,
-				self::FEATURE_CUSTOMER_ID,
-				self::FEATURE_TOKENIZATION,
-				self::FEATURE_ADD_PAYMENT_METHOD,
-				self::FEATURE_TOKEN_EDITOR,
-			],
-		] );
+		parent::__construct(
+			Plugin::GATEWAY_ID,
+			wc_square(),
+			array(
+				'method_title'       => __( 'Square', 'woocommerce-square' ),
+				'method_description' => __( 'Allow customers to use Square to securely pay with their credit cards', 'woocommerce-square' ),
+				'payment_type'       => self::PAYMENT_TYPE_CREDIT_CARD,
+				'supports'           => array(
+					self::FEATURE_PRODUCTS,
+					self::FEATURE_CARD_TYPES,
+					self::FEATURE_DETAILED_CUSTOMER_DECLINE_MESSAGES,
+					self::FEATURE_PAYMENT_FORM,
+					self::FEATURE_CREDIT_CARD_AUTHORIZATION,
+					self::FEATURE_CREDIT_CARD_CHARGE,
+					self::FEATURE_CREDIT_CARD_CHARGE_VIRTUAL,
+					self::FEATURE_CREDIT_CARD_CAPTURE,
+					self::FEATURE_REFUNDS,
+					self::FEATURE_VOIDS,
+					self::FEATURE_CUSTOMER_ID,
+					self::FEATURE_TOKENIZATION,
+					self::FEATURE_ADD_PAYMENT_METHOD,
+					self::FEATURE_TOKEN_EDITOR,
+				),
+			)
+		);
 
 		$this->view_transaction_url = 'https://squareup.com/dashboard/sales/transactions/%s';
 
 		// log accept.js requests and responses
-		add_action( 'wp_ajax_wc_' . $this->get_id() . '_log_js_data',        [ $this, 'log_js_data' ] );
-		add_action( 'wp_ajax_nopriv_wc_' . $this->get_id() . '_log_js_data', [ $this, 'log_js_data' ] );
+		add_action( 'wp_ajax_wc_' . $this->get_id() . '_log_js_data',        array( $this, 'log_js_data' ) );
+		add_action( 'wp_ajax_nopriv_wc_' . $this->get_id() . '_log_js_data', array( $this, 'log_js_data' ) );
 
 		// store the Square item variation ID to order items
-		add_action( 'woocommerce_new_order_item', [ $this, 'store_new_order_item_square_meta' ], 10, 3 );
+		add_action( 'woocommerce_new_order_item', array( $this, 'store_new_order_item_square_meta' ), 10, 3 );
 
 		// restore refunded Square inventory
-		add_action( 'woocommerce_order_fully_refunded', [ $this, 'restore_refunded_inventory' ], 10, 2 );
+		add_action( 'woocommerce_order_fully_refunded', array( $this, 'restore_refunded_inventory' ), 10, 2 );
+
+		// AJAX Checkout validation handler.
+		add_action( 'wc_ajax_' . $this->get_id() . '_checkout_handler', array( $this, 'wc_ajax_square_checkout_handler' ) );
 	}
 
 
@@ -144,6 +169,20 @@ class Gateway extends Framework\SV_WC_Payment_Gateway_Direct {
 		$item->save_meta_data();
 	}
 
+	/**
+	 * Overrides enqueue of the gateway-specific assets if present, including JS, CSS, and
+	 * localized script params
+	 *
+	 * @since 2.1.7
+	 */
+	protected function enqueue_payment_form_assets() {
+		// bail if *not* on add payment method page or checkout page.
+		if ( ! ( is_add_payment_method_page() || is_checkout() ) ) {
+			return;
+		}
+
+		parent::enqueue_payment_form_assets();
+	}
 
 	/**
 	 * Enqueues the gateway JS.
@@ -151,15 +190,23 @@ class Gateway extends Framework\SV_WC_Payment_Gateway_Direct {
 	 * @since 2.0.0
 	 */
 	protected function enqueue_gateway_assets() {
+		// bail if *not* on add payment method page or checkout page.
+		if ( ! ( is_add_payment_method_page() || is_checkout() ) ) {
+			return;
+		}
+
 		if ( $this->get_plugin()->get_settings_handler()->is_sandbox() ) {
 			$url = 'https://js.squareupsandbox.com/v2/paymentform';
 		} else {
 			$url = 'https://js.squareup.com/v2/paymentform';
 		}
 
-		wp_enqueue_script( 'wc-' . $this->get_plugin()->get_id_dasherized() . '-payment-form', $url, [], Plugin::VERSION );
+		wp_enqueue_script( 'wc-' . $this->get_plugin()->get_id_dasherized() . '-payment-form', $url, array(), Plugin::VERSION );
 
 		parent::enqueue_gateway_assets();
+
+		// Render PaymentForm JS
+		$this->get_payment_form_instance()->render_js();
 	}
 
 
@@ -187,7 +234,6 @@ class Gateway extends Framework\SV_WC_Payment_Gateway_Direct {
 			if ( ! Framework\SV_WC_Helper::get_post( 'wc-' . $this->get_id_dasherized() . '-payment-nonce' ) ) {
 				throw new Framework\SV_WC_Payment_Gateway_Exception( 'Payment nonce is missing' );
 			}
-
 		} catch ( Framework\SV_WC_Payment_Gateway_Exception $exception ) {
 
 			$is_valid = false;
@@ -225,10 +271,12 @@ class Gateway extends Framework\SV_WC_Payment_Gateway_Direct {
 			$order->payment->account_number = $order->payment->last_four = substr( Framework\SV_WC_Helper::get_post( 'wc-' . $this->get_id_dasherized() . '-last-four' ), -4 );
 			$order->payment->exp_month      = Framework\SV_WC_Helper::get_post( 'wc-' . $this->get_id_dasherized() . '-exp-month' );
 			$order->payment->exp_year       = Framework\SV_WC_Helper::get_post( 'wc-' . $this->get_id_dasherized() . '-exp-year' );
+			$order->payment->postcode       = Framework\SV_WC_Helper::get_post( 'wc-' . $this->get_id_dasherized() . '-payment-postcode' );
 		}
 
-		$order->square_order_id    = $this->get_order_meta( $order, 'square_order_id' );
 		$order->square_customer_id = $order->customer_id;
+		$order->square_order_id    = $this->get_order_meta( $order, 'square_order_id' );
+		$order->square_version     = $this->get_order_meta( $order, 'square_version' );
 
 		// look up in the index for guest customers
 		if ( ! $order->get_user_id() ) {
@@ -254,7 +302,6 @@ class Gateway extends Framework\SV_WC_Payment_Gateway_Direct {
 				if ( ! $order->get_user_id() ) {
 					Gateway\Customer_Helper::add_customer( $order->square_customer_id, $order->get_billing_email() );
 				}
-
 			} catch ( \Exception $exception ) {
 
 				// log the error, but continue with payment
@@ -341,6 +388,9 @@ class Gateway extends Framework\SV_WC_Payment_Gateway_Direct {
 		if ( $response->get_square_order_id() ) {
 			$this->update_order_meta( $order, 'square_order_id', $response->get_square_order_id() );
 		}
+
+		// store the plugin version on the order
+		$this->update_order_meta( $order, 'square_version', Plugin::VERSION );
 	}
 
 
@@ -358,6 +408,7 @@ class Gateway extends Framework\SV_WC_Payment_Gateway_Direct {
 		$order = parent::get_order_for_capture( $order, $amount );
 
 		$order->capture->location_id = $this->get_order_meta( $order, 'square_location_id' );
+		$order->square_version       = $this->get_order_meta( $order, 'square_version' );
 
 		return $order;
 	}
@@ -376,13 +427,16 @@ class Gateway extends Framework\SV_WC_Payment_Gateway_Direct {
 	 */
 	protected function get_order_for_refund( $order, $amount, $reason ) {
 
-		$order = parent::get_order_for_refund( $order, $amount, $reason );
+		$order                 = parent::get_order_for_refund( $order, $amount, $reason );
+		$order->square_version = $this->get_order_meta( $order, 'square_version' );
 
 		if ( $transaction_date = $this->get_order_meta( $order, 'trans_date' ) ) {
+			// refunds with the Refunds API can be made up to 1 year after payment and up to 120 days with the Transactions API
+			$max_refund_time = version_compare( $order->square_version, '2.2', '>=' ) ? '+1 year' : '+120 days';
 
-			// throw an error if the payment is > 120 days old
-			if ( current_time( 'timestamp' ) - strtotime( $transaction_date ) > 120 * DAY_IN_SECONDS ) {
-				return new \WP_Error( 'wc_square_refund_age_exceeded', __( 'Refunds must be made within 120 days of the original payment date.', 'woocommerce-square' ) );
+			// throw an error if the payment cannot be refunded
+			if ( current_time( 'timestamp' ) >= strtotime( $max_refund_time, strtotime( $transaction_date ) ) ) {
+				return new \WP_Error( 'wc_square_refund_age_exceeded', sprintf( __( 'Refunds must be made within %s of the original payment date.', 'woocommerce-square' ), '+1 year' === $max_refund_time ? 'a year' : '120 days' ) );
 			}
 		}
 
@@ -392,8 +446,7 @@ class Gateway extends Framework\SV_WC_Payment_Gateway_Direct {
 		if ( ! $order->refund->tender_id ) {
 
 			try {
-
-				$response = $this->get_api()->get_transaction( $order->refund->trans_id, $order->refund->location_id );
+				$response = version_compare( $order->square_version, '2.2', '>=' ) ? $this->get_api()->get_payment( $order->refund->trans_id ) : $this->get_api()->get_transaction( $order->refund->trans_id, $order->refund->location_id );
 
 				if ( ! $response->get_authorization_code() ) {
 					throw new Framework\SV_WC_Plugin_Exception( 'Tender missing' );
@@ -483,7 +536,7 @@ class Gateway extends Framework\SV_WC_Payment_Gateway_Direct {
 		$order = parent::get_order_for_add_payment_method();
 
 		// if the customer doesn't have a postcode yet, use the value returned by Square JS
-		if ( ! $order->get_billing_postcode() && $postcode = Framework\SV_WC_Helper::get_post( 'wc-square-credit-card-payment-postcode') ) {
+		if ( ! $order->get_billing_postcode() && $postcode = Framework\SV_WC_Helper::get_post( 'wc-square-credit-card-payment-postcode' ) ) {
 			$order->set_billing_postcode( $postcode );
 		}
 
@@ -561,7 +614,7 @@ class Gateway extends Framework\SV_WC_Payment_Gateway_Direct {
 
 			foreach ( $form_fields['card_types']['default'] as $key => $type ) {
 
-				if ( in_array( $type, [ 'DISC', 'DINERS' ], true ) ) {
+				if ( in_array( $type, array( 'DISC', 'DINERS' ), true ) ) {
 					unset( $form_fields['card_types']['default'][ $key ] );
 				}
 			}
@@ -634,7 +687,11 @@ class Gateway extends Framework\SV_WC_Payment_Gateway_Direct {
 		 * @param bool $enabled
 		 * @param Gateway $gateway_instance
 		 */
-		return apply_filters( 'wc_square_is_3d_secure_enabled', true, $this );
+
+		$base_currency = get_woocommerce_currency();
+
+		$sca_enabled_currencies = in_array( $base_currency, $this->sca_supported_currencies, true );
+		return apply_filters( 'wc_square_is_3d_secure_enabled', $sca_enabled_currencies, $this );
 	}
 
 
@@ -691,7 +748,11 @@ class Gateway extends Framework\SV_WC_Payment_Gateway_Direct {
 	 */
 	public function get_payment_form_instance() {
 
-		return new Payment_Form( $this );
+		if ( empty( $this->payment_form ) ) {
+			$this->payment_form = new Payment_Form( $this );
+		}
+
+		return $this->payment_form;
 	}
 
 
@@ -722,7 +783,7 @@ class Gateway extends Framework\SV_WC_Payment_Gateway_Direct {
 	 */
 	protected function get_method_form_fields() {
 
-		return [];
+		return array();
 	}
 
 
@@ -737,7 +798,7 @@ class Gateway extends Framework\SV_WC_Payment_Gateway_Direct {
 	 * @param array $args arguments
 	 * @return string
 	 */
-	public function get_customer_id( $user_id, $args = [] ) {
+	public function get_customer_id( $user_id, $args = array() ) {
 
 		// Square generates customer IDs
 		$args['autocreate'] = false;
@@ -806,5 +867,74 @@ class Gateway extends Framework\SV_WC_Payment_Gateway_Direct {
 		return apply_filters( 'wc_square_application_id', $square_application_id );
 	}
 
+	/**
+	 * AJAX WooCommerce checkout validation handler
+	 *
+	 * Tap into  woocommerce_after_checkout_validation hook
+	 * and return WooCommerce checkout validation errors
+	 *
+	 * @since 2.2
+	 */
+	public function wc_ajax_square_checkout_handler() {
+		// Nonce verfication.
+		if ( ! check_ajax_referer( 'wc_' . $this->get_id() . '_checkout_validate', 'wc_' . $this->get_id() . '_checkout_validate_nonce', false ) ) {
+			return wp_send_json_error( __( ' An error occurred, please try again or try an alternate form of payment.', 'woocommerce-square' ) );
+		}
 
+		// Nonce successfully verified. Proceed with validation.
+		add_action( 'woocommerce_after_checkout_validation', array( $this, 'wc_ajax_square_checkout_validate' ), 10, 2 );
+		WC()->checkout->process_checkout();
+	}
+
+	/**
+	 * Validate WooCommerce checkout data on Square JS AJAX call
+	 *
+	 * Returns validation errors (or success) as JSON and exits to prevent checkout
+	 *
+	 * @since 2.2
+	 *
+	 * @param array    $data WooCommerce checkout POST data.
+	 * @param WP_Error $errors WooCommerce checkout errors.
+	 */
+	public function wc_ajax_square_checkout_validate( $data, $errors = null ) {
+		$error_messages = null;
+		if ( ! is_null( $errors ) ) {
+			$error_messages = $errors->get_error_messages();
+		}
+
+		// Clear all existing notices.
+		wc_clear_notices();
+
+		if ( empty( $error_messages ) ) {
+			wp_send_json_success( 'validation_successful' );
+		} else {
+			wp_send_json_error( array( 'messages' => $error_messages ) );
+		}
+		exit;
+	}
+
+	/**
+	 * Returns the $order object with a unique transaction ref member added
+	 *
+	 * @since 2.2.1
+	 * @param WC_Order $order the order object
+	 * @return WC_Order order object with member named unique_transaction_ref
+	 */
+	protected function get_order_with_unique_transaction_ref( $order ) {
+		$order_id = $order->get_id();
+
+		// generate a unique retry count
+		if ( is_numeric( $this->get_order_meta( $order_id, 'retry_count' ) ) ) {
+			$retry_count = $this->get_order_meta( $order_id, 'retry_count' );
+			$retry_count++;
+		} else {
+			$retry_count = 0;
+		}
+
+		// keep track of the retry count
+		$this->update_order_meta( $order, 'retry_count', $retry_count );
+
+		$order->unique_transaction_ref = $order_id . ( $retry_count >= 0 ? '_' . $retry_count : '' );
+		return $order;
+	}
 }

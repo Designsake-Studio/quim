@@ -23,7 +23,7 @@
 
 namespace WooCommerce\Square\Gateway\API\Requests;
 
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 use SkyVerge\WooCommerce\PluginFramework\v5_4_0 as Framework;
 use SquareConnect\Model as SquareModel;
@@ -59,8 +59,7 @@ class Customers extends API\Requests\Customers {
 
 			$email = $customer->get_email();
 
-		// otherwise, use the order billing email
-		} catch ( \Exception $exception ) {
+		} catch ( \Exception $exception ) { // otherwise, use the order billing email
 
 			$email = $order->get_billing_email();
 		}
@@ -80,9 +79,9 @@ class Customers extends API\Requests\Customers {
 
 		$this->square_request = $customer_request;
 
-		$this->square_api_args = [
+		$this->square_api_args = array(
 			$this->square_request,
-		];
+		);
 	}
 
 
@@ -110,10 +109,10 @@ class Customers extends API\Requests\Customers {
 
 		$this->square_request = $request;
 
-		$this->square_api_args = [
+		$this->square_api_args = array(
 			$order->customer_id,
 			$this->square_request,
-		];
+		);
 	}
 
 
@@ -129,10 +128,10 @@ class Customers extends API\Requests\Customers {
 
 		$this->square_api_method = 'deleteCustomerCard';
 
-		$this->square_api_args = [
+		$this->square_api_args = array(
 			$customer_id,
 			$card_id,
-		];
+		);
 	}
 
 
@@ -154,7 +153,11 @@ class Customers extends API\Requests\Customers {
 		$address->setAddressLine2( $order->get_billing_address_2() );
 		$address->setLocality( $order->get_billing_city() );
 		$address->setAdministrativeDistrictLevel1( $order->get_billing_state() );
-		$address->setPostalCode( $order->get_billing_postcode() );
+		if ( ! empty( $order->payment->postcode ) ) {
+			$address->setPostalCode( $order->payment->postcode );
+		} else {
+			$address->setPostalCode( $order->get_billing_postcode() );
+		}
 
 		if ( $order->get_billing_country() ) {
 			$address->setCountry( $order->get_billing_country() );

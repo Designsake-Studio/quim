@@ -10,13 +10,11 @@
  * @since       2.0
  */
 
-use function Patchwork\CallRerouting\validate;
-
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 class WCK_API
 {
-    const VERSION = '2.2.3';
+    const VERSION = '2.3.6';
 
     const KLAVIYO_BASE_URL = 'klaviyo/v1';
     const ORDERS_ENDPOINT = 'orders';
@@ -40,6 +38,7 @@ class WCK_API
 
     const ERROR_KEYS_NOT_PASSED = 'consumer key or consumer secret not passed';
     const ERROR_CONSUMER_KEY_NOT_FOUND = 'consumer_key not found';
+
 }
 
 function count_loop(WP_Query $loop)
@@ -196,8 +195,8 @@ add_action('rest_api_init', function () {
     register_rest_route(WCK_API::KLAVIYO_BASE_URL, WCK_API::EXTENSION_VERSION_ENDPOINT, array(
         'methods' => WP_REST_Server::READABLE,
         'callback' => 'get_extension_version',
-        )
-    );
+        'permission_callback' => '__return_true',
+    ));
 });
 
 add_action('rest_api_init', function ()
@@ -205,8 +204,8 @@ add_action('rest_api_init', function ()
     register_rest_route(WCK_API::KLAVIYO_BASE_URL, 'orders/count', array(
         'methods' => WP_REST_Server::READABLE,
         'callback' => 'get_orders_count',
-        )
-    );
+        'permission_callback' => '__return_true',
+    ));
 });
 
 add_action('rest_api_init', function ()
@@ -214,8 +213,8 @@ add_action('rest_api_init', function ()
     register_rest_route(WCK_API::KLAVIYO_BASE_URL, 'products/count', array(
         'methods' => WP_REST_Server::READABLE,
         'callback' => 'get_products_count',
-        )
-    );
+        'permission_callback' => '__return_true',
+    ));
 });
 
 add_action('rest_api_init', function ()
@@ -228,10 +227,8 @@ add_action('rest_api_init', function ()
                 'validate_callback' => 'is_numeric'
             ),
         ),
-        'permission_callback' => function () {
-            return true;
-        })
-    );
+        'permission_callback' => '__return_true',
+    ));
 });
 
 add_action('rest_api_init', function()
@@ -244,8 +241,6 @@ add_action('rest_api_init', function()
                 'validate_callback' => 'is_numeric'
             ),
         ),
-        'permission_callback' => function () {
-            return true;
-        })
-    );
+        'permission_callback' => '__return_true',
+    ));
 });

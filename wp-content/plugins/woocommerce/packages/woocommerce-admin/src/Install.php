@@ -1,8 +1,6 @@
 <?php
 /**
  * Installation related functions and actions.
- *
- * @package WooCommerce Admin/Classes
  */
 
 namespace Automattic\WooCommerce\Admin;
@@ -10,8 +8,8 @@ namespace Automattic\WooCommerce\Admin;
 defined( 'ABSPATH' ) || exit;
 
 use Automattic\WooCommerce\Admin\API\Reports\Cache;
-use \Automattic\WooCommerce\Admin\Notes\WC_Admin_Notes;
-use \Automattic\WooCommerce\Admin\Notes\WC_Admin_Notes_Historical_Data;
+use \Automattic\WooCommerce\Admin\Notes\Notes;
+use \Automattic\WooCommerce\Admin\Notes\HistoricalData;
 
 /**
  * Install Class.
@@ -47,6 +45,18 @@ class Install {
 		'1.3.0'  => array(
 			'wc_admin_update_130_remove_dismiss_action_from_tracking_opt_in_note',
 			'wc_admin_update_130_db_version',
+		),
+		'1.4.0'  => array(
+			'wc_admin_update_140_change_deactivate_plugin_note_type',
+			'wc_admin_update_140_db_version',
+		),
+		'1.6.0'  => array(
+			'wc_admin_update_160_remove_facebook_note',
+			'wc_admin_update_160_db_version',
+		),
+		'1.7.0'  => array(
+			'wc_admin_update_170_homescreen_layout',
+			'wc_admin_update_170_db_version',
 		),
 	);
 
@@ -237,7 +247,7 @@ class Install {
 		) $collate;
 		CREATE TABLE {$wpdb->prefix}wc_order_coupon_lookup (
 			order_id BIGINT UNSIGNED NOT NULL,
-			coupon_id BIGINT UNSIGNED NOT NULL,
+			coupon_id BIGINT NOT NULL,
 			date_created datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
 			discount_amount double DEFAULT 0 NOT NULL,
 			PRIMARY KEY (order_id, coupon_id),
@@ -271,6 +281,7 @@ class Install {
 			query longtext NOT NULL,
 			status varchar(255) NOT NULL,
 			is_primary boolean DEFAULT 0 NOT NULL,
+			actioned_text varchar(255) NOT NULL,
 			PRIMARY KEY (action_id),
 			KEY note_id (note_id)
 		) $collate;
@@ -464,6 +475,8 @@ class Install {
 			'wc-admin-welcome-note',
 			'wc-admin-store-notice-setting-moved',
 			'wc-admin-store-notice-giving-feedback',
+			'wc-admin-learn-more-about-product-settings',
+			'wc-admin-onboarding-profiler-reminder',
 		);
 
 		$additional_obsolete_notes_names = apply_filters(
@@ -478,14 +491,14 @@ class Install {
 			);
 		}
 
-		WC_Admin_Notes::delete_notes_with_name( $obsolete_notes_names );
+		Notes::delete_notes_with_name( $obsolete_notes_names );
 	}
 
 	/**
 	 * Create notes.
 	 */
 	protected static function create_notes() {
-		WC_Admin_Notes_Historical_Data::possibly_add_note();
+		HistoricalData::possibly_add_note();
 	}
 
 	/**

@@ -2,10 +2,11 @@
 /**
  * Plugin Name: WooCommerce Checkout Add-Ons
  * Plugin URI: http://www.woocommerce.com/products/woocommerce-checkout-add-ons/
+ * Documentation URI: https://docs.woocommerce.com/document/woocommerce-checkout-add-ons/
  * Description: Easily create paid add-ons for your WooCommerce checkout and display them in the Orders admin, the My Orders section, and even order emails!
  * Author: SkyVerge
  * Author URI: http://www.woocommerce.com
- * Version: 2.3.0
+ * Version: 2.5.0
  * Text Domain: woocommerce-checkout-add-ons
  * Domain Path: /i18n/languages/
  *
@@ -21,8 +22,9 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  *
  * Woo: 466854:8fdca00b4000b7a8cc26371d0e470a8f
- * WC requires at least: 3.0.9
- * WC tested up to: 4.2.0
+ * WC requires at least: 3.5
+ * WC tested up to: 4.7.1
+ * WC tested up to: 4.7.1
  */
 
 defined( 'ABSPATH' ) or exit;
@@ -49,13 +51,13 @@ class WC_Checkout_Add_Ons_Loader {
 
 
 	/** minimum PHP version required by this plugin */
-	const MINIMUM_PHP_VERSION = '5.6.0';
+	const MINIMUM_PHP_VERSION = '7.0';
 
 	/** minimum WordPress version required by this plugin */
-	const MINIMUM_WP_VERSION = '4.4';
+	const MINIMUM_WP_VERSION = '5.2';
 
 	/** minimum WooCommerce version required by this plugin */
-	const MINIMUM_WC_VERSION = '3.0.9';
+	const MINIMUM_WC_VERSION = '3.5';
 
 	/** SkyVerge plugin framework version used by this plugin */
 	const FRAMEWORK_VERSION = '5.5.0';
@@ -85,10 +87,10 @@ class WC_Checkout_Add_Ons_Loader {
 
 		add_action( 'admin_notices', array( $this, 'admin_notices' ), 15 );
 
+		add_filter( 'extra_plugin_headers', array( $this, 'add_documentation_header' ) );
+
 		// if the environment check fails, initialize the plugin
 		if ( $this->is_environment_compatible() ) {
-
-			require_once( 'vendor/skyverge/wc-jilt-promotions/load.php' );
 
 			add_action( 'plugins_loaded', array( $this, 'init_plugin' ) );
 		}
@@ -336,6 +338,24 @@ class WC_Checkout_Add_Ons_Loader {
 			</div>
 			<?php
 		}
+	}
+
+
+	/**
+	 * Adds the Documentation URI header.
+	 *
+	 * @internal
+	 *
+	 * @since 2.4.0
+	 *
+	 * @param string[] $headers original headers
+	 * @return string[]
+	 */
+	public function add_documentation_header( $headers ) {
+
+		$headers[] = 'Documentation URI';
+
+		return $headers;
 	}
 
 

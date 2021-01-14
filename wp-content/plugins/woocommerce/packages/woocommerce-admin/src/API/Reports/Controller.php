@@ -3,8 +3,6 @@
  * REST API Reports controller extended by WC Admin plugin.
  *
  * Handles requests to the reports endpoint.
- *
- * @package WooCommerce Admin/API
  */
 
 namespace Automattic\WooCommerce\Admin\API\Reports;
@@ -14,7 +12,6 @@ defined( 'ABSPATH' ) || exit;
 /**
  * REST API Reports controller class.
  *
- * @package WooCommerce Admin/API
  * @extends WC_REST_Reports_Controller
  */
 class Controller extends \WC_REST_Reports_Controller {
@@ -95,6 +92,14 @@ class Controller extends \WC_REST_Reports_Controller {
 			array(
 				'slug'        => 'products/stats',
 				'description' => __( 'Stats about products.', 'woocommerce' ),
+			),
+			array(
+				'slug'        => 'variations',
+				'description' => __( 'Variations detailed reports.', 'woocommerce' ),
+			),
+			array(
+				'slug'        => 'variations/stats',
+				'description' => __( 'Stats about variations.', 'woocommerce' ),
 			),
 			array(
 				'slug'        => 'categories',
@@ -184,6 +189,10 @@ class Controller extends \WC_REST_Reports_Controller {
 	 */
 	public function get_order_number( $order_id ) {
 		$order = wc_get_order( $order_id );
+
+		if ( ! $order instanceof \WC_Order ) {
+			return null;
+		}
 
 		if ( 'shop_order_refund' === $order->get_type() ) {
 			$order = wc_get_order( $order->get_parent_id() );

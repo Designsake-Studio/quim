@@ -25,7 +25,7 @@ namespace WooCommerce\Square\Emails;
 
 use SkyVerge\WooCommerce\PluginFramework\v5_4_0 as Framework;
 
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * Base email class.
@@ -67,7 +67,7 @@ class Base_Email extends \WC_Email {
 	 * @since 2.1.0
 	 */
 	public function __construct() {
-		$this->template_base  = wc_square()->get_plugin_path() . '/templates/';
+		$this->template_base = wc_square()->get_plugin_path() . '/templates/';
 
 		// call parent constructor
 		parent::__construct();
@@ -106,16 +106,20 @@ class Base_Email extends \WC_Email {
 		}
 
 		// add a recipient field
-		$form_fields = Framework\SV_WC_Helper::array_insert_after( $form_fields, isset( $form_fields['enabled'] ) ? 'enabled' : key( $form_fields ), [
-			'recipient' => [
-				'title'         => __( 'Recipient(s)', 'woocommerce-square' ),
-				'type'          => 'text',
-				/* translators: Placeholder: %s default email address */
-				'description'   => sprintf( __( 'Enter recipients (comma separated) for this email. Defaults to admin email: %s', 'woocommerce-square' ), '<code>' . esc_attr( get_option( 'admin_email' ) ) . '</code>' ),
-				'placeholder'   => get_bloginfo( 'admin_email' ),
-				'default'       => get_bloginfo( 'admin_email' ),
-			],
-		] );
+		$form_fields = Framework\SV_WC_Helper::array_insert_after(
+			$form_fields,
+			isset( $form_fields['enabled'] ) ? 'enabled' : key( $form_fields ),
+			array(
+				'recipient' => array(
+					'title'       => __( 'Recipient(s)', 'woocommerce-square' ),
+					'type'        => 'text',
+					/* translatorsPlaceholder: %s default email address */
+					'description' => sprintf( __( 'Enter recipients (comma separated) for this email. Defaults to admin email: %s', 'woocommerce-square' ), '<code>' . esc_attr( get_option( 'admin_email' ) ) . '</code>' ),
+					'placeholder' => get_bloginfo( 'admin_email' ),
+					'default'     => get_bloginfo( 'admin_email' ),
+				),
+			)
+		);
 
 		// set the updated fields
 		$this->form_fields = $form_fields;
@@ -162,12 +166,15 @@ class Base_Email extends \WC_Email {
 	 * @param array $args optional associative array with additional arguments
 	 * @return array
 	 */
-	protected function get_template_args( $args = [] ) {
-		return array_merge( $args, [
-			'email'         => $this,
-			'email_heading' => '',
-			'email_body'    => '',
-		] );
+	protected function get_template_args( $args = array() ) {
+		return array_merge(
+			$args,
+			array(
+				'email'         => $this,
+				'email_heading' => '',
+				'email_body'    => '',
+			)
+		);
 	}
 
 	/**
@@ -178,7 +185,7 @@ class Base_Email extends \WC_Email {
 	 * @return string HTML
 	 */
 	public function get_content_html() {
-		$args = [ 'plain_text' => false ];
+		$args = array( 'plain_text' => false );
 		return wc_get_template_html( $this->template_html, array_merge( $args, $this->get_template_args( $args ) ) );
 	}
 
@@ -190,7 +197,7 @@ class Base_Email extends \WC_Email {
 	 * @return string plain text
 	 */
 	public function get_content_plain() {
-		$args = [ 'plain_text' => true ];
+		$args = array( 'plain_text' => true );
 		return wc_get_template_html( $this->template_plain, array_merge( $args, $this->get_template_args( $args ) ) );
 	}
 }

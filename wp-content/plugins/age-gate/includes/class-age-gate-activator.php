@@ -5,7 +5,7 @@
 /**
  * Fired during plugin activation
  *
- * @link       https://philsbury.uk
+ * @link       https://agegate.io
  * @since      1.0.0
  *
  * @package    Age_Gate
@@ -248,7 +248,7 @@ class Age_Gate_Activator
     private static function advanced()
     {
         $defaults = array(
-            'use_js' => 0,
+            'use_js' => defined('WP_CACHE') && WP_CACHE ? 1 : 0,
             'save_to_file' => 0,
             'custom_css' => '',
             'restrict_archives' => 0,

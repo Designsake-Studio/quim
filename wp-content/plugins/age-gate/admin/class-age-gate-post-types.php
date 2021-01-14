@@ -5,7 +5,7 @@
 /**
  * The admin-specific functionality of the plugin.
  *
- * @link       https://philsbury.uk
+ * @link       https://agegate.io
  * @since      2.0.0
  *
  * @package    Age_Gate

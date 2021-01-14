@@ -1,5 +1,16 @@
 *** Changelog ***
 
+= 1.4.25 - 2020-11-25 =
+* Tweak - WC 4.7 compatibility.
+* Tweak - WordPress 5.6 compatibility.
+
+= 1.4.24 - 2020-10-12 =
+* Tweak - WC 4.5 compatibility.
+
+= 1.4.23 - 2020-08-19 =
+* Fix - Prevent transaction from being tracked a second time when page is reloaded locally or from cache.
+* Tweak - WordPress 5.5 compatibility.
+
 = 1.4.22 - 2020-06-05 =
 * Tweak - WC 4.2 compatibility.
 

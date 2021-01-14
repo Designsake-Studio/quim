@@ -20,6 +20,43 @@
 /**
  * Attach event listeners to save billing fields.
  */
+
+var identify_object = {
+  'token': public_key.token,
+  'properties': {}
+};
+
+var klaviyo_cookie_id = '__kla_id';
+
+function makePublicAPIcall(endpoint, event_data) {
+  data_param = btoa(unescape(encodeURIComponent(JSON.stringify(event_data))));
+  jQuery.get('https://a.klaviyo.com/api/' + endpoint + '?data=' + data_param);
+}
+
+function getKlaviyoCookie() {
+  var name = klaviyo_cookie_id + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for(var i = 0; i < ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return atob(c.substring(name.length, c.length));
+    }
+  }
+  return "";
+}
+
+function setKlaviyoCookie(cookie_data) {
+  cvalue = btoa(JSON.stringify(cookie_data));
+  var date = new Date();
+  date.setTime(date.getTime() + (63072e6)); // adding 2 years in milliseconds to current time
+  var expires = "expires=" + date.toUTCString();
+  document.cookie = klaviyo_cookie_id + "=" + cvalue + ";" + expires + "; path=/";
+}
+
 function klIdentifyBillingField() {
   var billingFields = ["first_name", "last_name"];
   for (var i=0; i<billingFields.length; i++) {
@@ -28,9 +65,14 @@ function klIdentifyBillingField() {
       jQuery('input[name="billing_' + nameType + '"]').change(function () {
         var email = jQuery('input[name="billing_email"]').val();
         if (email) {
-          var elem = jQuery(this),
-              nameValue = jQuery.trim(elem.val());
-          _learnq.push(["identify", {[nameType]: nameValue}]);
+          identify_properties = {
+            '$email': email,
+            [nameType]: jQuery.trim(jQuery(this).val())
+          };
+          setKlaviyoCookie(identify_properties);
+          identify_object.properties = identify_properties;
+
+          makePublicAPIcall('identify', identify_object);
         }
       })
     })();
@@ -44,19 +86,31 @@ window.addEventListener("load", function() {
     return;
   }
 
-  var _learnq = window._learnq || [];
-
   var WCK = WCK || {};
   WCK.trackStartedCheckout = function () {
-    _learnq.push(["track", "$started_checkout", kl_checkout.event_data ]);
+    var event_object = {
+      'token': public_key.token,
+      'event': '$started_checkout',
+      'customer_properties': {
+        '$email': kl_checkout.email
+      },
+      'properties': kl_checkout.event_data
+    };
+
+    makePublicAPIcall('track', event_object);
   };
+
+  var klCookie = getKlaviyoCookie();
 
   // Priority of emails for syncing Started Checkout event: Logged-in user,
   // cookied, billing email address
   if (kl_checkout.email !== "") {
-    _learnq.push(["identify", {"$email" : kl_checkout.email}]);
+    identify_object.properties = {'$email': kl_checkout.email};
+    makePublicAPIcall('identify', identify_object);
+    setKlaviyoCookie(identify_object.properties);
     WCK.trackStartedCheckout();
-  } else if (_learnq.identify().$email !== undefined) {
+  } else if (klCookie && JSON.parse(klCookie).$email !== undefined) {
+    kl_checkout.email = JSON.parse(klCookie).$email;
     WCK.trackStartedCheckout();
   } else {
     if (jQuery) {
@@ -69,13 +123,16 @@ window.addEventListener("load", function() {
           var first_name = jQuery('input[name="billing_first_name"]').val();
           var last_name = jQuery('input[name="billing_last_name"]').val();
           if (first_name) {
-            params["first_name"] = first_name;
+            params["$first_name"] = first_name;
           }
           if (last_name) {
-            params["last_name"] = last_name;
+            params["$last_name"] = last_name;
           }
 
-          _learnq.push(["identify", params]);
+          setKlaviyoCookie(params);
+          kl_checkout.email = params.$email;
+          identify_object.properties = params;
+          makePublicAPIcall('identify', identify_object);
           WCK.trackStartedCheckout();
         }
       });

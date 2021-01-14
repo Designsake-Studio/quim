@@ -25,7 +25,7 @@ namespace WooCommerce\Square\Sync;
 
 use SkyVerge\WooCommerce\PluginFramework\v5_4_0 as Framework;
 
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * Synchronization Job abstract.

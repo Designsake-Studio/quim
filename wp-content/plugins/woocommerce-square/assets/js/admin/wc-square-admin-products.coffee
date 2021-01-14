@@ -125,7 +125,38 @@ jQuery( document ).ready ( $ ) ->
 		# @since 2.0.0
 		###
 		hasSKU = ->
-			return $( '#_sku' ).val() isnt ''
+			return $( '#_sku' ).val().trim() isnt ''
+
+
+		###*
+		# Checks whether the product variations all have SKUs.
+		#
+		# @since 2.2.3
+		###
+		hasVariableSKUs = ( skus ) ->
+
+			return false if not skus.length
+
+			valid = skus.filter ->
+				return true if $( this ).val().trim() isnt ''
+
+			return valid.length is skus.length
+
+
+		###*
+		# Checks whether the given skus are unique.
+		#
+		# @since 2.2.3
+		###
+		hasUniqueSKUs = ( skus ) ->
+
+			skuValues = skus.map ( sku ) ->
+				$( this ).val()
+
+			skuValues = $.makeArray( skuValues )
+
+			return skuValues.every ( sku ) ->
+				skuValues.indexOf( sku ) is skuValues.lastIndexOf( sku )
 
 
 		###*
@@ -141,6 +172,30 @@ jQuery( document ).ready ( $ ) ->
 
 
 		###*
+		# Displays the given error and disables the sync checkbox
+		# Accepted errors are 'missing_sku', 'missing_variation_sku', and 'multiple_attributes'
+		#
+		# @since 2.2.3
+		###
+		showError = ( error ) ->
+			$( '.wc-square-sync-with-square-error.' + error ).show()
+			$( syncCheckboxID ).prop( 'disabled', true )
+			$( syncCheckboxID ).prop( 'checked', false )
+
+
+		###*
+		# Hides the given error and maybe enables the sync checkbox
+		# Accepted errors are 'missing_sku', 'missing_variation_sku', and 'multiple_attributes'
+		#
+		# @since 2.2.3
+		###
+		hideError = ( error, enable = true ) ->
+			$( '.wc-square-sync-with-square-error.' + error ).hide()
+			if enable
+				$( syncCheckboxID ).prop( 'disabled', false )
+
+
+		###*
 		# Handle SKU.
 		#
 		# Disables the Sync with Square checkbox and toggles an inline notice when no SKU is set on a product.
@@ -149,22 +204,31 @@ jQuery( document ).ready ( $ ) ->
 		###
 		handleSKU = ( syncCheckboxID ) ->
 
-			return if isVariable()
+			if isVariable()
+				$( '#_sku' ).off 'change keypress keyup'
+				hideError( 'missing_sku', not hasMultipleAttributes() )
 
-			$( '#_sku' ).on 'change keypress keyup', ( e ) ->
+				skus = $( 'input[id^="variable_sku"]' )
 
-				if '' is $( this ).val()
-					$( '.wc-square-sync-with-square-error.missing_sku' ).show()
-					$( syncCheckboxID ).prop( 'disabled', true )
-					$( syncCheckboxID ).prop( 'checked', false )
-				else
-					$( '.wc-square-sync-with-square-error.missing_sku' ).hide()
-					if not hasMultipleAttributes()
-						$( syncCheckboxID ).prop( 'disabled', false )
+				skus.on 'change keypress keyup', ( e ) ->
+					if not hasVariableSKUs( skus ) or not hasUniqueSKUs( skus )
+						showError( 'missing_variation_sku' )
+					else
+						hideError( 'missing_variation_sku', not hasMultipleAttributes() )
+					$( syncCheckboxID ).trigger( 'change' )
+				.trigger 'change'
 
-				$( syncCheckboxID ).trigger( 'change' )
+			else
+				$( 'input[id^="variable_sku"]' ).off 'change keypress keyup'
+				hideError( 'missing_variation_sku', not hasMultipleAttributes() )
 
-			.trigger 'change'
+				$( '#_sku' ).on 'change keypress keyup', ( e ) ->
+					if '' is $( this ).val().trim()
+						showError( 'missing_sku' )
+					else
+						hideError( 'missing_sku', not hasMultipleAttributes() )
+					$( syncCheckboxID ).trigger( 'change' )
+				.trigger 'change'
 
 
 		###*
@@ -179,17 +243,25 @@ jQuery( document ).ready ( $ ) ->
 			$( '#variable_product_options' ).on 'reload', ( e ) ->
 
 				if hasMultipleAttributes()
-					$( '.wc-square-sync-with-square-error.multiple_attributes' ).show()
-					$( syncCheckboxID ).prop( 'disabled', true )
-					$( syncCheckboxID ).prop( 'checked', false )
+					showError( 'multiple_attributes' )
 				else
-					$( '.wc-square-sync-with-square-error.multiple_attributes' ).hide()
-					if hasSKU()
-						$( syncCheckboxID ).prop( 'disabled', false )
-
+					hideError( 'multiple_attributes', if isVariable() then hasVariableSKUs else hasSKU() )
 				$( syncCheckboxID ).trigger( 'change' )
 
 			.trigger( 'reload' )
+
+
+		###*
+		# Triggers an update to the sync checkbox, checking for relevant errors.
+		#
+		# @since 2.2.3
+		###
+		triggerUpdate = ->
+			handleSKU( syncCheckboxID )
+			$( syncCheckboxID ).trigger 'change'
+			# handleSKU misses cases where product is variable with no variations
+			if isVariable() and not $( 'input[id^="variable_sku"]' ).length
+				showError( 'missing_variation_sku' )
 
 
 		# fire once on page load
@@ -298,7 +370,7 @@ jQuery( document ).ready ( $ ) ->
 
 				# fetch relevant variables for each variation
 				variationID           = $( this ).find( 'h3 > a' ).attr( 'rel' )
-				$variationManageInput = $( '.variable_manage_stock' )
+				$variationManageInput = $( this ).find( '#wc_square_variation_manage_stock' )
 				$variationManageField = $variationManageInput.parent()
 				$variationStockInput  = $( this ).find( '.wc_input_stock' )
 				$variationStockField  = $variationStockInput.parent()
@@ -363,14 +435,14 @@ jQuery( document ).ready ( $ ) ->
 					$variationManageInput.next( '.description' ).remove()
 					$( this ).find( '#wc_square_variation_manage_stock' ).prop( 'disabled', true )
 
-
 		# initial page load handling
 		.trigger 'change'
 
+
 		# trigger an update if the product type changes
 		$( '#product-type' ).on 'change', ( e ) ->
-			$( syncCheckboxID ).trigger 'change'
+			triggerUpdate()
 
-		# trigger an update for variable products when variations are loaded
-		$( '#woocommerce-product-data' ).on 'woocommerce_variations_loaded', ( e ) ->
-			$( syncCheckboxID ).trigger 'change'
+		# trigger an update for variable products when variations are loaded, added, or removed.
+		$( '#woocommerce-product-data' ).on 'woocommerce_variations_loaded woocommerce_variations_added woocommerce_variations_removed', ( e ) ->
+			triggerUpdate()

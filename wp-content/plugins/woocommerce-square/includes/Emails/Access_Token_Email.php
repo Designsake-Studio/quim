@@ -25,7 +25,7 @@ namespace WooCommerce\Square\Emails;
 
 use SkyVerge\WooCommerce\PluginFramework\v5_4_0 as Framework;
 
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * Sync completed email.
@@ -44,8 +44,8 @@ class Access_Token_Email extends Base_Email {
 		$this->customer_email = false;
 		$this->title          = __( 'Square Access Token problems', 'woocommerce-square' );
 		$this->description    = __( 'This email is sent when problems with Access Token are encountered', 'woocommerce-square' );
-		$this->subject        = _x( '[WooCommerce] There was a problem with your Square Access Token', 'Email subject', 'woocommerce-square');
-		$this->heading        = _x( 'There was a problem with your Square Access Token', 'Email heading', 'woocommerce-square');
+		$this->subject        = _x( '[WooCommerce] There was a problem with your Square Access Token', 'Email subject', 'woocommerce-square' );
+		$this->heading        = _x( 'There was a problem with your Square Access Token', 'Email heading', 'woocommerce-square' );
 		$this->body           = _x( 'Heads up! There may be a problem with your connection to Square.', 'Square connection problems email body.', 'woocommerce-square' );
 
 		$this->enabled_default = 'yes';
@@ -85,7 +85,7 @@ class Access_Token_Email extends Base_Email {
 	 * @param array $args optional associative array with additional arguments
 	 * @return array
 	 */
-	protected function get_template_args( $args = [] ) {
+	protected function get_template_args( $args = array() ) {
 		$html = empty( $args['plain_text'] );
 
 		$email_body = $this->body;
@@ -97,24 +97,29 @@ class Access_Token_Email extends Base_Email {
 			$email_body .= ' ' . sprintf(
 				/* translators: Placeholders: %1$s - opening <a> HTML link tag, %2$s - closing </a> HTML link tag */
 				esc_html__( 'In order to continue accepting payments, please %1$sdisconnect and re-connect your site%2$s.', 'woocommerce-square' ),
-				'<a href="' . esc_url( $settings_url ) .'">', '</a>'
+				'<a href="' . esc_url( $settings_url ) . '">',
+				'</a>'
 			);
 
 			if ( $square->get_settings_handler()->is_debug_enabled() ) {
 				$email_body .= '<br/><br/>' . sprintf(
 					/* translators: Placeholders: %1$s - opening <a> HTML link tag, %2$s - closing </a> HTML link tag */
 					esc_html__( '%1$sInspect status logs%2$s', 'woocommerce-square' ),
-					'<a href="' . $logs_url . '">', '</a>'
+					'<a href="' . $logs_url . '">',
+					'</a>'
 				);
 			}
 		} else {
 			$email_body .= ' ' + esc_html__( 'In order to continue accepting payments, please disconnect and re-connect your site at ', 'woocommerce-square' ) . $settings_url;
 		}
 
-		return array_merge( $args, [
-			'email'         => $this,
-			'email_heading' => $this->heading,
-			'email_body'    => $email_body,
-		] );
+		return array_merge(
+			$args,
+			array(
+				'email'         => $this,
+				'email_heading' => $this->heading,
+				'email_body'    => $email_body,
+			)
+		);
 	}
 }

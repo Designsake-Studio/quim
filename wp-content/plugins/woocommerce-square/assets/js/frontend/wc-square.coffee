@@ -37,6 +37,8 @@ jQuery( document ).ready ( $ ) ->
 			@is_user_logged_in                = args.is_user_logged_in
 			@location_id                      = args.location_id
 			@logging_enabled                  = args.logging_enabled
+			@ajax_wc_checkout_validate_nonce  = args.ajax_wc_checkout_validate_nonce
+			@is_manual_order_payment          = args.is_manual_order_payment
 
 			# which payment form?
 			if $( 'form.checkout' ).length
@@ -168,6 +170,8 @@ jQuery( document ).ready ( $ ) ->
 		#
 		# @since 2.0.0
 		set_payment_fields: =>
+			if not $( "#wc-#{@id_dasherized}-account-number-hosted" ).length
+				return
 
 			if $( "#wc-#{@id_dasherized}-account-number-hosted" ).is( 'iframe' )
 
@@ -184,6 +188,7 @@ jQuery( document ).ready ( $ ) ->
 					this.log 'Destroying payment form'
 
 					@payment_form.destroy()
+					@payment_form = null
 
 				this.log 'Building payment form'
 
@@ -371,7 +376,7 @@ jQuery( document ).ready ( $ ) ->
 				$( "input[name=wc-#{@id_dasherized}-exp-year]" ).val( cardData.exp_year )
 
 			if cardData.billing_postal_code
-				$( "input[name=wc-square-credit-card-payment-postcode]" ).val( cardData.billing_postal_code )
+				$( "input[name=wc-#{@id_dasherized}-payment-postcode]" ).val( cardData.billing_postal_code )
 
 			# payment nonce data
 			$( "input[name=wc-#{@id_dasherized}-payment-nonce]" ).val( nonce )
@@ -397,6 +402,9 @@ jQuery( document ).ready ( $ ) ->
 		handle_verify_buyer_response: ( errors, verification_result ) =>
 
 			if errors
+				$( errors ).each ( index, error ) =>
+					if not error.field
+						error.field = 'none';
 				return this.handle_errors( errors )
 
 			# no errors, but also no verification token
@@ -502,13 +510,12 @@ jQuery( document ).ready ( $ ) ->
 
 			if errors
 
-				field_order = [ "cardNumber", "expirationDate", "cvv", "postalCode" ]
+				field_order = [ "none", "cardNumber", "expirationDate", "cvv", "postalCode" ]
 
-				# sort based on the field order
-				# without the brackets around a.field and b.field the precedence is different and gives different results
-				errors.sort (a,b) -> field_order.indexOf(a.field) - field_order.indexOf(b.field)
-
-				console.error errors
+				if errors.length >= 1
+					# sort based on the field order
+					# without the brackets around a.field and b.field the precedence is different and gives different results
+					errors.sort (a,b) -> field_order.indexOf(a.field) - field_order.indexOf(b.field)
 
 				$( errors ).each ( index, error ) =>
 
@@ -526,7 +533,11 @@ jQuery( document ).ready ( $ ) ->
 			if messages.length is 0
 				messages.push( @general_error )
 
-			this.render_errors( messages )
+			# Conditionally process error rendering
+			if not @is_add_payment_method_page and not @is_manual_order_payment
+				this.render_checkout_errors( messages )
+			else
+				this.render_errors( messages )
 
 			this.unblock_ui()
 
@@ -627,3 +638,44 @@ jQuery( document ).ready ( $ ) ->
 				console.error 'Square Error: ' + message
 			else
 				console.log 'Square: ' + message
+
+		# AJAX validate WooCommerce form data.
+		#
+		# Triggered only if errors are present on Square payment form.
+		#
+		# @since 2.2
+		#
+		# @param Array square_errors Square validation errors.
+		render_checkout_errors: ( square_errors ) ->
+			ajax_url       = wc_cart_fragments_params.wc_ajax_url.toString().replace( '%%endpoint%%', @id + '_checkout_handler' )
+			form_data      = @form.serializeArray()
+			square_handler = this
+
+			# Add action field to data for nonce verification.
+			form_data.push({
+				name: 'wc_' + @id + '_checkout_validate_nonce', 'value': @ajax_wc_checkout_validate_nonce
+			})
+
+			$.ajax({
+				url      : ajax_url,
+				method   : 'post',
+				cache    : false,
+				data     : form_data,
+				complete : ( response ) ->
+					result = response.responseJSON
+
+					# If validation is not triggered and WooCommerce returns failure.
+					# Temporary workaround to fix problems when user email is invalid.
+					if result.hasOwnProperty( 'result' ) and 'failure' == result.result
+						$(result.messages).map ->
+							errors = []
+							$( this ).children( 'li' ).each ->
+								errors.push( $( this ).text().trim() )
+							square_errors.unshift( ...errors )
+
+					# If validation is complete and WooCommerce returns validaiton errors.
+					else if result.hasOwnProperty( 'success' ) and not result.success
+						square_errors.unshift( ...result.data.messages )
+
+					square_handler.render_errors( square_errors )
+			})

@@ -23,7 +23,7 @@
 
 namespace WooCommerce\Square\Handlers;
 
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 use SkyVerge\WooCommerce\PluginFramework\v5_4_0 as Framework;
 use WooCommerce\Square\Handlers\Product;
@@ -42,13 +42,13 @@ class Products {
 	private $product_errors;
 
 	/** @var array associative array of memoized errors being output for a product at one time */
-	private $output_errors = [];
+	private $output_errors = array();
 
 	/** @var int[] array of product IDs that have been scheduled for sync in this request */
-	private $products_to_sync = [];
+	private $products_to_sync = array();
 
 	/** @var int[] array of product IDs that have been scheduled for deletion in this request */
-	private $products_to_delete = [];
+	private $products_to_delete = array();
 
 	/** @var Square\Plugin plugin instance */
 	private $plugin;
@@ -63,14 +63,14 @@ class Products {
 		$this->plugin = $plugin;
 
 		// add common errors
-		$this->product_errors = [
+		$this->product_errors = array(
 			/* translators: Placeholder: %s - product name */
 			'missing_sku'           => __( "Please add an SKU to sync %s with Square. The SKU must match the item's SKU in your Square account.", 'woocommerce-square' ),
 			/* translators: Placeholder: %s - product name */
-			'missing_variation_sku' => __( "Please add an SKU to every variation of %s for syncing with Square. Each SKU must match the corresponding item's SKU in your Square account.", 'woocommerce-square' ),
+			'missing_variation_sku' => __( "Please add an SKU to every variation of %s for syncing with Square. Each SKU must be unique and match the corresponding item's SKU in your Square account.", 'woocommerce-square' ),
 			/* translators: Placeholder: %s - product name */
 			'multiple_attributes'   => __( '%s has multiple variation attributes and cannot be synced with Square.', 'woocommerce-square' ),
-		];
+		);
 
 		// add hooks
 		$this->add_products_edit_screen_hooks();
@@ -89,18 +89,18 @@ class Products {
 	private function add_products_edit_screen_hooks() {
 
 		// adds an option to the "Filter by product type" dropdown
-		add_action( 'restrict_manage_posts', [ $this, 'add_filter_products_synced_with_square_option' ] );
+		add_action( 'restrict_manage_posts', array( $this, 'add_filter_products_synced_with_square_option' ) );
 		// allow filtering products by sync status by altering results
-		add_filter( 'request', [ $this, 'filter_products_synced_with_square' ] );
+		add_filter( 'request', array( $this, 'filter_products_synced_with_square' ) );
 
 		// prevent copying Square data when duplicating a product automatically
-		add_action( 'woocommerce_product_duplicate', [ $this, 'handle_product_duplication' ], 20, 2 );
+		add_action( 'woocommerce_product_duplicate', array( $this, 'handle_product_duplication' ), 20, 2 );
 
 		// handle quick/bulk edit actions in the products edit screen for setting sync status
-		add_action( 'woocommerce_product_quick_edit_end',  [ $this, 'add_quick_edit_inputs' ] );
-		add_action( 'woocommerce_product_bulk_edit_end',   [ $this, 'add_bulk_edit_inputs' ] );
-		add_action( 'woocommerce_product_quick_edit_save', [ $this, 'set_synced_with_square' ] );
-		add_action( 'woocommerce_product_bulk_edit_save',  [ $this, 'set_synced_with_square' ] );
+		add_action( 'woocommerce_product_quick_edit_end', array( $this, 'add_quick_edit_inputs' ) );
+		add_action( 'woocommerce_product_bulk_edit_end', array( $this, 'add_bulk_edit_inputs' ) );
+		add_action( 'woocommerce_product_quick_edit_save', array( $this, 'set_synced_with_square' ) );
+		add_action( 'woocommerce_product_bulk_edit_save', array( $this, 'set_synced_with_square' ) );
 	}
 
 
@@ -113,14 +113,14 @@ class Products {
 	 */
 	private function add_product_edit_screen_hooks() {
 
-		add_action( 'woocommerce_variation_options', [ $this, 'add_variation_manage_stock' ] );
+		add_action( 'woocommerce_variation_options', array( $this, 'add_variation_manage_stock' ) );
 
 		// handle individual products input fields for setting sync status
-		add_action( 'woocommerce_product_options_general_product_data', [ $this, 'add_product_data_fields' ] );
-		add_action( 'woocommerce_admin_process_product_object',         [ $this, 'process_product_data' ], 20 );
-		add_action( 'woocommerce_before_product_object_save',           [ $this, 'maybe_adjust_square_stock'] );
+		add_action( 'woocommerce_product_options_general_product_data', array( $this, 'add_product_data_fields' ) );
+		add_action( 'woocommerce_admin_process_product_object', array( $this, 'process_product_data' ), 20 );
+		add_action( 'woocommerce_before_product_object_save', array( $this, 'maybe_adjust_square_stock' ) );
 
-		add_action( 'admin_notices', [ $this, 'add_notice_product_hidden_from_catalog' ] );
+		add_action( 'admin_notices', array( $this, 'add_notice_product_hidden_from_catalog' ) );
 	}
 
 
@@ -140,7 +140,8 @@ class Products {
 			return;
 		}
 
-		?> <input type="hidden" id="wc_square_variation_manage_stock" name="variable_manage_stock[<?php echo esc_attr( $loop ); ?>]" value="1" /> <?php
+		?> <input type="hidden" id="wc_square_variation_manage_stock" name="variable_manage_stock[<?php echo esc_attr( $loop ); ?>]" value="1" />
+		<?php
 	}
 
 
@@ -151,10 +152,10 @@ class Products {
 	 */
 	private function add_product_sync_hooks() {
 
-		add_action( 'woocommerce_update_product', [ $this, 'validate_product_update_and_sync' ] );
-		add_action( 'trashed_post',               [ $this, 'maybe_stage_products_for_deletion' ] );
-		add_action( 'shutdown',                   [ $this, 'maybe_sync_staged_products' ] );
-		add_action( 'shutdown',                   [ $this, 'maybe_delete_staged_products' ] );
+		add_action( 'woocommerce_update_product', array( $this, 'validate_product_update_and_sync' ) );
+		add_action( 'trashed_post', array( $this, 'maybe_stage_products_for_deletion' ) );
+		add_action( 'shutdown', array( $this, 'maybe_sync_staged_products' ) );
+		add_action( 'shutdown', array( $this, 'maybe_delete_staged_products' ) );
 	}
 
 
@@ -176,11 +177,13 @@ class Products {
 		$label    = esc_html__( 'Synced with Square', 'woocommerce-square' );
 		$selected = isset( $_GET['product_type'] ) && 'synced-with-square' === $_GET['product_type'] ? 'selected=\"selected\"' : '';
 
-		wc_enqueue_js( "
+		wc_enqueue_js(
+			"
 			jQuery( document ).ready( function( $ ) {
-				$( 'select#dropdown_product_type' ).append( '<option value=\"synced-with-square\" ' + '" . $selected . "' + '>' + '" . $label ."' + '</option>' );
+				$( 'select#dropdown_product_type' ) . append( '<option value=\"synced-with-square\" ' + '" . $selected . "' + '>' + '" . $label . "' + '</option>' );
 			} );
-		" );
+			"
+		);
 	}
 
 
@@ -194,7 +197,7 @@ class Products {
 	 * @param array $query_vars query variables
 	 * @return array
 	 */
-	public function filter_products_synced_with_square( $query_vars ){
+	public function filter_products_synced_with_square( $query_vars ) {
 		global $typenow;
 
 		if ( 'product' === $typenow && isset( $_GET['product_type'] ) && 'synced-with-square' === $_GET['product_type'] ) {
@@ -203,16 +206,16 @@ class Products {
 			unset( $query_vars['product_type'] );
 
 			if ( ! isset( $query_vars['tax_query'] ) ) {
-				$query_vars['tax_query'] = [];
+				$query_vars['tax_query'] = array();
 			} else {
 				$query_vars['tax_query']['relation'] = 'AND';
 			}
 
-			$query_vars['tax_query'][] = [
+			$query_vars['tax_query'][] = array(
 				'taxonomy' => Product::SYNCED_WITH_SQUARE_TAXONOMY,
 				'field'    => 'slug',
-				'terms'    => [ 'yes' ],
-			];
+				'terms'    => array( 'yes' ),
+			);
 		}
 
 		return $query_vars;
@@ -242,25 +245,27 @@ class Products {
 		<div class="wc-square-sync-with-square options_group show_if_simple show_if_variable">
 			<?php
 
-			$selector   = '_' . Product::SYNCED_WITH_SQUARE_TAXONOMY;
-			$value      = Product::is_synced_with_square( $product_object ) ? 'yes' : 'no';
-			$errors     = $this->check_product_sync_errors( $product_object );
+			$selector = '_' . Product::SYNCED_WITH_SQUARE_TAXONOMY;
+			$value    = Product::is_synced_with_square( $product_object ) ? 'yes' : 'no';
+			$errors   = $this->check_product_sync_errors( $product_object );
 
 			$setting_label = wc_square()->get_settings_handler()->is_system_of_record_square() ? __( 'Update product data with Square data', 'woocommerce-square' ) : __( 'Send product data to Square', 'woocommerce-square' );
 
-			woocommerce_wp_checkbox( [
-				'id'                => $selector,
-				'label'             => __( 'Sync with Square', 'woocommerce-square' ),
-				'value'             => $value,
-				'cbvalue'           => 'yes',
-				'default'           => 'no',
-				'description'       => $setting_label,
-				'custom_attributes' => ! empty( $errors ) ? [ 'disabled' => 'disabled' ] : [],
-			] );
+			woocommerce_wp_checkbox(
+				array(
+					'id'                => $selector,
+					'label'             => __( 'Sync with Square', 'woocommerce-square' ),
+					'value'             => $value,
+					'cbvalue'           => 'yes',
+					'default'           => 'no',
+					'description'       => $setting_label,
+					'custom_attributes' => ! empty( $errors ) ? array( 'disabled' => 'disabled' ) : array(),
+				)
+			);
 
 			?>
 			<p class="form-field wc-square-sync-with-square-errors">
-				<?php foreach ( $this->product_errors as $error_code => $error_message ) :  ?>
+				<?php foreach ( $this->product_errors as $error_code => $error_message ) : ?>
 					<?php $styles = ! in_array( $error_code, array_keys( $errors ), true ) ? 'display:none; color:#A00;' : 'display:block; color:#A00;'; ?>
 					<span class="wc-square-sync-with-square-error <?php echo sanitize_html_class( $error_code ); ?>" style="<?php echo $styles; ?>"><?php echo $this->format_product_error( $error_code, $product_object ); ?></span>
 				<?php endforeach; ?>
@@ -360,7 +365,13 @@ class Products {
 
 			foreach ( $errors as $error ) {
 				wc_square()->get_message_handler()->add_error( $error );
-				Records::set_record( [ 'type' => 'alert', 'product_id' => $product_id, 'message' => $error ] );
+				Records::set_record(
+					array(
+						'type'       => 'alert',
+						'product_id' => $product_id,
+						'message'    => $error,
+					)
+				);
 			}
 		} else {
 			$this->maybe_stage_product_for_sync( $product );
@@ -461,13 +472,13 @@ class Products {
 			$default_value = 'no'; // in individual products context, the value should be always an explicit yes or no
 		}
 
-		$square_synced = isset( $_REQUEST[ $posted_data_key ] ) && in_array( $_REQUEST[ $posted_data_key ], [ 'yes', 'no' ], true ) ? $_REQUEST[ $posted_data_key ] : $default_value;
-		
+		$square_synced = isset( $_REQUEST[ $posted_data_key ] ) && in_array( $_REQUEST[ $posted_data_key ], array( 'yes', 'no' ), true ) ? $_REQUEST[ $posted_data_key ] : $default_value;
+
 		if ( is_string( $square_synced ) ) {
 			$errors = $this->check_product_sync_errors( $product );
 			if ( 'no' === $square_synced || empty( $errors ) ) {
 				Product::set_synced_with_square( $product, $square_synced );
-			} else if ( ! empty( $errors ) ) {
+			} elseif ( ! empty( $errors ) ) {
 				foreach ( $errors as $error ) {
 					wc_square()->get_message_handler()->add_error( $error );
 				}
@@ -497,7 +508,7 @@ class Products {
 			return;
 		}
 
-		$errors     = [];
+		$errors     = array();
 		$posted_key = '_' . Product::SYNCED_WITH_SQUARE_TAXONOMY;
 		$set_synced = isset( $_POST[ $posted_key ] ) && 'yes' === $_POST[ $posted_key ];
 		$was_synced = Product::is_synced_with_square( $product );
@@ -577,7 +588,6 @@ class Products {
 				} else {
 					wc_square()->get_api()->remove_inventory( $square_id, $change );
 				}
-
 			} catch ( Framework\SV_WC_Plugin_Exception $exception ) {
 
 				wc_square()->log( 'Could not adjust Square inventory for ' . $product->get_formatted_name() . '. ' . $exception->getMessage() );
@@ -608,7 +618,7 @@ class Products {
 		}
 
 		$duplicated_product->delete_meta_data( Product::SQUARE_ID_META_KEY );
-		$duplicated_product->delete_meta_data( Product::SQUARE_VARIATION_ID_META_KEY  );
+		$duplicated_product->delete_meta_data( Product::SQUARE_VARIATION_ID_META_KEY );
 
 		if ( $duplicated_product->is_type( 'variable' ) ) {
 
@@ -643,7 +653,7 @@ class Products {
 			if ( $product && 'hidden' === $product->get_catalog_visibility() ) {
 
 				$product_id = $product->get_id();
-				$records    = Records::get_records( [ 'product' => $product_id ] );
+				$records    = Records::get_records( array( 'product' => $product_id ) );
 
 				foreach ( $records as $record ) {
 
@@ -655,7 +665,8 @@ class Products {
 								esc_html__( 'The product catalog visibility has been set to "hidden", as a matching product could not be found in Square on %1$s at %2$s. %3$sCheck sync records%4$s.', 'woocommerce-square' ),
 								date_i18n( wc_date_format(), $record->get_timestamp() ),
 								date_i18n( wc_time_format(), $record->get_timestamp() ),
-								'<a href="' . esc_url( add_query_arg( [ 'section' => 'update' ], wc_square()->get_settings_url() ) ) . '">', '</a>'
+								'<a href="' . esc_url( add_query_arg( array( 'section' => 'update' ), wc_square()->get_settings_url() ) ) . '">',
+								'</a>'
 							)
 						);
 
@@ -674,11 +685,11 @@ class Products {
 	 * @return array errors
 	 */
 	private function check_product_sync_errors( \WC_Product $product ) {
-		$errors = [];
+		$errors = array();
 		if ( $product->is_type( 'variable' ) && $product->has_child() ) {
 			if ( Product::has_multiple_variation_attributes( $product ) ) {
 				$errors['multiple_attributes'] = $this->format_product_error( 'multiple_attributes', $product );
-			} else if ( ! Product::has_sku( $product ) ) {
+			} elseif ( ! Product::has_sku( $product ) ) {
 				$errors['missing_variation_sku'] = $this->format_product_error( 'missing_variation_sku', $product );
 			}
 		} else {
@@ -699,7 +710,7 @@ class Products {
 	 */
 	private function format_product_error( string $error, \WC_Product $product ) {
 		return sprintf(
-			$this->product_errors[$error],
+			$this->product_errors[ $error ],
 			Product::get_product_edit_link( $product )
 		);
 	}

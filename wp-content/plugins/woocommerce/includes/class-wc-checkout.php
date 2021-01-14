@@ -4,7 +4,7 @@
  *
  * The WooCommerce checkout class handles the checkout process, collecting user data and processing the payment.
  *
- * @package WooCommerce/Classes
+ * @package WooCommerce\Classes
  * @version 3.4.0
  */
 
@@ -454,8 +454,8 @@ class WC_Checkout {
 			 */
 			$item                       = apply_filters( 'woocommerce_checkout_create_order_line_item_object', new WC_Order_Item_Product(), $cart_item_key, $values, $order );
 			$product                    = $values['data'];
-			$item->legacy_values        = $values; // @deprecated For legacy actions.
-			$item->legacy_cart_item_key = $cart_item_key; // @deprecated For legacy actions.
+			$item->legacy_values        = $values; // @deprecated 4.4.0 For legacy actions.
+			$item->legacy_cart_item_key = $cart_item_key; // @deprecated 4.4.0 For legacy actions.
 			$item->set_props(
 				array(
 					'quantity'     => $values['quantity'],
@@ -502,8 +502,8 @@ class WC_Checkout {
 	public function create_order_fee_lines( &$order, $cart ) {
 		foreach ( $cart->get_fees() as $fee_key => $fee ) {
 			$item                 = new WC_Order_Item_Fee();
-			$item->legacy_fee     = $fee; // @deprecated For legacy actions.
-			$item->legacy_fee_key = $fee_key; // @deprecated For legacy actions.
+			$item->legacy_fee     = $fee; // @deprecated 4.4.0 For legacy actions.
+			$item->legacy_fee_key = $fee_key; // @deprecated 4.4.0 For legacy actions.
 			$item->set_props(
 				array(
 					'name'      => $fee->name,
@@ -541,7 +541,7 @@ class WC_Checkout {
 			if ( isset( $chosen_shipping_methods[ $package_key ], $package['rates'][ $chosen_shipping_methods[ $package_key ] ] ) ) {
 				$shipping_rate            = $package['rates'][ $chosen_shipping_methods[ $package_key ] ];
 				$item                     = new WC_Order_Item_Shipping();
-				$item->legacy_package_key = $package_key; // @deprecated For legacy actions.
+				$item->legacy_package_key = $package_key; // @deprecated 4.4.0 For legacy actions.
 				$item->set_props(
 					array(
 						'method_title' => $shipping_rate->label,
@@ -667,15 +667,18 @@ class WC_Checkout {
 	 * @return array of data.
 	 */
 	public function get_posted_data() {
-		$skipped = array();
-		$data    = array(
-			'terms'                              => (int) isset( $_POST['terms'] ), // WPCS: input var ok, CSRF ok.
-			'createaccount'                      => (int) ! empty( $_POST['createaccount'] ), // WPCS: input var ok, CSRF ok.
-			'payment_method'                     => isset( $_POST['payment_method'] ) ? wc_clean( wp_unslash( $_POST['payment_method'] ) ) : '', // WPCS: input var ok, CSRF ok.
-			'shipping_method'                    => isset( $_POST['shipping_method'] ) ? wc_clean( wp_unslash( $_POST['shipping_method'] ) ) : '', // WPCS: input var ok, CSRF ok.
-			'ship_to_different_address'          => ! empty( $_POST['ship_to_different_address'] ) && ! wc_ship_to_billing_address_only(), // WPCS: input var ok, CSRF ok.
-			'woocommerce_checkout_update_totals' => isset( $_POST['woocommerce_checkout_update_totals'] ), // WPCS: input var ok, CSRF ok.
+		// phpcs:disable WordPress.Security.NonceVerification.Missing
+		$data = array(
+			'terms'                              => (int) isset( $_POST['terms'] ),
+			'createaccount'                      => (int) ( $this->is_registration_enabled() ? ! empty( $_POST['createaccount'] ) : false ),
+			'payment_method'                     => isset( $_POST['payment_method'] ) ? wc_clean( wp_unslash( $_POST['payment_method'] ) ) : '',
+			'shipping_method'                    => isset( $_POST['shipping_method'] ) ? wc_clean( wp_unslash( $_POST['shipping_method'] ) ) : '',
+			'ship_to_different_address'          => ! empty( $_POST['ship_to_different_address'] ) && ! wc_ship_to_billing_address_only(),
+			'woocommerce_checkout_update_totals' => isset( $_POST['woocommerce_checkout_update_totals'] ),
 		);
+		// phpcs:enable WordPress.Security.NonceVerification.Missing
+
+		$skipped = array();
 		foreach ( $this->get_checkout_fields() as $fieldset_key => $fieldset ) {
 			if ( $this->maybe_skip_fieldset( $fieldset_key, $data ) ) {
 				$skipped[] = $fieldset_key;
@@ -1155,7 +1158,16 @@ class WC_Checkout {
 
 				do_action( 'woocommerce_checkout_order_processed', $order_id, $posted_data, $order );
 
-				if ( WC()->cart->needs_payment() ) {
+				/**
+				 * Note that woocommerce_cart_needs_payment is only used in
+				 * WC_Checkout::process_checkout() to keep backwards compatibility.
+				 * Use woocommerce_order_needs_payment instead.
+				 *
+				 * Note that at this point you can't rely on the Cart Object anymore,
+				 * since it could be empty see:
+				 * https://github.com/woocommerce/woocommerce/issues/24631
+				 */
+				if ( apply_filters( 'woocommerce_cart_needs_payment', $order->needs_payment(), WC()->cart ) ) {
 					$this->process_order_payment( $order_id, $posted_data['payment_method'] );
 				} else {
 					$this->process_order_without_payment( $order_id );

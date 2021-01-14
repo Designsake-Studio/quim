@@ -22,7 +22,10 @@ const QuantitySelector = ( {
 	itemName = '',
 	disabled,
 } ) => {
-	const classes = classNames( 'wc-block-quantity-selector', className );
+	const classes = classNames(
+		'wc-block-components-quantity-selector',
+		className
+	);
 
 	const hasMaximum = typeof maximum !== 'undefined';
 	const canDecrease = quantity > minimum;
@@ -60,7 +63,7 @@ const QuantitySelector = ( {
 	return (
 		<div className={ classes }>
 			<input
-				className="wc-block-quantity-selector__input"
+				className="wc-block-components-quantity-selector__input"
 				disabled={ disabled }
 				type="number"
 				step="1"
@@ -81,8 +84,8 @@ const QuantitySelector = ( {
 					}
 				} }
 				aria-label={ sprintf(
+					/* Translators: %s refers to the item name in the cart. */
 					__(
-						// translators: %s Item name.
 						'Quantity of %s in your cart.',
 						'woocommerce'
 					),
@@ -94,15 +97,15 @@ const QuantitySelector = ( {
 					'Reduce quantity',
 					'woocommerce'
 				) }
-				className="wc-block-quantity-selector__button wc-block-quantity-selector__button--minus"
+				className="wc-block-components-quantity-selector__button wc-block-components-quantity-selector__button--minus"
 				disabled={ disabled || ! canDecrease }
 				onClick={ () => {
 					const newQuantity = quantity - 1;
 					onChange( newQuantity );
 					speak(
 						sprintf(
+							/* Translators: %s refers to the item name in the cart. */
 							__(
-								// translators: %s Quantity amount.
 								'Quantity reduced to %s.',
 								'woocommerce'
 							),
@@ -119,14 +122,14 @@ const QuantitySelector = ( {
 					'woocommerce'
 				) }
 				disabled={ disabled || ! canIncrease }
-				className="wc-block-quantity-selector__button wc-block-quantity-selector__button--plus"
+				className="wc-block-components-quantity-selector__button wc-block-components-quantity-selector__button--plus"
 				onClick={ () => {
 					const newQuantity = quantity + 1;
 					onChange( newQuantity );
 					speak(
 						sprintf(
+							/* Translators: %s refers to the item name in the cart. */
 							__(
-								// translators: %s Quantity amount.
 								'Quantity increased to %s.',
 								'woocommerce'
 							),

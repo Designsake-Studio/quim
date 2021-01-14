@@ -1,4 +1,38 @@
 == Changelog ==
+= 2.5 =
+* interface reskin
+* fix for fatal error on disabled WoooCommerce admin
+= 2.4.7 =
+* fix cart items with no price on product
+* fix admin note issue on login
+= 2.4.6 =
+* fix for errors on installs with RTL Site Languages
+* adds GDPR fields for GDPR enabled audiences
+* locale settings from WooCommerce or WP are now auto-selected
+* support for notices in the wc-admin inbox 
+* moves Mailchimp plugin link to bottom of Woocommerce sub navigation
+= 2.4.5 =
+* fixed disconnect/reconnect list issue
+* fixed rest api doing it wrong alert
+= 2.4.4 =
+* add filter for managing woocommerce plugins
+= 2.4.3 =
+* WooCommerce Version 4.3 tested
+* adds Mailchimp support form
+* moves navigation to WooCommerce nav as a sub-item
+* removes bubble h1 title element
+* log tab ui enhancements
+* next button for setup wizard moved to bottom of page
+* required field ui enhancement
+* adds a banner for setup completion in Wordpress
+* overview tab ui enhancements
+* audience settings tab ux improvements
+* fix for cart non-numeric error
+* fix for woocommerce setup wizard redirect
+* fix for abandoned cart on product variations
+* fix for invalid session object
+* adds customer filter for on-hold orders
+* fix cart posts with product variations
 = 2.4.2 =
 * WooCommerce Version 4.3 tested
 * adds Mailchimp support form

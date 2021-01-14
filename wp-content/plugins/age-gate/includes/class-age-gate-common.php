@@ -84,7 +84,7 @@ class Age_Gate_Common
     private function _get_settings($type = null)
     {
         $settings = apply_filters('ag_settings', array());
-        return array_merge($settings, array(
+        $settings = array_merge($settings, array(
             'restrictions' => get_option('wp_age_gate_restrictions', array()),
             'messages' => get_option('wp_age_gate_messages', array()),
             'validation' => get_option('wp_age_gate_validation_messages', array()),
@@ -92,6 +92,11 @@ class Age_Gate_Common
             'access' => get_option('wp_age_gate_access', array()),
             'advanced' => get_option('wp_age_gate_advanced', array()),
         ));
+
+        if (defined('WP_CACHE') && WP_CACHE) {
+            $settings['advanced']['use_js'] = 1;
+        }
+        return $settings;
     }
 
     protected function _set_admin_notice($notice = array())

@@ -2,15 +2,15 @@
 /**
  * Plugin Name: WooCommerce - ShipStation Integration
  * Plugin URI: https://woocommerce.com/products/shipstation-integration/
- * Version: 4.1.37
+ * Version: 4.1.40
  * Description: Adds ShipStation label printing support to WooCommerce. Requires server DomDocument support.
  * Author: WooCommerce
  * Author URI: https://woocommerce.com/
  * Text Domain: woocommerce-shipstation
  * Domain Path: /languages
- * Tested up to: 5.4
- * WC tested up to: 4.2
- * WC requires at least: 2.6
+ * Tested up to: 5.5
+ * WC tested up to: 4.5
+ * WC requires at least: 3.4
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -41,7 +41,7 @@ function woocommerce_shipstation_init() {
 		return;
 	}
 
-	define( 'WC_SHIPSTATION_VERSION', '4.1.37' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_SHIPSTATION_VERSION', '4.1.40' ); // WRCS: DEFINED_VERSION.
 	define( 'WC_SHIPSTATION_FILE', __FILE__ );
 
 	if ( ! defined( 'WC_SHIPSTATION_EXPORT_LIMIT' ) ) {
