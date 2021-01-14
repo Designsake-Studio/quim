@@ -3,13 +3,13 @@ $flag = false;
 $default_lang = false;
 $current_lang = false;
 
-if(self::$language){
-  $flag = '<img src="'. self::$language->default['country_flag_url'] . '" alt="'. strtoupper(self::$language->default['language_code']) .'" />';
-  $default_lang = self::$language->default['language_code'];
-  $current_lang = (self::$language->current ? self::$language->current['language_code'] : false);
+if (self::$language) {
+    $flag = '<img src="'. self::$language->default['country_flag_url'] . '" alt="'. strtoupper(self::$language->default['language_code']) .'" />';
+    $default_lang = self::$language->default['language_code'];
+    $current_lang = (self::$language->current ? self::$language->current['language_code'] : false);
 }
 
-switch($field){
+switch ($field) {
   case 'yes_text':
   case 'no_text':
     $className = 'small-text';
@@ -25,7 +25,7 @@ switch($field){
 
 ?>
 
-<?php if(!$current_lang || $default_lang === $current_lang): ?>
+<?php if (!$current_lang || $default_lang === $current_lang): ?>
   <div class="input-wrapper">
     <?php echo $flag; ?>
     <div class="wysiwyg-wrapper">
@@ -42,7 +42,7 @@ switch($field){
          'textarea_name' => 'ag_settings[additional]'
        );
 
-       wp_editor( html_entity_decode(stripslashes($values['additional'])), 'additional', $wysiwyg );
+       wp_editor(str_replace("\\", "", html_entity_decode($values['additional'])), 'additional', $wysiwyg);
       ?>
     </div>
   </div>
@@ -52,7 +52,7 @@ switch($field){
 
 <?php if (self::$language): ?>
   <?php foreach (self::$language->languages as $code => $lang): ?>
-    <?php if(!$current_lang || $code === $current_lang): ?>
+    <?php if (!$current_lang || $code === $current_lang): ?>
 
     <div class="input-wrapper <?php echo $code ?>">
       <img src="<?php echo $lang['country_flag_url']; ?>" alt="<?php echo strtoupper($lang['language_code']) ?>" />
@@ -70,7 +70,7 @@ switch($field){
            'textarea_name' => 'ag_settings[lang]['. $code .'][additional]'
          );
 
-         wp_editor( html_entity_decode(stripslashes($values['lang'][$code]['additional'])), 'additional_' . $code, $wysiwyg );
+         wp_editor(str_replace("\\", "", html_entity_decode($values['lang'][$code]['additional'])), 'additional_' . $code, $wysiwyg);
         ?>
       </div>
     </div>

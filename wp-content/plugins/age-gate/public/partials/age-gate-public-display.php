@@ -161,7 +161,7 @@ $errors = self::$errors;
           if ($this->messages->additional) {
               echo '<div class="age-gate-additional-information">';
               $content = html_entity_decode($this->messages->additional);
-              $content = $this->stripslashes_deep($content);
+              $content = str_replace("\\", "", $this->stripslashes_deep($content));
               $content = do_shortcode(wpautop(wptexturize(stripslashes($content))));
               echo $content;
               echo "</div>";

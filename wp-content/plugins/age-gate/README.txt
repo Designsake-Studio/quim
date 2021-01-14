@@ -5,7 +5,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=donat
 Requires at least: 5.0.0
 Requires PHP: 5.6
 Tested up to: 5.6
-Stable tag: 2.13.5
+Stable tag: 2.13.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -75,6 +75,9 @@ From version 1.4.0 those using caching can select the "Cache Bypass" option to a
 6. Manage what users can change Age Gate's setting, restrict posts and exclude settings from certain post types.
 
 == Changelog ==
+= 2.13.6 =
+* Fixed slashed sometimes appearing in WYSIWYG editors
+
 = 2.13.5 =
 * Fixed potential securtity threat
 * Fixed issue in JS mode with some caching minification
