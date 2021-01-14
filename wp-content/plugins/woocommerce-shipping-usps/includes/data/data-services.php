@@ -22,8 +22,7 @@ return apply_filters( 'wc_usps_services', array(
 			'19' => 'First-Class&#8482; Keys and IDs',
 			'61' => 'First-Class&#8482; Package Service',
 			'78' => 'First-Class Mail&#0174; Metered Letter',
-			'53' => 'First-Class&#8482; Package Service Hold For Pickup'
-		)
+		),
 	),
 	'D_EXPRESS_MAIL' => array(
 		// Name of the service shown to the user
@@ -31,10 +30,9 @@ return apply_filters( 'wc_usps_services', array(
 
 		// Services which costs are merged if returned (cheapest is used). This gives us the best possible rate.
 		'services' => array(
-			'2'  => "Priority Mail Express&#8482; Hold for Pickup",
 			'3'  => "Priority Mail Express&#8482;",
 			'23' => "Priority Mail Express&#8482; Sunday/Holiday",
-		)
+		),
 	),
 	'D_STANDARD_POST' => array(
 		// Name of the service shown to the user
@@ -71,7 +69,6 @@ return apply_filters( 'wc_usps_services', array(
 		'services' => array(
 			"1"  => "Priority Mail&#0174;",
 			"18" => "Priority Mail&#0174; Keys and IDs",
-			"33" => "Priority Mail&#0174; Hold For Pickup",
 			"47" => "Priority Mail&#0174; Regional Rate Box A",
 			"49" => "Priority Mail&#0174; Regional Rate Box B",
 		),

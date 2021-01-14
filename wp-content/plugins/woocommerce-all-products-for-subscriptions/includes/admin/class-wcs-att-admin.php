@@ -25,7 +25,7 @@ class WCS_ATT_Admin {
   	 *
   	 * @var string
   	 */
-  	private static $bundled_selectsw_version = '1.1.3';
+  	private static $bundled_selectsw_version = '1.1.5';
 
 	/**
 	 * Initialize.

@@ -58,10 +58,9 @@ class WC_Safe_DOMDocument extends DOMDocument {
 			return false;
 		}
 
-
 		$old = null;
 
-		if ( function_exists( 'libxml_disable_entity_loader' ) ) {
+		if ( function_exists( 'libxml_disable_entity_loader' ) && PHP_MAJOR_VERSION < 8 ) {
 			$old = libxml_disable_entity_loader( true );
 		}
 

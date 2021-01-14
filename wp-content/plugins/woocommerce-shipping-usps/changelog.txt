@@ -1,4 +1,18 @@
-*** USPS Shipping ***
+*** USPS Shipping 
+
+2020-11-24 - version 4.4.49
+* Tweak - PHP 8 compatibility fixes.
+
+2020-09-23 - version 4.4.48
+* Tweak - Add filter for custom services rate name.
+* Tweak - Update deprecated function call.
+* Tweak - Remove unused services.
+
+2020-08-19 - version 4.4.47
+* Fix   - Replace deprecated jQuery methods.
+
+2020-08-11 - version 4.4.46
+* Fix - Update USPS API url.
 
 2020-07-01 - version 4.4.45
 * Fix - Dimensions not passing correctly when using "Pack into boxes" method.

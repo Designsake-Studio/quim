@@ -18,7 +18,7 @@
  * Plugin Name:       Age Gate
  * Plugin URI:        https://agegate.io/
  * Description:       A customisable age gate to block content from younger people
- * Version:           2.13.5
+ * Version:           2.13.6
  * Author:            Phil Baker
  * Author URI:        https://agegate.io/
  * License:           GPL-2.0+
@@ -35,7 +35,7 @@ if (! defined('WPINC')) {
 /**
  * Current plugin version.
  */
-define( 'AGE_GATE_VERSION', '2.13.5' );
+define( 'AGE_GATE_VERSION', '2.13.6' );
 
 define('AGE_GATE_PATH', plugin_dir_path(__FILE__));
 define('AGE_GATE_URL', plugin_dir_url(__FILE__));

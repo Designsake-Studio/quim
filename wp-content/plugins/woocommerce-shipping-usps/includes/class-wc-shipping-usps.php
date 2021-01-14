@@ -18,7 +18,7 @@ class WC_Shipping_USPS extends WC_Shipping_Method {
 	 *
 	 * @var string
 	 */
-	private $endpoint = 'http://production.shippingapis.com/shippingapi.dll';
+	private $endpoint = 'https://secure.shippingapis.com/ShippingAPI.dll';
 
 	/**
 	 * Default user ID.
@@ -411,7 +411,17 @@ class WC_Shipping_USPS extends WC_Shipping_Method {
 	 */
 	public function init_form_fields() {
 		$shipping_classes = array();
-		$classes          = ( $classes = get_terms( 'product_shipping_class', array( 'hide_empty' => '0' ) ) ) ? $classes : array();
+
+		$classes = get_terms(
+			array(
+				'taxonomy'   => 'product_shipping_class',
+				'hide_empty' => '0',
+			)
+		);
+
+		if ( is_wp_error( $classes ) || empty( $classes ) ) {
+			$classes = array();
+		}
 
 		foreach ( $classes as $class ) {
 			$shipping_classes[ $class->term_id ] = $class->name;
@@ -2320,6 +2330,8 @@ class WC_Shipping_USPS extends WC_Shipping_Method {
 								'name'   => $quoted_package_name,
 							)
 						);
+
+						$rate_name = apply_filters( 'woocommmerce_shipping_usps_custom_service_rate_name', $rate_name, $quote );
 
 						$this->prepare_rate( $rate_code, $rate_id, $rate_name, $rate_cost, $meta_data );
 					}

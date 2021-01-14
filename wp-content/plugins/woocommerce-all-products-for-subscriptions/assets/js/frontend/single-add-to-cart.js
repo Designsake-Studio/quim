@@ -125,7 +125,7 @@
 
 					// If not, choose the first one.
 					if ( '0' === chosen_scheme_input.val() ) {
-						this.$el_option_inputs.filter( '[value!="0"]' ).first().prop( 'checked', true ).change();
+						this.$el_option_inputs.filter( '[value!="0"]' ).first().prop( 'checked', true ).trigger( 'change' );
 					// Otherwise just update the model.
 					} else {
 						model.set_active_scheme( chosen_scheme_input.val() );
@@ -153,7 +153,7 @@
 
 				var scheme_key = this.$el_dropdown.val();
 
-				this.$el_option_inputs.filter( '[value="' + scheme_key + '"]' ).prop( 'checked', true ).change();
+				this.$el_option_inputs.filter( '[value="' + scheme_key + '"]' ).prop( 'checked', true ).trigger( 'change' );
 			},
 
 			active_scheme_changed: function( e ) {
@@ -363,7 +363,7 @@
 					if ( $active_scheme_option.length > 0 ) {
 						$active_scheme_option.prop( 'checked', true );
 					} else {
-						this.$el_option_inputs.filter( ':checked' ).change();
+						this.$el_option_inputs.filter( ':checked' ).trigger( 'change' );
 					}
 
 					// Ensure container is hidden if there's nothing to choose.
@@ -422,9 +422,9 @@
 						setTimeout( function() {
 
 							if ( view.has_prompt( 'checkbox' ) ) {
-								view.$el_prompt.find( '.wcsatt-options-prompt-action-input' ).change();
+								view.$el_prompt.find( '.wcsatt-options-prompt-action-input' ).trigger( 'change' );
 							} else {
-								view.$el_prompt.find( '.wcsatt-options-prompt-action-input' ).filter( ':checked' ).change();
+								view.$el_prompt.find( '.wcsatt-options-prompt-action-input' ).filter( ':checked' ).trigger( 'change' );
 							}
 
 						}, 10 );
