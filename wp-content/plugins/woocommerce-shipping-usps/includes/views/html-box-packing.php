@@ -89,7 +89,7 @@
 		</table>
 		<script type="text/javascript">
 
-			jQuery(window).load(function(){
+			jQuery(function($){
 
 				jQuery('#woocommerce_usps_enable_standard_services').change(function(){
 					if ( jQuery(this).is(':checked') ) {
@@ -150,7 +150,7 @@
 
 				jQuery('.usps_boxes .insert').click( function() {
 					var $tbody = jQuery('.usps_boxes').find('tbody');
-					var size = $tbody.find('tr').size();
+					var size = $tbody.find('tr').length;
 					var code = '<tr class="new">\
 							<td class="check-column"><input type="checkbox" /></td>\
 							<td><input type="text" size="10" name="boxes_name[' + size + ']" /></td>\
